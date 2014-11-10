@@ -5,17 +5,17 @@ angular.module('indexController', ['ngRoute'])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/index', {
-                templateUrl: 'index/index.html',
+                templateUrl: 'modules/home/index.html',
                 controller: 'indexCtrl'
             })
             .when('/detail/:restaurantId', {
-                templateUrl: 'index/detail.html',
+                templateUrl: 'modules/home/detail.html',
                 controller: 'detailCtrl'
             });
     }])
 
-    .controller('indexCtrl', ['$scope', '$http', 'localStorageService', '$location', 'restaurantSvr', 'geolocation',
-        function ($scope, $http, localStorageService, $location, restaurantSvr, geolocation) {
+    .controller('indexCtrl', ['$scope', '$http', 'localStorageService', '$location', 'restaurantSvr', 'geoLocation',
+        function ($scope, $http, localStorageService, $location, restaurantSvr, geoLocation) {
 
             initTemplate();
             $scope.restaurantList = {
@@ -25,7 +25,7 @@ angular.module('indexController', ['ngRoute'])
             };
 
             if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {
-                geolocation.getLocation()
+                geoLocation.getLocation()
                     .then(function (data) {
                         localStorageService.add('latitude', data.coords.latitude);
                         localStorageService.add('longitude', data.coords.longitude);
@@ -118,23 +118,21 @@ angular.module('indexController', ['ngRoute'])
             }
 
             function initTemplate() {
-                $scope.templates =
-                    [{
-                        name: 'menu.html', url: 'index/menu.html'
-                    }];
-                $scope.navigation = 'index/navigation.html';
-                $scope.footer = 'index/footer.html';
+
+                $scope.sidebar = 'modules/partials/sidebar.html';
+                $scope.header = 'modules/partials/header.html';
+                $scope.footer = 'modules/partials/footer.html';
             }
         }
     ])
 
-    .controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localStorageService', '$location', '$routeParams', 'restaurantSvr', 'geolocation', 'reviewSvr', 'overviewSvr', 'locationSvr', 'photoSvr',
-        function ($scope, $timeout, $upload, localStorageService, $location, routeParams, restaurantSvr, geolocation, reviewSvr, overviewSvr, locationSvr, photoSvr) {
+    .controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localStorageService', '$location', '$routeParams', 'restaurantSvr', 'geoLocation', 'reviewSvr', 'overviewSvr', 'locationSvr', 'photoSvr',
+        function ($scope, $timeout, $upload, localStorageService, $location, routeParams, restaurantSvr, geoLocation, reviewSvr, overviewSvr, locationSvr, photoSvr) {
 
             initTemplate();
 
             if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {
-                geolocation.getLocation()
+                geoLocation.getLocation()
                     .then(function (data) {
                         localStorageService.add('latitude', data.coords.latitude);
                         localStorageService.add('longitude', data.coords.longitude);
@@ -266,15 +264,15 @@ angular.module('indexController', ['ngRoute'])
             function initTemplate() {
                 $scope.templates =
                     [
-                        {name: 'menu.html', url: 'index/menu.html'},
-                        {name: 'review-widget.html', url: 'index/review-widget.html'},
+                        {name: 'review-widget.html', url: 'modules/partials/review-widget.html'},
                     ];
-                $scope.navigation = 'index/navigation.html';
-                $scope.footer = 'index/footer.html';
+                $scope.sidebar = 'modules/partials/sidebar.html';
+                $scope.header = 'modules/partials/header.html';
+                $scope.footer = 'modules/partials/footer.html';
             }
 
             function getGraphData(restaurantId) {
-                var data = overviewSvr.getGraph(restaurantId).then(function (graph) {
+                 overviewSvr.getGraph(restaurantId).then(function (graph) {
                     $scope.lineChartYData = [{
                         "name": "Restaurant Overview",
                         "data": graph

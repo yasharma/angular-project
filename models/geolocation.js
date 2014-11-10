@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('geolocation',[]).constant('geolocation_msgs', {
+angular.module('geoLocation',[]).constant('geoLocation_msg', {
     'errors.location.unsupportedBrowser':'Browser does not support location services',
-    'errors.location.notFound':'Unable to determine your location',
+    'errors.location.notFound':'Unable to determine your location'
 });
 
-angular.module('geolocation')
-    .factory('geolocation', ['$q','$rootScope','$window','geolocation_msgs',function ($q,$rootScope,$window,geolocation_msgs) {
+angular.module('geoLocation')
+    .factory('geoLocation', ['$q','$rootScope','$window','geoLocation_msg',function ($q,$rootScope,$window,geoLocation_msg) {
         return {
             getLocation: function () {
                 var deferred = $q.defer();
@@ -14,13 +14,13 @@ angular.module('geolocation')
                     $window.navigator.geolocation.getCurrentPosition(function(position){
                         $rootScope.$apply(function(){deferred.resolve(position);});
                     }, function(error) {
-                        $rootScope.$broadcast('error',geolocation_msgs['errors.location.notFound']);
-                        $rootScope.$apply(function(){deferred.reject(geolocation_msgs['errors.location.notFound']);});
+                        $rootScope.$broadcast('error',geoLocation_msg['errors.location.notFound']);
+                        $rootScope.$apply(function(){deferred.reject(geoLocation_msg['errors.location.notFound']);});
                     });
                 }
                 else {
-                    $rootScope.$broadcast('error',geolocation_msgs['errors.location.unsupportedBrowser']);
-                    $rootScope.$apply(function(){deferred.reject(geolocation_msgs['errors.location.unsupportedBrowser']);});
+                    $rootScope.$broadcast('error',geoLocation_msg['errors.location.unsupportedBrowser']);
+                    $rootScope.$apply(function(){deferred.reject(geoLocation_msg['errors.location.unsupportedBrowser']);});
                 }
                 return deferred.promise;
             }
