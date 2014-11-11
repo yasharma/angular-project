@@ -10,6 +10,7 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'www/css/site.min.css': [
+                        'css/less/blue.css',
                         'bs3/css/bootstrap.min.css',
                         'css/bootstrap-reset.css',
                         'font-awesome/css/font-awesome.css',

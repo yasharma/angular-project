@@ -60,7 +60,7 @@
                                         </div>
                                     </h3>
                                     <ul class="listview" ng-repeat="restaurant in restaurants">
-                                        <li class="container-fluid">
+                                        <li class="container-fluid" ng-class-odd="'row-odd'" ng-class-even="'row-even'">
                                             <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
                                                 <a href="#/detail/{{restaurant.id}}/{{hash}}"><h3 class="title">{{restaurant.name}}</h3>
                                                 </a>
