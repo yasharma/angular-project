@@ -5,10 +5,19 @@
 @white: #fff;
 @light-brand-color : lighten(@brand-dark, 40%);
 @img-path : "../images/";
+@background-odd : #f9f9f9;
+@background-even :#fbfbfb ;
 
 .listview {
   list-style: none;
   padding-left: 0;
+  .row-odd{
+    background: @background-odd !important;
+  }
+
+  .row-even{
+    background : @background-even !important;
+  }
   li {
     display: block;
     // height: 150px;
@@ -94,5 +103,25 @@
   }
 }
 .angular-google-map-container { height: 400px; }
+
+.no-padding-left{
+   padding-left: 0px !important;
+}
+
+.no-padding-right{
+  padding-right: 0px !important;
+}
+
+
+.no-padding-top{
+  padding-top: 0px !important;
+}
+
+.no-padding-bottom{
+  padding-bottom: 0px !important;
+}
+.no-padding{
+  padding:0px;
+}
 
 

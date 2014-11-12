@@ -2,6 +2,12 @@
   list-style: none;
   padding-left: 0;
 }
+.listview .row-odd {
+  background: #f9f9f9 !important;
+}
+.listview .row-even {
+  background: #fbfbfb !important;
+}
 .listview li {
   display: block;
   background: #f8f8f8;
@@ -84,4 +90,19 @@
 }
 .angular-google-map-container {
   height: 400px;
+}
+.no-padding-left {
+  padding-left: 0px !important;
+}
+.no-padding-right {
+  padding-right: 0px !important;
+}
+.no-padding-top {
+  padding-top: 0px !important;
+}
+.no-padding-bottom {
+  padding-bottom: 0px !important;
+}
+.no-padding {
+  padding: 0px;
 }
