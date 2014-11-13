@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="description" content="">
     <meta name="author" content="ThemeBucket">
     <link rel="shortcut icon" href="images/favicon.png">
@@ -19,7 +19,6 @@
 
     <!--Core CSS -->
     <link href="css/site.min.css" rel="stylesheet">
-    <link href="../css/bootstrap-reset.css" rel="stylesheet">
 
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
@@ -39,9 +38,10 @@
 
 </head>
 
-<body>
+<body ng-view>
 
-<div ng-view></div>
+
+
 
 </body>
 </html>

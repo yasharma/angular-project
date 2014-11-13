@@ -1,14 +1,14 @@
-<section id="container">
-    <div ng-include="header"></div>
-    <aside ng-include="sidebar"></aside>
+<section class="vbox">
+    <header class="bg-primary header header-md navbar navbar-fixed-top-xs box-shadow" ng-include="header"></header>
+    <section>
+        <section class="hbox stretch">
+    <aside ng-include="sidebar" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
 
-    <section id="main-content">
-        <section class="wrapper">
-            <!-- page start-->
-
-            <div class="row hide-for-small">
-                <div class="col-sm-12 ">
-                    <div class="container-fluid top20 head widget-head bg-purple active clearfix" style="padding:20px 10px;margin-bottom:10px;">
+    <section id="content">
+        <section class="vbox">
+            <header class="header bg-white b-b b-light">
+                <div class="">
+                    <div class=" top20 head widget-head bg-purple active clearfix" style="padding:10px 5px;margin-bottom:5px;">
                         <div class="xs-top20 col-xs-12 col-sm-6 col-md-3 col-lg-3">
                             <input ng-model='search.formattedAddress' class="form-control icon location"
                                    placeholder="-- Location --" ng-model="asyncSelected"
@@ -39,101 +39,96 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
-            <div class="col-sm-12">
-                <section class="panel">
-                    <header class="panel-heading ">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                Popular Restaurants
-                            </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3 pull-right">
-                                <select ng-model="sort" ng-change="set()" class="form-control">
-                                    <option value="popular" selected>Sort by rating</option>
-                                    <option value="trending">Sort by trend</option>
-                                    <option value="distance">sort by distance</option>
-                                </select>
-                            </div>
-                        </div>
-                    </header>
-                    <div class="panel-body no-padding-left no-padding-right">
+            </header>
+            <section class="scrollable wrapper w-f">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- .comment-list -->
+                        <section class="comment-list block">
 
 
-                        <div class="container-fluid top20">
-                            <ul class="listview">
-                                <li class="container-fluid" ng-class-odd="'row-odd'" ng-class-even="'row-even'"
-                                    ng-repeat="restaurant in restaurants">
-                                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
-                                        <a href="#/detail/{{restaurant.id}}/{{hash}}"><h3 class="title">
-                                            {{restaurant.name}}</h3>
-                                        </a>
-
-                                        <p class="location">{{restaurant.address}} {{restaurant.city}},
-                                            {{restaurant.postcode}}
-                                            {{restaurant.state}}</p>
-
-                                        <p class="review-section">
-                                            {{restaurant.price_range_symbol}}
-                                            <span class="review-text">Reviews: {{restaurant.overview__total_reviews}}</span>
-                                            <span class='glyphicon glyphicon-pencil'></span>
-                                            <span class="">{{restaurant.category}}</span>
-                                        </p>
-                                    </div>
-                                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                                        <div class="distance pull-right"><i>{{restaurant.distance | number : 2}} KM</i>
-                                        </div>
-                                        <br class="clear">
-
-                                        <div class="rating-section">
-
-                                            <div class="rating">
-                                                <p class="top">
-                                                    {{restaurant.overview__percentile | number : 2}}
-                                                </p>
-
-                                                <p class="bottom">
-                                                    Rating
-                                                </p>
-                                            </div>
-                                            <div ng-class="{true:'up',false:'down'}[restaurant.overview__trend  >= 0]"
-                                                 class="trending">
-                                                <p class="top">
-                                                    <i ng-class="{true:'glyphicon-arrow-up',false:'glyphicon-arrow-down'}[restaurant.overview__trend >= 0]"
-                                                       class="glyphicon "></i>
-                                                    {{restaurant.overview__trend | number : 2}}
-                                                </p>
-
-                                                <p class="bottom">
-                                                    Trend
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-
-                            <pagination total-items="popularListTotalItems" ng-model="popularListCurrentPage"
-                                        max-size="maxSize"
-                                        class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"
-                                        ng-change="popularListPageChanged()"
-                                        items-per-page="popularListItemPerPage"></pagination>
-                        </div>
-
+                        </section>
+                        <!-- / .comment-list -->
                     </div>
-                </section>
-            </div>
-            </div>
-            </div>
-            <!-- page end-->
+                    <div class="col-sm-12">
+                        <section>
+                        <header class="panel-heading ">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    Popular Restaurants
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-lg-3 pull-right">
+                                    <select ng-model="sort" ng-change="set()" class="form-control">
+                                        <option value="popular" selected>Sort by rating</option>
+                                        <option value="trending">Sort by trend</option>
+                                        <option value="distance">sort by distance</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </header>
+                        </section>
+                        <section class="comment-list block">
+
+                            <div class="panel-body no-padding-left no-padding-right">
+                                <article ng-repeat="restaurant in restaurants" class="comment-item"> <a class="pull-left thumb-sm avatar"><img src="images/a9.jpg"></a> <span class="arrow left"></span>
+                                    <section class="comment-body panel panel-default">
+                                        <header class="panel-heading"> <a href="">{{restaurant.locations__formatted_address}}</a>
+                                            <label class="label bg-primary m-l-xs">{{restaurant.category}}</label>
+                                            <span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> 2hs ago </span> </header>
+                                        <div class="panel-body">
+                                            <blockquote>
+                                                <p><a href="#/detail/{{restaurant.id}}/{{hash}}"><h3 class="title">
+                                                    {{restaurant.name}}</h3>
+                                                </a></p>
+                                                <small>{{restaurant.price_range_symbol}}</small> Reviews: {{restaurant.overview__total_reviews}} </blockquote>
+                                            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                                                <div class="distance pull-right"><i>{{restaurant.distance | number : 2}} KM</i>
+                                                </div>
+                                                <br class="clear">
+
+                                                <div class="rating-section">
+
+                                                    <div class="rating">
+                                                        <p class="top">
+                                                            {{restaurant.overview__percentile | number : 2}}
+                                                        </p>
+
+                                                        <p class="bottom">
+                                                            Rating
+                                                        </p>
+                                                    </div>
+                                                    <div ng-class="{true:'up',false:'down'}[restaurant.overview__trend  >= 0]"
+                                                         class="trending">
+                                                        <p class="top">
+                                                            <i ng-class="{true:'glyphicon-arrow-up',false:'glyphicon-arrow-down'}[restaurant.overview__trend >= 0]"
+                                                               class="glyphicon "></i>
+                                                            {{restaurant.overview__trend | number : 2}}
+                                                        </p>
+
+                                                        <p class="bottom">
+                                                            Trend
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </article>
+
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+            <footer class="footer bg-white b-t b-light">
+                <p>This is a footer</p>
+            </footer>
         </section>
-    </section>
+        <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a> </section>
 
 
-    <div class="container-fluid footer" ng-include="footer">
-
-    </div>
 
 
+</section>
+</section>
 </section>

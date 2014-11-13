@@ -10,12 +10,7 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'www/css/site.min.css': [
-                        'css/less/blue.css',
-                        'bs3/css/bootstrap.min.css',
-                        'css/bootstrap-reset.css',
-                        'font-awesome/css/font-awesome.css',
-                        'css/style.css',
-                        'css/style-responsive.css'
+                        'css/app.v1.css',
                     ]
                 },
                 webfont:{
@@ -62,11 +57,7 @@ module.exports = function (grunt) {
                     'www/modules/overview/overviewService.js',
                     'www/modules/location/locationService.js',
                     'www/modules/photo/photoService.js',
-                    'js/jquery.dcjqaccordion.2.7.js',
-                    'js/jquery.scrollTo.min.js',
-                    'js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js',
-                    'js/jquery.nicescroll.js',
-                    'js/scripts.js',
+                    'js/app.v1.js',
                     'app.js'
 
                 ],
