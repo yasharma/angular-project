@@ -14,10 +14,11 @@ angular.module('myApp', [
     'reviewService',
     'locationService',
     'photoService',
-    'AngularChart',
+    //'AngularChart',
     //'GoogleMaps',
     'angularFileUpload',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'nvd3ChartDirectives'
 ]).
     config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/index'});

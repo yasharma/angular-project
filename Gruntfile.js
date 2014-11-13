@@ -10,7 +10,8 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'www/css/site.min.css': [
-                        'css/app.v1.css',
+                        'bower_components/nvd3/nv.d3.css',
+                        'css/app.v1.css'
                     ]
                 },
                 webfont:{
@@ -46,8 +47,8 @@ module.exports = function (grunt) {
                     'components/version/version-directive.js',
                     'components/version/interpolate-filter.js',
                     'lib/extern/angular-local-storage.js',
-                    'lib/extern/Highcharts/js/highcharts.js',
-                    'lib/extern/angular-chart.js',
+                    //'lib/extern/Highcharts/js/highcharts.js',
+                    //'lib/extern/angular-chart.js',
                     'models/geolocation.js',
                     'models/config.js',
                     'www/modules/home/indexController.js',
@@ -57,8 +58,15 @@ module.exports = function (grunt) {
                     'www/modules/overview/overviewService.js',
                     'www/modules/location/locationService.js',
                     'www/modules/photo/photoService.js',
-                    'js/app.v1.js',
+                    //'js/charts/sparkline/jquery.sparkline.min.js',
+                    //'js/charts/easypiechart/jquery.easy-pie-chart.js',
+                    'bower_components/d3/d3.js',
+                    'bower_components/nvd3/nv.d3.js',
+                    'bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js',
+
+                    //'js/app.plugin.js',
                     'app.js'
+
 
                 ],
                 dest: 'www/js/app.min.js'

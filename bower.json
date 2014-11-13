@@ -16,6 +16,9 @@
         "angular-google-maps" : "*",
         "ng-file-upload " : "*",
         "angular-bootstrap" : "*",
-        "bootstrap" : "*"
+        "bootstrap" : "*",
+        "d3" : "*",
+        "nvd3" : "*",
+        "angularjs-nvd3-directives" : "*"
     }
 }

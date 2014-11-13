@@ -1,7 +1,6 @@
 +function ($) { "use strict";
 
   $(function(){
- 	
 	// sparkline
 	var sr, sparkline = function($re){
 		$(".sparkline").each(function(){
