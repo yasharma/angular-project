@@ -1,0 +1,13 @@
+.comment-list .avatar{
+    left: -24px;
+    background: white;
+    width: 60px !important;
+}
+
+.comment-list .avatar .rating-circle{
+    position: absolute;
+    top: 20px;
+    left: 14px;
+    font-size: 16px;
+    font-weight: bolder;
+}

@@ -11,7 +11,8 @@ module.exports = function (grunt) {
                 files: {
                     'www/css/site.min.css': [
                         'bower_components/nvd3/nv.d3.css',
-                        'css/app.v1.css'
+                        'css/app.v1.css',
+                        'css/style.css'
                     ]
                 },
                 webfont:{
@@ -63,6 +64,7 @@ module.exports = function (grunt) {
                     'bower_components/d3/d3.js',
                     'bower_components/nvd3/nv.d3.js',
                     'bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js',
+                    'bower_components/jquery.easy-pie-chart/dist/angular.easypiechart.js',
 
                     //'js/app.plugin.js',
                     'app.js'

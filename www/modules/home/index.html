@@ -74,7 +74,9 @@
 
                                     <div class="panel-body no-padding-left no-padding-right">
                                         <article ng-repeat="restaurant in restaurants" class="comment-item"><a
-                                                class="pull-left thumb-sm avatar"><img src="images/a9.jpg"></a> <span
+                                                class="pull-left thumb-sm avatar">
+                                            <span class="rating-circle">{{restaurant.overview__percentile | number : 1}}</span>
+                                            <div easypiechart options="options" percent="restaurant.overview__percentile | number : 2"></div></a> <span
                                                 class="arrow left"></span>
                                             <section class="comment-body panel panel-default">
                                                 <header class="panel-heading"><a href="">{{restaurant.locations__formatted_address}}</a>

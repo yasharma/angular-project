@@ -18,7 +18,8 @@ angular.module('myApp', [
     //'GoogleMaps',
     'angularFileUpload',
     'ui.bootstrap',
-    'nvd3ChartDirectives'
+    'nvd3ChartDirectives',
+    'easypiechart'
 ]).
     config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/index'});

@@ -19,6 +19,7 @@
         "bootstrap" : "*",
         "d3" : "*",
         "nvd3" : "*",
-        "angularjs-nvd3-directives" : "*"
+        "angularjs-nvd3-directives" : "*",
+        "jquery.easy-pie-chart":"*"
     }
 }
