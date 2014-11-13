@@ -50,7 +50,7 @@
                         </section>
                         <!-- / .comment-list -->
                     </div>
-                    <div class="col-sm-12">
+                    <div class="col-sm-9">
                         <section>
                         <header class="panel-heading ">
                             <div class="row">
@@ -74,43 +74,21 @@
                                     <section class="comment-body panel panel-default">
                                         <header class="panel-heading"> <a href="">{{restaurant.locations__formatted_address}}</a>
                                             <label class="label bg-primary m-l-xs">{{restaurant.category}}</label>
-                                            <span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> 2hs ago </span> </header>
+
+                                            <span class="text-muted m-l-sm pull-right"> <i class="fa fa-clock-o"></i> {{restaurant.distance | number : 2}} KM </span> </header>
                                         <div class="panel-body">
                                             <blockquote>
                                                 <p><a href="#/detail/{{restaurant.id}}/{{hash}}"><h3 class="title">
-                                                    {{restaurant.name}}</h3>
+                                                    {{restaurant.name}}
+                                                    <div class="easypiechart inline m-b m-t easyPieChart" data-percent="{{restaurant.overview__percentile | number : 2}}" data-line-width="10" data-bar-color="#c2f0f1" data-track-color="#f2f4f8" data-scale-color="false" data-size="150" data-line-cap="butt" data-animate="2000" style="width: 150px; height: 10px; line-height: 50px;"> <div> <span class="h1 m-l-sm step font-bold">{{restaurant.overview__percentile | number : 2}}</span>% <div class="text text-xs text-muted">Rating</div> </div> <canvas width="150" height="10" style="width: 150px; height: 10px;"></canvas></div>
+
+                                                    <div class="easypiechart inline m-b m-t easyPieChart" data-percent="{{restaurant.overview__trend | number : 2}}" data-line-width="10" data-bar-color="#c2f0f1" data-track-color="#f2f4f8" data-scale-color="false" data-size="150" data-line-cap="butt" data-animate="2000" style="width: 150px; height: 10px; line-height: 50px;"> <div> <span class="h1 m-l-sm step font-bold">{{restaurant.overview__trend | number : 2}}</span>% <div class="text text-xs text-muted">Trend</div> </div> <canvas width="150" height="10" style="width: 150px; height: 10px;"></canvas></div>
+                                                </h3>
                                                 </a></p>
-                                                <small>{{restaurant.price_range_symbol}}</small> Reviews: {{restaurant.overview__total_reviews}} </blockquote>
-                                            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                                                <div class="distance pull-right"><i>{{restaurant.distance | number : 2}} KM</i>
-                                                </div>
-                                                <br class="clear">
 
-                                                <div class="rating-section">
-
-                                                    <div class="rating">
-                                                        <p class="top">
-                                                            {{restaurant.overview__percentile | number : 2}}
-                                                        </p>
-
-                                                        <p class="bottom">
-                                                            Rating
-                                                        </p>
-                                                    </div>
-                                                    <div ng-class="{true:'up',false:'down'}[restaurant.overview__trend  >= 0]"
-                                                         class="trending">
-                                                        <p class="top">
-                                                            <i ng-class="{true:'glyphicon-arrow-up',false:'glyphicon-arrow-down'}[restaurant.overview__trend >= 0]"
-                                                               class="glyphicon "></i>
-                                                            {{restaurant.overview__trend | number : 2}}
-                                                        </p>
-
-                                                        <p class="bottom">
-                                                            Trend
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            </blockquote>
+                                            Reviews: {{restaurant.overview__total_reviews}}
+<div class="pull-right">{{restaurant.price_range_symbol}}</div>
                                         </div>
                                     </section>
                                 </article>
@@ -118,11 +96,9 @@
                             </div>
                         </section>
                     </div>
+                    <div class="col-sm-3"> <div class="panel"> <div class="panel-heading b-b">Filter</div> <div class="panel-body"> <ul class="list-unstyled m-t-n-sm"> <li class="checkbox i-checks"> <label> <input type="checkbox" checked=""><i></i> Nature </label> </li> <li class="checkbox i-checks"> <label> <input type="checkbox" checked=""><i></i> Food and Drink </label> </li> <li class="checkbox i-checks"> <label> <input type="checkbox"><i></i> Model Released </label> </li> <li class="checkbox i-checks"> <label> <input type="checkbox"><i></i> Animals/Wildlife </label> </li> <li class="checkbox i-checks"> <label> <input type="checkbox"><i></i> Abstract </label> </li> <li class="checkbox i-checks"> <label> <input type="checkbox"><i></i> Beauty/Fashion </label> </li> <li class="checkbox i-checks"> <label> <input type="checkbox"><i></i> Business </label> </li> </ul> <div class="line line-dashed b-b line-lg"></div> <ul class="list-unstyled"> <li class="radio i-checks"> <label> <input type="radio" name="filter" checked=""><i></i> Today </label> </li> <li class="radio i-checks"> <label> <input type="radio" name="filter"><i></i> Last Week </label> </li> <li class="radio i-checks"> <label> <input type="radio" name="filter"><i></i> Last Month </label> </li> </ul> </div> </div> </div>
                 </div>
             </section>
-            <footer class="footer bg-white b-t b-light">
-                <p>This is a footer</p>
-            </footer>
         </section>
         <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a> </section>
 
