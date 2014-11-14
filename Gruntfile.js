@@ -32,7 +32,7 @@ module.exports = function (grunt) {
         uglify: {
             options: {
                 compress: false,
-                report : 'gzip',
+                report: 'gzip',
                 drop_console: true
 
                 //sourceMap: true,
@@ -42,7 +42,7 @@ module.exports = function (grunt) {
             applib: {
                 src: [
                     'bower_components/jquery/dist/jquery.min.js',
-                    'bower_components/angular/angular.js',
+                    //'bower_components/angular/angular.js',
                     'bower_components/ng-file-upload/angular-file-upload-shim.min.js',
                     'bower_components/ng-file-upload/angular-file-upload.min.js',
                     'bower_components/angular-route/angular-route.js',
@@ -71,6 +71,13 @@ module.exports = function (grunt) {
                     //'lib/extern/angular-chart.js',
                     'models/geolocation.js',
                     'models/config.js',
+
+
+                ],
+                dest: 'www/js/lib.min.js'
+            },
+            appmin: {
+                src: [
                     'www/modules/home/indexController.js',
                     'www/modules/directives/directive.js',
                     'www/modules/restaurant/restaurantService.js',
@@ -82,7 +89,6 @@ module.exports = function (grunt) {
                     'js/app.plugin.js',
                     'js/app.js',
                     'app.js'
-
 
                 ],
                 dest: 'www/js/app.min.js'
