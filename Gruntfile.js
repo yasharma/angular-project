@@ -65,14 +65,11 @@ module.exports = function (grunt) {
                     'www/modules/overview/overviewService.js',
                     'www/modules/location/locationService.js',
                     'www/modules/photo/photoService.js',
-                    //'js/charts/sparkline/jquery.sparkline.min.js',
-                    //'js/charts/easypiechart/jquery.easy-pie-chart.js',
                     'bower_components/d3/d3.js',
                     'bower_components/nvd3/nv.d3.js',
                     'bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js',
                     'bower_components/jquery.easy-pie-chart/dist/angular.easypiechart.js',
-                    'js/slider/bootstrap-slider.js',
-                    //'js/app.plugin.js',
+                    'js/app.js',
                     'app.js'
 
 
