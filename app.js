@@ -35,7 +35,8 @@ angular.module('myApp', [
             "per-page" : 8
         });
         RestangularProvider.setDefaultHttpFields({
-            withCredentials: false
+            withCredentials: false,
+            cache: true
         });
         RestangularProvider.setFullResponse(true);
         RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
