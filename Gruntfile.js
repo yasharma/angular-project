@@ -31,8 +31,14 @@ module.exports = function (grunt) {
         },
         uglify: {
             options: {
-                compress: false
+                compress: false,
+                report : 'gzip',
+                drop_console: true
+
+                //sourceMap: true,
+                //sourceMapName: 'www/js/app.min.js.map'
             },
+
             applib: {
                 src: [
                     'bower_components/jquery/dist/jquery.min.js',
@@ -50,6 +56,13 @@ module.exports = function (grunt) {
                     'bower_components/lodash/dist/lodash.min.js',
                     'bower_components/bluebird/js/browser/bluebird.js',
                     'bower_components/angular-google-maps/dist/angular-google-maps.min.js',
+
+                    'bower_components/d3/d3.js',
+                    'bower_components/nvd3/nv.d3.js',
+                    'bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js',
+                    'bower_components/jquery.easy-pie-chart/dist/angular.easypiechart.js',
+                    'bower_components/slimscroll/jquery.slimscroll.js',
+
                     'components/version/version.js',
                     'components/version/version-directive.js',
                     'components/version/interpolate-filter.js',
@@ -65,10 +78,8 @@ module.exports = function (grunt) {
                     'www/modules/overview/overviewService.js',
                     'www/modules/location/locationService.js',
                     'www/modules/photo/photoService.js',
-                    'bower_components/d3/d3.js',
-                    'bower_components/nvd3/nv.d3.js',
-                    'bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js',
-                    'bower_components/jquery.easy-pie-chart/dist/angular.easypiechart.js',
+
+                    'js/app.plugin.js',
                     'js/app.js',
                     'app.js'
 

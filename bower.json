@@ -20,6 +20,7 @@
         "d3" : "*",
         "nvd3" : "*",
         "angularjs-nvd3-directives" : "*",
-        "jquery.easy-pie-chart":"*"
+        "jquery.easy-pie-chart":"*",
+        "slimscroll" : "*"
     }
 }
