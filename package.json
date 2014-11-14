@@ -10,6 +10,8 @@
         "grunt-contrib-jshint": "*",
         "grunt-contrib-uglify": "*",
         "grunt-webfont": "*",
-        "matchdep": "*"
+        "matchdep": "*",
+        "grunt-contrib-watch":"*",
+        "grunt-contrib-less":"*"
     }
 }

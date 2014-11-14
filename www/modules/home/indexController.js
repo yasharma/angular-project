@@ -132,10 +132,10 @@ angular.module('indexController', ['ngRoute'])
 
             $scope.options = {
                 animate:{
-                    duration:0,
-                    enabled:false
+                    duration:1000,
+                    enabled:true
                 },
-                barColor:'rgb(31, 119, 180)',
+                barColor:'#1aae88',//'rgb(31, 119, 180)',
                 //trackColor:'#2C3E50',
                 size:60,
                 scaleColor:false,

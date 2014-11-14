@@ -12,12 +12,17 @@ module.exports = function (grunt) {
                     'www/css/site.min.css': [
                         'bower_components/nvd3/nv.d3.css',
                         'js/slider/slider.css',
-                        'css/app.v1.css',
+                        'css/bootstrap.css',
+                        'css/font.css',
+                        'css/font-awesome.min.css',
+                        'css/animate.css',
+                        'css/icon.css',
+                        'css/app.css',
                         'css/style.css'
                     ]
                 },
-                webfont:{
-                    icons:{
+                webfont: {
+                    icons: {
                         src: 'font-awesome/fonts/*',
                         dest: 'www/fonts'
                     }
@@ -74,8 +79,55 @@ module.exports = function (grunt) {
                 ],
                 dest: 'www/js/app.min.js'
             }
+        },
+        watch: {
+            options: {
+                dateFormat: function (time) {
+                    grunt.log.writeln('The watch finished in ' + time + 'ms at' + (new Date()).toString());
+                    grunt.log.writeln('Waiting for more changes...');
+                }
+            },
+            scripts: {
+                files: ['**/*.js'],
+                tasks: ['uglify']
+
+            },
+            css: {
+                files: ['**/*.css'],
+                tasks: ['cssmin']
+            },
+            less: {
+                files: ['**/*.less'],
+                tasks: ['less']
+            }
+        },
+        less: {
+            /*development: {
+             options: {
+             paths: ["less"]
+             },
+             files: {
+             "css/bootstrap.css": "less/bootstrap.less"
+             }
+             },*/
+            production: {
+                options: {
+                    paths: ["less"],
+                    cleancss: true,
+                    /*modifyVars: {
+                     imgPath: '"http://mycdn.com/path/to/images"',
+                     bgColor: 'red'
+                     }*/
+                },
+                files: {
+                    "css/bootstrap.css": "less/bootstrap.less",
+                    "css/app.css": "less/app.less"
+                }
+            }
         }
     });
     // Default task.
-    grunt.registerTask('default', ['uglify', 'cssmin']);
+    grunt.registerTask('default', ['uglify', 'cssmin', 'less']);
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-less');
 };
