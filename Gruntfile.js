@@ -39,6 +39,11 @@ module.exports = function (grunt) {
                 //sourceMapName: 'www/js/app.min.js.map'
             },
 
+            angular: {
+                src: ['bower_components/angular/angular.js'],
+                dest: 'www/js/angular.min.js'
+            },
+
             applib: {
                 src: [
                     'bower_components/jquery/dist/jquery.min.js',
