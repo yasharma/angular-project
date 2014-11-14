@@ -146,10 +146,11 @@ angular.module('indexController', ['ngRoute'])
         }
     ])
 
-    .controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localStorageService', '$location', '$routeParams', 'restaurantSvr', 'geoLocation', 'reviewSvr', 'overviewSvr', 'locationSvr', 'photoSvr',
-        function ($scope, $timeout, $upload, localStorageService, $location, routeParams, restaurantSvr, geoLocation, reviewSvr, overviewSvr, locationSvr, photoSvr) {
+    .controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localStorageService', '$location', '$routeParams', 'restaurantSvr', 'geoLocation', 'reviewSvr', 'overviewSvr', 'locationSvr', 'photoSvr','$anchorScroll',
+        function ($scope, $timeout, $upload, localStorageService, $location, routeParams, restaurantSvr, geoLocation, reviewSvr, overviewSvr, locationSvr, photoSvr,$anchorScroll) {
 
             initTemplate();
+            $anchorScroll();
 
             if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {
                 geoLocation.getLocation()
