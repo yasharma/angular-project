@@ -15,7 +15,7 @@ angular.module('myApp', [
     'locationService',
     'photoService',
     //'AngularChart',
-    //'GoogleMaps',
+    'GoogleMaps',
     'angularFileUpload',
     'ui.bootstrap',
     'nvd3ChartDirectives',

@@ -146,8 +146,8 @@ angular.module('indexController', ['ngRoute'])
         }
     ])
 
-    .controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localStorageService', '$location', '$routeParams', 'restaurantSvr', 'geoLocation', 'reviewSvr', 'overviewSvr', 'locationSvr', 'photoSvr','$anchorScroll',
-        function ($scope, $timeout, $upload, localStorageService, $location, routeParams, restaurantSvr, geoLocation, reviewSvr, overviewSvr, locationSvr, photoSvr,$anchorScroll) {
+    .controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localStorageService', '$location', '$routeParams', 'restaurantSvr', 'geoLocation', 'reviewSvr', 'overviewSvr', 'locationSvr', 'photoSvr','$anchorScroll','$modal',
+        function ($scope, $timeout, $upload, localStorageService, $location, routeParams, restaurantSvr, geoLocation, reviewSvr, overviewSvr, locationSvr, photoSvr,$anchorScroll,$modal) {
 
             initTemplate();
             $anchorScroll();
@@ -187,27 +187,28 @@ angular.module('indexController', ['ngRoute'])
 
             $scope.getMap = function () {
 
+
                 locationSvr.getLocation(routeParams.restaurantId).then(function (location) {
                     $scope.map = {
                         center: {
                             latitude: location.lat,
                             longitude: location.long
                         },
-                        zoom: 14
+                        zoom: 14,
+                        formattedAddress : location.formatted_address
                     }
-                    $scope.mapIsReady = true;
+
+                    var modal = $modal.open({
+                        templateUrl : "modules/partials/map.html",
+                        scope : $scope
+                    });
+
+
+
                 });
 
             }
 
-            $scope.map = {
-                center: {
-                    latitude: 45,
-                    longitude: 45
-                },
-                zoom: 5
-            }
-            $scope.mapIsReady = false;
 
             $scope.getPhotos = function () {
                 photoSvr.getRestaurantPhotos(routeParams.restaurantId).then(function (photos) {
