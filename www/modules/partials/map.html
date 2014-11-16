@@ -1,5 +1,5 @@
-<div class="row" ng-cloak>
-<section ng-cloak>
+<div class="row" ng-if="showMap">
+<section>
     <ui-gmap-google-map
             class="col-md-12"
             center="map.center"
@@ -7,7 +7,7 @@
             ng-cloak>
         <ui-gmap-marker coords="map.center" idkey="1" ng-cloak>
             <ui-gmap-window>
-                <p ng-cloak>{{map.formattedAddress}}</p>
+                <p>{{map.formattedAddress}}</p>
             </ui-gmap-window>
         </ui-gmap-marker>
 

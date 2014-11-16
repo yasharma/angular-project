@@ -124,30 +124,30 @@ angular.module('indexController', ['ngRoute'])
                 $scope.footer = 'modules/partials/footer.html';
             }
 
-                $scope.trend = [
-                    {
-                        "key": "Trend",
-                        "values": [ [ 1025409600000 , 0] , [ 1028088000000 , 6.3382185140371] , [ 1030766400000 , 5.9507873460847] , [ 1033358400000 , 11.569146943813] , [ 1036040400000 , 5.4767332317425] , [ 1038632400000 , 0.50794682203014] , [ 1041310800000 , 5.5310285460542] , [ 1043989200000 , 5.7838296963382] , [ 1046408400000 , 7.3249341615649] , [ 1049086800000 , 6.7078630712489] ,  [ 1330491600000 , 13.388148670744]]
-                    }];
+            $scope.trend = [
+                {
+                    "key": "Trend",
+                    "values": [[1025409600000, 0], [1028088000000, 6.3382185140371], [1030766400000, 5.9507873460847], [1033358400000, 11.569146943813], [1036040400000, 5.4767332317425], [1038632400000, 0.50794682203014], [1041310800000, 5.5310285460542], [1043989200000, 5.7838296963382], [1046408400000, 7.3249341615649], [1049086800000, 6.7078630712489], [1330491600000, 13.388148670744]]
+                }];
 
             $scope.options = {
-                animate:{
-                    duration:1000,
-                    enabled:true
+                animate: {
+                    duration: 1000,
+                    enabled: true
                 },
-                barColor:'#1aae88',//'rgb(31, 119, 180)',
+                barColor: '#428bca',//'rgb(31, 119, 180)',
                 //trackColor:'#2C3E50',
-                size:60,
-                scaleColor:false,
-                lineWidth:5,
-                lineCap:'circle'
+                size: 60,
+                scaleColor: false,
+                lineWidth: 5,
+                lineCap: 'circle'
             };
 
         }
     ])
 
-    .controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localStorageService', '$location', '$routeParams', 'restaurantSvr', 'geoLocation', 'reviewSvr', 'overviewSvr', 'locationSvr', 'photoSvr','$anchorScroll','$modal',
-        function ($scope, $timeout, $upload, localStorageService, $location, routeParams, restaurantSvr, geoLocation, reviewSvr, overviewSvr, locationSvr, photoSvr,$anchorScroll,$modal) {
+    .controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localStorageService', '$location', '$routeParams', 'restaurantSvr', 'geoLocation', 'reviewSvr', 'overviewSvr', 'locationSvr', 'photoSvr', '$anchorScroll', '$modal',
+        function ($scope, $timeout, $upload, localStorageService, $location, routeParams, restaurantSvr, geoLocation, reviewSvr, overviewSvr, locationSvr, photoSvr, $anchorScroll, $modal) {
 
             initTemplate();
             $anchorScroll();
@@ -183,30 +183,6 @@ angular.module('indexController', ['ngRoute'])
 
             $scope.showPhone = function () {
                 alert($scope.restaurant.phone);
-            }
-
-            $scope.getMap = function () {
-
-
-                locationSvr.getLocation(routeParams.restaurantId).then(function (location) {
-                    $scope.map = {
-                        center: {
-                            latitude: location.lat,
-                            longitude: location.long
-                        },
-                        zoom: 14,
-                        formattedAddress : location.formatted_address
-                    }
-
-                    var modal = $modal.open({
-                        templateUrl : "modules/partials/map.html",
-                        scope : $scope
-                    });
-
-
-
-                });
-
             }
 
 
@@ -294,7 +270,7 @@ angular.module('indexController', ['ngRoute'])
             }
 
             function getGraphData(restaurantId) {
-                 overviewSvr.getGraph(restaurantId).then(function (graph) {
+                overviewSvr.getGraph(restaurantId).then(function (graph) {
                     $scope.lineChartYData = [{
                         "name": "Restaurant Overview",
                         "data": graph
@@ -316,7 +292,39 @@ angular.module('indexController', ['ngRoute'])
         };
 
 
-    }]);
+    }])
+    .controller('mapCtrl', ['$scope', 'locationSvr', '$modal','$routeParams','$log',
+        function ($scope, locationSvr, $modal,routeParams,$log) {
+            $scope.getMap = function () {
+
+                locationSvr.getLocation(routeParams.restaurantId).then(function (location) {
+                    $scope.map = {
+                        center: {
+                            latitude: location.lat,
+                            longitude: location.long
+                        },
+                        zoom: 17,
+                        formattedAddress: location.formatted_address
+                    }
+
+                    var modalInstance = $modal.open({
+                        templateUrl: "modules/partials/map.html",
+                        scope: $scope
+                    });
+
+                    modalInstance.opened.then(function(){
+                        $scope.showMap = true;
+                        $(".overlay-main").css("display","block");
+                    });
+
+                    modalInstance.result.then(function (selectedItem) {
+                        $scope.selected = selectedItem;
+                    }, function () {
+                        $(".overlay-main").css("display","none");
+                    });
+                });
+            }
+        }]);
 
 
 

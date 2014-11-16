@@ -8,16 +8,14 @@
                 <section class="vbox">
                     <section class="scrollable padder">
                         <section class="row m-b-md">
-                            <div class="col-sm-6">
+                            <div class="col-sm-6" ng-controller="mapCtrl">
                                 <h3 class="m-b-xs text-black">{{restaurant.name}}
-                                    <button class="btn btn-default btn-rounded btn-sm" ng-click="getMap()"><i class="fa fa-map-marker fa-lg text-primary"></i> Map</button>
+                                    <button class="btn btn-default btn-rounded btn-sm" data-toggle="class:nav-xs" ng-click="getMap()"><i class="fa fa-map-marker fa-lg text-primary"></i> Map</button>
+                                    <div class="modal-backdrop fade in"></div>
                                 </h3>
                                 <small> {{restaurant.address}},
                                     {{restaurant.city}}, {{restaurant.postcode}} {{restaurant.state}}
                                 </small>
-
-
-
                             </div>
                             <div class="col-sm-6 text-right text-left-xs m-t-md">
 
@@ -222,26 +220,7 @@
         </table>
     </div>
 </div>
-<div class="container-fluid detail-tabs">
-    <div class="nav-custom-justified">
-        <div class="item col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <span class=""><img src="images/call.png"></span>
-            <a href="" class="" ng-click="showPhone()">Call</a>
-        </div>
-        <div class="item col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <span class=""><img src="images/map.png"></span>
-            <a href="" class="" ng-click="getMap()"> Map </a>
-        </div>
-        <div class="active item col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <span class=""><img src="images/save.png"></span>
-            <a href="" class=""> Save </a>
-        </div>
-        <div class="item col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <span class=""><img src="images/photos.png"></span>
-            <a href="" class="" ng-click="getPhotos()"> Photos </a>
-        </div>
-    </div>
-</div>
+
 
 
 
