@@ -236,6 +236,43 @@ angular.module('indexController', ['ngRoute'])
                 return false;
             }
 
+            $scope.exampleData = [
+                {
+                    key: "Trip Advisor",
+                    y: 25
+                },
+                {
+                    key: "Eatability",
+                    y: 20
+                },
+                {
+                    key: "Urbanspoon",
+                    y: 15
+                },
+                {
+                    key: "Yelp",
+                    y:35
+                }
+            ];
+
+            $scope.xFunction = function(){
+                return function(d) {
+                    return d.key;
+                };
+            }
+            $scope.yFunction = function(){
+                return function(d) {
+                    return d.y;
+                };
+            }
+
+            var colorArray = ["#65b5c2","#4da7c1","#3993bb","#2e7bad","#23649e"];
+            $scope.colorFunction = function() {
+                return function(d, i) {
+                    return colorArray[i];
+                };
+            }
+
             function getReviews(params) {
                 reviewSvr.getRestaurantReviews(routeParams.restaurantId, params).then(function (reviews) {
                     $scope.reviews = reviews.items;
