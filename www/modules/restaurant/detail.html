@@ -103,7 +103,7 @@
                             </div>
                         </div>
                         <div class="row bg-light dk m-b">
-                            <div class="col-md-8 dker">
+                            <div class="col-md-8 col-sm-12 dker">
                                 <section>
                                     <header class="font-bold padder-v">
                                         <div class="pull-right">
@@ -146,7 +146,7 @@
                                     </div>
                                 </section>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-sm-12">
                                 <section>
                                     <header class="font-bold padder-v">
                                         <div class="btn-group pull-right">
@@ -181,17 +181,17 @@
                                         Analysis
                                     </header>
                                     <div class="panel-body flot-legend">
-                                        <div id="flot-pie-donut" style="height:340px;margin-left: 0px;position: absolute;left: -25px;width: 100%;top: 0;">
+                                        <div id="flot-pie-donut" style="height:280px;margin-left: 0px;position: relative;left: 0px;width: 100%;top: 0;">
                                             <nvd3-pie-chart
                                                     data="exampleData"
                                                     id="exampleId"
                                                     x="xFunction()"
                                                     y="yFunction()"
                                                     showLabels="true"
-                                                    pieLabelsOutside="true"
-                                                    showValues="true"
+                                                    donutLabelsOutside="true"
                                                     labelType="key"
-                                                    color="colorFunction()">
+                                                    color="colorFunction()"
+                                                    donut="true">
                                                 <svg height="300"></svg>
                                             </nvd3-pie-chart>
                                         </div>

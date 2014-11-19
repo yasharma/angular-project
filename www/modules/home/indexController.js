@@ -238,19 +238,19 @@ angular.module('indexController', ['ngRoute'])
 
             $scope.exampleData = [
                 {
-                    key: "Trip Advisor",
+                    key: "TripAdvisor (25%)",
                     y: 25
                 },
                 {
-                    key: "Eatability",
+                    key: "Eatability(20%)",
                     y: 20
                 },
                 {
-                    key: "Urbanspoon",
+                    key: "Urbanspoon(15%)",
                     y: 15
                 },
                 {
-                    key: "Yelp",
+                    key: "Yelp(35%)",
                     y:35
                 }
             ];
