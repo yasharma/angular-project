@@ -1,4 +1,4 @@
-<section class="vbox">
+<section class="vbox" style="">
     <header class="bg-primary header header-md navbar navbar-fixed-top-xs box-shadow" ng-include="header"></header>
     <section>
         <section class="hbox stretch">
@@ -103,7 +103,7 @@
                             </div>
                         </div>
                         <div class="row bg-light dk m-b">
-                            <div class="col-md-8 col-sm-12 dker">
+                            <div class="col-md-9 col-sm-12 dker">
                                 <section>
                                     <header class="font-bold padder-v">
                                         <div class="pull-right">
@@ -128,7 +128,8 @@
                                         Statistics
                                     </header>
                                     <div class="panel-body">
-                                        <div id="flot-sp1ine" style="height:210px"></div>
+                                        <!--<div id="flot-sp1ine" style="height:210px"></div>-->
+                                        <highchart id="chart1" config="chartConfig" class="col-sm-10" ></highchart>
                                     </div>
                                     <div class="row text-center no-gutter">
                                         <div class="col-xs-3"><span class="h4 font-bold m-t block">5,860</span>
@@ -146,7 +147,7 @@
                                     </div>
                                 </section>
                             </div>
-                            <div class="col-md-4 col-sm-12">
+                            <div class="col-md-3 col-sm-12">
                                 <section>
                                     <header class="font-bold padder-v">
                                         <div class="btn-group pull-right">
@@ -210,7 +211,7 @@
 
 <div ng-include="navigation"></div>
 
-<div class="container-fluid content">
+<div class="container-fluid content" style="display:none;">
 <div class="row">
 
 <div class="col-sm-8 right-col">
@@ -246,8 +247,10 @@
 
 
 <div class="container-fluid">
-    <chart title="Line chart" xData="lineChartXData" yData="lineChartYData" xName="Month" yName="Hit"
+    <chart title="Line chart" xData="lineChartXData" yData="lineChartYData" xName="Month" yName="Hit" graphData="graphData"
            subtitle="Annual Data"></chart>
+
+
 </div>
 
 <div class="container-fluid top20 graph-bottom">
@@ -454,3 +457,4 @@
 </div>
 
 </div>
+

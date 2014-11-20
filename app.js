@@ -19,7 +19,8 @@ angular.module('myApp', [
     'angularFileUpload',
     'ui.bootstrap',
     'nvd3ChartDirectives',
-    'easypiechart'
+    'easypiechart',
+    'highcharts-ng'
 ]).
     config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/index'});

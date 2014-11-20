@@ -66,13 +66,13 @@ module.exports = function (grunt) {
                     'bower_components/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.js',
                     'bower_components/jquery.easy-pie-chart/dist/angular.easypiechart.js',
                     'bower_components/slimscroll/jquery.slimscroll.js',
+                    'bower_components/highcharts-ng/dist/highcharts-ng.js',
 
                     'components/version/version.js',
                     'components/version/version-directive.js',
                     'components/version/interpolate-filter.js',
                     'lib/extern/angular-local-storage.js',
-                    //'lib/extern/Highcharts/js/highcharts.js',
-                    //'lib/extern/angular-chart.js',
+                    'lib/extern/Highcharts/js/highcharts.js',
                 ],
                 dest: 'www/js/lib.min.js'
             },
