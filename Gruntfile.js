@@ -78,6 +78,9 @@ module.exports = function (grunt) {
                     'components/version/version.js',
                     'components/version/version-directive.js',
                     'components/version/interpolate-filter.js',
+                    'components/geolocation.js',
+                    'components/config.js',
+                    'components/google.maps.js',
                     'lib/extern/angular-local-storage.js',
                     'lib/extern/Highcharts/js/highcharts.js',
                     'lib/extern/jquery.flot.spline.js',
@@ -87,10 +90,11 @@ module.exports = function (grunt) {
             },
             appmin: {
                 src: [
-                    'models/geolocation.js',
-                    'models/config.js',
-                    'models/google.maps.js',
+
                     'www/modules/home/indexController.js',
+                    'www/modules/restaurant/restaurantController.js',
+                    'www/modules/graph/graphController.js',
+                    'www/modules/review/reviewController.js',
                     'www/modules/directives/directive.js',
                     'www/modules/restaurant/restaurantService.js',
                     'www/modules/review/reviewService.js',

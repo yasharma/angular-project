@@ -64,7 +64,8 @@
                         class="i-s i-s-2x pull-left m-r-sm"> <i
                         class="i i-hexagon2 i-s-base text-success-lter hover-rotate"></i> <i
                         class="fa fa-arrow-circle-up text-white"></i> </span> <span
-                        class="clear"> <span class="h3 block m-t-xs text-info">{{stats.max_percentile | number : 2}}% <span
+                        class="clear"> <span
+                        class="h3 block m-t-xs text-info">{{stats.max_percentile | number : 2}}% <span
                         class="text-sm">m</span></span> <small class="text-muted text-u-c">
                     Maximum Rating
                 </small> </span> </a></div>
@@ -72,7 +73,8 @@
                         class="i-s i-s-2x pull-left m-r-sm"> <i
                         class="i i-hexagon2 i-s-base text-danger-lter hover-rotate"></i> <i
                         class=" fa fa-arrow-circle-down text-white"></i> </span> <span
-                        class="clear"> <span class="h3 block m-t-xs text-primary">{{stats.min_percentile | number : 2}}%</span> <small
+                        class="clear"> <span
+                        class="h3 block m-t-xs text-primary">{{stats.min_percentile | number : 2}}%</span> <small
                         class="text-muted text-u-c">Minimum Rating
                 </small> </span> </a></div>
             </div>
@@ -110,7 +112,7 @@
     </div>
 
 </div>
-<div class="row bg-light dk m-b">
+<div class="row bg-light dk m-b" ng-controller="graphCtrl">
     <div class="col-md-7 col-sm-12 dker">
         <section>
             <header class="font-bold padder-v">
@@ -190,24 +192,13 @@
                 </div>
                 Analysis
             </header>
-            <div class="panel-body flot-legend">
-
-                <!--<nvd3-pie-chart
-                        data="exampleData"
-                        id="exampleId"
-                        x="xFunction()"
-                        y="yFunction()"
-                        showLabels="true"
-                        donutLabelsOutside="true"
-                        labelType="key"
-                        color="colorFunction()"
-                        donut="true">
-                    <svg height="300"></svg>
-                </nvd3-pie-chart>-->
-                <flot dataset="donutDataset" options="donutOptions" height="280px"></flot>
-            </div>
+        </section>
+        <div class="panel-body flot-legend">
+            <flot dataset="donutDataset" options="donutOptions" height="280px"></flot>
+        </div>
     </div>
 </div>
+
 </div>
 <div class="row">
 
@@ -274,13 +265,13 @@
             </section>
         </section>
     </div>
-    <div class="col-sm-12">
+    <div class="col-sm-12"  ng-controller="graphCtrl">
         <section class="panel panel-default">
             <header class="panel-heading">This will be shown in Restaurant owner view</header>
             <section class="chat-list panel-body">
-        <highchart id="chart1" config="chartConfig" class="col-sm-11"></highchart>
-                </section>
+                <highchart id="chart1" config="chartConfig" class="col-sm-11"></highchart>
             </section>
+        </section>
     </div>
 
 </div>

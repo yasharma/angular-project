@@ -3,7 +3,6 @@
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
     'ngRoute',
-    'indexController',
     'config',
     'LocalStorageModule',
     'directive',
@@ -21,7 +20,8 @@ angular.module('myApp', [
     'nvd3ChartDirectives',
     'easypiechart',
     'highcharts-ng',
-    'angular-flot'
+    'angular-flot',
+    'Controllers'
 ]).
     config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/index'});
@@ -53,6 +53,5 @@ angular.module('myApp', [
 
 
     }]);
-
 
 
