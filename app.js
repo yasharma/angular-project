@@ -20,7 +20,8 @@ angular.module('myApp', [
     'ui.bootstrap',
     'nvd3ChartDirectives',
     'easypiechart',
-    'highcharts-ng'
+    'highcharts-ng',
+    'angular-flot'
 ]).
     config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/index'});

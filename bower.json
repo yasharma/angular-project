@@ -22,6 +22,8 @@
         "angularjs-nvd3-directives" : "*",
         "jquery.easy-pie-chart":"*",
         "slimscroll" : "*",
-        "highcharts-ng" : "*"
+        "highcharts-ng" : "*",
+        "angular-flot" : "*",
+        "flot" : "*"
     }
 }

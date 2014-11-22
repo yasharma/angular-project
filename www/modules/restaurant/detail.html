@@ -1,211 +1,299 @@
 <section class="vbox" style="">
-    <header class="bg-primary header header-md navbar navbar-fixed-top-xs box-shadow" ng-include="header"></header>
-    <section>
-        <section class="hbox stretch">
-            <aside ng-include="sidebar" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
+<header class="bg-primary header header-md navbar navbar-fixed-top-xs box-shadow" ng-include="header"></header>
+<section>
+<section class="hbox stretch">
+<aside ng-include="sidebar" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
 
-            <section id="content">
-                <section class="vbox">
-                    <section class="scrollable padder">
-                        <section class="row m-b-md">
-                            <div class="col-sm-6" ng-controller="mapCtrl">
-                                <h3 class="m-b-xs text-black">{{restaurant.name}}
-                                    <button class="btn btn-default btn-rounded btn-sm" data-toggle="class:nav-xs" ng-click="getMap()"><i class="fa fa-map-marker fa-lg text-primary"></i> Map</button>
-                                    <div class="modal-backdrop fade in"></div>
-                                </h3>
-                                <small> {{restaurant.address}},
-                                    {{restaurant.city}}, {{restaurant.postcode}} {{restaurant.state}}
-                                </small>
-                            </div>
-                            <div class="col-sm-6 text-right text-left-xs m-t-md">
+<section id="content">
+<section class="vbox">
+<section class="scrollable padder">
+<section class="row m-b-md">
+    <div class="col-sm-6" ng-controller="mapCtrl">
+        <h3 class="m-b-xs text-black">{{restaurant.name}}
+            <button class="btn btn-default btn-rounded btn-sm" data-toggle="class:nav-xs" ng-click="getMap()"><i
+                    class="fa fa-map-marker fa-lg text-primary"></i> Map
+            </button>
+            <div class="modal-backdrop fade in"></div>
+        </h3>
+        <small> {{restaurant.address}},
+            {{restaurant.city}}, {{restaurant.postcode}} {{restaurant.state}}
+        </small>
+    </div>
+    <div class="col-sm-6 text-right text-left-xs m-t-md">
 
-                                <a href="#" class="btn btn-icon b-2x btn-default btn-rounded hover"><i
-                                        class="i i-bars3 hover-rotate"></i></a> <a href="#nav, #sidebar"
-                                                                                   class="btn btn-icon b-2x btn-info btn-rounded"
-                                                                                   data-toggle="class:nav-xs, show"><i
-                                    class="fa fa-bars"></i></a></div>
-                        </section>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="panel b-a">
-                                    <div class="row m-n">
-                                        <div class="col-md-6 b-b b-r"><a href="#" class="block padder-v hover"> <span
-                                                class="i-s i-s-2x pull-left m-r-sm"> <i
-                                                class="i i-hexagon2 i-s-base text-danger hover-rotate"></i> <i
-                                                class="i i-plus2 i-1x text-white"></i> </span> <span
-                                                class="clear"> <span class="h3 block m-t-xs text-danger">{{stats.total_reviews}}</span> <small
-                                                class="text-muted text-u-c">Total Reviews
-                                        </small> </span> </a></div>
-                                        <div class="col-md-6 b-b"><a href="#" class="block padder-v hover"> <span
-                                                class="i-s i-s-2x pull-left m-r-sm"> <i
-                                                class="i i-hexagon2 i-s-base text-success-lt hover-rotate"></i> <i
-                                                class="i i-users2 i-sm text-white"></i> </span> <span
-                                                class="clear"> <span class="h3 block m-t-xs text-success">{{stats.current_rating}}</span> <small
-                                                class="text-muted text-u-c">Ireview Ranking
-                                        </small> </span> </a></div>
-                                        <div class="col-md-6 b-b b-r"><a href="#" class="block padder-v hover"> <span
-                                                class="i-s i-s-2x pull-left m-r-sm"> <i
-                                                class="i i-hexagon2 i-s-base text-info hover-rotate"></i> <i
-                                                class="i i-location i-sm text-white"></i> </span> <span
-                                                class="clear"> <span class="h3 block m-t-xs text-info">25 <span
-                                                class="text-sm">m</span></span> <small class="text-muted text-u-c">
-                                            location
-                                        </small> </span> </a></div>
-                                        <div class="col-md-6 b-b"><a href="#" class="block padder-v hover"> <span
-                                                class="i-s i-s-2x pull-left m-r-sm"> <i
-                                                class="i i-hexagon2 i-s-base text-primary hover-rotate"></i> <i
-                                                class="i i-alarm i-sm text-white"></i> </span> <span
-                                                class="clear"> <span class="h3 block m-t-xs text-primary">{{stats.current_trend}}</span> <small
-                                                class="text-muted text-u-c">Current Trend
-                                        </small> </span> </a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3 col-sm-6">
-                                <div class="panel b-a">
-                                    <div class="panel-heading no-border bg-primary lt text-center"><h1>{{stats.current_percentile | number : 2}}%</h1>  </div>
-                                    <div class="padder-v text-center clearfix">
-                                        <div class="col-xs-6 b-r">
-                                            <div class="h3 font-bold">{{stats.max_percentile | number : 1}}%</div>
-                                            <small class="text-muted">Maximum</small>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <div class="h3 font-bold">{{stats.min_percentile | number : 1}}%</div>
-                                            <small class="text-muted">Minimum</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+        <a href="#" class="btn btn-icon b-2x btn-default btn-rounded hover"><i
+                class="i i-bars3 hover-rotate"></i></a> <a href="#nav, #sidebar"
+                                                           class="btn btn-icon b-2x btn-info btn-rounded"
+                                                           data-toggle="class:nav-xs, show"><i
+            class="fa fa-bars"></i></a></div>
+</section>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="panel b-a">
+            <div class="row m-n">
+                <div class="col-md-6 b-b b-r"><a href="#" class="block padder-v hover"> <span
+                        class="i-s i-s-2x pull-left m-r-sm"> <i
+                        class="i i-hexagon2 i-s-base text-danger hover-rotate"></i> <i
+                        class="i i-users2 i-1x text-white"></i> </span> <span
+                        class="clear"> <span class="h3 block m-t-xs text-danger">{{stats.total_reviews}}</span> <small
+                        class="text-muted text-u-c">Total Reviews
+                </small> </span> </a></div>
+                <div class="col-md-6 b-b"><a href="#" class="block padder-v hover"> <span
+                        class="i-s i-s-2x pull-left m-r-sm"> <i
+                        class="i i-hexagon2 i-s-base text-success-lt hover-rotate"></i> <i
+                        class="i i-plus2 i-sm text-white"></i> </span> <span
+                        class="clear"> <span class="h3 block m-t-xs text-success">{{stats.current_rating}}</span> <small
+                        class="text-muted text-u-c">Ireview Ranking
+                </small> </span> </a></div>
+                <div class="col-md-6 b-b b-r"><a href="#" class="block padder-v hover"> <span
+                        class="i-s i-s-2x pull-left m-r-sm"> <i
+                        class="i i-hexagon2 i-s-base text-info hover-rotate"></i> <i
+                        class="i i-location i-sm text-white"></i> </span> <span
+                        class="clear"> <span class="h3 block m-t-xs text-info">25 <span
+                        class="text-sm">m</span></span> <small class="text-muted text-u-c">
+                    location
+                </small> </span> </a></div>
+                <div class="col-md-6 b-b"><a href="#" class="block padder-v hover"> <span
+                        class="i-s i-s-2x pull-left m-r-sm"> <i
+                        class="i i-hexagon2 i-s-base text-primary hover-rotate"></i> <i
+                        class="i i-alarm i-sm text-white"></i> </span> <span
+                        class="clear"> <span class="h3 block m-t-xs text-primary">{{stats.current_percentile | number :2}}</span> <small
+                        class="text-muted text-u-c">Current Rating
+                </small> </span> </a></div>
+                <div class="col-md-6 b-b b-r"><a href="#" class="block padder-v hover"> <span
+                        class="i-s i-s-2x pull-left m-r-sm"> <i
+                        class="i i-hexagon2 i-s-base text-success-lter hover-rotate"></i> <i
+                        class="fa fa-arrow-circle-up text-white"></i> </span> <span
+                        class="clear"> <span class="h3 block m-t-xs text-info">{{stats.max_percentile | number : 2}}% <span
+                        class="text-sm">m</span></span> <small class="text-muted text-u-c">
+                    Maximum Rating
+                </small> </span> </a></div>
+                <div class="col-md-6 b-b"><a href="#" class="block padder-v hover"> <span
+                        class="i-s i-s-2x pull-left m-r-sm"> <i
+                        class="i i-hexagon2 i-s-base text-danger-lter hover-rotate"></i> <i
+                        class=" fa fa-arrow-circle-down text-white"></i> </span> <span
+                        class="clear"> <span class="h3 block m-t-xs text-primary">{{stats.min_percentile | number : 2}}%</span> <small
+                        class="text-muted text-u-c">Minimum Rating
+                </small> </span> </a></div>
+            </div>
+        </div>
+    </div>
 
-                            <div class="col-sm-3 hide">
-                                <section class="panel b-a">
-                                    <header class="panel-heading b-b b-light">
-                                        <ul class="nav nav-pills pull-right">
-                                            <li><a href="ajax.pie.html" class="text-muted" data-bjax data-target="#b-c">
-                                                <i class="i i-cycle"></i> </a></li>
-                                            <li><a href="#" class="panel-toggle text-muted"> <i
-                                                    class="i i-plus text-active"></i> <i class="i i-minus text"></i>
-                                            </a></li>
-                                        </ul>
-                                        Connection
-                                    </header>
-                                    <div class="panel-body text-center bg-light lter" id="b-c">
-                                        <div class="easypiechart inline m-b m-t" data-percent="60" data-line-width="4"
-                                             data-bar-Color="#23aa8c" data-track-Color="#c5d1da" data-color="#2a3844"
-                                             data-scale-Color="false" data-size="120" data-line-cap='butt'
-                                             data-animate="2000">
-                                            <div><span class="h2 m-l-sm step"></span>%
-                                                <div class="text text-xs">completed</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
+    <div class="col-sm-6">
+        <section class="panel panel-default">
+
+            <div class="list-group no-radius alt">
+                <a class="list-group-item" href="#">
+                    <span class="badge bg-success"></span>
+                    <i class="fa fa-comment icon-muted"></i>
+                    Phone : {{restaurant.phone}}
+                </a>
+                <a class="list-group-item" href="#">
+                    <span class="badge bg-info"></span>
+                    <i class="fa fa-envelope icon-muted"></i>
+                    Email : {{restaurant.email}}
+                </a>
+                <a class="list-group-item" href="#">
+                    <span class="badge bg-light"></span>
+                    <i class="fa fa-eye icon-muted"></i>
+                    Price Range : {{restaurant.price_range}}
+                </a>
+            </div>
+        </section>
+        <section class="panel panel-info">
+            <div class="panel-body">
+                <div class="clear">
+                    <a href="#" class="btn btn-xs btn-success m-t-xs">{{restaurant.category}}</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</div>
+<div class="row bg-light dk m-b">
+    <div class="col-md-7 col-sm-12 dker">
+        <section>
+            <header class="font-bold padder-v">
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <button data-toggle="dropdown"
+                                class="btn btn-sm btn-rounded btn-default dropdown-toggle"><span
+                                class="dropdown-label">Week</span> <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-select">
+                            <li><a href="#">
+                                <input type="radio" name="b">
+                                Month</a></li>
+                            <li><a href="#">
+                                <input type="radio" name="b">
+                                Week</a></li>
+                            <li><a href="#">
+                                <input type="radio" name="b">
+                                Day</a></li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn btn-default btn-icon btn-rounded btn-sm">Go</a></div>
+                Statistics
+            </header>
+            <div class="panel-body">
+                <!--<div id="flot-sp1ine" style="height:210px"></div> -->
+
+                <flot dataset="flotDataset" options="flotOptions" height="212px"></flot>
+            </div>
+            <div class="row text-center no-gutter">
+                <div class="col-xs-3"><span class="h4 font-bold m-t block">2,000</span>
+                    <small class="text-muted m-b block">Total Reviews</small>
+                </div>
+                <div class="col-xs-3"><span class="h4 font-bold m-t block">200</span>
+                    <small class="text-muted m-b block">&gt; 60%</small>
+                </div>
+                <div class="col-xs-3"><span class="h4 font-bold m-t block">900</span>
+                    <small class="text-muted m-b block">&gt; 70%</small>
+                </div>
+                <div class="col-xs-3"><span class="h4 font-bold m-t block">800</span>
+                    <small class="text-muted m-b block">&gt; 80%</small>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="col-md-5 col-sm-12">
+        <section>
+            <header class="font-bold padder-v">
+                <div class="btn-group pull-right">
+                    <button data-toggle="dropdown"
+                            class="btn btn-sm btn-rounded btn-default dropdown-toggle"><span
+                            class="dropdown-label">Last 24 Hours</span> <span
+                            class="caret"></span></button>
+                    <ul class="dropdown-menu dropdown-select">
+                        <li><a href="#">
+                            <input type="radio" name="a">
+                            Today</a></li>
+                        <li><a href="#">
+                            <input type="radio" name="a">
+                            Yesterday</a></li>
+                        <li><a href="#">
+                            <input type="radio" name="a">
+                            Last 24 Hours</a></li>
+                        <li><a href="#">
+                            <input type="radio" name="a">
+                            Last 7 Days</a></li>
+                        <li><a href="#">
+                            <input type="radio" name="a">
+                            Last 30 days</a></li>
+                        <li><a href="#">
+                            <input type="radio" name="a">
+                            Last Month</a></li>
+                        <li><a href="#">
+                            <input type="radio" name="a">
+                            All Time</a></li>
+                    </ul>
+                </div>
+                Analysis
+            </header>
+            <div class="panel-body flot-legend">
+
+                <!--<nvd3-pie-chart
+                        data="exampleData"
+                        id="exampleId"
+                        x="xFunction()"
+                        y="yFunction()"
+                        showLabels="true"
+                        donutLabelsOutside="true"
+                        labelType="key"
+                        color="colorFunction()"
+                        donut="true">
+                    <svg height="300"></svg>
+                </nvd3-pie-chart>-->
+                <flot dataset="donutDataset" options="donutOptions" height="280px"></flot>
+            </div>
+    </div>
+</div>
+</div>
+<div class="row">
+
+    <div class="col-lg-6">
+        <!-- chat -->
+        <section class="panel panel-default">
+            <header class="panel-heading">Reviews</header>
+            <section class="chat-list panel-body">
+                <article class="media">
+                    <span class="pull-left thumb-sm"><img src="images/a2.png"></span>
+
+                    <div class="media-body">
+                        <div class="pull-right media-xs text-center text-muted">
+                            <strong class="h4">17</strong><br>
+                            <small class="label bg-light">Feb</small>
                         </div>
-                        <div class="row bg-light dk m-b">
-                            <div class="col-md-9 col-sm-12 dker">
-                                <section>
-                                    <header class="font-bold padder-v">
-                                        <div class="pull-right">
-                                            <div class="btn-group">
-                                                <button data-toggle="dropdown"
-                                                        class="btn btn-sm btn-rounded btn-default dropdown-toggle"><span
-                                                        class="dropdown-label">Week</span> <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu dropdown-select">
-                                                    <li><a href="#">
-                                                        <input type="radio" name="b">
-                                                        Month</a></li>
-                                                    <li><a href="#">
-                                                        <input type="radio" name="b">
-                                                        Week</a></li>
-                                                    <li><a href="#">
-                                                        <input type="radio" name="b">
-                                                        Day</a></li>
-                                                </ul>
-                                            </div>
-                                            <a href="#" class="btn btn-default btn-icon btn-rounded btn-sm">Go</a></div>
-                                        Statistics
-                                    </header>
-                                    <div class="panel-body">
-                                        <!--<div id="flot-sp1ine" style="height:210px"></div>-->
-                                        <highchart id="chart1" config="chartConfig" class="col-sm-10" ></highchart>
-                                    </div>
-                                    <div class="row text-center no-gutter">
-                                        <div class="col-xs-3"><span class="h4 font-bold m-t block">5,860</span>
-                                            <small class="text-muted m-b block">Orders</small>
-                                        </div>
-                                        <div class="col-xs-3"><span class="h4 font-bold m-t block">10,450</span>
-                                            <small class="text-muted m-b block">Sellings</small>
-                                        </div>
-                                        <div class="col-xs-3"><span class="h4 font-bold m-t block">21,230</span>
-                                            <small class="text-muted m-b block">Items</small>
-                                        </div>
-                                        <div class="col-xs-3"><span class="h4 font-bold m-t block">7,230</span>
-                                            <small class="text-muted m-b block">Customers</small>
-                                        </div>
-                                    </div>
-                                </section>
+                        <a href="#" class="h4">Real food</a>
+                        <small class="block"><a href="#" class="">Reviewer Name </a> <i
+                                class="fa fa-star text-info"></i><i class="fa fa-star text-info"></i><i
+                                class="fa fa-star text-info"></i><i class="fa fa-star text-info"></i><i
+                                class="fa fa-star-half-o text-info"></i></small>
+                        <small class="block m-t-sm">Lovely staff, very attentive. Unrushed degustation accommodating to
+                            our dietary requests and with lovely wine. Never cheap but worth it for a special occasion.
+                            Lovely comfy furniture, beautiful outlook over Japanese garden. Sashimi style appetizer was
+                            great, the beef was perfect, and desserts - couldn't get enough! Also, ask about cheese, you
+                            won't be disappointed, except for the coffee!
+                        </small>
+                    </div>
+                </article>
+                <div class="line pull-in"></div>
+            </section>
+            <footer class="panel-footer">
+                <!-- chat form -->
+                <article class="chat-item" id="chat-form">
+                    <a class="pull-left thumb-sm avatar"><img src="images/a2.png" class="img-circle"></a>
+                    <section class="chat-body">
+                        <form action="" class="m-b-none">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Write your review">
+                              <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">POST</button>
+                              </span>
                             </div>
-                            <div class="col-md-3 col-sm-12">
-                                <section>
-                                    <header class="font-bold padder-v">
-                                        <div class="btn-group pull-right">
-                                            <button data-toggle="dropdown"
-                                                    class="btn btn-sm btn-rounded btn-default dropdown-toggle"><span
-                                                    class="dropdown-label">Last 24 Hours</span> <span
-                                                    class="caret"></span></button>
-                                            <ul class="dropdown-menu dropdown-select">
-                                                <li><a href="#">
-                                                    <input type="radio" name="a">
-                                                    Today</a></li>
-                                                <li><a href="#">
-                                                    <input type="radio" name="a">
-                                                    Yesterday</a></li>
-                                                <li><a href="#">
-                                                    <input type="radio" name="a">
-                                                    Last 24 Hours</a></li>
-                                                <li><a href="#">
-                                                    <input type="radio" name="a">
-                                                    Last 7 Days</a></li>
-                                                <li><a href="#">
-                                                    <input type="radio" name="a">
-                                                    Last 30 days</a></li>
-                                                <li><a href="#">
-                                                    <input type="radio" name="a">
-                                                    Last Month</a></li>
-                                                <li><a href="#">
-                                                    <input type="radio" name="a">
-                                                    All Time</a></li>
-                                            </ul>
-                                        </div>
-                                        Analysis
-                                    </header>
-                                    <div class="panel-body flot-legend">
-                                        <div id="flot-pie-donut" style="height:280px;margin-left: 0px;position: relative;left: 0px;width: 100%;top: 0;">
-                                            <nvd3-pie-chart
-                                                    data="exampleData"
-                                                    id="exampleId"
-                                                    x="xFunction()"
-                                                    y="yFunction()"
-                                                    showLabels="true"
-                                                    donutLabelsOutside="true"
-                                                    labelType="key"
-                                                    color="colorFunction()"
-                                                    donut="true">
-                                                <svg height="300"></svg>
-                                            </nvd3-pie-chart>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-
+                        </form>
                     </section>
-                </section>
-                <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+                </article>
+            </footer>
+        </section>
+    </div>
+    <div class="col-lg-6">
+        <section class="panel panel-default">
+            <header class="panel-heading">Photos</header>
+            <section class="chat-list panel-body">
+                <!--<section class="row m-l-none m-r-none m-b text-center box-shadow"> -->
+                <div class="col-xs-4 no-padding">
+                    <img src="images/r1.jpg" style="max-width: 97%;min-height: 124px;"/>
+                </div>
+                <div class="col-xs-4 no-padding">
+                    <img src="images/r2.jpeg" style="max-width: 97%;min-height: 124px;"/>
+                </div>
+                <div class="col-xs-4 no-padding">
+                    <img src="images/r3.jpg" style="max-width: 97%;min-height: 124px;"/>
+                </div>
             </section>
         </section>
-    </section>
+    </div>
+    <div class="col-sm-12">
+        <section class="panel panel-default">
+            <header class="panel-heading">This will be shown in Restaurant owner view</header>
+            <section class="chat-list panel-body">
+        <highchart id="chart1" config="chartConfig" class="col-sm-11"></highchart>
+                </section>
+            </section>
+    </div>
+
+</div>
+
+</section>
+
+
+</section>
+<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+</section>
+
+</section>
+</section>
 </section>
 
 
@@ -236,8 +324,6 @@
 </div>
 
 
-
-
 <div class="container-fluid top20" ng-repeat="photo in photos">
     <div class="col-md-3 col-sm-3 col-xs-3">
         <img class="img-responsive" src="{{photo.url}}">
@@ -247,7 +333,8 @@
 
 
 <div class="container-fluid">
-    <chart title="Line chart" xData="lineChartXData" yData="lineChartYData" xName="Month" yName="Hit" graphData="graphData"
+    <chart title="Line chart" xData="lineChartXData" yData="lineChartYData" xName="Month" yName="Hit"
+           graphData="graphData"
            subtitle="Annual Data"></chart>
 
 

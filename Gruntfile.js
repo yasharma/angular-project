@@ -67,12 +67,21 @@ module.exports = function (grunt) {
                     'bower_components/jquery.easy-pie-chart/dist/angular.easypiechart.js',
                     'bower_components/slimscroll/jquery.slimscroll.js',
                     'bower_components/highcharts-ng/dist/highcharts-ng.js',
+                    'bower_components/flot/jquery.flot.js',
+                    'bower_components/flot/jquery.flot.resize.js',
+                    'bower_components/flot/jquery.flot.canvas.js',
+                    'bower_components/flot/jquery.flot.pie.js',
+                    'bower_components/flot/jquery.flot.image.js',
+                    'bower_components/flot/jquery.flot.fillbetween.js',
+                    'bower_components/angular-flot/angular-flot.js',
 
                     'components/version/version.js',
                     'components/version/version-directive.js',
                     'components/version/interpolate-filter.js',
                     'lib/extern/angular-local-storage.js',
                     'lib/extern/Highcharts/js/highcharts.js',
+                    'lib/extern/jquery.flot.spline.js',
+                    'lib/extern/jquery.flot.tooltip.min.js'
                 ],
                 dest: 'www/js/lib.min.js'
             },
