@@ -202,51 +202,7 @@
 </div>
 <div class="row">
 
-    <div class="col-lg-6">
-        <!-- chat -->
-        <section class="panel panel-default">
-            <header class="panel-heading">Reviews</header>
-            <section class="chat-list panel-body">
-                <article class="media">
-                    <span class="pull-left thumb-sm"><img src="images/a2.png"></span>
-
-                    <div class="media-body">
-                        <div class="pull-right media-xs text-center text-muted">
-                            <strong class="h4">17</strong><br>
-                            <small class="label bg-light">Feb</small>
-                        </div>
-                        <a href="#" class="h4">Real food</a>
-                        <small class="block"><a href="#" class="">Reviewer Name </a> <i
-                                class="fa fa-star text-info"></i><i class="fa fa-star text-info"></i><i
-                                class="fa fa-star text-info"></i><i class="fa fa-star text-info"></i><i
-                                class="fa fa-star-half-o text-info"></i></small>
-                        <small class="block m-t-sm">Lovely staff, very attentive. Unrushed degustation accommodating to
-                            our dietary requests and with lovely wine. Never cheap but worth it for a special occasion.
-                            Lovely comfy furniture, beautiful outlook over Japanese garden. Sashimi style appetizer was
-                            great, the beef was perfect, and desserts - couldn't get enough! Also, ask about cheese, you
-                            won't be disappointed, except for the coffee!
-                        </small>
-                    </div>
-                </article>
-                <div class="line pull-in"></div>
-            </section>
-            <footer class="panel-footer">
-                <!-- chat form -->
-                <article class="chat-item" id="chat-form">
-                    <a class="pull-left thumb-sm avatar"><img src="images/a2.png" class="img-circle"></a>
-                    <section class="chat-body">
-                        <form action="" class="m-b-none">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Write your review">
-                              <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">POST</button>
-                              </span>
-                            </div>
-                        </form>
-                    </section>
-                </article>
-            </footer>
-        </section>
+    <div class="col-lg-6" ng-include="reviewBox" ng-controller="reviewCtrl">
     </div>
     <div class="col-lg-6">
         <section class="panel panel-default">
@@ -254,13 +210,13 @@
             <section class="chat-list panel-body">
                 <!--<section class="row m-l-none m-r-none m-b text-center box-shadow"> -->
                 <div class="col-xs-4 no-padding">
-                    <img src="images/r1.jpg" style="max-width: 97%;min-height: 124px;"/>
+                    <img src="images/r1.jpg" style="width: 100%;padding:0px 2px;min-height: 124px;"/>
                 </div>
                 <div class="col-xs-4 no-padding">
-                    <img src="images/r2.jpeg" style="max-width: 97%;min-height: 124px;"/>
+                    <img src="images/r2.jpeg" style="width:100%;padding:0px 2px;min-height: 124px;"/>
                 </div>
                 <div class="col-xs-4 no-padding">
-                    <img src="images/r3.jpg" style="max-width: 97%;min-height: 124px;"/>
+                    <img src="images/r3.jpg" style="width:100%;padding:0px 2px;min-height: 124px;"/>
                 </div>
             </section>
         </section>

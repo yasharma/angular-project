@@ -32,7 +32,6 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
 
 
         chartData();
-        getReviews();
 
 
         $scope.showPhone = function () {
@@ -102,6 +101,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
             $scope.sidebar = 'modules/partials/sidebar.html';
             $scope.header = 'modules/partials/header.html';
             $scope.footer = 'modules/partials/footer.html';
+            $scope.reviewBox = 'modules/review/views/index.html';
         }
 
         function getGraphData(restaurantId) {

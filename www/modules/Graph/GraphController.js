@@ -104,21 +104,8 @@ rxControllers.controller('graphCtrl', ['$scope',
             backgroundColor: 'rgba(0,0,0,0)'
         };
 
-
-        var d2 = [];
-        for (var i = 0; i <= 6; i += 1) {
-            d2.push([i, parseInt((Math.floor(Math.random() * (1 + 30 - 10))) + 10)]);
-        }
-        var d3 = [];
-        for (var i = 0; i <= 6; i += 1) {
-            d3.push([i, parseInt((Math.floor(Math.random() * (1 + 30 - 10))) + 10)]);
-        }
-
         var d0 = [
             [0, 0], [1, 0], [2, 1], [3, 2], [4, 15], [5, 5], [6, 12], [7, 10], [8, 55], [9, 13], [10, 25], [11, 10], [12, 12], [13, 6], [14, 2], [15, 0], [16, 0]
-        ];
-        var d00 = [
-            [0, 0], [1, 0], [2, 1], [3, 0], [4, 1], [5, 0], [6, 2], [7, 0], [8, 3], [9, 1], [10, 0], [11, 1], [12, 0], [13, 2], [14, 1], [15, 0], [16, 0]
         ];
 
         $scope.flotDataset = [d0];

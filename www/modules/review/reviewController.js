@@ -15,6 +15,9 @@ rxControllers.controller('reviewCtrl', ['$scope', 'localStorageService', '$route
         }
 
 
+        getReviews();
+
+
         function getReviews(params) {
             reviewSvr.getRestaurantReviews(routeParams.restaurantId, params).then(function (reviews) {
                 $scope.reviews = reviews.items;
