@@ -87,7 +87,7 @@
             <div class="list-group no-radius alt">
                 <a class="list-group-item" href="#">
                     <span class="badge bg-success"></span>
-                    <i class="fa fa-comment icon-muted"></i>
+                    <i class="fa fa-phone icon-muted"></i>
                     Phone : {{restaurant.phone}}
                 </a>
                 <a class="list-group-item" href="#">
@@ -95,10 +95,10 @@
                     <i class="fa fa-envelope icon-muted"></i>
                     Email : {{restaurant.email}}
                 </a>
-                <a class="list-group-item" href="#">
-                    <span class="badge bg-light"></span>
+                <a class="list-group-item" href="#" >
+                    <span class="badge bg-money"></span>
                     <i class="fa fa-eye icon-muted"></i>
-                    Price Range : {{restaurant.price_range}}
+                    Price Range :<span class="text-primary-dk"><rating ng-model="restaurant.price_range" state-on="'glyphicon-usd'" state-off="'blank'" readonly="true"></rating></span>
                 </a>
             </div>
         </section>
@@ -358,63 +358,7 @@
 </div>
 
 <div class="container-fluid top20">
-    <form novalidate name="review-form">
-        <input type="hidden" name="restaurant_id" ng-model="reviewForm.restaurant_id"/>
 
-        <div class="row">
-            <div class="col-sm-2">
-                <label>Rating</label>
-            </div>
-            <div class="col-sm-10">
-                <input type="text" name="rating" ng-model="reviewForm.rating" required/>
-            </div>
-            <div ng-show="reviewForm.rating.$invalid">Invalid:
-                <span ng-show="reviewForm.rating.$error.required">Rating is required.</span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2">
-                <label>Summary in 4 words</label>
-            </div>
-            <div class="col-sm-10">
-                <input type="text" name="special" ng-model="reviewForm.special"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2">
-                <label>Comment</label>
-            </div>
-            <div class="col-sm-10">
-                <textarea name="comment" ng-model="reviewForm.comment"></textarea>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-2">
-                <label>Email</label>
-            </div>
-            <div class="col-sm-10">
-                <input type="text" name="email" ng-model="reviewForm.email"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-2">
-                <label>Phone</label>
-            </div>
-            <div class="col-sm-10">
-                <input type="text" name="phone" ng-model="reviewForm.phone"/>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-2">
-            </div>
-            <div class="col-sm-10">
-                <input type="submit" name="submit" value="submit" ng-click="submitReview()"/>
-            </div>
-        </div>
-
-    </form>
 
 </div>
 

@@ -175,7 +175,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     }
 
                     var modalInstance = $modal.open({
-                        templateUrl: "modules/partials/map.html",
+                        templateUrl: "modules/restaurant/views/map.html",
                         scope: $scope
                     });
 
