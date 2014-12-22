@@ -132,22 +132,10 @@ module.exports = function (grunt) {
             }
         },
         less: {
-            /*development: {
-             options: {
-             paths: ["less"]
-             },
-             files: {
-             "css/bootstrap.css": "less/bootstrap.less"
-             }
-             },*/
             production: {
                 options: {
                     paths: ["less"],
                     cleancss: true
-                    /*modifyVars: {
-                     imgPath: '"http://mycdn.com/path/to/images"',
-                     bgColor: 'red'
-                     }*/
                 },
                 files: {
                     "css/bootstrap.css": "less/bootstrap.less",
