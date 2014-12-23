@@ -8,6 +8,10 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'modules/home/views/index.html',
             controller: 'indexCtrl'
         })
+        .when('/restaurants', {
+            templateUrl: 'modules/restaurant/views/list.html',
+            controller: 'listCtrl'
+        })
         .when('/restaurant/:restaurantId', {
             templateUrl: 'modules/restaurant/views/detail.html',
             controller: 'detailCtrl'
@@ -122,6 +126,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 $scope.sidebar = 'modules/partials/sidebar.html';
                 $scope.header = 'modules/partials/header.html';
                 $scope.footer = 'modules/partials/footer.html';
+                $scope.list = 'modules/restaurant/views/list.html';
             }
 
             $scope.trend = [
@@ -147,18 +152,38 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
     ])
 
 
-    .controller('navigationController', ['$scope', '$http', 'restaurantSvr', function ($scope, $http, restaurantSvr) {
+    .controller('navigationController', ['$scope', '$rootScope', '$http', '$location', 'restaurantSvr', function ($scope, $rootScope, $http, $location, restaurantSvr) {
 
         $scope.navSearch = function (val) {
             return restaurantSvr.findRestaurant(val)
                 .then(function (response) {
                     return response.map(function (item) {
+                        $scope.searchItem = item;
                         return item;
                     });
                 });
         };
 
+        $scope.setRestaurant = function (restaurants){
+            $rootScope.restaurants = restaurants;
+            $location.path('/restaurants');
+        }
 
+
+    }])
+    .controller('listCtrl', ['$scope', '$rootScope', '$http', 'localStorageService', '$location', 'restaurantSvr', 'geoLocation',
+        function ($scope, $rootScope, $http, localStorageService, $location, restaurantSvr, geoLocation) {
+
+        initTemplate();
+        var restaurants = $scope.restaurants = [];
+        $scope.restaurants.push($rootScope.restaurants.data);
+
+        function initTemplate() {
+
+            $scope.sidebar = 'modules/partials/sidebar.html';
+            $scope.header = 'modules/partials/header.html';
+            $scope.footer = 'modules/partials/footer.html';
+        }
     }])
     .controller('mapCtrl', ['$scope', 'locationSvr', '$modal', '$routeParams', '$log',
         function ($scope, locationSvr, $modal, routeParams, $log) {

@@ -1,0 +1,78 @@
+<section>
+    <header class="panel-heading ">
+        <div class="row">
+
+            <div class="col-sm-6">
+                Popular Restaurants
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-3 pull-right">
+                <select ng-model="sort" ng-change="set()" class="form-control">
+                    <option value="popular">Sort by rating</option>
+                    <option value="trending">Sort by trend</option>
+                    <option value="distance">sort by distance</option>
+                </select>
+            </div>
+        </div>
+    </header>
+</section>
+
+<section class="comment-list block">
+
+    <div class="panel-body no-padding-right">
+        <article ng-repeat="restaurant in restaurants" class="comment-item"><a
+                class="pull-left thumb-sm avatar">
+            <span class="rating-circle">{{restaurant.overview__percentile | number : 1}}</span>
+            <div easypiechart options="options" percent="restaurant.overview__percentile | number : 2"></div></a> <span
+                class="arrow left"></span>
+            <section class="comment-body panel panel-default">
+                <header class="panel-heading"><a href="">{{restaurant.locations__formatted_address}}</a>
+                    <label class="label bg-primary m-l-xs">{{restaurant.category}}</label>
+
+                                                    <span class="text-muted m-l-sm pull-right"> <i
+                                                            class="fa fa-clock-o"></i> {{restaurant.distance | number : 2}} KM </span>
+                </header>
+                <div class="panel-body">
+                    <div class="col-sm-3 col-md-4 col-lg-4 pull-left">
+                        <nvd3-multi-bar-chart
+                                data="trend"
+                                showXAxis="false"
+                                showYAxis="false"
+                                tooltips="true"
+                                interactive="true">
+                        </nvd3-multi-bar-chart>
+                    </div>
+                    <blockquote>
+                        <p><a href="#/restaurant/{{restaurant.id}}/{{hash}}"><h3
+                                class="title">
+                            {{restaurant.name}}
+
+
+                        </h3>
+                        </a>
+
+                        </p>
+
+
+
+                        {{restaurant.overview__percentile | number : 2}}
+
+                        {{restaurant.overview__trend | number : 2}}
+
+
+                    </blockquote>
+                    Reviews: {{restaurant.overview__total_reviews}}
+                    <div class="pull-right">{{restaurant.price_range_symbol}}</div>
+                </div>
+            </section>
+        </article>
+        <div class="panel-body hide-for-small bg-white b-b b-light" style="margin-left: 45px;">
+            <pagination total-items="popularListTotalItems" ng-model="popularListCurrentPage" max-size="maxSize"
+                        class="pagination-sm " boundary-links="true" rotate="false" num-pages="numPages"
+                        ng-change="popularListPageChanged()"
+                        items-per-page="popularListItemPerPage"></pagination>
+        </div>
+    </div>
+</section>
+<section class="vbox">
+
+</section>
