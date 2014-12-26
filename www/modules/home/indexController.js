@@ -151,39 +151,56 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         }
     ])
 
+    .factory('sharedData', function () {
+        var items = {};
 
-    .controller('navigationController', ['$scope', '$rootScope', '$http', '$location', 'restaurantSvr', function ($scope, $rootScope, $http, $location, restaurantSvr) {
+        return {
+
+            setItem : function(item){
+                items = item;
+            },
+
+            getItem : function(){
+                return items;
+            }
+
+        };
+    })
+
+    .controller('navigationController', ['$scope', '$http', '$location', 'restaurantSvr', 'sharedData', function ($scope, $http, $location, restaurantSvr, sharedData) {
 
         $scope.navSearch = function (val) {
             return restaurantSvr.findRestaurant(val)
                 .then(function (response) {
                     return response.map(function (item) {
-                        $scope.searchItem = item;
+//                        $scope.searchItem = item;
                         return item;
                     });
                 });
         };
 
         $scope.setRestaurant = function (restaurants){
-            $rootScope.restaurants = restaurants;
-            $location.path('/restaurants');
+            $scope.sharedData = restaurants;
+            $scope.$watch('sharedData', function (newValue) {
+                if (newValue) sharedData.setItem(newValue);
+            });
+            if($scope.sharedData.length) $location.path('/restaurants');
+
         }
 
 
     }])
-    .controller('listCtrl', ['$scope', '$rootScope', '$http', 'localStorageService', '$location', 'restaurantSvr', 'geoLocation',
-        function ($scope, $rootScope, $http, localStorageService, $location, restaurantSvr, geoLocation) {
+    .controller('listCtrl', ['$scope', '$http', 'localStorageService', '$location', 'restaurantSvr', 'geoLocation', 'sharedData',
+        function ($scope, $http, localStorageService, $location, restaurantSvr, geoLocation, sharedData) {
 
-        initTemplate();
         var restaurants = $scope.restaurants = [];
-        $scope.restaurants.push($rootScope.restaurants.data);
 
-        function initTemplate() {
+        $scope.$watch(function () { return sharedData.getItem(); }, function (newValue) {
+            $scope.restaurants.length = 0;
+            if (newValue) $scope.restaurants.push(newValue.data);
+        });
 
-            $scope.sidebar = 'modules/partials/sidebar.html';
-            $scope.header = 'modules/partials/header.html';
-            $scope.footer = 'modules/partials/footer.html';
-        }
+
     }])
     .controller('mapCtrl', ['$scope', 'locationSvr', '$modal', '$routeParams', '$log',
         function ($scope, locationSvr, $modal, routeParams, $log) {
