@@ -184,8 +184,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             $scope.$watch('sharedData', function (newValue) {
                 if (newValue) sharedData.setItem(newValue);
             });
-            if($scope.sharedData.length) $location.path('/restaurants');
-
+            if(Object.keys($scope.sharedData).length) $location.path('/restaurants');
         }
 
 
