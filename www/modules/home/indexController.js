@@ -21,7 +21,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
     .controller('indexCtrl', ['$scope', '$http', 'localStorageService', '$location', 'restaurantSvr', 'geoLocation',
         function ($scope, $http, localStorageService, $location, restaurantSvr, geoLocation) {
 
-            initTemplate();
             $scope.restaurantList = {
                 params: {
                     sort: 'popular'
@@ -121,14 +120,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 });
             }
 
-            function initTemplate() {
-
-                $scope.sidebar = 'modules/partials/sidebar.html';
-                $scope.header = 'modules/partials/header.html';
-                $scope.footer = 'modules/partials/footer.html';
-                $scope.list = 'modules/restaurant/views/list.html';
-            }
-
             $scope.trend = [
                 {
                     "key": "Trend",
@@ -173,7 +164,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             return restaurantSvr.findRestaurant(val)
                 .then(function (response) {
                     return response.map(function (item) {
-//                        $scope.searchItem = item;
                         return item;
                     });
                 });
@@ -196,11 +186,44 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
         $scope.$watch(function () { return sharedData.getItem(); }, function (newValue) {
             $scope.restaurants.length = 0;
+            if(undefined === newValue.data.overview__percentile) newValue.data.overview__percentile = "100";
             if (newValue) $scope.restaurants.push(newValue.data);
         });
+        //@todo make api calls to get the trend data
+        $scope.trend = [
+            {
+                "key": "Trend",
+                "values": [
+                    [1025409600000, 0],
+                    [1028088000000, 6.3382185140371],
+                    [1030766400000, 5.9507873460847],
+                    [1033358400000, 11.569146943813],
+                    [1036040400000, 5.4767332317425],
+                    [1038632400000, 0.50794682203014],
+                    [1041310800000, 5.5310285460542],
+                    [1043989200000, 5.7838296963382],
+                    [1046408400000, 7.3249341615649],
+                    [1049086800000, 6.7078630712489],
+                    [1330491600000, 13.388148670744]
+                ]
+            }
+        ];
+        //@todo refactor with options used in indexCtrl
+        $scope.options = {
+            animate: {
+                duration: 1000,
+                enabled: true
+            },
+            barColor: '#428bca',//'rgb(31, 119, 180)',
+            //trackColor:'#2C3E50',
+            size: 60,
+            scaleColor: false,
+            lineWidth: 5,
+            lineCap: 'circle'
+        };
 
 
-    }])
+        }])
     .controller('mapCtrl', ['$scope', 'locationSvr', '$modal', '$routeParams', '$log',
         function ($scope, locationSvr, $modal, routeParams, $log) {
             $scope.getMap = function () {
