@@ -11,6 +11,14 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         .when('/restaurant/:restaurantId', {
             templateUrl: 'modules/restaurant/views/detail.html',
             controller: 'detailCtrl'
+        })
+        .when('/login', {
+            templateUrl: 'modules/login/views/loginFull.html',
+            controller: 'loginCtrl'
+        })
+        .when('/login/signup', {
+            templateUrl: 'modules/login/views/signUp.html',
+            controller: 'loginCtrl'
         });
 }])
 
