@@ -95,6 +95,8 @@ module.exports = function (grunt) {
                     'www/modules/restaurant/restaurantController.js',
                     'www/modules/graph/graphController.js',
                     'www/modules/review/reviewController.js',
+                    'www/modules/login/loginController.js',
+
                     'www/modules/directives/directive.js',
                     'www/modules/restaurant/restaurantService.js',
                     'www/modules/review/reviewService.js',
