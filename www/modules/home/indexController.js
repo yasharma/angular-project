@@ -6,11 +6,13 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
         .when('/index', {
             templateUrl: 'modules/home/views/index.html',
-            controller: 'indexCtrl'
+            controller: 'indexCtrl',
+            access: { requiredLogin: true }
         })
         .when('/restaurant/:restaurantId', {
             templateUrl: 'modules/restaurant/views/detail.html',
-            controller: 'detailCtrl'
+            controller: 'detailCtrl',
+            access: { requiredLogin: true }
         })
         .when('/login', {
             templateUrl: 'modules/login/views/loginFull.html',

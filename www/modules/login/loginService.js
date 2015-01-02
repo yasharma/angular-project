@@ -1,10 +1,9 @@
 'use strict';
 
 /* Login Services */
+var loginService = angular.module('Services', []);
 
-var restaurantService = angular.module('restaurantService', []);
-
-restaurantService.factory('loginSvr', ['Restangular', function (Restangular) {
+loginService.factory('loginSvr', ['Restangular', function (Restangular) {
 
     return {
 
@@ -31,3 +30,6 @@ restaurantService.factory('loginSvr', ['Restangular', function (Restangular) {
         }
     };
 }]);
+
+
+
