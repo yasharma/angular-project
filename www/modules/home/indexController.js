@@ -8,6 +8,10 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'modules/home/views/index.html',
             controller: 'indexCtrl'
         })
+        .when('/restaurants', {
+            templateUrl: 'modules/restaurant/views/list.html',
+            controller: 'listCtrl'
+        })
         .when('/restaurant/:restaurantId', {
             templateUrl: 'modules/restaurant/views/detail.html',
             controller: 'detailCtrl'
@@ -145,9 +149,24 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
         }
     ])
+    .factory('sharedData', function () {
+        var items = {};
+
+        return {
+
+            setItem : function(item){
+                items = item;
+            },
+
+            getItem : function(){
+                return items;
+            }
+
+        };
+    })
 
 
-    .controller('navigationController', ['$scope', '$http', 'restaurantSvr', function ($scope, $http, restaurantSvr) {
+    .controller('navigationController', ['$scope', '$http', '$location', 'restaurantSvr', 'sharedData', function ($scope, $http, $location, restaurantSvr, sharedData) {
 
         $scope.navSearch = function (val) {
             return restaurantSvr.findRestaurant(val)
@@ -158,8 +177,72 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 });
         };
 
+        $scope.setRestaurant = function (restaurants){
+            $scope.sharedData = restaurants;
+            $scope.$watch('sharedData', function (newValue) {
+                if (newValue) sharedData.setItem(newValue);
+            });
+            if(Object.keys($scope.sharedData).length) $location.path('/restaurants');
+        }
+
 
     }])
+    .controller('listCtrl', ['$scope', '$http', 'localStorageService', '$location', 'restaurantSvr', 'geoLocation', 'sharedData',
+        function ($scope, $http, localStorageService, $location, restaurantSvr, geoLocation, sharedData) {
+
+            var restaurants = $scope.restaurants = [];
+
+            $scope.$watch(function () { return sharedData.getItem(); }, function (newValue) {
+                $scope.restaurants.length = 0;
+                if(undefined === newValue.data.overview__percentile) newValue.data.overview__percentile = "100";
+                if (newValue) $scope.restaurants.push(newValue.data);
+            });
+
+            initTemplate();
+
+            //@todo make api calls to get the trend data
+            $scope.trend = [
+                {
+                    "key": "Trend",
+                    "values": [
+                        [1025409600000, 0],
+                        [1028088000000, 6.3382185140371],
+                        [1030766400000, 5.9507873460847],
+                        [1033358400000, 11.569146943813],
+                        [1036040400000, 5.4767332317425],
+                        [1038632400000, 0.50794682203014],
+                        [1041310800000, 5.5310285460542],
+                        [1043989200000, 5.7838296963382],
+                        [1046408400000, 7.3249341615649],
+                        [1049086800000, 6.7078630712489],
+                        [1330491600000, 13.388148670744]
+                    ]
+                }
+            ];
+            //@todo refactor with options used in indexCtrl
+            $scope.options = {
+                animate: {
+                    duration: 1000,
+                    enabled: true
+                },
+                barColor: '#428bca',//'rgb(31, 119, 180)',
+                //trackColor:'#2C3E50',
+                size: 60,
+                scaleColor: false,
+                lineWidth: 5,
+                lineCap: 'circle'
+            };
+
+            function initTemplate() {
+
+                $scope.sidebar = 'modules/partials/sidebar.html';
+                $scope.header = 'modules/partials/header.html';
+                $scope.footer = 'modules/partials/footer.html';
+            }
+
+
+        }
+    ])
     .controller('mapCtrl', ['$scope', 'locationSvr', '$modal', '$routeParams', '$log',
         function ($scope, locationSvr, $modal, routeParams, $log) {
             $scope.getMap = function () {

@@ -52,7 +52,7 @@
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-btn"><button type="submit" class="btn btn-sm bg-white b-white btn-icon"><i class="fa fa-search"></i></button></span>
-                <input type="text" class="form-control input-sm no-border" ng-model="findRestaurant" typeahead="address.formatted for address in navSearch($viewValue) " ng-submit="findRestaurent()" placeholder="Search restaurants, locations ..." typeahead-wait-ms="600" aria-autocomplete="list" aria-expanded="true" aria-owns="typeahead-06F-6959" aria-activedescendant="typeahead-06F-6959-option-1">
+                <input type="text" class="form-control input-sm no-border" ng-model="findRestaurant" typeahead="address.formatted for address in navSearch($viewValue)" typeahead-on-select="setRestaurant($item)" placeholder="Search restaurants, locations ..." typeahead-wait-ms="600" aria-autocomplete="list" aria-expanded="true" aria-owns="typeahead-06F-6959" aria-activedescendant="typeahead-06F-6959-option-1">
             </div>
         </div>
     </form>
