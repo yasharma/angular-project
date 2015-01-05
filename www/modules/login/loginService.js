@@ -19,7 +19,7 @@ loginService.factory('loginSvr', ['Restangular', function (Restangular) {
                     return {
                         items : response.data.items[0],
                         meta : response.data._meta
-                    };
+                        };
                 }, function(response){
                     return {
                         err : 1,
@@ -30,5 +30,4 @@ loginService.factory('loginSvr', ['Restangular', function (Restangular) {
         }
     };
 }]);
-
 

@@ -103,7 +103,6 @@ module.exports = function (grunt) {
                     'www/modules/location/locationService.js',
                     'www/modules/photo/photoService.js',
                     'www/modules/login/loginService.js',
-
                     'js/app.plugin.js',
                     'js/app.js',
                     'app.js'
