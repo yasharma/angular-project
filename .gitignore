@@ -1,2 +1,5 @@
 bower_components
 node_modules
+www/js/app.min.js
+www/js/lib.min.js
+www/js/angular.min.js
