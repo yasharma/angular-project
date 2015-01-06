@@ -4,7 +4,7 @@ var myApp = angular.module('myApp', ['ngRoute','config','LocalStorageModule','di
     'geoLocation','overviewService','restaurantService','reviewService','locationService','photoService',
     //'AngularChart',
     'GoogleMaps','angularFileUpload','ui.bootstrap','nvd3ChartDirectives','easypiechart','highcharts-ng',
-    'angular-flot','Controllers','Services'
+    'angular-flot','Controllers','Services', 'MessageCenterModule'
 ]);
 
 // Declare app level module which depends on views, and components
@@ -12,7 +12,7 @@ myApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.otherwise({redirectTo: '/index'});
 }]);
 
-myApp.config(["RestangularProvider",function(RestangularProvider){
+myApp.config(["RestangularProvider", function(RestangularProvider){
     RestangularProvider.setRestangularFields({
         id: "id"
     });
@@ -61,16 +61,19 @@ myApp.run(['$rootScope', '$location', '$window', 'AuthenticationService',functio
     });
 }]);
 
-myApp.config(['$httpProvider', function ($httpProvider) {
+myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, RestangularProvider) {
 
     var interceptor = ['$q', '$window', '$location', '$injector', function($q, $window, $location, $injector) {
 
         return {
             request: function (config) {
                 config.headers = config.headers || {};
-                if ($window.sessionStorage.token) {
-                    //@todo set Autorization string as per server settings
-                    //config.headers.Authorization = 'Bearer' + $window.sessionStorage.token;
+                var token = $window.sessionStorage.token;
+                if (token) {
+                    RestangularProvider.setDefaultRequestParams({
+                        "access-token" :token,
+                        "per-page" : 8
+                    });
                 }
                 return config;
             },

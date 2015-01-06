@@ -28,6 +28,26 @@ loginService.factory('loginSvr', ['Restangular', function (Restangular) {
                         statusText: response.statusText
                     };
                 });
+        },
+        signup: function (params) {
+
+            if(!params || undefined == params) params = {};
+
+            var resource = Restangular.all('authentications/register');
+            var formData = $.param(params);
+
+            return resource.post(formData, null, { "Content-Type": "application/x-www-form-urlencoded"})
+                .then(function (response) {
+                    return {
+                        status : response.status
+                    };
+                }, function(response){
+                    return {
+                        err : 1,
+                        status: response.status,
+                        statusText: response.statusText
+                    };
+                });
         }
     };
 }]);

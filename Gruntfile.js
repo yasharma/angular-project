@@ -74,6 +74,7 @@ module.exports = function (grunt) {
                     'bower_components/flot/jquery.flot.image.js',
                     'bower_components/flot/jquery.flot.fillbetween.js',
                     'bower_components/angular-flot/angular-flot.js',
+                    'bower_components/message-center/message-center.js',
 
                     'components/version/version.js',
                     'components/version/version-directive.js',

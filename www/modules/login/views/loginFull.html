@@ -7,6 +7,8 @@
                     <header class="wrapper text-center">
                         <strong>Sign in to get exclusive details</strong>
                     </header>
+                    <!--Flash message div-->
+                    <div mc-messages></div>
                     <form ng-submit="login(loginForm.$valid)" novalidate name="loginForm">
                         <div class="list-group">
                             <div class="list-group-item" ng-class="{ 'has-error' : loginForm.username.$invalid && !loginForm.username.$pristine }">
@@ -17,8 +19,9 @@
 
                             </div>
                             <div class="list-group-item" ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
-                                <input type="password" placeholder="Password" class="form-control no-border" name="password" ng-model="credentials.password" required>
-                                <p ng-show="loginForm.password.$invalid && !loginForm.password.$pristine" class="help-block">Password is required.</p>
+                                <input type="password" placeholder="Password" class="form-control no-border" name="password" ng-model="credentials.password" required ng-minlength="3">
+                                <p ng-show="loginForm.password.$error.required && !loginForm.password.$pristine" class="help-block">Password is required.</p>
+                                <p ng-show="loginForm.password.$error.minlength" class="help-block">Password is too short.</p>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-lg btn-primary btn-block" ng-disabled="loginForm.$invalid">Sign in</button>
