@@ -138,7 +138,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         }
     ])
 
-    .controller('navigationController', ['$scope', '$http', '$location', 'restaurantSvr', 'sharedData', function ($scope, $http, $location, restaurantSvr, sharedData) {
+    .controller('navigationController', ['$scope', '$http', '$location', 'restaurantSvr', function ($scope, $http, $location, restaurantSvr) {
 
         $scope.navSearch = function (val) {
             return restaurantSvr.findRestaurant(val)
