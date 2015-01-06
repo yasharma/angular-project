@@ -9,17 +9,6 @@
                     </header>
                     <form ng-submit="login(loginForm.$valid)" novalidate name="loginForm">
                         <div class="list-group">
-                            <!--
-
-                                Input fields include both email and username
-                                In the sample template inputField was referred as email but in the API username is required hence
-                                have included both the field now. We can remove anyone and make corresponding changes in controller.
-
-                            -->
-                            <div class="list-group-item" ng-class="{ 'has-error' : loginForm.email.$invalid && !loginForm.email.$pristine }">
-                                <input type="email" placeholder="Email" class="form-control no-border" name="email" ng-model="credentials.email" required >
-                                <p ng-show="loginForm.email.$invalid && !loginForm.email.$pristine" class="help-block">Please enter a valid email.</p>
-                            </div>
                             <div class="list-group-item" ng-class="{ 'has-error' : loginForm.username.$invalid && !loginForm.username.$pristine }">
                                 <input type="text" placeholder="Username" class="form-control no-border" name="username" ng-model="credentials.username" required ng-minlength="3" ng-maxlength="8">
                                 <p ng-show="loginForm.username.$error.required && !loginForm.username.$pristine" class="help-block">Your username is required.</p>

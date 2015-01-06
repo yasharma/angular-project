@@ -6,8 +6,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
         .when('/index', {
             templateUrl: 'modules/home/views/index.html',
-            controller: 'indexCtrl',
-            access: { requiredLogin: true }
+            controller: 'indexCtrl'
+//            access: { requiredLogin: true } to be used for owners page
         })
         .when('/restaurants', {
             templateUrl: 'modules/restaurant/views/list.html',
@@ -15,8 +15,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         })
         .when('/restaurant/:restaurantId', {
             templateUrl: 'modules/restaurant/views/detail.html',
-            controller: 'detailCtrl',
-            access: { requiredLogin: true }
+            controller: 'detailCtrl'
         })
         .when('/login', {
             templateUrl: 'modules/login/views/loginFull.html',
