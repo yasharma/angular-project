@@ -26,9 +26,9 @@
                                 <p ng-show="signupForm.password.$error.minlength" class="help-block">Password is too short.</p>
                             </div>
                         </div>
-                        <div class="checkbox m-b">
+                        <div class="checkbox m-b" ng-class="{ 'has-error' : signupForm.checkPolicy.$invalid && !signupForm.checkPolicy.$pristine }">
                             <label>
-                                <input type="checkbox" name="checkPolicy" required> Agree the <a href="#">terms and policy</a>
+                                <input type="checkbox" name="checkPolicy" ng-model="checkPolicy" required> Agree the <a href="#">terms and policy</a>
                                 <p ng-show="signupForm.checkPolicy.$error.required && !signupForm.checkPolicy.$pristine" class="help-block">You must agree to our terms and policies.</p>
                             </label>
                         </div>
