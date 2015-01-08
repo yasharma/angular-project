@@ -1,8 +1,25 @@
-<section class="scrollable wrapper w-f">
-    <div class="row">
-        <div class="col-sm-12 col-md-9 col-lg-9 "  ng-include="'modules/restaurant/views/list.html'"></div>
-        <div class="col-sm-3 hide-for-small hide-for-touch" ng-include="'modules/partials/right-filter.html'"></div>
+<nav-top></nav-top>
 
-        </div>
+<section>
+    <section class="hbox stretch">
+        <aside class="bg-light lt b-r b-light aside-md hidden-print">
+            <nav-left></nav-left>
+        </aside>
+        <section id="content">
+            <header class="header bg-white b-b b-light hide-for-small hide-for-touch" ng-include="'modules/restaurant/views/search-form.html'"></header>
+
+            <!--Dynamic view goes here-->
+            <section class="scrollable wrapper w-f">
+                <div class="row">
+                    <div class="col-sm-12 col-md-9 col-lg-9 "  ng-include="'modules/restaurant/views/list.html'"></div>
+                    <div class="col-sm-3 hide-for-small hide-for-touch" ng-include="'modules/partials/right-filter.html'"></div>
+
+                </div>
+            </section>
+
+            <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+        </section>
+    </section>
 </section>
+
 
