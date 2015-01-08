@@ -93,7 +93,7 @@ module.exports = function (grunt) {
 
                     'www/modules/home/indexController.js',
                     'www/modules/restaurant/restaurantController.js',
-                    'www/modules/graph/graphController.js',
+                    'www/modules/Graph/GraphController.js',
                     'www/modules/review/reviewController.js',
                     'www/modules/directives/directive.js',
                     'www/modules/directives/directive-elements.js',
