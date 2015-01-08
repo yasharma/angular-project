@@ -1,81 +1,38 @@
-<section class="vbox" style="">
-<header class="bg-primary header header-md navbar navbar-fixed-top-xs box-shadow" ng-include="header"></header>
-<section>
-<section class="hbox stretch">
-<aside ng-include="sidebar" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
-
 <section id="content">
 <section class="vbox">
 <section class="scrollable padder">
 <section class="row m-b-md">
-    <div class="col-sm-6" ng-controller="mapCtrl">
-        <h3 class="m-b-xs text-black">{{restaurant.name}}
-            <button class="btn btn-default btn-rounded btn-sm" data-toggle="class:nav-xs" ng-click="getMap()"><i
-                    class="fa fa-map-marker fa-lg text-primary"></i> Map
+    <div class="col-sm-6 ng-scope" ng-controller="mapCtrl">
+        <h3 class="m-b-xs text-black ng-binding">
+            <button class="btn btn-default btn-rounded btn-sm" data-toggle="class:nav-xs" ng-click="getMap()"><i class="fa fa-map-marker fa-lg text-primary"></i> Map
             </button>
             <div class="modal-backdrop fade in"></div>
         </h3>
-        <small> {{restaurant.address}},
-            {{restaurant.city}}, {{restaurant.postcode}} {{restaurant.state}}
+        <small class="ng-binding"> ,
+            ,
         </small>
     </div>
     <div class="col-sm-6 text-right text-left-xs m-t-md">
 
-        <a href="#" class="btn btn-icon b-2x btn-default btn-rounded hover"><i
-                class="i i-bars3 hover-rotate"></i></a> <a href="#nav, #sidebar"
-                                                           class="btn btn-icon b-2x btn-info btn-rounded"
-                                                           data-toggle="class:nav-xs, show"><i
-            class="fa fa-bars"></i></a></div>
+        <a href="#" class="btn btn-icon b-2x btn-default btn-rounded hover"><i class="i i-bars3 hover-rotate"></i></a> <a href="#nav, #sidebar" class="btn btn-icon b-2x btn-info btn-rounded" data-toggle="class:nav-xs, show"><i class="fa fa-bars"></i></a></div>
 </section>
 <div class="row">
     <div class="col-sm-6">
         <div class="panel b-a">
             <div class="row m-n">
-                <div class="col-md-6 b-b b-r"><a href="#" class="block padder-v hover"> <span
-                        class="i-s i-s-2x pull-left m-r-sm"> <i
-                        class="i i-hexagon2 i-s-base text-danger hover-rotate"></i> <i
-                        class="i i-users2 i-1x text-white"></i> </span> <span
-                        class="clear"> <span class="h3 block m-t-xs text-danger">{{stats.total_reviews}}</span> <small
-                        class="text-muted text-u-c">Total Reviews
+                <div class="col-md-6 b-b b-r"><a href="#" class="block padder-v hover"> <span class="i-s i-s-2x pull-left m-r-sm"> <i class="i i-hexagon2 i-s-base text-danger hover-rotate"></i> <i class="i i-users2 i-1x text-white"></i> </span> <span class="clear"> <span class="h3 block m-t-xs text-danger ng-binding">1</span> <small class="text-muted text-u-c">Total Reviews
                 </small> </span> </a></div>
-                <div class="col-md-6 b-b"><a href="#" class="block padder-v hover"> <span
-                        class="i-s i-s-2x pull-left m-r-sm"> <i
-                        class="i i-hexagon2 i-s-base text-success-lt hover-rotate"></i> <i
-                        class="i i-plus2 i-sm text-white"></i> </span> <span
-                        class="clear"> <span class="h3 block m-t-xs text-success">{{stats.current_rating}}</span> <small
-                        class="text-muted text-u-c">Ireview Ranking
+                <div class="col-md-6 b-b"><a href="#" class="block padder-v hover"> <span class="i-s i-s-2x pull-left m-r-sm"> <i class="i i-hexagon2 i-s-base text-success-lt hover-rotate"></i> <i class="i i-plus2 i-sm text-white"></i> </span> <span class="clear"> <span class="h3 block m-t-xs text-success ng-binding">1</span> <small class="text-muted text-u-c">Ireview Ranking
                 </small> </span> </a></div>
-                <div class="col-md-6 b-b b-r"><a href="#" class="block padder-v hover"> <span
-                        class="i-s i-s-2x pull-left m-r-sm"> <i
-                        class="i i-hexagon2 i-s-base text-info hover-rotate"></i> <i
-                        class="i i-location i-sm text-white"></i> </span> <span
-                        class="clear"> <span class="h3 block m-t-xs text-info">25 <span
-                        class="text-sm">m</span></span> <small class="text-muted text-u-c">
+                <div class="col-md-6 b-b b-r"><a href="#" class="block padder-v hover"> <span class="i-s i-s-2x pull-left m-r-sm"> <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i> <i class="i i-location i-sm text-white"></i> </span> <span class="clear"> <span class="h3 block m-t-xs text-info">25 <span class="text-sm">m</span></span> <small class="text-muted text-u-c">
                     location
                 </small> </span> </a></div>
-                <div class="col-md-6 b-b"><a href="#" class="block padder-v hover"> <span
-                        class="i-s i-s-2x pull-left m-r-sm"> <i
-                        class="i i-hexagon2 i-s-base text-primary hover-rotate"></i> <i
-                        class="i i-alarm i-sm text-white"></i> </span> <span
-                        class="clear"> <span class="h3 block m-t-xs text-primary">{{stats.current_percentile | number :2}}</span> <small
-                        class="text-muted text-u-c">Current Rating
+                <div class="col-md-6 b-b"><a href="#" class="block padder-v hover"> <span class="i-s i-s-2x pull-left m-r-sm"> <i class="i i-hexagon2 i-s-base text-primary hover-rotate"></i> <i class="i i-alarm i-sm text-white"></i> </span> <span class="clear"> <span class="h3 block m-t-xs text-primary ng-binding">100.00</span> <small class="text-muted text-u-c">Current Rating
                 </small> </span> </a></div>
-                <div class="col-md-6 b-b b-r"><a href="#" class="block padder-v hover"> <span
-                        class="i-s i-s-2x pull-left m-r-sm"> <i
-                        class="i i-hexagon2 i-s-base text-success-lter hover-rotate"></i> <i
-                        class="fa fa-arrow-circle-up text-white"></i> </span> <span
-                        class="clear"> <span
-                        class="h3 block m-t-xs text-info">{{stats.max_percentile | number : 2}}% <span
-                        class="text-sm">m</span></span> <small class="text-muted text-u-c">
+                <div class="col-md-6 b-b b-r"><a href="#" class="block padder-v hover"> <span class="i-s i-s-2x pull-left m-r-sm"> <i class="i i-hexagon2 i-s-base text-success-lter hover-rotate"></i> <i class="fa fa-arrow-circle-up text-white"></i> </span> <span class="clear"> <span class="h3 block m-t-xs text-info ng-binding">100.00% <span class="text-sm">m</span></span> <small class="text-muted text-u-c">
                     Maximum Rating
                 </small> </span> </a></div>
-                <div class="col-md-6 b-b"><a href="#" class="block padder-v hover"> <span
-                        class="i-s i-s-2x pull-left m-r-sm"> <i
-                        class="i i-hexagon2 i-s-base text-danger-lter hover-rotate"></i> <i
-                        class=" fa fa-arrow-circle-down text-white"></i> </span> <span
-                        class="clear"> <span
-                        class="h3 block m-t-xs text-primary">{{stats.min_percentile | number : 2}}%</span> <small
-                        class="text-muted text-u-c">Minimum Rating
+                <div class="col-md-6 b-b"><a href="#" class="block padder-v hover"> <span class="i-s i-s-2x pull-left m-r-sm"> <i class="i i-hexagon2 i-s-base text-danger-lter hover-rotate"></i> <i class=" fa fa-arrow-circle-down text-white"></i> </span> <span class="clear"> <span class="h3 block m-t-xs text-primary ng-binding">100.00%</span> <small class="text-muted text-u-c">Minimum Rating
                 </small> </span> </a></div>
             </div>
         </div>
@@ -85,42 +42,52 @@
         <section class="panel panel-default">
 
             <div class="list-group no-radius alt">
-                <a class="list-group-item" href="#">
+                <a class="list-group-item ng-binding" href="#">
                     <span class="badge bg-success"></span>
                     <i class="fa fa-phone icon-muted"></i>
-                    Phone : {{restaurant.phone}}
+                    Phone :
                 </a>
-                <a class="list-group-item" href="#">
+                <a class="list-group-item ng-binding" href="#">
                     <span class="badge bg-info"></span>
                     <i class="fa fa-envelope icon-muted"></i>
-                    Email : {{restaurant.email}}
+                    Email :
                 </a>
-                <a class="list-group-item" href="#" >
+                <a class="list-group-item" href="#">
                     <span class="badge bg-money"></span>
                     <i class="fa fa-eye icon-muted"></i>
-                    Price Range :<span class="text-primary-dk"><rating ng-model="restaurant.price_range" state-on="'glyphicon-usd'" state-off="'blank'" readonly="true"></rating></span>
+                    Price Range :<span class="text-primary-dk"><span ng-mouseleave="reset()" ng-keydown="onKeydown($event)" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="5" aria-valuenow="" ng-model="restaurant.price_range" state-on="'glyphicon-usd'" state-off="'blank'" readonly="readonly" class="ng-isolate-scope ng-pristine ng-valid">
+    <!-- ngRepeat: r in range track by $index --><i ng-repeat="r in range track by $index" ng-mouseenter="enter($index + 1)" ng-click="rate($index + 1)" class="glyphicon ng-scope blank" ng-class="$index < value &amp;&amp; (r.stateOn || 'glyphicon-star') || (r.stateOff || 'glyphicon-star-empty')">
+                    <span class="sr-only ng-binding">( )</span>
+                </i><!-- end ngRepeat: r in range track by $index --><i ng-repeat="r in range track by $index" ng-mouseenter="enter($index + 1)" ng-click="rate($index + 1)" class="glyphicon ng-scope blank" ng-class="$index < value &amp;&amp; (r.stateOn || 'glyphicon-star') || (r.stateOff || 'glyphicon-star-empty')">
+                    <span class="sr-only ng-binding">( )</span>
+                </i><!-- end ngRepeat: r in range track by $index --><i ng-repeat="r in range track by $index" ng-mouseenter="enter($index + 1)" ng-click="rate($index + 1)" class="glyphicon ng-scope blank" ng-class="$index < value &amp;&amp; (r.stateOn || 'glyphicon-star') || (r.stateOff || 'glyphicon-star-empty')">
+                    <span class="sr-only ng-binding">( )</span>
+                </i><!-- end ngRepeat: r in range track by $index --><i ng-repeat="r in range track by $index" ng-mouseenter="enter($index + 1)" ng-click="rate($index + 1)" class="glyphicon ng-scope blank" ng-class="$index < value &amp;&amp; (r.stateOn || 'glyphicon-star') || (r.stateOff || 'glyphicon-star-empty')">
+                    <span class="sr-only ng-binding">( )</span>
+                </i><!-- end ngRepeat: r in range track by $index --><i ng-repeat="r in range track by $index" ng-mouseenter="enter($index + 1)" ng-click="rate($index + 1)" class="glyphicon ng-scope blank" ng-class="$index < value &amp;&amp; (r.stateOn || 'glyphicon-star') || (r.stateOff || 'glyphicon-star-empty')">
+                    <span class="sr-only ng-binding">( )</span>
+                </i><!-- end ngRepeat: r in range track by $index -->
+</span></span>
                 </a>
             </div>
         </section>
         <section class="panel panel-info">
             <div class="panel-body">
                 <div class="clear">
-                    <a href="#" class="btn btn-xs btn-success m-t-xs">{{restaurant.category}}</a>
+                    <a href="#" class="btn btn-xs btn-success m-t-xs ng-binding"></a>
                 </div>
             </div>
         </section>
     </div>
 
 </div>
-<div class="row bg-light dk m-b" ng-controller="graphCtrl">
+<div class="row bg-light dk m-b ng-scope" ng-controller="graphCtrl">
     <div class="col-md-7 col-sm-12 dker">
         <section>
             <header class="font-bold padder-v">
                 <div class="pull-right">
                     <div class="btn-group">
-                        <button data-toggle="dropdown"
-                                class="btn btn-sm btn-rounded btn-default dropdown-toggle"><span
-                                class="dropdown-label">Week</span> <span class="caret"></span>
+                        <button data-toggle="dropdown" class="btn btn-sm btn-rounded btn-default dropdown-toggle"><span class="dropdown-label">Week</span> <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-select">
                             <li><a href="#">
@@ -140,7 +107,7 @@
             <div class="panel-body">
                 <!--<div id="flot-sp1ine" style="height:210px"></div> -->
 
-                <flot dataset="flotDataset" options="flotOptions" height="212px"></flot>
+                <flot dataset="flotDataset" options="flotOptions" height="212px" class="ng-isolate-scope"><div style="width: 100%; height: 212px; padding: 0px; position: relative;"><canvas class="flot-base" width="553" height="212" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 553px; height: 212px;"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"></div></div><canvas class="flot-overlay" width="553" height="212" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 553px; height: 212px;"></canvas></div></flot>
             </div>
             <div class="row text-center no-gutter">
                 <div class="col-xs-3"><span class="h4 font-bold m-t block">2,000</span>
@@ -162,10 +129,7 @@
         <section>
             <header class="font-bold padder-v">
                 <div class="btn-group pull-right">
-                    <button data-toggle="dropdown"
-                            class="btn btn-sm btn-rounded btn-default dropdown-toggle"><span
-                            class="dropdown-label">Last 24 Hours</span> <span
-                            class="caret"></span></button>
+                    <button data-toggle="dropdown" class="btn btn-sm btn-rounded btn-default dropdown-toggle"><span class="dropdown-label">Last 24 Hours</span> <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-select">
                         <li><a href="#">
                             <input type="radio" name="a">
@@ -194,38 +158,58 @@
             </header>
         </section>
         <div class="panel-body flot-legend">
-            <flot dataset="donutDataset" options="donutOptions" height="280px"></flot>
+            <flot dataset="donutDataset" options="donutOptions" height="280px" class="ng-isolate-scope"><div style="width: 100%; height: 280px; padding: 0px; position: relative;"><canvas class="flot-base" width="378" height="280" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 378px; height: 280px;"></canvas><canvas class="flot-overlay" width="378" height="280" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 378px; height: 280px;"></canvas><div class="legend"><div style="position: absolute; width: 86px; height: 88px; top: 5px; right: 5px; opacity: 0.85; background-color: rgb(255, 255, 255);"> </div><table style="position:absolute;top:5px;right:5px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(101,181,194);overflow:hidden"></div></div></td><td class="legendLabel">Tripadvisor</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(77,167,193);overflow:hidden"></div></div></td><td class="legendLabel">Eatability</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(57,147,187);overflow:hidden"></div></div></td><td class="legendLabel">Urbanspoon</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(46,123,173);overflow:hidden"></div></div></td><td class="legendLabel">Yelp</td></tr></tbody></table></div><span class="pieLabel" id="pieLabel0" style="position: absolute; top: 119px; left: 232px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(101,181,194);">Tripadvisor<br>49%</div></span><span class="pieLabel" id="pieLabel1" style="position: absolute; top: 232px; left: 88.5px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(77,167,193);">Eatability<br>12%</div></span><span class="pieLabel" id="pieLabel2" style="position: absolute; top: 136px; left: 2px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(57,147,187);">Urbanspoon<br>24%</div></span><span class="pieLabel" id="pieLabel3" style="position: absolute; top: 21px; left: 83px;"><div style="font-size:x-small;text-align:center;padding:2px;color:rgb(46,123,173);">Yelp<br>15%</div></span></div></flot>
         </div>
     </div>
 </div>
 
-</div>
+
 <div class="row">
 
-    <div class="col-lg-6" ng-include="reviewBox" ng-controller="reviewCtrl">
-    </div>
+    <!-- ngInclude: reviewBox --><div class="col-lg-6 ng-scope" ng-include="reviewBox" ng-controller="reviewCtrl"><section class="panel panel-default ng-scope">
+    <header class="panel-heading">Reviews</header>
+    <section class="chat-list panel-body">
+        <!-- ngRepeat: review in reviews -->
+    </section>
+    <footer class="panel-footer">
+        <!-- chat form -->
+        <article class="chat-item">
+            <a class="pull-left thumb-sm avatar"><img src="images/a2.png" class="img-circle"></a>
+            <section class="chat-body">
+                <form action="" class="m-b-none ng-pristine ng-valid">
+                    <div class="input-group">
+                        <input type="text" ng-model="reviewForm.comment" class="form-control ng-pristine ng-valid" placeholder="Write your review">
+                              <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" ng-click="addNewReview()">POST</button>
+                              </span>
+                    </div>
+                </form>
+            </section>
+        </article>
+    </footer>
+</section></div>
     <div class="col-lg-6">
         <section class="panel panel-default">
             <header class="panel-heading">Photos</header>
             <section class="chat-list panel-body">
                 <!--<section class="row m-l-none m-r-none m-b text-center box-shadow"> -->
                 <div class="col-xs-4 no-padding">
-                    <img src="images/r1.jpg" style="width: 100%;padding:0px 2px;min-height: 124px;"/>
+                    <img src="images/r1.jpg" style="width: 100%;padding:0px 2px;min-height: 124px;">
                 </div>
                 <div class="col-xs-4 no-padding">
-                    <img src="images/r2.jpeg" style="width:100%;padding:0px 2px;min-height: 124px;"/>
+                    <img src="images/r2.jpeg" style="width:100%;padding:0px 2px;min-height: 124px;">
                 </div>
                 <div class="col-xs-4 no-padding">
-                    <img src="images/r3.jpg" style="width:100%;padding:0px 2px;min-height: 124px;"/>
+                    <img src="images/r3.jpg" style="width:100%;padding:0px 2px;min-height: 124px;">
                 </div>
             </section>
         </section>
     </div>
-    <div class="col-sm-12"  ng-controller="graphCtrl">
+    <div class="col-sm-12 ng-scope" ng-controller="graphCtrl">
         <section class="panel panel-default">
             <header class="panel-heading">This will be shown in Restaurant owner view</header>
             <section class="chat-list panel-body">
-                <highchart id="chart1" config="chartConfig" class="col-sm-11"></highchart>
+                <div id="chart1" config="chartConfig" class="col-sm-11 ng-isolate-scope" data-highcharts-chart="0"><div class="highcharts-container" id="highcharts-0" style="position: relative; overflow: hidden; width: 877px; height: 400px; text-align: left; line-height: normal; z-index: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><svg version="1.1" style="font-family:&quot;Lucida Grande&quot;, &quot;Lucida Sans Unicode&quot;, Arial, Helvetica, sans-serif;font-size:12px;" xmlns="http://www.w3.org/2000/svg" width="877" height="400"><desc>Created with Highcharts 4.0.4</desc><defs><clipPath id="highcharts-1"><rect x="0" y="0" width="812" height="269"></rect></clipPath></defs><rect x="0" y="0" width="877" height="400" strokeWidth="0" fill="#FFFFFF" class=" highcharts-background"></rect><g class="highcharts-grid" zIndex="1"></g><g class="highcharts-grid" zIndex="1"><path fill="none" d="M 55 58.5 L 867 58.5" stroke="#C0C0C0" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 55 104.5 L 867 104.5" stroke="#C0C0C0" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 55 149.5 L 867 149.5" stroke="#C0C0C0" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 55 194.5 L 867 194.5" stroke="#C0C0C0" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 55 238.5 L 867 238.5" stroke="#C0C0C0" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 55 283.5 L 867 283.5" stroke="#C0C0C0" stroke-width="1" zIndex="1" opacity="1"></path><path fill="none" d="M 55 328.5 L 867 328.5" stroke="#C0C0C0" stroke-width="1" zIndex="1" opacity="1"></path></g><g class="highcharts-axis" zIndex="2"><path fill="none" d="M 696.5 328 L 696.5 338" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 259.5 328 L 259.5 338" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 369.5 328 L 369.5 338" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 476.5 328 L 476.5 338" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 586.5 328 L 586.5 338" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 803.5 328 L 803.5 338" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 152.5 328 L 152.5 338" stroke="#C0D0E0" stroke-width="1" opacity="1"></path><path fill="none" d="M 55 328.5 L 867 328.5" stroke="#C0D0E0" stroke-width="1" zIndex="7" visibility="visible"></path></g><g class="highcharts-axis" zIndex="2"><text x="23.875" zIndex="7" text-anchor="middle" transform="translate(0,0) rotate(270 23.875 193.5)" class=" highcharts-yaxis-title" style="color:#707070;fill:#707070;" visibility="visible" y="193.5">Ranking</text></g><g class="highcharts-series-group" zIndex="3"><g class="highcharts-series" visibility="visible" zIndex="0.1" transform="translate(55,59) scale(1 1)" clip-path="url(#highcharts-1)"></g><g class="highcharts-markers highcharts-tracker" visibility="visible" zIndex="0.1" transform="translate(55,59) scale(1 1)" clip-path="none" style=""><path fill="#4da7c1" d="M 804 85.66666666666666 C 809.328 85.66666666666666 809.328 93.66666666666666 804 93.66666666666666 C 798.672 93.66666666666666 798.672 85.66666666666666 804 85.66666666666666 Z"></path><path fill="#4da7c1" d="M 718 85.66666666666666 C 723.328 85.66666666666666 723.328 93.66666666666666 718 93.66666666666666 C 712.672 93.66666666666666 712.672 85.66666666666666 718 85.66666666666666 Z"></path><path fill="#4da7c1" d="M 718 40.833333333333314 C 723.328 40.833333333333314 723.328 48.833333333333314 718 48.833333333333314 C 712.672 48.833333333333314 712.672 40.833333333333314 718 40.833333333333314 Z"></path><path fill="#4da7c1" d="M 711 40.833333333333314 C 716.328 40.833333333333314 716.328 48.833333333333314 711 48.833333333333314 C 705.672 48.833333333333314 705.672 40.833333333333314 711 40.833333333333314 Z"></path><path fill="#4da7c1" d="M 708 40.833333333333314 C 713.328 40.833333333333314 713.328 48.833333333333314 708 48.833333333333314 C 702.672 48.833333333333314 702.672 40.833333333333314 708 40.833333333333314 Z"></path><path fill="#4da7c1" d="M 701 85.66666666666666 C 706.328 85.66666666666666 706.328 93.66666666666666 701 93.66666666666666 C 695.672 93.66666666666666 695.672 85.66666666666666 701 85.66666666666666 Z"></path><path fill="#4da7c1" d="M 644 40.833333333333314 C 649.328 40.833333333333314 649.328 48.833333333333314 644 48.833333333333314 C 638.672 48.833333333333314 638.672 40.833333333333314 644 40.833333333333314 Z"></path><path fill="#4da7c1" d="M 644 40.833333333333314 C 649.328 40.833333333333314 649.328 48.833333333333314 644 48.833333333333314 C 638.672 48.833333333333314 638.672 40.833333333333314 644 40.833333333333314 Z"></path><path fill="#4da7c1" d="M 473 40.833333333333314 C 478.328 40.833333333333314 478.328 48.833333333333314 473 48.833333333333314 C 467.672 48.833333333333314 467.672 40.833333333333314 473 40.833333333333314 Z"></path><path fill="#4da7c1" d="M 381 40.833333333333314 C 386.328 40.833333333333314 386.328 48.833333333333314 381 48.833333333333314 C 375.672 48.833333333333314 375.672 40.833333333333314 381 40.833333333333314 Z"></path><path fill="#4da7c1" d="M 367 40.833333333333314 C 372.328 40.833333333333314 372.328 48.833333333333314 367 48.833333333333314 C 361.672 48.833333333333314 361.672 40.833333333333314 367 40.833333333333314 Z"></path><path fill="#4da7c1" d="M 367 85.66666666666666 C 372.328 85.66666666666666 372.328 93.66666666666666 367 93.66666666666666 C 361.672 93.66666666666666 361.672 85.66666666666666 367 85.66666666666666 Z"></path><path fill="#4da7c1" d="M 331 130.5 C 336.328 130.5 336.328 138.5 331 138.5 C 325.672 138.5 325.672 130.5 331 130.5 Z"></path><path fill="#4da7c1" d="M 299 40.833333333333314 C 304.328 40.833333333333314 304.328 48.833333333333314 299 48.833333333333314 C 293.672 48.833333333333314 293.672 40.833333333333314 299 40.833333333333314 Z"></path><path fill="#4da7c1" d="M 292 175.33333333333331 C 297.328 175.33333333333331 297.328 183.33333333333331 292 183.33333333333331 C 286.672 183.33333333333331 286.672 175.33333333333331 292 175.33333333333331 Z"></path><path fill="#4da7c1" d="M 228 130.5 C 233.328 130.5 233.328 138.5 228 138.5 C 222.672 138.5 222.672 130.5 228 130.5 Z"></path><path fill="#4da7c1" d="M 228 40.833333333333314 C 233.328 40.833333333333314 233.328 48.833333333333314 228 48.833333333333314 C 222.672 48.833333333333314 222.672 40.833333333333314 228 40.833333333333314 Z"></path><path fill="#4da7c1" d="M 175 40.833333333333314 C 180.328 40.833333333333314 180.328 48.833333333333314 175 48.833333333333314 C 169.672 48.833333333333314 169.672 40.833333333333314 175 40.833333333333314 Z"></path><path fill="#4da7c1" d="M 111 85.66666666666666 C 116.328 85.66666666666666 116.328 93.66666666666666 111 93.66666666666666 C 105.672 93.66666666666666 105.672 85.66666666666666 111 85.66666666666666 Z"></path><path fill="#4da7c1" d="M 100 175.33333333333331 C 105.328 175.33333333333331 105.328 183.33333333333331 100 183.33333333333331 C 94.672 183.33333333333331 94.672 175.33333333333331 100 175.33333333333331 Z"></path><path fill="#4da7c1" d="M 64 85.66666666666666 C 69.328 85.66666666666666 69.328 93.66666666666666 64 93.66666666666666 C 58.672 93.66666666666666 58.672 85.66666666666666 64 85.66666666666666 Z"></path><path fill="#4da7c1" d="M 25 85.66666666666666 C 30.328 85.66666666666666 30.328 93.66666666666666 25 93.66666666666666 C 19.672 93.66666666666666 19.672 85.66666666666666 25 85.66666666666666 Z"></path><path fill="#4da7c1" d="M 7 85.66666666666666 C 12.328 85.66666666666666 12.328 93.66666666666666 7 93.66666666666666 C 1.672 93.66666666666666 1.672 85.66666666666666 7 85.66666666666666 Z"></path></g><g class="highcharts-series" visibility="visible" zIndex="0.1" transform="translate(55,59) scale(1 1)" clip-path="url(#highcharts-1)"></g><g class="highcharts-markers highcharts-tracker" visibility="visible" zIndex="0.1" transform="translate(55,59) scale(1 1)" clip-path="none" style=""><path fill="#3993bb" d="M 804 175.33333333333331 L 808 179.33333333333331 804 183.33333333333331 800 179.33333333333331 Z"></path><path fill="#3993bb" d="M 733 130.5 L 737 134.5 733 138.5 729 134.5 Z"></path><path fill="#3993bb" d="M 718 40.833333333333314 L 722 44.833333333333314 718 48.833333333333314 714 44.833333333333314 Z"></path><path fill="#3993bb" d="M 718 175.33333333333331 L 722 179.33333333333331 718 183.33333333333331 714 179.33333333333331 Z"></path><path fill="#3993bb" d="M 711 130.5 L 715 134.5 711 138.5 707 134.5 Z"></path><path fill="#3993bb" d="M 708 85.66666666666666 L 712 89.66666666666666 708 93.66666666666666 704 89.66666666666666 Z"></path><path fill="#3993bb" d="M 644 40.833333333333314 L 648 44.833333333333314 644 48.833333333333314 640 44.833333333333314 Z"></path><path fill="#3993bb" d="M 644 85.66666666666666 L 648 89.66666666666666 644 93.66666666666666 640 89.66666666666666 Z"></path><path fill="#3993bb" d="M 626 85.66666666666666 L 630 89.66666666666666 626 93.66666666666666 622 89.66666666666666 Z"></path><path fill="#3993bb" d="M 544 130.5 L 548 134.5 544 138.5 540 134.5 Z"></path><path fill="#3993bb" d="M 526 40.833333333333314 L 530 44.833333333333314 526 48.833333333333314 522 44.833333333333314 Z"></path><path fill="#3993bb" d="M 480 85.66666666666666 L 484 89.66666666666666 480 93.66666666666666 476 89.66666666666666 Z"></path><path fill="#3993bb" d="M 473 175.33333333333331 L 477 179.33333333333331 473 183.33333333333331 469 179.33333333333331 Z"></path><path fill="#3993bb" d="M 470 85.66666666666666 L 474 89.66666666666666 470 93.66666666666666 466 89.66666666666666 Z"></path><path fill="#3993bb" d="M 445 220.16666666666666 L 449 224.16666666666666 445 228.16666666666666 441 224.16666666666666 Z"></path><path fill="#3993bb" d="M 445 85.66666666666666 L 449 89.66666666666666 445 93.66666666666666 441 89.66666666666666 Z"></path><path fill="#3993bb" d="M 367 130.5 L 371 134.5 367 138.5 363 134.5 Z"></path><path fill="#3993bb" d="M 367 40.833333333333314 L 371 44.833333333333314 367 48.833333333333314 363 44.833333333333314 Z"></path><path fill="#3993bb" d="M 331 85.66666666666666 L 335 89.66666666666666 331 93.66666666666666 327 89.66666666666666 Z"></path><path fill="#3993bb" d="M 299 40.833333333333314 L 303 44.833333333333314 299 48.833333333333314 295 44.833333333333314 Z"></path><path fill="#3993bb" d="M 292 175.33333333333331 L 296 179.33333333333331 292 183.33333333333331 288 179.33333333333331 Z"></path><path fill="#3993bb" d="M 228 40.833333333333314 L 232 44.833333333333314 228 48.833333333333314 224 44.833333333333314 Z"></path><path fill="#3993bb" d="M 228 220.16666666666666 L 232 224.16666666666666 228 228.16666666666666 224 224.16666666666666 Z"></path><path fill="#3993bb" d="M 175 175.33333333333331 L 179 179.33333333333331 175 183.33333333333331 171 179.33333333333331 Z"></path><path fill="#3993bb" d="M 111 130.5 L 115 134.5 111 138.5 107 134.5 Z"></path><path fill="#3993bb" d="M 100 85.66666666666666 L 104 89.66666666666666 100 93.66666666666666 96 89.66666666666666 Z"></path><path fill="#3993bb" d="M 64 220.16666666666666 L 68 224.16666666666666 64 228.16666666666666 60 224.16666666666666 Z"></path><path fill="#3993bb" d="M 25 40.833333333333314 L 29 44.833333333333314 25 48.833333333333314 21 44.833333333333314 Z"></path><path fill="#3993bb" d="M 7 175.33333333333331 L 11 179.33333333333331 7 183.33333333333331 3 179.33333333333331 Z"></path></g><g class="highcharts-series" visibility="visible" zIndex="0.1" transform="translate(55,59) scale(1 1)" clip-path="url(#highcharts-1)"></g><g class="highcharts-markers highcharts-tracker" visibility="visible" zIndex="0.1" transform="translate(55,59) scale(1 1)" clip-path="none" style=""><path fill="#65b5c2" d="M 800 130.5 L 808 130.5 808 138.5 800 138.5 Z"></path><path fill="#65b5c2" d="M 729 175.33333333333331 L 737 175.33333333333331 737 183.33333333333331 729 183.33333333333331 Z"></path><path fill="#65b5c2" d="M 714 85.66666666666666 L 722 85.66666666666666 722 93.66666666666666 714 93.66666666666666 Z"></path><path fill="#65b5c2" d="M 714 40.833333333333314 L 722 40.833333333333314 722 48.833333333333314 714 48.833333333333314 Z"></path><path fill="#65b5c2" d="M 704 175.33333333333331 L 712 175.33333333333331 712 183.33333333333331 704 183.33333333333331 Z"></path><path fill="#65b5c2" d="M 640 85.66666666666666 L 648 85.66666666666666 648 93.66666666666666 640 93.66666666666666 Z"></path><path fill="#65b5c2" d="M 640 220.16666666666666 L 648 220.16666666666666 648 228.16666666666666 640 228.16666666666666 Z"></path><path fill="#65b5c2" d="M 622 40.833333333333314 L 630 40.833333333333314 630 48.833333333333314 622 48.833333333333314 Z"></path><path fill="#65b5c2" d="M 540 175.33333333333331 L 548 175.33333333333331 548 183.33333333333331 540 183.33333333333331 Z"></path><path fill="#65b5c2" d="M 522 40.833333333333314 L 530 40.833333333333314 530 48.833333333333314 522 48.833333333333314 Z"></path><path fill="#65b5c2" d="M 476 220.16666666666666 L 484 220.16666666666666 484 228.16666666666666 476 228.16666666666666 Z"></path><path fill="#65b5c2" d="M 469 130.5 L 477 130.5 477 138.5 469 138.5 Z"></path><path fill="#65b5c2" d="M 466 130.5 L 474 130.5 474 138.5 466 138.5 Z"></path><path fill="#65b5c2" d="M 441 130.5 L 449 130.5 449 138.5 441 138.5 Z"></path><path fill="#65b5c2" d="M 441 40.833333333333314 L 449 40.833333333333314 449 48.833333333333314 441 48.833333333333314 Z"></path><path fill="#65b5c2" d="M 363 40.833333333333314 L 371 40.833333333333314 371 48.833333333333314 363 48.833333333333314 Z"></path><path fill="#65b5c2" d="M 363 85.66666666666666 L 371 85.66666666666666 371 93.66666666666666 363 93.66666666666666 Z"></path><path fill="#65b5c2" d="M 327 175.33333333333331 L 335 175.33333333333331 335 183.33333333333331 327 183.33333333333331 Z"></path><path fill="#65b5c2" d="M 295 130.5 L 303 130.5 303 138.5 295 138.5 Z"></path><path fill="#65b5c2" d="M 288 220.16666666666666 L 296 220.16666666666666 296 228.16666666666666 288 228.16666666666666 Z"></path><path fill="#65b5c2" d="M 96 130.5 L 104 130.5 104 138.5 96 138.5 Z"></path><path fill="#65b5c2" d="M 60 220.16666666666666 L 68 220.16666666666666 68 228.16666666666666 60 228.16666666666666 Z"></path><path fill="#65b5c2" d="M 21 175.33333333333331 L 29 175.33333333333331 29 183.33333333333331 21 183.33333333333331 Z"></path><path fill="#65b5c2" d="M 3 130.5 L 11 130.5 11 138.5 3 138.5 Z"></path></g><g class="highcharts-series" visibility="visible" zIndex="0.1" transform="translate(55,59) scale(1 1)" clip-path="url(#highcharts-1)"></g><g class="highcharts-markers highcharts-tracker" visibility="visible" zIndex="0.1" transform="translate(55,59) scale(1 1)" clip-path="none" style=""><path fill="#23649e" d="M 804 85.66666666666666 L 808 93.66666666666666 800 93.66666666666666 Z"></path><path fill="#23649e" d="M 733 130.5 L 737 138.5 729 138.5 Z"></path><path fill="#23649e" d="M 718 175.33333333333331 L 722 183.33333333333331 714 183.33333333333331 Z"></path><path fill="#23649e" d="M 711 85.66666666666666 L 715 93.66666666666666 707 93.66666666666666 Z"></path><path fill="#23649e" d="M 708 220.16666666666666 L 712 228.16666666666666 704 228.16666666666666 Z"></path><path fill="#23649e" d="M 644 85.66666666666666 L 648 93.66666666666666 640 93.66666666666666 Z"></path><path fill="#23649e" d="M 644 175.33333333333331 L 648 183.33333333333331 640 183.33333333333331 Z"></path><path fill="#23649e" d="M 626 130.5 L 630 138.5 622 138.5 Z"></path><path fill="#23649e" d="M 544 40.833333333333314 L 548 48.833333333333314 540 48.833333333333314 Z"></path><path fill="#23649e" d="M 526 130.5 L 530 138.5 522 138.5 Z"></path><path fill="#23649e" d="M 480 85.66666666666666 L 484 93.66666666666666 476 93.66666666666666 Z"></path><path fill="#23649e" d="M 473 85.66666666666666 L 477 93.66666666666666 469 93.66666666666666 Z"></path><path fill="#23649e" d="M 470 130.5 L 474 138.5 466 138.5 Z"></path><path fill="#23649e" d="M 445 130.5 L 449 138.5 441 138.5 Z"></path><path fill="#23649e" d="M 445 130.5 L 449 138.5 441 138.5 Z"></path><path fill="#23649e" d="M 381 130.5 L 385 138.5 377 138.5 Z"></path><path fill="#23649e" d="M 367 175.33333333333331 L 371 183.33333333333331 363 183.33333333333331 Z"></path><path fill="#23649e" d="M 367 130.5 L 371 138.5 363 138.5 Z"></path><path fill="#23649e" d="M 338 220.16666666666666 L 342 228.16666666666666 334 228.16666666666666 Z"></path><path fill="#23649e" d="M 331 85.66666666666666 L 335 93.66666666666666 327 93.66666666666666 Z"></path><path fill="#23649e" d="M 299 175.33333333333331 L 303 183.33333333333331 295 183.33333333333331 Z"></path><path fill="#23649e" d="M 292 175.33333333333331 L 296 183.33333333333331 288 183.33333333333331 Z"></path><path fill="#23649e" d="M 228 130.5 L 232 138.5 224 138.5 Z"></path><path fill="#23649e" d="M 175 85.66666666666666 L 179 93.66666666666666 171 93.66666666666666 Z"></path><path fill="#23649e" d="M 111 40.833333333333314 L 115 48.833333333333314 107 48.833333333333314 Z"></path><path fill="#23649e" d="M 100 220.16666666666666 L 104 228.16666666666666 96 228.16666666666666 Z"></path><path fill="#23649e" d="M 64 175.33333333333331 L 68 183.33333333333331 60 183.33333333333331 Z"></path><path fill="#23649e" d="M 50 130.5 L 54 138.5 46 138.5 Z"></path><path fill="#23649e" d="M 25 175.33333333333331 L 29 183.33333333333331 21 183.33333333333331 Z"></path><path fill="#23649e" d="M 7 130.5 L 11 138.5 3 138.5 Z"></path></g><g class="highcharts-series" visibility="visible" zIndex="0.1" transform="translate(55,59) scale(1 1)" clip-path="url(#highcharts-1)"><path fill="none" d="M 7.96078431372549 134.5 L 25.730392156862745 123.29166666666666 L 50.6078431372549 235.375 L 64.82352941176471 179.33333333333331 L 100.36274509803921 156.91666666666666 L 111.02450980392157 134.5 L 175.14317810457516 145.70833333333331 L 228.45200163398692 201.75 L 228.45200163398692 145.70833333333331 L 292.42258986928107 190.54166666666666 L 299.53043300653593 100.875 L 331.515727124183 123.29166666666666 L 338.6235702614379 257.7916666666667 L 367.05494281045753 89.66666666666666 L 367.05494281045753 100.875 L 381.2706290849673 179.33333333333331 L 445.24121732026146 134.5 L 445.24121732026146 190.54166666666666 L 470.1186683006536 156.91666666666666 L 473.67258986928107 112.08333333333331 L 480.780433006536 168.125 L 526.9814133986928 123.29166666666666 L 544.7510212418301 156.91666666666666 L 626.4912173202614 134.5 L 644.2608251633987 134.5 L 644.2608251633987 67.25 L 701.123570261438 224.16666666666666 L 708.2314133986928 134.5 L 711.7853349673203 134.5 L 718.8931781045752 112.08333333333331 L 718.8931781045752 123.29166666666666 L 733.1088643790849 179.33333333333331 L 804.0392156862745 123.29166666666666" stroke="#2e7bad" stroke-width="2" zIndex="1" stroke-linejoin="round" stroke-linecap="round"></path><path fill="none" d="M -2.0392156862745097 134.5 L 7.96078431372549 134.5 L 25.730392156862745 123.29166666666666 L 50.6078431372549 235.375 L 64.82352941176471 179.33333333333331 L 100.36274509803921 156.91666666666666 L 111.02450980392157 134.5 L 175.14317810457516 145.70833333333331 L 228.45200163398692 201.75 L 228.45200163398692 145.70833333333331 L 292.42258986928107 190.54166666666666 L 299.53043300653593 100.875 L 331.515727124183 123.29166666666666 L 338.6235702614379 257.7916666666667 L 367.05494281045753 89.66666666666666 L 367.05494281045753 100.875 L 381.2706290849673 179.33333333333331 L 445.24121732026146 134.5 L 445.24121732026146 190.54166666666666 L 470.1186683006536 156.91666666666666 L 473.67258986928107 112.08333333333331 L 480.780433006536 168.125 L 526.9814133986928 123.29166666666666 L 544.7510212418301 156.91666666666666 L 626.4912173202614 134.5 L 644.2608251633987 134.5 L 644.2608251633987 67.25 L 701.123570261438 224.16666666666666 L 708.2314133986928 134.5 L 711.7853349673203 134.5 L 718.8931781045752 112.08333333333331 L 718.8931781045752 123.29166666666666 L 733.1088643790849 179.33333333333331 L 804.0392156862745 123.29166666666666 L 814.0392156862745 123.29166666666666" stroke-linejoin="round" visibility="visible" stroke="rgba(192,192,192,0.0001)" stroke-width="22" zIndex="2" class=" highcharts-tracker" style=""></path></g><g class="highcharts-markers highcharts-tracker" visibility="visible" zIndex="0.1" transform="translate(55,59) scale(1 1)" clip-path="none" style=""><path fill="#2e7bad" d="M 800 119.29166666666666 L 808 119.29166666666666 804 127.29166666666666 Z"></path><path fill="#2e7bad" d="M 729 175.33333333333331 L 737 175.33333333333331 733 183.33333333333331 Z"></path><path fill="#2e7bad" d="M 714 119.29166666666666 L 722 119.29166666666666 718 127.29166666666666 Z"></path><path fill="#2e7bad" d="M 714 108.08333333333331 L 722 108.08333333333331 718 116.08333333333331 Z"></path><path fill="#2e7bad" d="M 707 130.5 L 715 130.5 711 138.5 Z"></path><path fill="#2e7bad" d="M 704 130.5 L 712 130.5 708 138.5 Z"></path><path fill="#2e7bad" d="M 697 220.16666666666666 L 705 220.16666666666666 701 228.16666666666666 Z"></path><path fill="#2e7bad" d="M 640 63.25 L 648 63.25 644 71.25 Z"></path><path fill="#2e7bad" d="M 640 130.5 L 648 130.5 644 138.5 Z"></path><path fill="#2e7bad" d="M 622 130.5 L 630 130.5 626 138.5 Z"></path><path fill="#2e7bad" d="M 540 152.91666666666666 L 548 152.91666666666666 544 160.91666666666666 Z"></path><path fill="#2e7bad" d="M 522 119.29166666666666 L 530 119.29166666666666 526 127.29166666666666 Z"></path><path fill="#2e7bad" d="M 476 164.125 L 484 164.125 480 172.125 Z"></path><path fill="#2e7bad" d="M 469 108.08333333333331 L 477 108.08333333333331 473 116.08333333333331 Z"></path><path fill="#2e7bad" d="M 466 152.91666666666666 L 474 152.91666666666666 470 160.91666666666666 Z"></path><path fill="#2e7bad" d="M 441 186.54166666666666 L 449 186.54166666666666 445 194.54166666666666 Z"></path><path fill="#2e7bad" d="M 441 130.5 L 449 130.5 445 138.5 Z"></path><path fill="#2e7bad" d="M 377 175.33333333333331 L 385 175.33333333333331 381 183.33333333333331 Z"></path><path fill="#2e7bad" d="M 363 96.875 L 371 96.875 367 104.875 Z"></path><path fill="#2e7bad" d="M 363 85.66666666666666 L 371 85.66666666666666 367 93.66666666666666 Z"></path><path fill="#2e7bad" d="M 334 253.79166666666669 L 342 253.79166666666669 338 261.7916666666667 Z"></path><path fill="#2e7bad" d="M 327 119.29166666666666 L 335 119.29166666666666 331 127.29166666666666 Z"></path><path fill="#2e7bad" d="M 295 96.875 L 303 96.875 299 104.875 Z"></path><path fill="#2e7bad" d="M 288 186.54166666666666 L 296 186.54166666666666 292 194.54166666666666 Z"></path><path fill="#2e7bad" d="M 224 141.70833333333331 L 232 141.70833333333331 228 149.70833333333331 Z"></path><path fill="#2e7bad" d="M 224 197.75 L 232 197.75 228 205.75 Z"></path><path fill="#2e7bad" d="M 171 141.70833333333331 L 179 141.70833333333331 175 149.70833333333331 Z"></path><path fill="#2e7bad" d="M 107 130.5 L 115 130.5 111 138.5 Z"></path><path fill="#2e7bad" d="M 96 152.91666666666666 L 104 152.91666666666666 100 160.91666666666666 Z"></path><path fill="#2e7bad" d="M 60 175.33333333333331 L 68 175.33333333333331 64 183.33333333333331 Z"></path><path fill="#2e7bad" d="M 46 231.375 L 54 231.375 50 239.375 Z"></path><path fill="#2e7bad" d="M 21 119.29166666666666 L 29 119.29166666666666 25 127.29166666666666 Z"></path><path fill="#2e7bad" d="M 3 130.5 L 11 130.5 7 138.5 Z"></path></g></g><text x="439" text-anchor="middle" class="highcharts-title" zIndex="4" style="color:#333333;font-size:18px;fill:#333333;width:813px;" y="25"><tspan>Incorporate scatter plot and moving average</tspan></text><text x="439" text-anchor="middle" class="highcharts-subtitle" zIndex="4" style="color:#555555;fill:#555555;width:813px;" y="45"><tspan>From Mar 06, 2014 to Oct 16, 2014</tspan></text><g class="highcharts-legend" zIndex="7" transform="translate(194,368)"><g zIndex="1"><g><g class="highcharts-legend-item" zIndex="1" transform="translate(8,3)"><path fill="#4da7c1" d="M 8 7 C 13.328 7 13.328 15 8 15 C 2.6719999999999997 15 2.6719999999999997 7 8 7 Z"></path><text x="21" style="color:#333333;font-size:12px;font-weight:bold;cursor:pointer;fill:#333333;" text-anchor="start" zIndex="2" y="15"><tspan>Person 1</tspan></text></g><g class="highcharts-legend-item" zIndex="1" transform="translate(99.703125,3)"><path fill="#3993bb" d="M 8 7 L 12 11 8 15 4 11 Z"></path><text x="21" y="15" style="color:#333333;font-size:12px;font-weight:bold;cursor:pointer;fill:#333333;" text-anchor="start" zIndex="2"><tspan>Person 2</tspan></text></g><g class="highcharts-legend-item" zIndex="1" transform="translate(191.40625,3)"><path fill="#65b5c2" d="M 4 7 L 12 7 12 15 4 15 Z"></path><text x="21" y="15" style="color:#333333;font-size:12px;font-weight:bold;cursor:pointer;fill:#333333;" text-anchor="start" zIndex="2"><tspan>Person 3</tspan></text></g><g class="highcharts-legend-item" zIndex="1" transform="translate(283.109375,3)"><path fill="#23649e" d="M 8 7 L 12 15 4 15 Z"></path><text x="21" y="15" style="color:#333333;font-size:12px;font-weight:bold;cursor:pointer;fill:#333333;" text-anchor="start" zIndex="2"><tspan>Person 4</tspan></text></g><g class="highcharts-legend-item" zIndex="1" transform="translate(374.8125,3)"><path fill="none" d="M 0 11 L 16 11" stroke="#2e7bad" stroke-width="2"></path><path fill="#2e7bad" d="M 4 7 L 12 7 8 15 Z"></path><text x="21" y="15" style="color:#333333;font-size:12px;font-weight:bold;cursor:pointer;fill:#333333;" text-anchor="start" zIndex="2"><tspan>Moving Average</tspan></text></g></g></g></g><g class="highcharts-axis-labels highcharts-xaxis-labels" zIndex="7"><text x="697.187704248366" text-anchor="middle" style="color:#606060;cursor:default;font-size:11px;fill:#606060;" y="348" opacity="1"><tspan>Sep '14</tspan></text><text x="153.437704248366" text-anchor="middle" style="color:#606060;cursor:default;font-size:11px;fill:#606060;" y="348" opacity="1"><tspan>Apr '14</tspan></text><text x="260.05535130718954" text-anchor="middle" style="color:#606060;cursor:default;font-size:11px;fill:#606060;" y="348" opacity="1"><tspan>May '14</tspan></text><text x="370.22691993464053" text-anchor="middle" style="color:#606060;cursor:default;font-size:11px;fill:#606060;" y="348" opacity="1"><tspan>Jun '14</tspan></text><text x="476.84456699346407" text-anchor="middle" style="color:#606060;cursor:default;font-size:11px;fill:#606060;" y="348" opacity="1"><tspan>Jul '14</tspan></text><text x="587.0161356209151" text-anchor="middle" style="color:#606060;cursor:default;font-size:11px;fill:#606060;" y="348" opacity="1"><tspan>Aug '14</tspan></text><text x="803.8053513071895" text-anchor="middle" style="color:#606060;cursor:default;font-size:11px;fill:#606060;" y="348" opacity="1"><tspan>Oct '14</tspan></text></g><g class="highcharts-axis-labels highcharts-yaxis-labels" zIndex="7"><text x="40" text-anchor="end" style="width:269px;color:#606060;cursor:default;font-size:11px;fill:#606060;" y="334" opacity="1">0</text><text x="40" text-anchor="end" style="width:269px;color:#606060;cursor:default;font-size:11px;fill:#606060;" y="289.1666666666667" opacity="1">1</text><text x="40" text-anchor="end" style="width:269px;color:#606060;cursor:default;font-size:11px;fill:#606060;" y="244.33333333333331" opacity="1">2</text><text x="40" text-anchor="end" style="width:269px;color:#606060;cursor:default;font-size:11px;fill:#606060;" y="199.5" opacity="1">3</text><text x="40" text-anchor="end" style="width:269px;color:#606060;cursor:default;font-size:11px;fill:#606060;" y="154.66666666666666" opacity="1">4</text><text x="40" text-anchor="end" style="width:269px;color:#606060;cursor:default;font-size:11px;fill:#606060;" y="109.83333333333331" opacity="1">5</text><text x="40" text-anchor="end" style="width:269px;color:#606060;cursor:default;font-size:11px;fill:#606060;" y="65" opacity="1">6</text></g><g class="highcharts-tooltip" zIndex="8" style="cursor:default;padding:0;white-space:nowrap;" transform="translate(0,-9999)"><path fill="none" d="M 3 0 L 13 0 C 16 0 16 0 16 3 L 16 13 C 16 16 16 16 13 16 L 3 16 C 0 16 0 16 0 13 L 0 3 C 0 0 0 0 3 0" isShadow="true" stroke="black" stroke-opacity="0.049999999999999996" stroke-width="5" transform="translate(1, 1)"></path><path fill="none" d="M 3 0 L 13 0 C 16 0 16 0 16 3 L 16 13 C 16 16 16 16 13 16 L 3 16 C 0 16 0 16 0 13 L 0 3 C 0 0 0 0 3 0" isShadow="true" stroke="black" stroke-opacity="0.09999999999999999" stroke-width="3" transform="translate(1, 1)"></path><path fill="none" d="M 3 0 L 13 0 C 16 0 16 0 16 3 L 16 13 C 16 16 16 16 13 16 L 3 16 C 0 16 0 16 0 13 L 0 3 C 0 0 0 0 3 0" isShadow="true" stroke="black" stroke-opacity="0.15" stroke-width="1" transform="translate(1, 1)"></path><path fill="rgba(249, 249, 249, .85)" d="M 3 0 L 13 0 C 16 0 16 0 16 3 L 16 13 C 16 16 16 16 13 16 L 3 16 C 0 16 0 16 0 13 L 0 3 C 0 0 0 0 3 0"></path><text x="8" zIndex="1" style="font-size:12px;color:#333333;fill:#333333;" y="21"></text></g><text x="867" text-anchor="end" zIndex="8" style="cursor:pointer;color:#909090;font-size:9px;fill:#909090;" y="395" visibility="visible">Highcharts.com</text></svg></div></div>
             </section>
         </section>
     </div>
@@ -240,199 +224,3 @@
 </section>
 
 </section>
-</section>
-</section>
-
-
-<div ng-include="navigation"></div>
-
-<div class="container-fluid content" style="display:none;">
-<div class="row">
-
-<div class="col-sm-8 right-col">
-<div class="container-fluid top20 detail-section" ng-controller="detailCtrl">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Restaurant Info</h3>
-        </div>
-        <table class="table">
-            <tbody>
-            <tr class="grey-bg">
-                <td>Name:</td>
-                <td>{{restaurant.name}}</td>
-            </tr>
-            <tr class="grey-bg">
-                <td>Category:</td>
-                <td>{{restaurant.category}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-
-<div class="container-fluid top20" ng-repeat="photo in photos">
-    <div class="col-md-3 col-sm-3 col-xs-3">
-        <img class="img-responsive" src="{{photo.url}}">
-    </div>
-</div>
-`
-
-
-<div class="container-fluid">
-    <chart title="Line chart" xData="lineChartXData" yData="lineChartYData" xName="Month" yName="Hit"
-           graphData="graphData"
-           subtitle="Annual Data"></chart>
-
-
-</div>
-
-<div class="container-fluid top20 graph-bottom">
-    <ul class="nav nav-tabs nav-justified">
-        <li class="rating">
-            <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
-                <span>Rating</span>
-            </div>
-            <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
-                <img src="images/signal.png" alt=""> {{stats.current_rating}}
-            </div>
-        </li>
-        <li>
-            <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
-                <span>Best</span>
-            </div>
-            <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
-                {{stats.max_percentile | number : 2}}
-            </div>
-        </li>
-        <li>
-            <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
-                <span>Worst</span>
-            </div>
-            <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
-                {{stats.min_percentile | number : 2}}
-            </div>
-        </li>
-        <li>
-            <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
-                <span>Reviews</span>
-            </div>
-            <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
-                {{stats.total_reviews}}
-            </div>
-        </li>
-        <li class="" ng-class="{true:'trend-green',false:'trend-red'}[stats.current_trend  >= 0]">
-            <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
-                <span>Trend</span>
-            </div>
-            <div class="col-xs-6 col-sm-12 col-md-12 col-lg-12">
-                <img ng-src="{{stats.current_trend >= 0 && 'images/trend-up.png' || 'images/trend-down.png'}}"/>
-
-                {{stats.current_trend | number : 3}}
-            </div>
-        </li>
-    </ul>
-</div>
-
-<div class="container-fluid detail-tabs top20">
-    <div class="nav-custom-justified">
-        <div class="item col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <span class="glyphicon glyphicon-envelope"></span>
-            <a href="" class="">
-                Email
-            </a>
-        </div>
-        <div class="item col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <span class="glyphicon glyphicon-camera"></span>
-            <a href="" class="" ng-click="addNewPhoto()">
-                Add Photo
-            </a>
-        </div>
-        <div class="active item col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <span class="glyphicon glyphicon-pencil"></span>
-            <a href="" class="">
-                Write a Review
-            </a>
-        </div>
-    </div>
-</div>
-
-<div class="container-fluid top20">
-
-
-</div>
-
-<div class="container-fluid top20">
-    <!--<input type="text" ng-model="myModelObj"> -->
-    <input type="file" ng-file-select="onFileSelect($files)">
-    <input type="file" ng-file-select="onFileSelect($files)" multiple accept="image/*">
-
-    <div class="button" ng-file-select="onFileSelect($files)" data-multiple="true"></div>
-    <div ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="optional-css-class-name-or-function"
-         ng-show="dropSupported">drop files here
-    </div>
-    <div ng-file-drop-available="dropSupported=true"
-         ng-show="!dropSupported">HTML5 Drop File is not supported!
-    </div>
-    <button ng-click="upload.abort()">Cancel Upload</button>
-</div>
-
-<div class="container-fluid top20 detail-section" ng-show="reviews">
-
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Restaurant Reviews</h3>
-        </div>
-        <ul class="list-group review-list" ng-repeat="review in reviews">
-            <li class="list-group-item grey-bg review-item clearfix">
-                <div class="container-fluid">
-                    <div class="hidden-xs col-sm-2 col-md-2 col-lg-2 thumb">
-                        <img src="images/review.png" alt="">
-                    </div>
-                    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
-                        <h3 class="title">
-                            {{review.special}}
-                            <div class="pull-right" show-rating="" data-value="{{review.rating}}"></div>
-                        </h3>
-
-                        <p readMore> {{review.comment|limitTo: review.textLength || 150 }}
-                            <a ng-click="changeLength(review)"
-                               ng-hide="review.textLength || review.comment.length <= 150" class=""
-                               style="cursor: pointer;text-decoration: none;"><strong> ... Read More</strong></a>
-                        </p>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <pagination total-items="reviewListTotalItems" ng-model="reviewListCurrentPage" max-size="maxSize"
-                class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"
-                ng-change="reviewListPageChanged()" items-per-page="reviewListItemPerPage"></pagination>
-</div>
-
-<div class="container-fluid top20">
-
-    <button class="btn btn-primary btn-lg col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        Report Incorrect Info
-    </button>
-</div>
-
-<br class="clear top40">
-
-<p>&nbsp;</p>
-
-</div>
-
-<div class="col-sm-4 col-lg-4 visible-lg-block visible-md-block visible-sm-block" ng-repeat="template in templates">
-    <div class="top20" ng-include="template.url">
-
-    </div>
-</div>
-</div>
-<div class="container-fluid footer" ng-include="footer">
-
-</div>
-
-</div>
-

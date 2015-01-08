@@ -30,7 +30,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
     .controller('indexCtrl', ['$scope', '$http', 'localStorageService', '$location', 'restaurantSvr', 'geoLocation',
         function ($scope, $http, localStorageService, $location, restaurantSvr, geoLocation) {
 
-            initTemplate();
             $scope.restaurantList = {
                 params: {
                     sort: 'popular'
@@ -130,13 +129,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 });
             }
 
-            function initTemplate() {
-
-                $scope.sidebar = 'modules/partials/sidebar.html';
-                $scope.header = 'modules/partials/header.html';
-                $scope.footer = 'modules/partials/footer.html';
-            }
-
             $scope.trend = [
                 {
                     "key": "Trend",
@@ -174,8 +166,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         };
     })
 
-
-    .controller('navigationController', ['$scope', '$http', '$location', 'restaurantSvr', 'sharedData', function ($scope, $http, $location, restaurantSvr, sharedData) {
+    .controller('navigationController', ['$scope', '$http', '$location', 'restaurantSvr', function ($scope, $http, $location, restaurantSvr) {
 
         $scope.navSearch = function (val) {
             return restaurantSvr.findRestaurant(val)
@@ -187,11 +178,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         };
 
         $scope.setRestaurant = function (restaurants){
-            $scope.sharedData = restaurants;
-            $scope.$watch('sharedData', function (newValue) {
-                if (newValue) sharedData.setItem(newValue);
-            });
-            if(Object.keys($scope.sharedData).length) $location.path('/restaurants');
+            if(Object.keys(restaurants).length) $location.path('/restaurant/' + restaurants.data.id);
         }
 
 
