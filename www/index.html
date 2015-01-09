@@ -66,5 +66,15 @@
 <script src="http://maps.googleapis.com/maps/api/js?libraries=weather,visualization&sensor=false&language=en&v=3.13"></script>
 <script type="text/javascript" src="js/lib.min.js"></script>
 <script type="text/javascript" src="js/app.min.js"></script>
+<script type="text/ng-template" id="customTemplate.html">
+    <a>
+
+        <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+    </a>
+    <a ng-if="!match.label">
+
+        <span >No</span>
+    </a>
+</script>
 
 
