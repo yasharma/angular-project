@@ -11,5 +11,37 @@
     font-size: 16px;
     font-weight: bolder;
 }
+.tt-input-group ul.dropdown-menu{
+    width: 95%;
+    margin-top: 0px;
+}
+
+.tt-input-group ul.dropdown-menu li{
+    cursor: pointer;
+}
+.tt-input-group input.radius{
+    border-radius: 2px !important; ;
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: @screen-sm-min) {
+    .tt-input-group ul.dropdown-menu{
+        width: 88%;
+    }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: @screen-md-min) {
+    .tt-input-group ul.dropdown-menu{
+        width: 90%;
+    }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: @screen-lg-min) {
+    .tt-input-group ul.dropdown-menu{
+        width: 94%;
+    }
+}
 
 /* old stuff */

@@ -171,14 +171,28 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         $scope.navSearch = function (val) {
             return restaurantSvr.findRestaurant(val)
                 .then(function (response) {
+                    if(!response.length){
+                        response.push({formatted : "no results found"});
+                    }
+
                     return response.map(function (item) {
+                        if( "no results found" !== item.formatted) {
+                            var formatted = item.formatted.split(' - ');
+                            item.searchText = formatted[0];
+                            var tags = formatted[1].split(':');
+                            item.tag = tags[0];
+                            item.tagValue = tags[1];
+                        }
                         return item;
                     });
                 });
         };
 
         $scope.setRestaurant = function (restaurants){
-            if(Object.keys(restaurants).length) $location.path('/restaurant/' + restaurants.data.id);
+            if(Object.keys(restaurants).length) {
+                $location.path('/restaurant/' + restaurants.data.id);
+                $scope.searchRestaurant ='';
+            }
         }
 
 
