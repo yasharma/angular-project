@@ -1,7 +1,7 @@
 'use strict';
 
-rxControllers.controller('reviewCtrl', ['$scope', 'localStorageService', '$routeParams', 'reviewSvr',  '$modal',
-    function ($scope, localStorageService, routeParams, reviewSvr, $modal) {
+rxControllers.controller('reviewCtrl', ['$scope', 'localStorageService', '$routeParams', 'reviewSvr','$modal', 'messageCenterService', '$timeout',
+    function ($scope, localStorageService, routeParams, reviewSvr, $modal, messageCenterService, $timeout) {
 
         $scope.reviewForm = {};
         $scope.reviewForm.restaurant_id = routeParams.restaurantId;
@@ -10,15 +10,36 @@ rxControllers.controller('reviewCtrl', ['$scope', 'localStorageService', '$route
         var modalInstance = null;
 
         $scope.submitReview = function () {
-            //console.log($scope.reviewForm);
+            if(!$scope.reviewForm.rating){
+                messageCenterService.add('danger', 'Please choose a rating.', {timeout : 3000});
+                return;
+            }
+
             reviewSvr.postRestaurantReview($scope.reviewForm).then(function (response) {
+                if(response.err){
+                    response.data.forEach(function(item){
+                        messageCenterService.add('danger', item.message, {timeout : 3000});
+                    });
+                    return;
+                }
                 getReviews();
                 if(response.status < 400){
-                    modalInstance.close('');
-                    $(".overlay-main").css("display", "none");
+                    messageCenterService.add('success', 'Your review has been posted successfully.', {timeout : 3000});
+                    $timeout(closeModel, 3000);
+                    clearForm ();
                 }
             });
             return false;
+        }
+
+        function closeModel (){
+            modalInstance.close('');
+            $(".overlay-main").css("display", "none");
+        }
+
+        function clearForm (){
+            $scope.reviewForm = {};
+            $scope.reviewForm.restaurant_id = routeParams.restaurantId;
         }
 
 
@@ -27,6 +48,7 @@ rxControllers.controller('reviewCtrl', ['$scope', 'localStorageService', '$route
         };
 
         $scope.addNewReview = function(){
+
             modalInstance = $modal.open({
                 templateUrl: "modules/review/views/form.html",
                 scope: $scope

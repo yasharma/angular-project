@@ -11,6 +11,7 @@
     font-size: 16px;
     font-weight: bolder;
 }
+/*Typeahead css*/
 .tt-input-group ul.dropdown-menu{
     width: 95%;
     margin-top: 0px;
@@ -21,6 +22,12 @@
 }
 .tt-input-group input.radius{
     border-radius: 2px !important; ;
+}
+
+/*Reviews section css*/
+.review-wrapper .panel-body{
+    height: 200px;
+    overflow-y: auto;
 }
 
 /* Small devices (tablets, 768px and up) */

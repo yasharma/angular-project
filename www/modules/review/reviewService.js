@@ -29,7 +29,7 @@ reviewService.factory('reviewSvr', ['localStorageService', 'Restangular', functi
                     return response;
                 },
                 function (response) {
-                    alert("Data validation failed. Front end error handling not done yet.");
+                    response.err = true;
                     return response;
                 });
         }

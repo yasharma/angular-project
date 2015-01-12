@@ -1,4 +1,4 @@
-<section class="panel panel-default">
+<section class="panel panel-default review-wrapper">
     <header class="panel-heading">Reviews</header>
     <section class="chat-list panel-body">
         <div  ng-repeat="review in reviews">
@@ -24,12 +24,12 @@
         <article class="chat-item">
             <a class="pull-left thumb-sm avatar"><img src="images/a2.png" class="img-circle"></a>
             <section class="chat-body">
-                <form action="" class="m-b-none">
+                <form  ng-submit="addNewReview()" name="addReviewForm" novalidate class="m-b-none ng-pristine ng-valid">
                     <div class="input-group">
-                        <input type="text" ng-model="reviewForm.comment" class="form-control" placeholder="Write your review">
-                              <span class="input-group-btn">
-                                <button class="btn btn-default" type="button" ng-click="addNewReview()" >POST</button>
-                              </span>
+                        <input type="text" name="comment" ng-model="reviewForm.comment" class="form-control ng-pristine ng-valid" placeholder="Write your review" required ng-minlength="12">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit" ng-disabled="addReviewForm.$invalid">POST</button>
+                        </span>
                     </div>
                 </form>
             </section>
