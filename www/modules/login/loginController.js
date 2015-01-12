@@ -1,6 +1,6 @@
 'use strict';
 
-rxControllers.controller('loginCtrl', ['$scope','$location', '$window', 'loginSvr', 'AuthenticationService', 'messageCenterService' , function ($scope, $location, $window, loginSvr, AuthenticationService, messageCenterService) {
+rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','loginSvr', 'AuthenticationService', 'messageCenterService', 'localStorageService' , function ($scope, $location, $rootScope, loginSvr, AuthenticationService, messageCenterService, localStorageService) {
 
     $scope.credentials = '';
     $scope.signup = {};
@@ -10,14 +10,18 @@ rxControllers.controller('loginCtrl', ['$scope','$location', '$window', 'loginSv
         loginSvr.authenticate($scope.credentials)
             .then(function(response){
                 if(response.err){
-                    delete $window.sessionStorage.token;
+                    localStorageService.remove('token');
                     AuthenticationService.isLogged = 0;
+                    $rootScope.isLogged = false;
+
                     var error = getErrorMsg('login',response.status);
                     messageCenterService.add('danger', error, { timeout: 3000 });
                     return;
                 }
                 AuthenticationService.isLogged = true;
-                $window.sessionStorage.token = response.items.accessToken;
+                $rootScope.isLogged = true;
+
+                localStorageService.set('token', response.items.accessToken);
                 $location.path("/index");
             });
     };

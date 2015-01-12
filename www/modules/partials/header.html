@@ -64,7 +64,7 @@
                 <div class="form-group">
                     <div class="input-group tt-input-group">
                         <span class="input-group-btn"><button type="submit" class="btn btn-sm bg-white b-white btn-icon"><i class="fa fa-search"></i></button></span>
-                        <input type="text" class="form-control input-sm no-border radius" ng-model="searchRestaurant" typeahead="address.formatted for address in navSearch($viewValue)| filter: $viewValue | typeaheadHighlight:query" typeahead-on-select="setRestaurant($item)"  typeahead-template-url="itemTpl.html" placeholder="Search restaurants, locations ..." typeahead-wait-ms="600" aria-autocomplete="list" aria-expanded="true" aria-owns="typeahead-06F-6959" aria-activedescendant="typeahead-06F-6959-option-1">
+                        <input type="text" class="form-control input-sm no-border radius" ng-model="searchRestaurant" typeahead="address.formatted for address in navSearch($viewValue)| filter: $viewValue" typeahead-on-select="setRestaurant($item)"  typeahead-template-url="itemTpl.html" placeholder="Search restaurants, locations ..." typeahead-wait-ms="600" aria-autocomplete="list" aria-expanded="true" aria-owns="typeahead-06F-6959" aria-activedescendant="typeahead-06F-6959-option-1">
                     </div>
                 </div>
             </form>
@@ -99,8 +99,10 @@
                     </section>
                 </section>
             </li>
-            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span
-                    class="thumb-sm avatar pull-left"> <img src="images/avatar.png"> </span> Guest <b class="caret"></b> </a>
+
+             <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="thumb-sm avatar pull-left"> <img src="images/avatar.png"> </span> Guest <b class="caret"></b> </a>
                 <ul class="dropdown-menu animated fadeInRight">
                     <span class="arrow top"></span>
                     <li><a href="#">Settings</a></li>
@@ -108,7 +110,10 @@
                     <li><a href="#"> <span class="badge bg-danger pull-right">3</span> Notifications </a></li>
                     <li><a href="docs.html">Help</a></li>
                     <li class="divider"></li>
-                    <li><a href="modal.lockme.html" data-toggle="ajaxModal">Logout</a></li>
+                    <li><a href="#/login" ng-show="!isLogged">Login</a></li>
+                    <!-- remove comment later
+                    <li><a href="modal.lockme.html" ng-click="clearToken()" ng-show="isLogged" data-toggle="ajaxModal">Logout</a></li>-->
+                    <li><a ng-click="clearToken()" ng-show="isLogged">Logout</a></li>
                 </ul>
             </li>
         </ul>
@@ -121,9 +126,9 @@
         </a>
 
         <a tabindex="-1" ng-if = " 'no results found' !== match.model.formatted">
-            <mark> {{match.model.searchText}} </mark>
-            <span class="label label-primary">&nbsp;{{match.model.tag}}  </span>
-            <span>&nbsp;{{match.model.tagValue}}</span>
+            <span bind-html-unsafe="match.model.searchText | typeaheadHighlight:query"> {{match.model.searchText}} &nbsp;&nbsp;</span>
+            <span class="label label-primary">{{match.model.tag}}  </span>
+            <span>&nbsp;&nbsp;{{match.model.tagValue}}</span>
         </a>
     </script>
 </section>

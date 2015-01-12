@@ -166,7 +166,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         };
     })
 
-    .controller('navigationController', ['$scope', '$http', '$location', 'restaurantSvr', function ($scope, $http, $location, restaurantSvr) {
+    .controller('navigationController', ['$scope', '$http', '$location', '$rootScope', 'restaurantSvr','localStorageService', function ($scope, $http, $location, $rootScope, restaurantSvr, localStorageService) {
 
         $scope.navSearch = function (val) {
             return restaurantSvr.findRestaurant(val)
@@ -195,6 +195,11 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             }
         }
 
+        $scope.clearToken = function(){
+            localStorageService.remove('token');
+            $rootScope.isLogged = false;
+            $location.path("/index");
+        }
 
     }])
     .controller('listCtrl', ['$scope', '$http', 'localStorageService', '$location', 'restaurantSvr', 'geoLocation', 'sharedData',

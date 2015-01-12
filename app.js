@@ -50,12 +50,13 @@ myApp.factory('AuthenticationService', function() {
 
 
 
-myApp.run(['$rootScope', '$location', '$window', 'AuthenticationService',function($rootScope, $location, $window, AuthenticationService) {
+myApp.run(['$rootScope', '$location', 'localStorageService', 'AuthenticationService',function($rootScope, $location, localStorageService, AuthenticationService) {
     $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
         //redirect only if both isLogged is false and no token is set
         if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredLogin
-            && !AuthenticationService.isLogged && !$window.sessionStorage.token) {
-
+            && !AuthenticationService.isLogged && !localStorageService.get('token')) {
+            AuthenticationService.isLogged = 0;
+            alert('no logged');
             $location.path("/login");
         }
     });
@@ -63,17 +64,19 @@ myApp.run(['$rootScope', '$location', '$window', 'AuthenticationService',functio
 
 myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, RestangularProvider) {
 
-    var interceptor = ['$q', '$window', '$location', '$injector', function($q, $window, $location, $injector) {
+    var interceptor = ['$q','$location', '$injector', '$rootScope', 'localStorageService', 'AuthenticationService', function($q, $location, $injector, $rootScope, localStorageService, AuthenticationService) {
 
         return {
             request: function (config) {
                 config.headers = config.headers || {};
-                var token = $window.sessionStorage.token;
+                var token = localStorageService.get('token');
                 if (token) {
                     RestangularProvider.setDefaultRequestParams({
                         "access-token" :token,
                         "per-page" : 8
                     });
+                    AuthenticationService.isLogged =1;
+                    $rootScope.isLogged = 1;
                 }
                 return config;
             },
@@ -89,13 +92,14 @@ myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, R
             // Revoke client authentication if 401 is received
 
             responseError: function(rejection) {
-                console.log(rejection);
                 // Dynamically get the service since they can't be injected into config
                 var AuthenticationService = $injector.get('AuthenticationService');
+                var token = localStorageService.get('token');
 
-                if (rejection != null && rejection.status === 401 && ($window.sessionStorage.token || AuthenticationService.isLogged)) {
-                    delete $window.sessionStorage.token;
+                if (rejection != null && rejection.status === 401 && (token || AuthenticationService.isLogged)) {
+                    localStorageService.remove('token');
                     AuthenticationService.isLogged = false;
+                    $rootScope.isLogged = false;
                     $location.path("/login");
                 }
 
