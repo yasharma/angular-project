@@ -15,8 +15,6 @@
                                 <input type="text" placeholder="Username" class="form-control no-border" name="username" ng-model="credentials.username" required ng-minlength="3" ng-maxlength="8">
                                 <p ng-show="loginForm.username.$error.required && !loginForm.username.$pristine" class="help-block">Your username is required.</p>
                                 <p ng-show="loginForm.username.$error.minlength" class="help-block">Username is too short.</p>
-                                <p ng-show="loginForm.credentials.username.$invalid && !loginForm.username.$pristine" class="help-block">Password is required.</p>
-
                             </div>
                             <div class="list-group-item" ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
                                 <input type="password" placeholder="Password" class="form-control no-border" name="password" ng-model="credentials.password" required ng-minlength="3">
