@@ -9,10 +9,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             controller: 'indexCtrl'
 //            access: { requiredLogin: true } to be used for owners page
         })
-        .when('/restaurants', {
-            templateUrl: 'modules/restaurant/views/list.html',
-            controller: 'listCtrl'
-        })
         .when('/restaurant/:restaurantId', {
             templateUrl: 'modules/restaurant/views/detail.html',
             controller: 'detailCtrl'
@@ -150,21 +146,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
         }
     ])
-    .factory('sharedData', function () {
-        var items = {};
-
-        return {
-
-            setItem : function(item){
-                items = item;
-            },
-
-            getItem : function(){
-                return items;
-            }
-
-        };
-    })
 
     .controller('navigationController', ['$scope', '$http', '$location', '$rootScope', 'restaurantSvr','localStorageService', function ($scope, $http, $location, $rootScope, restaurantSvr, localStorageService) {
 
