@@ -64,7 +64,7 @@
                 <div class="form-group">
                     <div class="input-group tt-input-group">
                         <span class="input-group-btn"><button type="submit" class="btn btn-sm bg-white b-white btn-icon"><i class="fa fa-search"></i></button></span>
-                        <input type="text" class="form-control input-sm no-border radius" ng-model="searchRestaurant" typeahead="address.formatted for address in navSearch($viewValue)| filter: $viewValue | typeaheadHighlight:query" typeahead-on-select="setRestaurant($item)"  typeahead-template-url="itemTpl.html" placeholder="Search restaurants, locations ..." typeahead-wait-ms="600" aria-autocomplete="list" aria-expanded="true" aria-owns="typeahead-06F-6959" aria-activedescendant="typeahead-06F-6959-option-1">
+                        <input type="text" class="form-control input-sm no-border radius" ng-model="searchRestaurant" typeahead="address.formatted for address in navSearch($viewValue)| filter: $viewValue" typeahead-on-select="setRestaurant($item)"  typeahead-template-url="itemTpl.html" placeholder="Search restaurants, locations ..." typeahead-wait-ms="600" aria-autocomplete="list" aria-expanded="true" aria-owns="typeahead-06F-6959" aria-activedescendant="typeahead-06F-6959-option-1">
                     </div>
                 </div>
             </form>
@@ -122,9 +122,9 @@
         </a>
 
         <a tabindex="-1" ng-if = " 'no results found' !== match.model.formatted">
-            <mark> {{match.model.searchText}} </mark>
-            <span class="label label-primary">&nbsp;{{match.model.tag}}  </span>
-            <span>&nbsp;{{match.model.tagValue}}</span>
+            <span bind-html-unsafe="match.model.searchText | typeaheadHighlight:query"> {{match.model.searchText}} &nbsp;&nbsp;</span>
+            <span class="label label-primary">{{match.model.tag}}  </span>
+            <span>&nbsp;&nbsp;{{match.model.tagValue}}</span>
         </a>
     </script>
 </section>
