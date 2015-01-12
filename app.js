@@ -64,7 +64,7 @@ myApp.run(['$rootScope', '$location', 'localStorageService', 'AuthenticationServ
 
 myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, RestangularProvider) {
 
-    var interceptor = ['$q','$location', '$injector', '$rootScope', 'localStorageService', 'AuthenticationService', function($q, $location, $injector, $rootScope, localStorageService, AuthenticationService) {
+    var interceptor = ['$q','$location', '$injector', '$rootScope', 'localStorageService', 'AuthenticationService', 'messageCenterService', function($q, $location, $injector, $rootScope, localStorageService, AuthenticationService, messageCenterService) {
 
         return {
             request: function (config) {
@@ -101,6 +101,22 @@ myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, R
                     AuthenticationService.isLogged = false;
                     $rootScope.isLogged = false;
                     $location.path("/login");
+                }
+
+                else if (rejection.status === 0) {
+                    $rootScope.errorStatus = 'No connection. Verify application is running.';
+                } else if (rejection.status == 401) {
+                    $rootScope.errorStatus = 'Unauthorized';
+                } else if (rejection.status == 405) {
+                    $rootScope.errorStatus = 'HTTP verb not supported [405]';
+                } else if (rejection.status == 500) {
+                    $rootScope.errorStatus = 'Internal Server Error [500].';
+                } else {
+                    $rootScope.errorStatus = JSON.parse(JSON.stringify(rejection.data));
+                }
+
+                if($rootScope.errorStatus){
+                    messageCenterService.add('danger', $rootScope.errorStatus, { status: messageCenterService.status.permanent });
                 }
 
                 return $q.reject(rejection);
