@@ -109,14 +109,21 @@ myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, R
                     $rootScope.errorStatus = 'Unauthorized';
                 } else if (rejection.status == 405) {
                     $rootScope.errorStatus = 'HTTP verb not supported [405]';
-                } else if (rejection.status == 500) {
-                    $rootScope.errorStatus = 'Internal Server Error [500].';
+//                } else if (rejection.status == 500) {
+//                    $rootScope.errorStatus = 'Internal Server Error [500].';
                 } else {
-                    $rootScope.errorStatus = JSON.parse(JSON.stringify(rejection.data));
+                    if(rejection.data.length){
+                        rejection.data.forEach(function(item){
+                            messageCenterService.add('danger', item.message, {timeout : 3000, status: messageCenterService.status.shown });
+                        });
+                    }else{
+                        $rootScope.errorStatus = rejection.data.message;
+
+                    }
                 }
 
                 if($rootScope.errorStatus){
-                    messageCenterService.add('danger', $rootScope.errorStatus, { status: messageCenterService.status.permanent });
+                    messageCenterService.add('danger', $rootScope.errorStatus);
                 }
 
                 return $q.reject(rejection);

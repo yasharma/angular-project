@@ -13,10 +13,6 @@ rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','logi
                     localStorageService.remove('token');
                     AuthenticationService.isLogged = 0;
                     $rootScope.isLogged = false;
-
-                    var error = getErrorMsg('login',response.status);
-                    messageCenterService.add('danger', error, { timeout: 3000 });
-                    return;
                 }
                 AuthenticationService.isLogged = true;
                 $rootScope.isLogged = true;
@@ -42,9 +38,7 @@ rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','logi
     function getErrorMsg (module, errStatus){
         var statusText = '';
 
-        if('login' == module && 422 == errStatus){
-            statusText = 'The username or password you entered is incorrect.';
-        }else if ('signup' == module && 422 == errStatus){
+        if ('signup' == module && 422 == errStatus){
             statusText = 'Please provide correct information. Thank you.';
         }else{
             statusText = "Something went wrong ! Please try again later."
