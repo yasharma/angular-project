@@ -114,10 +114,10 @@ myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, R
                 } else {
                     if(rejection.data.length){
                         rejection.data.forEach(function(item){
-                            messageCenterService.add('danger', item.message, {timeout : 3000, status: messageCenterService.status.shown });
+                            messageCenterService.add('danger', getFriendlierMessage(item.message), {timeout : 3000});
                         });
                     }else{
-                        $rootScope.errorStatus = rejection.data.message;
+                        $rootScope.errorStatus = getFriendlierMessage(rejection.data.message);
 
                     }
                 }
@@ -132,4 +132,19 @@ myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, R
     }];
 
     $httpProvider.interceptors.push(interceptor);
+
+    function getFriendlierMessage(message){
+        switch (message){
+            case "Invalid username" :
+                message = "The username you provided does not exist.";
+                break;
+            case "Invalid password" :
+                message = "Sorry ! the password did not match. Please try again.";
+                break;
+            default:
+                message = message;
+        }
+        return message;
+    }
+
 }]);
