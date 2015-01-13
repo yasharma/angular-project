@@ -123,7 +123,7 @@ myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, R
                 }
 
                 if($rootScope.errorStatus){
-                    messageCenterService.add('danger', $rootScope.errorStatus);
+                    messageCenterService.add('danger', $rootScope.errorStatus, {timeout : 3000});
                 }
 
                 return $q.reject(rejection);
