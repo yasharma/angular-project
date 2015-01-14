@@ -26,7 +26,6 @@ rxControllers.controller('reviewCtrl', ['$scope', 'localStorageService', '$route
                 if(response.status < 400){
                     messageCenterService.add('success', 'Your review has been posted successfully.', {timeout : 3000});
                     $timeout(closeModel, 3000);
-                    clearForm ();
                 }
             });
             return false;
@@ -35,6 +34,7 @@ rxControllers.controller('reviewCtrl', ['$scope', 'localStorageService', '$route
         function closeModel (){
             modalInstance.close('');
             $(".overlay-main").css("display", "none");
+            clearForm ();
         }
 
         function clearForm (){
