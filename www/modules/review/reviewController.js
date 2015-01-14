@@ -22,8 +22,8 @@ rxControllers.controller('reviewCtrl', ['$scope', 'localStorageService', '$route
                     });
                     return;
                 }
-                getReviews();
                 if(response.status < 400){
+                    getReviews();
                     messageCenterService.add('success', 'Your review has been posted successfully.', {timeout : 3000});
                     $timeout(closeModel, 3000);
                 }
