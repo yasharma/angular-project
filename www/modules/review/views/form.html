@@ -31,9 +31,10 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Comment</label>
                     <div class="col-sm-10" ng-class="{ 'has-error' : reviewsForm.comment.$invalid && !reviewsForm.comment.$pristine }">
-                        <textarea name="comment" ng-model="reviewForm.comment" class="form-control" required="required" ng-minlength="12">{{reviewForm.comment}}</textarea>
+                        <!--<textarea name="comment" ng-model="reviewForm.comment" class="form-control" required="required" ng-minlength="12">{{reviewForm.comment}}</textarea>-->
+                        <textarea name="comment" ng-model="reviewForm.comment" class="form-control" required="required">{{reviewForm.comment}}</textarea>
                         <p ng-show="reviewsForm.comment.$error.required && !reviewsForm.comment.$pristine" class="help-block">Please write a comment.</p>
-                        <p ng-show="reviewsForm.comment.$error.minlength && !reviewsForm.comment.$pristine" class="help-block">Please write atleast few words.</p>
+                        <!--<p ng-show="reviewsForm.comment.$error.minlength && !reviewsForm.comment.$pristine" class="help-block">Please write atleast few words.</p>-->
                     </div>
                 </div>
 
