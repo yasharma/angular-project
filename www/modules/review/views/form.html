@@ -23,7 +23,8 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Summary in 4 words</label>
                     <div class="col-sm-10" ng-class="{ 'has-error' : reviewsForm.short_comment.$invalid && !reviewsForm.short_comment.$pristine }">
-                        <input type="text" name="short_comment" ng-model="reviewForm.short_comment" class="form-control" required ng-minlength="12"/>
+                        <!--<input type="text" name="short_comment" ng-model="reviewForm.short_comment" class="form-control" required ng-minlength="12"/>-->
+                        <input type="text" name="short_comment" ng-model="reviewForm.short_comment" class="form-control"/>
                         <p ng-show="reviewsForm.short_comment.$error.required && !reviewsForm.short_comment.$pristine" class="help-block">Please write the review.</p>
                         <p ng-show="reviewsForm.short_comment.$error.minlength && !reviewsForm.short_comment.$pristine" class="help-block">Please write atleast few more lines.</p>                    </div>
                 </div>
