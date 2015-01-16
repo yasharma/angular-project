@@ -26,8 +26,31 @@
 
 /*Reviews section css*/
 .review-wrapper {
-    min-height: 156px;
+    height: 156px;
     overflow-y: auto;
+}
+
+/*Photos*/
+.displayphoto{
+    width: 247px; height: 247px; padding:0px 2px;min-height: 124px;
+}
+
+/*Drop images section*/
+.drop{
+    border: 3px dashed #ccc;
+    padding: 10px;
+    background: #fff;
+    min-height: 200px;
+}
+
+.drop .info {
+    color: #999;
+    text-align: center;
+}
+
+/*Utilities*/
+.margin-bottom-1em {
+    margin-bottom: 1em;
 }
 
 /* Small devices (tablets, 768px and up) */
