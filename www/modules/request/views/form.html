@@ -54,7 +54,7 @@
                     <label class="col-sm-2 control-label">Website</label>
                     <div class="col-sm-10" ng-class="{ 'has-error' : requestsForm.website.$invalid && !requestsForm.website.$pristine }">
                         <input type="url" name="website" ng-model="request.website" class="form-control" />
-                        <p ng-show="requestsForm.website.$error.url && !requestsForm.website.$pristine" class="help-block">Please enter valid web url.</p>
+                        <p ng-show="requestsForm.website.$error.url && !requestsForm.website.$pristine" class="help-block">Please enter valid web url.(http://example.com)</p>
 
                     </div>
                 </div>
