@@ -1,0 +1,26 @@
+<nav-top></nav-top>
+
+<section class="hbox stretch">
+    <aside class="bg-light lt b-r b-light aside-md hidden-print">
+        <nav-left></nav-left>
+    </aside>
+    <section id="content">
+        <header class="header bg-white b-b b-light hide-for-small hide-for-touch"
+                ng-include="'modules/restaurant/views/search-form.html'"></header>
+
+        <!--Dynamic view goes here-->
+        <section class="vbox" ng-controller="requestCtrl">
+            <section class="scrollable padder">
+                <h3>Request Restaurant Information Change</h3>
+
+                <div class="col-sm-8 no-padding" ng-include="'modules/request/views/form.html'"></div>
+            </section>
+        </section>
+    </section>
+</section>
+
+
+
+
+
+
