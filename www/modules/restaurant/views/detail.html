@@ -2,9 +2,7 @@
 
 <section>
     <section class="hbox stretch">
-        <aside class="bg-light lt b-r b-light aside-md hidden-print">
-            <nav-left></nav-left>
-        </aside>
+
         <section id="content">
             <header class="header bg-white b-b b-light hide-for-small hide-for-touch" ng-include="'modules/restaurant/views/search-form.html'"></header>
 
@@ -24,6 +22,7 @@
                     <small> {{restaurant.address}},
                         {{restaurant.city}}, {{restaurant.postcode}} {{restaurant.state}}
                     </small>
+
                 </div>
                 <div class="col-sm-6 text-right text-left-xs m-t-md">
 
@@ -225,14 +224,10 @@
                                 <img src="images/r3.jpg" style="width:100%;padding:0px 2px;min-height: 124px;"/>
                             </div>
                         </section>
-                    </section>
-                </div>
-                <div class="col-sm-12"  ng-controller="graphCtrl">
-                    <section class="panel panel-default">
-                        <header class="panel-heading">This will be shown in Restaurant owner view</header>
-                        <section class="chat-list panel-body">
-                            <highchart id="chart1" config="chartConfig" class="col-sm-11"></highchart>
-                        </section>
+                        <p class="chat-list panel-body"><a href="#/manage/photos/{{ restaurantId }}">Restaurant Owner Manage Photos</a></p>
+                        <p class="chat-list panel-body"><a href="#/dashboard/{{ restaurantId }}">Go to restaurant Owner Dashboard</a></p>
+                        <p class="chat-list panel-body"><a href="#/request/change/{{ restaurantId }}">Go to Request Information Change by owner</a></p>
+
                     </section>
                 </div>
 

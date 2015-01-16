@@ -25,6 +25,8 @@
     "highcharts-ng": "*",
     "angular-flot": "*",
     "flot": "*",
-    "message-center": "~1.0.3"
+    "message-center": "~1.0.3",
+    "ng-file-upload": "~2.1.1",
+    "ng-file-upload-shim": "~2.1.1"
   }
 }

@@ -1,0 +1,70 @@
+<section class="panel panel-default">
+    <header class="panel-heading">Restaurant Information</header>
+    <section class="chat-list panel-body">
+        <article class="media">
+            <div class="r b bg-warning-ltest wrapper m-b">
+                Please fill up the information. Your request will be proceeded shortly.
+            </div>
+
+            <form novalidate name="requestsForm" ng-submit="submitRequest()"  class="form-horizontal">
+                <input type="hidden" name="restaurant_id" ng-model="request.restaurant_id"/>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10" ng-class="{ 'has-error' : requestsForm.name.$invalid && !requestsForm.name.$pristine }">
+                        <input type="text" name="name" ng-model="request.restaurant_name" class="form-control" required/>
+                        <p ng-show="requestsForm.name.$error.required && !requestsForm.name.$pristine" class="help-block">Please enter a name.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Email</label>
+                    <div class="col-sm-10" ng-class="{ 'has-error' : requestsForm.email.$invalid && !requestsForm.email.$pristine }">
+                        <input type="email" name="email" ng-model="request.email" class="form-control" required/>
+                        <p ng-show="requestsForm.email.$error.required && !requestsForm.email.$pristine" class="help-block">Please enter an email.</p>
+                        <p ng-show="requestsForm.email.$invalid && !requestsForm.email.$pristine" class="help-block">Please enter a valid email.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Phone</label>
+                    <div class="col-sm-10" ng-class="{ 'has-error' : requestsForm.phone.$invalid && !requestsForm.phone.$pristine }">
+                        <input type="number" name="phone" ng-model="request.email" class="form-control" required ng-minlength="6"
+                        />
+                        <p ng-show="requestsForm.phone.$error.required && !requestsForm.phone.$pristine" class="help-block">Please enter a number.</p>
+                        <p ng-show="requestsForm.phone.$error.minlength && !requestsForm.phone.$pristine" class="help-block">That phone number is too short.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Restaurant Category</label>
+                    <div class="col-sm-10" ng-class="{ 'has-error' : requestsForm.restaurant_category.$invalid && !requestsForm.restaurant_category.$pristine }">
+                        <input type="text" name="restaurant_category" ng-model="request.restaurant_category" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Type</label>
+                    <div class="col-sm-10" ng-class="{ 'has-error' : requestsForm.type.$invalid && !requestsForm.type.$pristine }">
+                        <input type="text" name="type" ng-model="request.type" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Website</label>
+                    <div class="col-sm-10" ng-class="{ 'has-error' : requestsForm.website.$invalid && !requestsForm.website.$pristine }">
+                        <input type="text" name="website" ng-model="request.website" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-10">
+                        <input type="submit" name="submit" value="submit" ng-disabled="requestsForm.$invalid" class="btn btn-s-md btn-primary btn-rounded form-control"/>
+                    </div>
+                </div>
+
+            </form>
+        </article>
+    </section>
+</section>

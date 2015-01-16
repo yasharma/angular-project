@@ -8,12 +8,12 @@ photoService.factory('photoSvr', ['localStorageService', 'Restangular', function
 
     return {
 
-        getRestaurantPhotos: function (restaurantId) {
+        getRestaurantPhotos: function (restaurantId, params) {
 
             var resource = 'restaurants/' + restaurantId + '/photos';
             var photos = Restangular.all(resource);
 
-            return photos.getList()
+            return photos.getList(params)
                 .then(function (response) {
                     return {
                         items : response.data[0].items,
@@ -21,7 +21,16 @@ photoService.factory('photoSvr', ['localStorageService', 'Restangular', function
                     }
                 });
         },
+        deleteRestaurantPhotos: function (photoId) {
 
+            var resource = 'photos/' + photoId ;
+            var photos = Restangular.all(resource);
+
+            return photos.remove(photoId)
+                .then(function (response) {
+                    return response;
+                });
+        },
         uploadRestaurantPhoto: function (restaurantId,item) {
 
             var resource = 'photos/' + restaurantId;

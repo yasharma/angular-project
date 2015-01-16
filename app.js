@@ -1,10 +1,10 @@
 'use strict';
 
 var myApp = angular.module('myApp', ['ngRoute','config','LocalStorageModule','directive','restangular',
-    'geoLocation','overviewService','restaurantService','reviewService','locationService','photoService',
+    'geoLocation','overviewService','restaurantService','reviewService','locationService','photoService','requestService',
     //'AngularChart',
     'GoogleMaps','angularFileUpload','ui.bootstrap','nvd3ChartDirectives','easypiechart','highcharts-ng',
-    'angular-flot','Controllers','Services', 'MessageCenterModule'
+    'angular-flot','Controllers','Services', 'MessageCenterModule','angularFileUpload'
 ]);
 
 // Declare app level module which depends on views, and components
@@ -56,7 +56,6 @@ myApp.run(['$rootScope', '$location', 'localStorageService', 'AuthenticationServ
         if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredLogin
             && !AuthenticationService.isLogged && !localStorageService.get('token')) {
             AuthenticationService.isLogged = 0;
-            alert('no logged');
             $location.path("/login");
         }
     });

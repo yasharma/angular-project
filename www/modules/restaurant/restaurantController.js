@@ -5,6 +5,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
 
         initTemplate();
         $anchorScroll();
+        $scope.restaurantId = routeParams.restaurantId;
 
         if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {
             geoLocation.getLocation()
@@ -40,7 +41,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
 
 
         $scope.getPhotos = function () {
-            photoSvr.getRestaurantPhotos(routeParams.restaurantId).then(function (photos) {
+            photoSvr.getRestaurantPhotos($scope.restaurantId).then(function (photos) {
                 $scope.photos = photos.items;
             });
         }
@@ -54,7 +55,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
                     method: 'POST',
                     //headers: {'header-key': 'header-value'},
                     //withCredentials: true,
-                    data: {myObj: $scope.myModelObj, restaurant_id: routeParams.restaurantId, user_id: 1},
+                    data: {myObj: $scope.myModelObj, restaurant_id: $scope.restaurantId, user_id: 1},
                     file: file, // or list of files ($files) for html5 only
                     //fileName: 'doc.jpg' or ['1.jpg', '2.jpg', ...] // to modify the name of the file(s)
                     // customize file formData name ('Content-Disposition'), server side file variable name.
@@ -81,7 +82,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
 
 
         function getRestaurant() {
-            var restaurantId = routeParams.restaurantId;
+            var restaurantId = $scope.restaurantId;
             restaurantSvr.getRestaurant(restaurantId).then(function (restaurant) {
                 $scope.restaurant = restaurant;
             });
@@ -90,7 +91,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
         }
 
         function chartData() {
-            getGraphData(routeParams.restaurantId);
+            getGraphData($scope.restaurantId);
         }
 
         function initTemplate() {

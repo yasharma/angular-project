@@ -7,7 +7,21 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         .when('/index', {
             templateUrl: 'modules/home/views/index.html',
             controller: 'indexCtrl'
-//            access: { requiredLogin: true } to be used for owners page
+        })
+        .when('/dashboard/:restaurantId', {
+            templateUrl: 'modules/restaurant/views/owner.html',
+            controller: 'detailCtrl',
+            access: { requiredLogin: true }
+        })
+        .when('/manage/photos/:restaurantId', {
+            templateUrl: 'modules/photo/views/index.html',
+            controller: 'photoCtrl',
+            access: { requiredLogin: true }
+        })
+        .when('/request/change/:restaurantId', {
+            templateUrl: 'modules/request/views/index.html',
+            controller: 'requestCtrl',
+            access: { requiredLogin: true }
         })
         .when('/restaurant/:restaurantId', {
             templateUrl: 'modules/restaurant/views/detail.html',

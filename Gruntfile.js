@@ -75,6 +75,8 @@ module.exports = function (grunt) {
                     'bower_components/flot/jquery.flot.fillbetween.js',
                     'bower_components/angular-flot/angular-flot.js',
                     'bower_components/message-center/message-center.js',
+                    'bower_components/ng-file-upload/angular-file-upload-shim.js',
+                    'bower_components/ng-file-upload/angular-file-upload.min.js',
 
                     'components/version/version.js',
                     'components/version/version-directive.js',
@@ -97,6 +99,8 @@ module.exports = function (grunt) {
                     'www/modules/Graph/GraphController.js',
                     'www/modules/review/reviewController.js',
                     'www/modules/login/loginController.js',
+                    'www/modules/photo/photoController.js',
+                    'www/modules/request/requestController.js',
                     'www/modules/directives/directive.js',
                     'www/modules/directives/directive-elements.js',
                     'www/modules/restaurant/restaurantService.js',
@@ -105,6 +109,7 @@ module.exports = function (grunt) {
                     'www/modules/location/locationService.js',
                     'www/modules/photo/photoService.js',
                     'www/modules/login/loginService.js',
+                    'www/modules/request/requestService.js',
                     'js/app.plugin.js',
                     'js/app.js',
                     'app.js'
