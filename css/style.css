@@ -12,8 +12,9 @@
     font-weight: bolder;
 }
 .tt-input-group ul.dropdown-menu{
-    width: 95%;
+    width: 100%;
     margin-top: 0px;
+    left: 0px !important;
 }
 
 .tt-input-group ul.dropdown-menu li{
@@ -21,6 +22,14 @@
 }
 .tt-input-group input.radius{
     border-radius: 2px !important; ;
+}
+
+.search-text{
+    font-size: 15px;
+    font-weight: 700;
+}
+.grey-icon{
+    color: #788288;
 }
 
 /* Small devices (tablets, 768px and up) */
