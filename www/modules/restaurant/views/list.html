@@ -32,43 +32,39 @@
                                                             class="fa fa-clock-o"></i> {{restaurant.distance | number : 2}} KM </span>
                 </header>
                 <div class="panel-body">
-                    <div class="col-sm-3 col-md-4 col-lg-4 pull-left">
+                    <div class="col-sm-3 col-md-3 col-lg-4 no-padding pull-left">
                         <nvd3-multi-bar-chart
                                 data="trend"
                                 showXAxis="false"
                                 showYAxis="false"
                                 tooltips="true"
+                                width="222"
+                                height="150"
                                 interactive="true">
+                            <svg></svg>
                         </nvd3-multi-bar-chart>
                     </div>
-                    <div class="col-sm-3 col-md-4 col-lg-4 pull-left">
-                        <p><a href="#/restaurant/{{restaurant.id}}/{{hash}}"><h3
-                                class="title">
-                            {{restaurant.name}}
-
-
-                        </h3>
-                        </a>
-
+                    <div class="col-sm-5 col-md-5 col-lg-6 pull-left">
+                        <p><a href="#/restaurant/{{restaurant.id}}/{{hash}}">
+                            <h3 class="title"> {{restaurant.name}} </h3>
+                        </a></p>
+                        <p><rating  ng-model="restaurant.overview__rating" max="5" readonly="true"></rating>
+                            <span class="label" ng-class="{'label-warning': restaurant.overview__rating/10 *100 <30, 'label-info': restaurant.overview__rating/10 *100 >=30 && restaurant.overview__rating/10 *100 <70, 'label-success':restaurant.overview__rating/10 *100 >=70}">{{restaurant.overview__rating/10 *100}}%</span>
+                            {{restaurant.overview__total_reviews}} Reviews
                         </p>
-
-
-
-                       <p>Restaurant Overview : {{restaurant.overview__percentile | number : 2}}</p>
-
-                        <p>Restaurant Overview Trend : {{restaurant.overview__trend | number : 2}}</p>
-
+                        <p>Restaurant Overview : {{restaurant.overview__percentile | number : 2}}</p>
+                        <p>Overview Trend : {{restaurant.overview__trend | number : 2}}</p>
 
                     </div>
-                    <div class="col-sm-3 col-md-4 col-lg-4 pull-left clearfix">
+                    <div class="col-lg-2 pull-left no-padding clearfix">
                         <img src="images/r3.jpg" class="list-image">
                         <img src="images/r3.jpg" class="list-image">
                         <img src="images/r3.jpg" class="list-image">
                         <img src="images/r3.jpg" class="list-image">
                     </div>
                     <div class="clearfix"></div>
-                    <div class="col-sm-3 col-md-4 col-lg-4 col-md-offset-4">Reviews: {{restaurant.overview__total_reviews}}</div>
-                    <div class="pull-right">{{restaurant.price_range_symbol}}</div>
+                    <div class="col-sm-3 col-md-4 col-lg-4 col-md-offset-4"></div>
+                    <div class="pull-right">Price : $ {{restaurant.price_range}} -  {{restaurant.price_range}}</div>
                 </div>
             </section>
         </article>
@@ -80,6 +76,4 @@
         </div>
     </div>
 </section>
-<section class="vbox">
 
-</section>
