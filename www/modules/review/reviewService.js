@@ -13,6 +13,7 @@ reviewService.factory('reviewSvr', ['localStorageService', 'Restangular', functi
 
             return resource.getList(params)
                 .then(function (reviews) {
+                    console.log('reviewService line no 16 :: reviewService sending reviews');
                     return {
                         items: reviews.data[0].items,
                         _meta: reviews.data[0]._meta
