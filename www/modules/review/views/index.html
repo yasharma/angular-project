@@ -1,32 +1,65 @@
 <section class="panel panel-default">
     <header class="panel-heading">Reviews</header>
     <section class="chat-list panel-body review-wrapper" ng-show="reviews">
-        <div  ng-repeat="review in reviews">
-        <article class="media">
 
-            <div class="media-body col-sm-12 no-padding-left no-padding-right">
-                <span class="pull-left thumb-sm"><img src="images/a2.png"></span>
-                <div class="pull-right media-xs text-center text-muted">
-                    <small class="label bg-light">{{ review.created }}</small>
-                </div>
+        <div  ng-repeat="review in reviews" class="col-sm-12 no-padding media">
+
+            <div class="col-sm-2 no-padding text-center">
+                <a href="#">
+                    <img class="media-object thumbnail-medium" alt="avatar" src="images/a2.png" data-holder-rendered="true" >
+                </a>
+                <small class="block m-t-sm">Name</small>
+            </div>
+            <div class="col-sm-10 no-padding">
                 <a href="#" class="h4">{{review.short_comment}}</a>
-                <small class="block"><a href="#" class="">Reviewer Name </a> <rating  ng-model="review.rating" max="10" readonly="true"></rating>
+                <small class="block m-t-sm">{{review.comment}}</small>
+                <small>
+                    <rating  ng-model="review.rating" max="max" readonly="true"></rating>
                     <span class="label" ng-class="{'label-warning': review.rating/10 *100 <30, 'label-info': review.rating/10 *100 >=30 && review.rating/10 *100 <70, 'label-success': review.rating/10 *100 >=70}">{{review.rating/10 *100}}%</span>
                 </small>
-                <small class="block m-t-sm">{{review.comment}}</small>
+                    <span class="pull-right text-center text-muted">
+                        <small class="label bg-light">{{ review.created }}</small>
+                    </span>
             </div>
-        </article>
-        <div class="line bg-danger-ltest  col-sm-12 no-padding-left no-padding-right"></div>
+            <div class="line bg-danger-ltest  col-sm-12 no-padding-left no-padding-right"></div>
+
+        </div>
+
+        <!--Previous review lists-->
+        <!--<article class="media">-->
+
+        <!--<div class="media-body col-sm-12 no-padding-left no-padding-right">-->
+        <!--<span class="pull-left thumb-sm"><img src="images/a2.png"></span>-->
+        <!--<div class="pull-right media-xs text-center text-muted">-->
+        <!--<small class="label bg-light">{{ review.created }}</small>-->
+        <!--</div>-->
+        <!--<a href="#" class="h4">{{review.short_comment}}</a>-->
+        <!--<small class="block"><a href="#" class="">Reviewer Name </a> <rating  ng-model="review.rating" max="max" readonly="true"></rating>-->
+        <!--<span class="label" ng-class="{'label-warning': review.rating/10 *100 <30, 'label-info': review.rating/10 *100 >=30 && review.rating/10 *100 <70, 'label-success': review.rating/10 *100 >=70}">{{review.rating/10 *100}}%</span>-->
+        <!--</small>-->
+        <!--<small class="block m-t-sm">{{review.comment}}</small>-->
+        <!--</div>-->
+        <!--</article>-->
+
+        <!--<div class="line bg-danger-ltest  col-sm-12 no-padding-left no-padding-right"></div>-->
+        </div>
+        <div class="panel-body hide-for-small bg-white b-b b-light" ng-show="review.length >8 ">
+            <pagination total-items="reviewListTotalItems" ng-model="reviewListCurrentPage"
+                        max-size="maxSize"
+                        class="pagination-sm " boundary-links="true" rotate="false"
+                        num-pages="numPages"
+                        ng-change="reviewListPageChanged()"
+                        items-per-page="reviewListItemPerPage"></pagination>
         </div>
     </section>
     <footer class="panel-footer">
-        <!-- chat form -->
+        <!-- Review Section -->
         <article class="chat-item">
             <a class="pull-left thumb-sm avatar"><img src="images/a2.png" class="img-circle"></a>
             <section class="chat-body">
                 <form  ng-submit="addNewReview()" novalidate class="m-b-none ng-pristine ng-valid">
                     <div class="input-group">
-                        <input type="text" name="comment" ng-model="reviewForm.comment" class="form-control ng-pristine ng-valid" placeholder="Write your review">
+                        <input type="text"  ng-model="reviewForm.comment" class="form-control ng-pristine ng-valid" placeholder="Write your review">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="submit" >POST</button>
                         </span>

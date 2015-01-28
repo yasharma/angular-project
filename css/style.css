@@ -26,10 +26,13 @@
 
 /*Reviews section css*/
 .review-wrapper {
-    height: 156px;
+    height: 300px;
     overflow-y: auto;
 }
-
+.thumbnail-medium{
+    width: 65px;
+    height: 65px;
+}
 /*Photos*/
 .displayphoto{
     width: 247px; height: 247px; padding:0px 2px;min-height: 124px;

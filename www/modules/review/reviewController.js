@@ -6,7 +6,7 @@ rxControllers.controller('reviewCtrl', ['$scope', 'localStorageService', '$route
         $scope.reviewForm = {};
         $scope.reviewForm.restaurant_id = routeParams.restaurantId;
         $scope.percent = 0;
-        $scope.max = 10;
+        $scope.max = 5;
         var modalInstance = null;
 
         $scope.submitReview = function () {
@@ -22,18 +22,20 @@ rxControllers.controller('reviewCtrl', ['$scope', 'localStorageService', '$route
                     });
                     return;
                 }
+
                 if(response.status < 400){
-                    getReviews();
                     messageCenterService.add('success', 'Your review has been posted successfully.', {timeout : 3000});
                     $timeout(closeModel, 3000);
+                }else{
+                    clearForm ();
                 }
             });
-            return false;
         }
 
         function closeModel (){
             modalInstance.close('');
             $(".overlay-main").css("display", "none");
+            getReviews();
             clearForm ();
         }
 
