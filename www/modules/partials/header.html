@@ -128,7 +128,8 @@
 
         <a tabindex="-1" ng-if = " 'no results found' !== match.model.formatted">
             <span class="search-text clearfix"> {{match.model.searchText}}</span>
-            <span class="clearfix grey-icon"><span class="glyphicon glyphicon-map-marker"></span> address of {{match.model.searchText}}</span>
+
+            <span class="clearfix grey-icon"><span class="glyphicon glyphicon-map-marker"></span> {{match.model.data.address}}<span ng-if="match.model.data.city">, {{match.model.data.city}}</span><span ng-if="match.model.data.state">, {{match.model.data.state}}</span><span ng-if="match.model.data.postcode">, {{match.model.data.postcode}}</span></span>
             <!--<span bind-html-unsafe="match.model.searchText | typeaheadHighlight:query"> &nbsp; {{match.model.tagValue}}</span>-->
             <!--<span class="label label-tag pull-right">{{match.model.tag}}  </span>-->
         </a>
