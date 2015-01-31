@@ -103,6 +103,7 @@ myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, R
                 }
 
                 else if (rejection.status === 0) {
+                    // TODO : try to connect to the secondary API whenever the primary API is down and send email to the admin
                     $rootScope.errorStatus = 'No connection. Verify application is running.';
                 } else if (rejection.status == 401) {
                     $rootScope.errorStatus = 'Unauthorized';
