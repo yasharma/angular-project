@@ -25,6 +25,7 @@ rxControllers.controller('reviewCtrl', ['$scope', 'localStorageService', '$route
 
                 if(response.status < 400){
                     messageCenterService.add('success', 'Your review has been posted successfully.', {timeout : 3000});
+                    // TODO : Refresh the reviews page after successful submission
                     $timeout(closeModel, 3000);
                 }else{
                     clearForm ();
