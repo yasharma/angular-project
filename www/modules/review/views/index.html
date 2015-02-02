@@ -15,7 +15,7 @@
                 <small class="block m-t-sm">{{review.comment}}</small>
                 <small>
                     <rating  ng-model="review.rating" max="max" readonly="true"></rating>
-                    <span class="label" ng-class="{'label-warning': review.rating/10 *100 <30, 'label-info': review.rating/10 *100 >=30 && review.rating/10 *100 <70, 'label-success': review.rating/10 *100 >=70}">{{review.rating/10 *100}}%</span>
+                    <span class="label" ng-class="{'label-warning': review.rating/5 *100 <30, 'label-info': review.rating/5 *100 >=30 && review.rating/5 *100 <70, 'label-success': review.rating/5 *100 >=70}">{{review.rating/5 *100}}%</span>
                 </small>
                     <span class="pull-right text-center text-muted">
                         <small class="label bg-light">{{ review.created }}</small>
@@ -35,7 +35,7 @@
         <!--</div>-->
         <!--<a href="#" class="h4">{{review.short_comment}}</a>-->
         <!--<small class="block"><a href="#" class="">Reviewer Name </a> <rating  ng-model="review.rating" max="max" readonly="true"></rating>-->
-        <!--<span class="label" ng-class="{'label-warning': review.rating/10 *100 <30, 'label-info': review.rating/10 *100 >=30 && review.rating/10 *100 <70, 'label-success': review.rating/10 *100 >=70}">{{review.rating/10 *100}}%</span>-->
+        <!--<span class="label" ng-class="{'label-warning': review.rating/5 *100 <30, 'label-info': review.rating/5 *100 >=30 && review.rating/5 *100 <70, 'label-success': review.rating/5 *100 >=70}">{{review.rating/5 *100}}%</span>-->
         <!--</small>-->
         <!--<small class="block m-t-sm">{{review.comment}}</small>-->
         <!--</div>-->

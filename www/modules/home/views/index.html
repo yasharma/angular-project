@@ -1,27 +1,171 @@
-<nav-top></nav-top>
+<section class="vbox">
+    <header class="bg-primary header header-md navbar navbar-fixed-top-xs box-shadow" ng-include="header"></header>
+    <section>
+        <section class="hbox stretch">
+            <aside ng-include="sidebar" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
 
-<section>
-    <section class="hbox stretch">
+            <section id="content">
+                <section class="vbox">
+                    <header class="header bg-white b-b b-light hide-for-small hide-for-touch">
+                        <div class="">
+                            <div class=" top20 head widget-head bg-purple active clearfix"
+                                 style="padding:23px 5px;margin-bottom:0px;">
+                                <div class="xs-top20 col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                    <input ng-model='search.formattedAddress' class="form-control icon location"
+                                           placeholder="-- Location --" ng-model="asyncSelected"
+                                           typeahead="address.formatted_address for address in getLocation($viewValue) "
+                                           typeahead-loading="loadingLocations">
+                                </div>
+                                <div class="xs-top20 col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                    <select class="form-control icon price" ng-model="search.price">
+                                        <option>-- Price --</option>
+                                        <option ng-repeat="price in prices" value="{{price.numericValue}}">
+                                            {{price.value}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="xs-top20 col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                    <select class="form-control icon type" ng-model="search.category">
+                                        <option value="">-- Cuisine --</option>
+                                        <option ng-repeat="category in categories" value="{{category.category}}">
+                                            {{category}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="xs-top20 col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                                    <button class="btn btn-dark form-control" ng-click="search()">
+                                        <i class="glyphicon glyphicon-search"></i>
+                                    </button>
 
-        <aside class="bg-light lt b-r b-light aside-md hidden-print">
-            <nav-left></nav-left>
-        </aside>
+                                    <!--<input type="text" class="btn btn-dark form-control glyphicon glyphicon-search">-->
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                    <section class="scrollable wrapper w-f">
+                        <div class="row">
 
-        <section id="content">
-            <header class="header bg-white b-b b-light hide-for-small hide-for-touch" ng-include="'modules/restaurant/views/search-form.html'"></header>
+                            <div class="col-sm-12 col-md-9 col-lg-9 ">
+                                <section>
+                                    <header class="panel-heading ">
+                                        <div class="row">
 
-            <!--Dynamic view goes here-->
-            <section class="scrollable wrapper w-f">
-                <div class="row">
-                    <div class="col-sm-12 col-md-9 col-lg-9 "  ng-include="'modules/restaurant/views/list.html'"></div>
-                    <div class="col-sm-3 hide-for-small hide-for-touch" ng-include="'modules/partials/right-filter.html'"></div>
+                                            <div class="col-sm-6">
+                                                Popular Restaurants
+                                            </div>
+                                            <div class="col-sm-6 col-md-6 col-lg-3 pull-right">
+                                                <select ng-model="sort" ng-change="set()" class="form-control">
+                                                    <option value="popular">Sort by rating</option>
+                                                    <option value="trending">Sort by trend</option>
+                                                    <option value="distance">sort by distance</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </header>
+                                </section>
 
-                </div>
+                                <section class="comment-list block">
+
+                                    <div class="panel-body no-padding-right">
+                                        <article ng-repeat="restaurant in restaurants" class="comment-item"><a
+                                                class="pull-left thumb-sm avatar">
+                                            <span class="rating-circle">{{restaurant.overview__percentile | number : 1}}</span>
+                                            <div easypiechart options="options" percent="restaurant.overview__percentile | number : 2"></div></a> <span
+                                                class="arrow left"></span>
+                                            <section class="comment-body panel panel-default">
+                                                <header class="panel-heading"><a href="">{{restaurant.locations__formatted_address}}</a>
+                                                    <label class="label bg-primary m-l-xs">{{restaurant.category}}</label>
+
+                                                    <span class="text-muted m-l-sm pull-right"> <i
+                                                            class="fa fa-clock-o"></i> {{restaurant.distance | number : 2}} KM </span>
+                                                </header>
+                                                <div class="panel-body">
+                                                    <div class="col-sm-3 col-md-3 col-lg-4 no-padding pull-left">
+                                                        <nvd3-multi-bar-chart
+                                                                data="trend"
+                                                                showXAxis="false"
+                                                                showYAxis="false"
+                                                                tooltips="true"
+                                                                width="222"
+                                                                height="150"
+                                                                interactive="true">
+                                                            <svg></svg>
+                                                        </nvd3-multi-bar-chart>
+                                                    </div>
+                                                    <div class="col-sm-5 col-md-5 col-lg-6 pull-left">
+                                                        <p><a href="#/restaurant/{{restaurant.id}}/{{hash}}">
+                                                            <h3 class="title"> {{restaurant.name}} </h3>
+                                                        </a></p>
+                                                        <p><rating  ng-model="restaurant.overview__rating" max="5" readonly="true"></rating>
+                                                            <span class="label" ng-class="{'label-warning': restaurant.overview__rating/5 *100 <30, 'label-info': restaurant.overview__rating/5 *100 >=30 && restaurant.overview__rating/5 *100 <70, 'label-success':restaurant.overview__rating/5 *100 >=70}">{{restaurant.overview__rating/5 *100}}%</span>
+                                                            {{restaurant.overview__total_reviews}} Reviews
+                                                        </p>
+                                                        <p>Restaurant Overview : {{restaurant.overview__percentile | number : 2}}</p>
+                                                        <p>Overview Trend : {{restaurant.overview__trend | number : 2}}</p>
+
+                                                    </div>
+                                                    <div class="col-lg-2 pull-left no-padding clearfix">
+                                                        <img src="images/r3.jpg" class="list-image">
+                                                        <img src="images/r3.jpg" class="list-image">
+                                                        <img src="images/r3.jpg" class="list-image">
+                                                        <img src="images/r3.jpg" class="list-image">
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <div class="col-sm-3 col-md-4 col-lg-4 col-md-offset-4"></div>
+                                                    <div class="pull-right">Price : $ {{restaurant.price_range}} -  {{restaurant.price_range}}</div>
+                                                </div>
+                                            </section>
+                                        </article>
+                                        <div class="panel-body hide-for-small bg-white b-b b-light" style="margin-left: 45px;">
+                                            <pagination total-items="popularListTotalItems" ng-model="popularListCurrentPage" max-size="maxSize"
+                                                        class="pagination-sm " boundary-links="true" rotate="false" num-pages="numPages"
+                                                        ng-change="popularListPageChanged()"
+                                                        items-per-page="popularListItemPerPage"></pagination>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col-sm-3 hide-for-small hide-for-touch">
+                                <div class="panel">
+                                    <div class="panel-heading b-b">Filter | Not Implemented yet</div>
+                                    <div class="panel-body">
+                                        <ul class="list-unstyled m-t-n-sm">
+                                            <li class="checkbox i-checks"><label> <input type="checkbox"
+                                                                                         checked=""><i></i> All Category
+                                            </label></li>
+                                            <li class="checkbox i-checks"><label> <input type="checkbox"
+                                                                                         checked=""><i></i> Chinese </label></li>
+                                            <li class="checkbox i-checks"><label> <input type="checkbox"><i></i> Indian
+                                            </label></li>
+                                            <li class="checkbox i-checks"><label> <input type="checkbox"><i></i>
+                                                Thai </label></li>
+                                            <li class="checkbox i-checks"><label> <input type="checkbox"><i></i>
+                                                Modern Australian </label></li>
+                                            <li class="checkbox i-checks"><label> <input type="checkbox"><i></i>
+                                                Bistro </label></li>
+                                            <li class="checkbox i-checks"><label> <input type="checkbox"><i></i>
+                                                Burgers </label></li>
+                                        </ul>
+                                        <div class="line line-dashed b-b line-lg"></div>
+                                        <ul class="list-unstyled">
+                                            <li class="radio i-checks"><label> <input type="radio" name="filter"
+                                                                                      checked=""><i></i> Today </label>
+                                            </li>
+                                            <li class="radio i-checks"><label> <input type="radio" name="filter"><i></i>
+                                                Last Week </label></li>
+                                            <li class="radio i-checks"><label> <input type="radio" name="filter"><i></i>
+                                                Last Month </label></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
             </section>
 
-            <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+
         </section>
     </section>
 </section>
-
-
