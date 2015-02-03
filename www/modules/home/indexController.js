@@ -36,17 +36,43 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             controller: 'loginCtrl'
         });
 }])
+    .factory('searchData', function () {
+
+       var search = { };
+
+        return {
+            get: function () {
+                return search;
+            },
+            set: function (searchParams) {
+                search = searchParams;
+            }
+        };
+    })
 
     .controller('indexCtrl', ['$scope', '$http', 'localStorageService', '$location', 'restaurantSvr', 'geoLocation',
-        function ($scope, $http, localStorageService, $location, restaurantSvr, geoLocation) {
+        '$routeParams','searchData', function ($scope, $http, localStorageService, $location, restaurantSvr, geoLocation,
+         $routeParams, searchData) {
 
             $scope.restaurantList = {
                 params: {
                     sort: 'popular'
                 }
             };
-
             initTemplate();
+
+            if($routeParams.search){
+
+                $scope.restaurantList.params = merge_objects($scope.restaurantList.params,
+                    {
+                        'formatted-address': $routeParams.formattedAddress,
+                        'price_range': $routeParams.priceRange,
+                        'category': '' //sending category empty for now @todo remove
+//                        'category': $routeParams.category
+                    });
+
+                getPopularList();
+            }
 
             if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {
                 geoLocation.getLocation()
@@ -69,34 +95,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 });
             };
 
-            restaurantSvr.getRestaurantCategories().then(function (response) {
-                $scope.categories = response;
-            });
-
-            $scope.prices = [
-                {'value': '$', "numericValue": 1},
-                {'value': '$$', "numericValue": 2},
-                {'value': '$$$', "numericValue": 3},
-                {'value': '$$$$', "numericValue": 4},
-                {'value': '$$$$$', "numericValue": 5}
-            ];
-
-            $scope.getLocation = function (val) {
-                return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
-                    params: {
-                        address: val,
-                        sensor: false
-                    }
-                }).then(function (response) {
-                    return response.data.results.map(function (item) {
-                        return {
-                            'formatted_address': item.formatted_address,
-                            'location': item.geometry.location
-                        };
-                    });
-                });
-            };
-
             $scope.onSelect = function ($item, $model, $label) {
                 $scope.$item = $item;
                 $scope.$model = $model;
@@ -112,18 +110,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     });
                 getPopularList();
             };
-
-            $scope.search = function () {
-                $scope.restaurantList.params = merge_objects($scope.restaurantList.params,
-                    {
-                        'formatted-address': $scope.search.formattedAddress,
-                        'price_range': $scope.search.price,
-                        'category': $scope.search.category
-                    });
-
-                getPopularList();
-
-            }
 
             function getPopularList(params) {
                 if (typeof(params) !== "undefined") {
@@ -171,7 +157,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         }
     ])
 
-    .controller('navigationController', ['$scope', '$http', '$location', '$rootScope', 'restaurantSvr','localStorageService', function ($scope, $http, $location, $rootScope, restaurantSvr, localStorageService) {
+    .controller('navigationController', ['$scope', '$http', '$location', '$rootScope', 'restaurantSvr',
+        'localStorageService', function ($scope, $http, $location, $rootScope, restaurantSvr, localStorageService) {
 
         $scope.navSearch = function (val) {
             return restaurantSvr.findRestaurant(val)
@@ -206,6 +193,52 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             $location.path("/index");
         }
 
+    }])
+
+    .controller('searchCtrl', ['$scope', '$http','$location', 'restaurantSvr', 'searchData',function ($scope, $http,
+        $location, restaurantSvr, searchData) {
+
+        $scope.restaurantList = { };
+        $scope.search= {};
+
+        restaurantSvr.getRestaurantCategories().then(function (response) {
+            $scope.categories = response;
+        });
+
+        $scope.prices = [
+            {'value': '$', "numericValue": 1},
+            {'value': '$$', "numericValue": 2},
+            {'value': '$$$', "numericValue": 3},
+            {'value': '$$$$', "numericValue": 4},
+            {'value': '$$$$$', "numericValue": 5}
+        ];
+
+        $scope.getLocation = function (val) {
+            return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
+                params: {
+                    address: val,
+                    sensor: false
+                }
+            }).then(function (response) {
+                return response.data.results.map(function (item) {
+                    return {
+                        'formatted_address': item.formatted_address,
+                        'location': item.geometry.location
+                    };
+                });
+            });
+        };
+
+        $scope.search = searchData.get();
+
+        $scope.searchRestaurant = function () {
+
+            searchData.set($scope.search);
+
+            $location.url('/index?search=true&formattedAddress='+ $scope.search.formattedAddress+
+                '&priceRange='+ $scope.search.price+
+                    '&category='+ $scope.search.category);
+        }
     }])
 
     .controller('mapCtrl', ['$scope', 'locationSvr', '$modal', '$routeParams', '$log',

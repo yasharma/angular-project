@@ -6,42 +6,9 @@
 
             <section id="content">
                 <section class="vbox">
-                    <header class="header bg-white b-b b-light hide-for-small hide-for-touch">
-                        <div class="">
-                            <div class=" top20 head widget-head bg-purple active clearfix"
-                                 style="padding:23px 5px;margin-bottom:0px;">
-                                <div class="xs-top20 col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                                    <input ng-model='search.formattedAddress' class="form-control icon location"
-                                           placeholder="-- Location --" ng-model="asyncSelected"
-                                           typeahead="address.formatted_address for address in getLocation($viewValue) "
-                                           typeahead-loading="loadingLocations">
-                                </div>
-                                <div class="xs-top20 col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                                    <select class="form-control icon price" ng-model="search.price">
-                                        <option>-- Price --</option>
-                                        <option ng-repeat="price in prices" value="{{price.numericValue}}">
-                                            {{price.value}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="xs-top20 col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                                    <select class="form-control icon type" ng-model="search.category">
-                                        <option value="">-- Cuisine --</option>
-                                        <option ng-repeat="category in categories" value="{{category.category}}">
-                                            {{category}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="xs-top20 col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                                    <button class="btn btn-dark form-control" ng-click="search()">
-                                        <i class="glyphicon glyphicon-search"></i>
-                                    </button>
-
-                                    <!--<input type="text" class="btn btn-dark form-control glyphicon glyphicon-search">-->
-                                </div>
-                            </div>
-                        </div>
-                    </header>
+                    <div>
+                        <header class="header bg-white b-b b-light hide-for-small hide-for-touch" ng-include="'modules/restaurant/views/search-form.html'"></header>
+                    </div>
                     <section class="scrollable wrapper w-f">
                         <div class="row">
 
