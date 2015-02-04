@@ -195,8 +195,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
     }])
 
-    .controller('searchCtrl', ['$scope', '$http','$location', 'restaurantSvr', 'searchData',function ($scope, $http,
-        $location, restaurantSvr, searchData) {
+    .controller('searchCtrl', ['$scope', '$http','$location', '$routeParams','restaurantSvr', 'searchData',function ($scope, $http,
+        $location, $routeParams, restaurantSvr, searchData) {
 
         $scope.restaurantList = { };
         $scope.search= {};
@@ -229,7 +229,9 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             });
         };
 
-        $scope.search = searchData.get();
+        if($routeParams.search){
+            $scope.search = searchData.get();
+        }
 
         $scope.searchRestaurant = function () {
 
