@@ -27,6 +27,13 @@ myApp.config(["RestangularProvider", function(RestangularProvider){
         cache: true
     });
     RestangularProvider.setFullResponse(true);
+    RestangularProvider.setRequestInterceptor(function(elem, operation) {
+        if (operation === "remove") {
+            return null;
+        }
+        return elem;
+    })
+    // set params for multiple methods at once
     RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
         if(operation === 'getList'){
             data = [{
