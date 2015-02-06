@@ -1,17 +1,19 @@
 <div class="row" ng-if="showMap">
 <section>
-    <ui-gmap-google-map
-            class="col-md-12"
-            center="map.center"
-            zoom="map.zoom"
-            ng-cloak>
-        <ui-gmap-marker coords="map.center" idkey="1" ng-cloak>
+
+    <ui-gmap-google-map center="map.center" zoom="map.zoom" options="options">
+        <ui-gmap-marker coords="marker.coords" options="marker.options"  idkey="marker.id">
             <ui-gmap-window>
-                <p>{{map.formattedAddress}}</p>
+            <p>{{map.formattedAddress}}</p>
             </ui-gmap-window>
         </ui-gmap-marker>
-
     </ui-gmap-google-map>
 
+    <div ng-cloak>
+        <ul>
+            <li>coords update ctr: {{coordsUpdates}}</li>
+            <li>dynamic move ctr: {{dynamicMoveCtr}}</li>
+        </ul>
+    </div>
 </section>
     </div>
