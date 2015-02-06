@@ -71,6 +71,10 @@
     color: #788288;
 }
 
+.claim-modal-window  .modal-dialog{
+    width: 800px;
+}
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: @screen-sm-min) {
     .tt-input-group ul.dropdown-menu{
