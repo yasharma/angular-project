@@ -7,11 +7,14 @@
                     </div>
                 </div>
                 <!-- nav -->
-                <nav class="nav-primary hidden-xs">
+                <nav class="nav-primary hidden-xs" ng-controller="menuCtrl">
                     <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Start</div>
-                    <ul class="nav nav-main" data-ride="collapse">
-                        <li > <a href="index.html" class="auto"> <i class="i i-statistics icon"> </i> <span class="font-bold">DashBoard</span> </a> </li>
-
+                    <ul class="nav nav-main" data-ride="collapse" ng-repeat="menu in menus">
+                        <li >
+                            <a href="{{ menu.link }}" class="auto"> <i class="i {{ menu.icon }} icon"> </i>
+                                <span class="font-bold">{{ menu.name }}</span>
+                            </a>
+                        </li>
                     </ul>
                     <div class="line dk hidden-nav-xs"></div>
                     <ul class="nav ">

@@ -10,7 +10,6 @@
 
 <!--Dynamic view goes here-->
 
-<section id="content">
 <section class="vbox">
 <section class="scrollable padder">
 <section class="row m-b-md">
@@ -24,14 +23,28 @@
         <small> {{restaurant.address}},
             {{restaurant.city}}, {{restaurant.postcode}} {{restaurant.state}}
         </small>
-    </div>
-    <div class="col-sm-6 text-right text-left-xs m-t-md">
 
-        <a href="#" class="btn btn-icon b-2x btn-default btn-rounded hover"><i
-                class="i i-bars3 hover-rotate"></i></a> <a href="#nav, #sidebar"
-                                                           class="btn btn-icon b-2x btn-info btn-rounded"
-                                                           data-toggle="class:nav-xs, show"><i
-            class="fa fa-bars"></i></a></div>
+    </div>
+
+    <div class="col-sm-6 text-right m-t-md">
+        <div class="dropdown  pull-right">
+            <a class="btn btn-icon b-2x btn-info btn-rounded hover dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                <li role="presentation"><a tabindex="-1" href="#/manage/photos/{{ restaurantId }}">Restaurant Owner Manage Photos</a></li>
+                <li role="presentation"><a tabindex="-1" href="#/dashboard/{{ restaurantId }}">Go to restaurant Owner Dashboard</a></li>
+                <li role="presentation"><a tabindex="-1" href="#/request/change/{{ restaurantId }}">Go to Request Information Change by owner</a></li>
+            </ul>
+
+            <a href="#" class="btn btn-icon b-2x btn-default btn-rounded hover"><i
+                    class="i i-bars3 hover-rotate"></i></a> <a href="#nav, #sidebar"
+                                                               class="btn btn-icon b-2x btn-info btn-rounded"
+                                                               data-toggle="class:nav-xs, show"><i
+                class="fa fa-bars"></i></a>
+        </div>
+    </div>
+
 </section>
 <div class="row">
     <div class="col-sm-6">
@@ -203,8 +216,6 @@
             <flot dataset="donutDataset" options="donutOptions" height="280px"></flot>
         </div>
     </div>
-</div>
-
 </div>
 <div class="row">
 
