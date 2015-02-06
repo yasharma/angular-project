@@ -1,7 +1,7 @@
 'use strict';
 
 var myApp = angular.module('myApp', ['ngRoute','config','LocalStorageModule','directive','restangular',
-    'geoLocation','overviewService','restaurantService','reviewService','locationService','photoService','requestService',
+    'geoLocation','overviewService','restaurantService','reviewService','locationService','photoService','requestService','claimService',
     //'AngularChart',
     'GoogleMaps','angularFileUpload','ui.bootstrap','nvd3ChartDirectives','easypiechart','highcharts-ng',
     'angular-flot','Controllers','Services', 'MessageCenterModule','angularFileUpload'

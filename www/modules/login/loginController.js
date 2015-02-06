@@ -1,6 +1,8 @@
 'use strict';
 
-rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','loginSvr', 'AuthenticationService', 'messageCenterService', 'localStorageService' , function ($scope, $location, $rootScope, loginSvr, AuthenticationService, messageCenterService, localStorageService) {
+rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','loginSvr', 'AuthenticationService',
+    'messageCenterService', 'localStorageService' , function ($scope, $location, $rootScope, loginSvr,
+    AuthenticationService, messageCenterService, localStorageService) {
 
     $scope.credentials = '';
     $scope.signup = {};
@@ -11,6 +13,7 @@ rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','logi
             .then(function(response){
                 if(response.err){
                     localStorageService.remove('token');
+                    localStorageService.remove('user');
                     AuthenticationService.isLogged = 0;
                     $rootScope.isLogged = false;
                 }
@@ -18,6 +21,7 @@ rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','logi
                 $rootScope.isLogged = true;
 
                 localStorageService.set('token', response.items.accessToken);
+                localStorageService.set('user',{"id" : response.items.id, "username" : response.items.username, "email" :  response.items.email });
                 $location.path("/index");
             });
     };
