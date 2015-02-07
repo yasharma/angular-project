@@ -20,6 +20,20 @@ claimService.factory('claimSvr', ['Restangular', function (Restangular) {
                     response.err = true;
                     return response;
                 });
+        },
+
+        verifyRestaurant: function (params) {
+            var resource = Restangular.all('claims/verify');
+
+            var data_encoded = $.param(params);
+            return resource.post(data_encoded, {}, {'Content-Type': 'application/x-www-form-urlencoded'}).
+                then(function (response) {
+                    return response;
+                },
+                function (response) {
+                    response.err = true;
+                    return response;
+                });
         }
     };
 }]);
