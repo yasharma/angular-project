@@ -23,10 +23,11 @@ photoService.factory('photoSvr', ['localStorageService', 'Restangular', '$http',
         },
         deleteRestaurantPhotos: function (photoId) {
 
-            var photos = Restangular.all("photos", photoId);
+            var photos = Restangular.all("photos/"+photoId);
             console.log(photoId);
 
-            return photos.remove({}, {'Content-Type':'application/json'})
+
+            return photos.remove()
                 .then(function (response) {
                     console.log('delete restaurant photo response ' + response);
                     return response;
