@@ -160,6 +160,9 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
     .controller('navigationController', ['$scope', '$http', '$location', '$rootScope', 'restaurantSvr',
         'localStorageService', function ($scope, $http, $location, $rootScope, restaurantSvr, localStorageService) {
 
+
+        $scope.user = localStorageService.get('user');
+
         $scope.navSearch = function (val) {
             return restaurantSvr.findRestaurant(val)
                 .then(function (response) {
