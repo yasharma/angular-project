@@ -3,7 +3,7 @@
     <section class="chat-list panel-body">
         <article class="media">
             <div class="r b bg-warning-ltest wrapper m-b">
-                Thank you for providing your information. Please fill up the details and you shall receive activation code in your email .
+                Thank you for providing your information. Please fill up the details and you shall receive activation code in your email.
             </div>
 
             <!--Flash message div-->
@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Address (Restaurant Address )</label>
                     <div class="col-sm-8" ng-class="{ 'has-error' : claimsFrom.address.$invalid && !claimsFrom.address.$pristine }">
-                        <textarea name="address" ng-model="claimForm.address" class="form-control" required="required" >{{reviewForm.address}}</textarea>
+                        <textarea name="address" ng-model="claimForm.address" class="form-control" required="required" >{{claimForm.address}}</textarea>
                         <p ng-show="claimsFrom.address.$error.required && !claimsFrom.address.$pristine" class="help-block">Please write an address.</p>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Messsage</label>
                     <div class="col-sm-8" ng-class="{ 'has-error' : claimsFrom.message.$invalid && !claimsFrom.message.$pristine }">
-                        <textarea name="message" ng-model="claimForm.message" class="form-control" required="required">{{reviewForm.message}}</textarea>
+                        <textarea name="message" ng-model="claimForm.message" class="form-control" required="required">{{claimForm.message}}</textarea>
                         <p ng-show="claimsFrom.message.$error.required && !claimsFrom.message.$pristine" class="help-block">Please write a message.</p>
                     </div>
                 </div>

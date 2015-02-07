@@ -3,9 +3,20 @@
 rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localStorageService', '$location', '$routeParams', 'restaurantSvr', 'geoLocation', 'reviewSvr', 'overviewSvr', 'locationSvr', 'photoSvr', '$anchorScroll', '$modal',
     function ($scope, $timeout, $upload, localStorageService, $location, routeParams, restaurantSvr, geoLocation, reviewSvr, overviewSvr, locationSvr, photoSvr, $anchorScroll, $modal) {
 
+        var modalInstance = null;
+
         initTemplate();
         $anchorScroll();
+        var user = localStorageService.get('user');
         $scope.restaurantId = routeParams.restaurantId;
+
+        clearForm ();
+
+        function clearForm (){
+            $scope.activationForm = {};
+            $scope.activationForm.restaurant_id = $scope.restaurantId;
+            $scope.activationForm.user_id = user.id;
+        }
 
         if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {
             geoLocation.getLocation()
@@ -79,7 +90,59 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
             // $scope.upload = $upload.http({...})  see 88#issuecomment-31366487 for sample code.
         };
 
+        $scope.claim = function(){
+            $location.url($location.path() + '?request=claimRestaurant');
+        }
 
+
+        var modalInstance = checkParams(routeParams.request);
+
+        if(typeof modalInstance !== undefined && Object.keys(modalInstance).length){
+
+            modalInstance = $modal.open({
+                templateUrl: modalInstance.templateLocation,
+                scope: $scope,
+                controller : modalInstance.controller,
+                windowClass: modalInstance.windowClass || ''
+            });
+
+            modalInstance.opened.then(function () {
+                $scope.showModal = true;
+                $(".overlay-main").css("display", "block");
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $(".overlay-main").css("display", "none");
+            });
+
+        }
+
+        function checkParams (params){
+            var modalDetails = {};
+            switch (routeParams.request){
+                case "validateRestaurant" :
+                    modalDetails = {
+                        modal : "validate",
+                        requestParam : params,
+                        templateLocation : "modules/claim/views/activation-form.html",
+                        controller: "claimCtrl"
+
+                    }
+                    break;
+                case "claimRestaurant" :
+                    modalDetails = {
+                        modal : "claim",
+                        requestParam : params,
+                        templateLocation : "modules/claim/views/form.html",
+                        controller: "claimCtrl",
+                        windowClass: "claim-modal-window"
+                    }
+                    break;
+            }
+            return modalDetails;
+        }
 
         function getRestaurant() {
             var restaurantId = $scope.restaurantId;
