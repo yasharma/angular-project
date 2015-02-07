@@ -295,7 +295,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     {
                         name : 'Request Change',
                         link : '#/request/change/' + $scope.restaurantId,
-                        icon : 'i-statistics'
+                        icon : 'i-pencil'
                     }
                 ];
             }
