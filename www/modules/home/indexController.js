@@ -261,6 +261,22 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         formattedAddress: location.formatted_address
                     }
 
+                    $scope.options = {scrollwheel: false};
+                    $scope.coordsUpdates = 0;
+                    $scope.dynamicMoveCtr = 0;
+                    $scope.marker = {
+                        id: 0,
+                        coords: {
+                            latitude: $scope.map.center.latitude,
+                            longitude:$scope.map.center.longitude
+                        }
+                    };
+                    $scope.$watchCollection("marker.coords", function (newVal, oldVal) {
+                        if (_.isEqual(newVal, oldVal))
+                            return;
+                        $scope.coordsUpdates++;
+                    });
+
                     var modalInstance = $modal.open({
                         templateUrl: "modules/restaurant/views/map.html",
                         scope: $scope

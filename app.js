@@ -4,12 +4,21 @@ var myApp = angular.module('myApp', ['ngRoute','config','LocalStorageModule','di
     'geoLocation','overviewService','restaurantService','reviewService','locationService','photoService','requestService','claimService',
     //'AngularChart',
     'GoogleMaps','angularFileUpload','ui.bootstrap','nvd3ChartDirectives','easypiechart','highcharts-ng',
-    'angular-flot','Controllers','Services', 'MessageCenterModule','angularFileUpload'
+    'angular-flot','Controllers','Services', 'MessageCenterModule','angularFileUpload', 'uiGmapgoogle-maps'
 ]);
 
 // Declare app level module which depends on views, and components
 myApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.otherwise({redirectTo: '/index'});
+}]);
+
+
+myApp.config(['uiGmapGoogleMapApiProvider',function(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+        //    key: 'your api key',
+        v: '3.17',
+        libraries: 'weather,geometry,visualization'
+    });
 }]);
 
 myApp.config(["RestangularProvider", function(RestangularProvider){
@@ -54,7 +63,6 @@ myApp.factory('AuthenticationService', function() {
 
     return auth;
 });
-
 
 
 myApp.run(['$rootScope', '$location', 'localStorageService', 'AuthenticationService',function($rootScope, $location, localStorageService, AuthenticationService) {
