@@ -15,7 +15,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
         function clearForm (){
             $scope.activationForm = {};
             $scope.activationForm.restaurant_id = $scope.restaurantId;
-            $scope.activationForm.user_id = user.id;
+            if(user !== null) $scope.activationForm.user_id = user.id;
         }
 
         if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {

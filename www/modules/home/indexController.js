@@ -192,6 +192,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
         $scope.clearToken = function(){
             localStorageService.remove('token');
+            localStorageService.remove('user');
             $rootScope.isLogged = false;
             $location.path("/index");
         }
