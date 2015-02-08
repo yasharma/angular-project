@@ -44,7 +44,7 @@ rxControllers.controller('photoCtrl', ['$scope', '$routeParams', 'photoSvr', 'me
                 var file = $scope.restaurantPhotos[i];
                 $scope.upload = $upload.upload({
                     //@todo change access-token
-                    url: 'http://api.iresturant.com/v1/photos/upload?access-token=f899139df5e1059396431415e770c6dd',
+                    url: 'http://api.reviews-combined.com/v1/photos/upload?access-token=f899139df5e1059396431415e770c6dd',
                     // upload.php script, node.js route, or servlet url
                     method: 'POST',
                     //headers: {'Authorization': 'xxx'}, // only for html5
