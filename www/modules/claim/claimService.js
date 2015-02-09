@@ -25,7 +25,12 @@ claimService.factory('claimSvr', ['Restangular', function (Restangular) {
         verifyRestaurant: function (params) {
             var resource = Restangular.all('claims/verify');
 
-            var data_encoded = $.param(params);
+            var paramsToSend = {
+                "request-token" : params.request_token,
+                "validation-key": params.validation_key
+            }
+
+            var data_encoded = $.param(paramsToSend);
             return resource.post(data_encoded, {}, {'Content-Type': 'application/x-www-form-urlencoded'}).
                 then(function (response) {
                     return response;

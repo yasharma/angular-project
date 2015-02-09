@@ -16,6 +16,7 @@ rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','logi
                     localStorageService.remove('user');
                     AuthenticationService.isLogged = 0;
                     $rootScope.isLogged = false;
+                    return;
                 }
                 AuthenticationService.isLogged = true;
                 $rootScope.isLogged = true;

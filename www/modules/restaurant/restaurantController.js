@@ -1,21 +1,21 @@
 'use strict';
 
 rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localStorageService', '$location', '$routeParams', 'restaurantSvr', 'geoLocation', 'reviewSvr', 'overviewSvr', 'locationSvr', 'photoSvr', '$anchorScroll', '$modal',
-    function ($scope, $timeout, $upload, localStorageService, $location, routeParams, restaurantSvr, geoLocation, reviewSvr, overviewSvr, locationSvr, photoSvr, $anchorScroll, $modal) {
+    function ($scope, $timeout, $upload, localStorageService, $location, $routeParams, restaurantSvr, geoLocation, reviewSvr, overviewSvr, locationSvr, photoSvr, $anchorScroll, $modal) {
 
         var modalInstance = null;
 
         initTemplate();
         $anchorScroll();
         var user = localStorageService.get('user');
-        $scope.restaurantId = routeParams.restaurantId;
+        $scope.restaurantId = $routeParams.restaurantId;
 
         clearForm ();
 
         function clearForm (){
             $scope.activationForm = {};
             $scope.activationForm.restaurant_id = $scope.restaurantId;
-            $scope.activationForm.user_id = user.id;
+            if(user !== null) $scope.activationForm.user_id = user.id;
         }
 
         if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {
@@ -95,9 +95,9 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
         }
 
 
-        var modalInstance = checkParams(routeParams.request);
+        var modalInstance = checkParams($routeParams.request);
 
-        if(typeof modalInstance !== undefined && Object.keys(modalInstance).length){
+        if(typeof modalInstance !== undefined && Object.keys(modalInstance).length && user !== null){
 
             modalInstance = $modal.open({
                 templateUrl: modalInstance.templateLocation,
@@ -121,7 +121,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
 
         function checkParams (params){
             var modalDetails = {};
-            switch (routeParams.request){
+            switch ($routeParams.request){
                 case "validateRestaurant" :
                     modalDetails = {
                         modal : "validate",
