@@ -33,7 +33,8 @@ module.exports = function (grunt) {
             options: {
                 compress: false,
                 report: 'gzip',
-                drop_console: true
+                drop_console: true,
+                beautify: true
 
                 //sourceMap: true,
                 //sourceMapName: 'www/js/app.min.js.map'

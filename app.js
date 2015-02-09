@@ -111,19 +111,19 @@ myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, R
                     $rootScope.errorStatus = 'HTTP verb not supported [405]';
 //                } else if (rejection.status == 500) {
 //                    $rootScope.errorStatus = 'Internal Server Error [500].';
-                } else {
-                    if(rejection.data.length){
-                        rejection.data.forEach(function(item){
-                            messageCenterService.add('danger', getFriendlierMessage(item.message), {timeout : 3000});
-                        });
-                    }else{
-                        $rootScope.errorStatus = getFriendlierMessage(rejection.data.message);
-
-                    }
+                } else if (rejection.status == 422 && rejection.data.message){
+                    $rootScope.errorStatus = getFriendlierMessage(rejection.data.message);
+                }
+                else{
+                    rejection.data.forEach(function(item){
+                        messageCenterService.add('danger', getFriendlierMessage(item.message), {timeout : 3000});
+                    });
+                    return;
                 }
 
                 if($rootScope.errorStatus){
                     messageCenterService.add('danger', $rootScope.errorStatus, {timeout : 3000});
+                    return;
                 }
 
                 return $q.reject(rejection);
