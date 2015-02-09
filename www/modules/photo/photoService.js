@@ -21,40 +21,14 @@ photoService.factory('photoSvr', ['localStorageService', 'Restangular', '$http',
                     }
                 });
         },
-        deleteRestaurantPhotos: function (photoId) {
-
+        deleteRestaurantPhotos: function (photo) {
+            var photoId = photo.id;
             var photos = Restangular.all("photos/"+photoId);
-            console.log(photoId);
-
 
             return photos.remove()
                 .then(function (response) {
-                    console.log('delete restaurant photo response ' + response);
                     return response;
                 });
-
-//            var headers = {
-//                'Access-Control-Allow-Origin' : '*',
-//                'Access-Control-Allow-Methods' : 'POST, GET, OPTIONS, PUT, DELETE',
-//                'Content-Type': 'application/json',
-//                'Accept': 'application/json'
-//            };
-//
-//            return $http({
-//                method: "DELETE",
-//                headers: headers,
-//                url: 'http://api.reviews-combined.com:80/v1/photos/'+ photoId + '?access-token=1296a85a52bb54d70054e3a754567c34',
-//                data: {}
-//            }).success(function(result) {
-//                console.log("Delete photo success!")
-//                console.log(result);
-//            }).error(function(data, status, headers, config) {
-//                console.log("Delete photo error!")
-//                console.log(data);
-//                console.log(status);
-//                console.log(headers);
-//                console.log(config);
-//            });
         },
         uploadRestaurantPhoto: function (restaurantId,item) {
 

@@ -30,10 +30,12 @@ rxControllers.controller('photoCtrl', ['$scope', '$routeParams', 'photoSvr', 'me
             });
         };
 
-        $scope.deletePhoto = function ($index) {
-            var photoId = $scope.photos[$index].id;
-            photoSvr.deleteRestaurantPhotos(photoId).then(function (response) {
-//                @todo handle response
+        $scope.deletePhoto = function (photo) {
+            var index = $scope.photos.indexOf(photo);
+            $scope.photos[index].request =  true;
+
+            photoSvr.deleteRestaurantPhotos(photo).then(function (response) {
+                if (index > -1) $scope.photos.splice(index, 1);
             });
         }
 
