@@ -30,10 +30,12 @@ rxControllers.controller('photoCtrl', ['$scope', '$routeParams', 'photoSvr', 'me
             });
         };
 
-        $scope.deletePhoto = function ($index) {
-            var photoId = $scope.photos[$index].id;
-            photoSvr.deleteRestaurantPhotos(photoId).then(function (response) {
-//                @todo handle response
+        $scope.deletePhoto = function (photo) {
+            var index = $scope.photos.indexOf(photo);
+            $scope.photos[index].request =  true;
+
+            photoSvr.deleteRestaurantPhotos(photo).then(function (response) {
+                if (index > -1) $scope.photos.splice(index, 1);
             });
         }
 
@@ -44,7 +46,7 @@ rxControllers.controller('photoCtrl', ['$scope', '$routeParams', 'photoSvr', 'me
                 var file = $scope.restaurantPhotos[i];
                 $scope.upload = $upload.upload({
                     //@todo change access-token
-                    url: 'http://api.iresturant.com/v1/photos/upload?access-token=f899139df5e1059396431415e770c6dd',
+                    url: 'http://api.reviews-combined.com/v1/photos/upload?access-token=f899139df5e1059396431415e770c6dd',
                     // upload.php script, node.js route, or servlet url
                     method: 'POST',
                     //headers: {'Authorization': 'xxx'}, // only for html5

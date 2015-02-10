@@ -78,11 +78,20 @@ myApp.run(['$rootScope', '$location', 'localStorageService', 'AuthenticationServ
 
 myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, RestangularProvider) {
 
+
+    /*
+    Referenced from this site
+     http://better-inter.net/enabling-cors-in-angular-js/*/
+
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
     var interceptor = ['$q','$location', '$injector', '$rootScope', 'localStorageService', 'AuthenticationService', 'messageCenterService', function($q, $location, $injector, $rootScope, localStorageService, AuthenticationService, messageCenterService) {
 
         return {
             request: function (config) {
                 config.headers = config.headers || {};
+
                 var token = localStorageService.get('token');
                 if (token) {
                     RestangularProvider.setDefaultRequestParams({
