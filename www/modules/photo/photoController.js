@@ -39,23 +39,25 @@ rxControllers.controller('photoCtrl', ['$scope', '$routeParams', 'photoSvr', 'me
             });
         }
 
-        $scope.$watch('restaurantPhotos', function () {
+        $scope.$watch('restaurantPhotos', function (restaurantPhotos) {
             $scope.type = "warning";
             //$scope.onFileSelect = function ($files) {
-            for (var i = 0; i < $scope.restaurantPhotos.length; i++) {
-                var file = $scope.restaurantPhotos[i];
+            if(restaurantPhotos) {
+                for (var i = 0; i < restaurantPhotos.length; i++) {
+                    var file = restaurantPhotos[i];
 
-//                @TODO take user_id from localstorage in branch rc-56
-                var formData = {"data" : file, "restaurant_id" : restaurantId, "user_id": 1};
+                    //@TODO take user_id from localstorage in branch rc-56
+                    var formData = {"data": file, "restaurant_id": restaurantId, "user_id": 1};
 
 
-                photoSvr.uploadRestaurantPhoto(formData).then(function (response) {
-                    $scope.dynamic = 100;
-                    $scope.type = "success";
-                }, function(response){
-                    $scope.type = "danger";
-                });
+                    photoSvr.uploadRestaurantPhoto(formData).then(function (response) {
+                        $scope.dynamic = 100;
+                        $scope.type = "success";
+                    }, function (response) {
+                        $scope.type = "danger";
+                    });
 
+                }
             }
         });
 
