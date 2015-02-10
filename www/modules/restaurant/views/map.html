@@ -1,7 +1,11 @@
-<div class="row" ng-if="showMap">
+<div class="row google-map" ng-if="showMap">
+    <div id="panel">
+        <button ng-click="getDirections()" class="btn btn-sm btn-rounded btn-default dropdown-toggle"><span class="dropdown-label">Get Directions</span></button>
+    </div>
+
 <section>
 
-    <ui-gmap-google-map center="map.center" zoom="map.zoom" options="options">
+    <ui-gmap-google-map control="map.control"  center="map.center" zoom="map.zoom" options="options">
         <ui-gmap-marker coords="marker.coords" options="marker.options"  idkey="marker.id">
             <ui-gmap-window>
             <p>{{map.formattedAddress}}</p>
@@ -9,11 +13,8 @@
         </ui-gmap-marker>
     </ui-gmap-google-map>
 
-    <div ng-cloak>
-        <ul>
-            <li>coords update ctr: {{coordsUpdates}}</li>
-            <li>dynamic move ctr: {{dynamicMoveCtr}}</li>
-        </ul>
-    </div>
+
 </section>
-    </div>
+
+
+</div>

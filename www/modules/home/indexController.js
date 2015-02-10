@@ -253,8 +253,12 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
         }
     ])
-    .controller('mapCtrl', ['$scope', 'locationSvr', '$modal', '$routeParams', '$log',
-        function ($scope, locationSvr, $modal, routeParams, $log) {
+    .controller('mapCtrl', ['$scope', 'locationSvr', '$modal', '$routeParams', '$log','localStorageService',
+        function ($scope, locationSvr, $modal, routeParams, $log, localStorageService) {
+
+            var latitude = localStorageService.get('latitude');
+            var longitude = localStorageService.get('longitude');
+
             $scope.getMap = function () {
 
                 locationSvr.getLocation(routeParams.restaurantId).then(function (location) {
@@ -264,7 +268,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                             longitude: location.long
                         },
                         zoom: 17,
-                        formattedAddress: location.formatted_address
+                        formattedAddress: location.formatted_address,
+                        control: {}
                     }
 
                     $scope.options = {scrollwheel: false};
@@ -277,11 +282,20 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                             longitude:$scope.map.center.longitude
                         }
                     };
+
                     $scope.$watchCollection("marker.coords", function (newVal, oldVal) {
                         if (_.isEqual(newVal, oldVal))
                             return;
                         $scope.coordsUpdates++;
                     });
+
+                    // directions object
+                    var origin =
+                    $scope.directions = {
+                        origin: latitude + ',' + longitude,
+                        destination: $scope.map.center.latitude +',' + $scope.map.center.longitude,
+                        showList: false
+                    }
 
                     var modalInstance = $modal.open({
                         templateUrl: "modules/restaurant/views/map.html",
@@ -300,6 +314,33 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     });
                 });
             }
+
+
+            // instantiate google map objects for directions
+            var directionsDisplay = new google.maps.DirectionsRenderer();
+            var directionsService = new google.maps.DirectionsService();
+            var geocoder = new google.maps.Geocoder();
+
+            // get directions using google maps api
+            $scope.getDirections = function () {
+
+                var request = {
+                    origin: $scope.directions.origin,
+                    destination: $scope.directions.destination,
+                    travelMode: google.maps.DirectionsTravelMode.DRIVING
+                };
+                directionsService.route(request, function (response, status) {
+                    if (status === google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setDirections(response);
+                        directionsDisplay.setMap($scope.map.control.getGMap());
+                        directionsDisplay.setPanel(document.getElementById('directionsList'));
+                        $scope.directions.showList = true;
+                    } else {
+                        alert('Google route unsuccesfull!');
+                    }
+                });
+            }
+
         }]);
 
 

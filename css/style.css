@@ -58,6 +58,22 @@
 
 }
 
+/*Google map*/
+
+.google-map {
+    position: relative;
+}
+.google-map #panel {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    margin-left: -180px;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+}
+
 /*Utilities*/
 .margin-bottom-1em {
     margin-bottom: 1em;
