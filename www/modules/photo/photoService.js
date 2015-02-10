@@ -21,6 +21,7 @@ photoService.factory('photoSvr', ['localStorageService', 'Restangular', '$http',
                     }
                 });
         },
+
         deleteRestaurantPhotos: function (photo) {
             var photoId = photo.id;
             var photos = Restangular.all("photos/"+photoId);
@@ -30,23 +31,22 @@ photoService.factory('photoSvr', ['localStorageService', 'Restangular', '$http',
                     return response;
                 });
         },
-        uploadRestaurantPhoto: function (restaurantId,item) {
 
-            var resource = 'photos/' + restaurantId;
-            var data = new FormData();
-            angular.forEach(item, function (fieldData, field) {
-                data.append(field, fieldData);
+        uploadRestaurantPhoto: function (items) {
+
+            var resource = 'photos/upload';
+            var formData = new FormData();
+
+            angular.forEach(items, function (fieldData, field) {
+                formData.append(field, fieldData);
             });
 
-            Restangular
-                .all(resource)
+            return Restangular.one(resource)
                 .withHttpConfig({transformRequest: angular.identity})
-                .post(data, {}, {'Content-Type': 'multipart/form-data'})
-                .then(function (msg) {
-                    console.log(msg);
-                }, function () {
-                    // do on failure
-                });
+                .customPOST(formData, '', undefined, {'Content-Type': undefined})
+                .then(function (response) {
+                return response;
+            });
         }
     };
 }]);
