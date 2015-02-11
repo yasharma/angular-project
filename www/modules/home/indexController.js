@@ -291,11 +291,16 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
                     // directions object
                     var origin =
-                    $scope.directions = {
-                        origin: latitude + ',' + longitude,
-                        destination: $scope.map.center.latitude +',' + $scope.map.center.longitude,
-                        showList: false
-                    }
+                        $scope.directions = {
+                            origin: latitude + ',' + longitude,
+                            destination: $scope.map.center.latitude +',' + $scope.map.center.longitude,
+                            showList: false
+                        }
+
+                    $scope.travelModes = [{ label : "Driving", value: "DRIVING" },{ label : "Walking", value : "WALKING"},
+                        {label : "Bicycling", value:"BICYCLING"},{ label: "Transit", value:"TRANSIT"}];
+
+                    $scope.travelMode =  $scope.travelModes[0].value;
 
                     var modalInstance = $modal.open({
                         templateUrl: "modules/restaurant/views/map.html",
@@ -322,13 +327,16 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             var geocoder = new google.maps.Geocoder();
 
             // get directions using google maps api
-            $scope.getDirections = function () {
+            $scope.getDirections = function (travelMode) {
+
+                var travelModeOpt = travelMode;
 
                 var request = {
                     origin: $scope.directions.origin,
                     destination: $scope.directions.destination,
-                    travelMode: google.maps.DirectionsTravelMode.DRIVING
+                    travelMode: google.maps.DirectionsTravelMode[travelModeOpt]
                 };
+
                 directionsService.route(request, function (response, status) {
                     if (status === google.maps.DirectionsStatus.OK) {
                         directionsDisplay.setDirections(response);

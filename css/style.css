@@ -65,9 +65,8 @@
 }
 .google-map #panel {
     position: absolute;
-    top: 40px;
-    left: 50%;
-    margin-left: -180px;
+    top: 5px;
+    left: 15%;
     z-index: 5;
     background-color: #fff;
     padding: 5px;
