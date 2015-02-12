@@ -12,20 +12,21 @@ rxControllers.controller('claimCtrl', ['$scope', '$modal', '$routeParams', '$tim
         $scope.claimRestaurant = function () {
 
             claimSvr.claimRestaurant($scope.claimForm).then(function (response) {
-                if(response.err){
+                if(response.err && response.data){
                     response.data.forEach(function(item){
                         messageCenterService.add('danger', item.message, {timeout : 3000});
                     });
                     return;
-                }
-
-                if(response.status < 400){
+                }else if(response.err){
+                    messageCenterService.add('danger', response.message, {timeout : 3000});
+                    return;
+                }else if(response.status < 400){
 
 //                    handle close modal better ways
                     $(".overlay-main").css("display", "none");
                     $(".modal-dialog").css("display", "none");
 
-                    messageCenterService.add('success', 'Your access code has been sent to your email. Your request-token is ' + response.request_token);
+                    messageCenterService.add('success', 'Your access code has been sent to your email. Your request-token is ' + response.data.request_token);
                 }else{
                     initForm ();
                 }
