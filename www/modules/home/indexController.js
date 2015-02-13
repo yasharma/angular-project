@@ -258,6 +258,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
             var latitude = localStorageService.get('latitude');
             var longitude = localStorageService.get('longitude');
+            $scope.originAddress ='';
+            $scope.map = {};
 
             $scope.getMap = function () {
 
@@ -300,7 +302,26 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     $scope.travelModes = [{ label : "Driving", value: "DRIVING" },{ label : "Walking", value : "WALKING"},
                         {label : "Bicycling", value:"BICYCLING"},{ label: "Transit", value:"TRANSIT"}];
 
+//                    Set Driving to the options box
                     $scope.travelMode =  $scope.travelModes[0].value;
+
+
+                    // Get Destination Address
+                    var latlng = new google.maps.LatLng(latitude,longitude);
+
+                    geocoder.geocode({'latLng': latlng}, function(results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            if (results[1]) {
+                                $scope.originAddress = results[1].formatted_address;
+                            } else {
+                                console.log('No location found');;
+                            }
+                        } else {
+                            console.log('Geocoder failed due to: ' + status);
+                        }
+                    });
+
+                    console.log( $scope.originAddress);
 
                     var modalInstance = $modal.open({
                         templateUrl: "modules/restaurant/views/map.html",
@@ -325,6 +346,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             var directionsDisplay = new google.maps.DirectionsRenderer();
             var directionsService = new google.maps.DirectionsService();
             var geocoder = new google.maps.Geocoder();
+
 
             // get directions using google maps api
             $scope.getDirections = function (travelMode) {
