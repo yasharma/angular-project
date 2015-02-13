@@ -296,7 +296,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         $scope.directions = {
                             origin: latitude + ',' + longitude,
                             destination: $scope.map.center.latitude +',' + $scope.map.center.longitude,
-                            showList: false
+                            showList: true
                         }
 
                     $scope.travelModes = [{ label : "Driving", value: "DRIVING" },{ label : "Walking", value : "WALKING"},

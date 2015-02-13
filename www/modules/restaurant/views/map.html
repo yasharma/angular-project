@@ -1,36 +1,48 @@
 <div class="row google-map" ng-if="showMap">
     <div id="panel" ng-if="originAddress!=='' && map.formattedAddress && marker.coords">
-        <form class="form-inline">
+        <form class="form-horizontal">
             <div class="form-group">
-                <label>Start : </label>
-                <input type="text" class="form-control" ng-model="originAddress"/>
+                <label class="col-sm-4 control-label">Start : </label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="originAddress"/>
+                </div>
             </div>
             <div class="form-group">
-                <label>End : </label>
-                <input type="text" class="form-control" ng-model="map.formattedAddress"/>
+                <label class="col-sm-4 control-label">End : </label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="map.formattedAddress"/>
+                </div>
             </div>
             <div class="form-group">
-                <select class="form-control" name="travelMode" ng-model="travelMode"
-                        ng-options="value.value as value.label for value in travelModes" ></select>
+                <div class="col-sm-6">
+                    <select class="form-control" name="travelMode" ng-model="travelMode"
+                            ng-options="value.value as value.label for value in travelModes" ></select>
+                </div>
+                <div class="col-sm-6 no-padding">
+                    <button ng-click="getDirections(travelMode)" class="btn btn-sm btn-rounded btn-default">
+                        <span class="dropdown-label">Get Directions</span></button>
+                </div>
+
             </div>
-            <div class="form-group">
-                <button ng-click="getDirections(travelMode)" class="btn btn-sm btn-rounded btn-default">
-                    <span class="dropdown-label">Get Directions</span></button>
-            </div>
+
         </form>
 
     </div>
 
     <section>
+        <div class="row no-padding">
+            <div class="col-md-6">
+                <ui-gmap-google-map control="map.control"  center="map.center" zoom="map.zoom" options="options">
+                    <ui-gmap-marker coords="marker.coords" options="marker.options"  idkey="marker.id">
+                        <ui-gmap-window>
+                            <p>{{map.formattedAddress}}</p>
+                        </ui-gmap-window>
+                    </ui-gmap-marker>
+                </ui-gmap-google-map>
+            </div>
 
-        <ui-gmap-google-map control="map.control"  center="map.center" zoom="map.zoom" options="options">
-            <ui-gmap-marker coords="marker.coords" options="marker.options"  idkey="marker.id">
-                <ui-gmap-window>
-                    <p>{{map.formattedAddress}}</p>
-                </ui-gmap-window>
-            </ui-gmap-marker>
-        </ui-gmap-google-map>
-
+            <div id="directionsList" class="col-md-6"></div>
+        </div>
 
     </section>
 

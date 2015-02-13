@@ -73,18 +73,22 @@
     border: 1px solid #999;
 }
 
-#panel .form-inline input, #panel .form-inline select, #panel .form-inline button{
+#panel .form-horizontal input, #panel .form-horizontal select, #panel .form-horizontal button{
     font-size: 10px;
     height: 25px;
 }
 
-#panel .form-inline select{
+#panel .form-horizontal select{
     vertical-align: middle;
     padding: 0px;
 }
 
-#panel .form-inline label {
+#panel .form-horizontal label {
     font-weight: 800;
+}
+
+#panel .form-group{
+    margin-bottom : 2px;
 }
 
 
