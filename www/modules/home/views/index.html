@@ -96,23 +96,38 @@
                                 <div class="panel">
                                     <div class="panel-heading b-b">Filter | Not Implemented yet</div>
                                     <div class="panel-body">
-                                        <ul class="list-unstyled m-t-n-sm">
+                                      <!-- Commented for reference purpose -->
+                                        <!--<ul class="list-unstyled m-t-n-sm">-->
+                                            <!--<li class="checkbox i-checks"><label> <input type="checkbox"-->
+                                                                                         <!--checked=""><i></i> All Category-->
+                                            <!--</label></li>-->
+                                            <!--<li class="checkbox i-checks"><label> <input type="checkbox"-->
+                                                                                         <!--checked=""><i></i> Chinese </label></li>-->
+                                            <!--<li class="checkbox i-checks"><label> <input type="checkbox"><i></i> Indian-->
+                                            <!--</label></li>-->
+                                            <!--<li class="checkbox i-checks"><label> <input type="checkbox"><i></i>-->
+                                                <!--Thai </label></li>-->
+                                            <!--<li class="checkbox i-checks"><label> <input type="checkbox"><i></i>-->
+                                                <!--Modern Australian </label></li>-->
+                                            <!--<li class="checkbox i-checks"><label> <input type="checkbox"><i></i>-->
+                                                <!--Bistro </label></li>-->
+                                            <!--<li class="checkbox i-checks"><label> <input type="checkbox"><i></i>-->
+                                                <!--Burgers </label></li>-->
+                                        <!--</ul>-->
+
+                                        <ul class="list-unstyled m-t-n-sm" ng-repeat="category in filter.categories  track by $index">
+
                                             <li class="checkbox i-checks"><label> <input type="checkbox"
-                                                                                         checked=""><i></i> All Category
-                                            </label></li>
-                                            <li class="checkbox i-checks"><label> <input type="checkbox"
-                                                                                         checked=""><i></i> Chinese </label></li>
-                                            <li class="checkbox i-checks"><label> <input type="checkbox"><i></i> Indian
-                                            </label></li>
-                                            <li class="checkbox i-checks"><label> <input type="checkbox"><i></i>
-                                                Thai </label></li>
-                                            <li class="checkbox i-checks"><label> <input type="checkbox"><i></i>
-                                                Modern Australian </label></li>
-                                            <li class="checkbox i-checks"><label> <input type="checkbox"><i></i>
-                                                Bistro </label></li>
-                                            <li class="checkbox i-checks"><label> <input type="checkbox"><i></i>
-                                                Burgers </label></li>
+                                                 ng-click="includeCategory(category)"><i></i> {{ category }} </label></li>
+
                                         </ul>
+
+                                        <input ng-model="addedCategory" class="form-control icon location"
+                                                   placeholder="-- Choose more Categories --"
+                                                   typeahead-on-select="addCategory(addedCategory)"
+                                                   typeahead="category for category in allCategories | filter: $viewValue"
+                                                   typeahead-loading="loadingCategories">
+
                                         <div class="line line-dashed b-b line-lg"></div>
                                         <ul class="list-unstyled">
                                             <li class="radio i-checks"><label> <input type="radio" name="filter"

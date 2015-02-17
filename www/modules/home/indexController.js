@@ -60,6 +60,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 }
             };
             initTemplate();
+            $scope.filter = {};
+            $scope.categoryincludes = [];
 
             if($routeParams.search){
 
@@ -153,6 +155,42 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 $scope.footer = 'modules/partials/footer.html';
             }
 
+          restaurantSvr.getRestaurantCategories().then(function (response) {
+              $scope.allCategories = response;
+              $scope.filter.categories = response.slice(0,8);
+          });
+
+          $scope.includeCategory = function(category){
+
+              var indexExists = $scope.categoryincludes.indexOf(category);
+
+              if (indexExists == -1) {
+                  $scope.categoryincludes.push(category);
+              } else {
+                  $scope.categoryincludes.splice(indexExists, 1);
+              }
+
+              if($scope.categoryincludes.length){
+                  $scope.categoryincludes.forEach(function(item){
+                      getPopularList({category :  $scope.categoryincludes});
+                  });
+              }else{
+                  getPopularList();
+
+              }
+          }
+
+          $scope.addCategory = function (category){
+              var existsInallCategories = $scope.allCategories.indexOf(category);
+              var existsInFilterCategories =$scope.filter.categories.indexOf(category);
+              if( existsInallCategories > -1 && existsInFilterCategories == -1 && category.length){
+                  $scope.filter.categories.push(category);
+                  $scope.addedCategory = [];
+              }else{
+                  $scope.addedCategory = [];
+              }
+
+          }
 
         }
     ])
