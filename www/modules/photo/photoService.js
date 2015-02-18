@@ -45,7 +45,9 @@ photoService.factory('photoSvr', ['localStorageService', 'Restangular', '$http',
                 .withHttpConfig({transformRequest: angular.identity})
                 .customPOST(formData, '', undefined, {'Content-Type': undefined})
                 .then(function (response) {
-                return response;
+                    return {
+                        items: response.data
+                    }
             });
         }
     };

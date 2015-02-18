@@ -14,12 +14,13 @@ rxControllers.controller('photoCtrl', ['$scope', '$routeParams', 'photoSvr', 'me
                 params = {page: 1};
             }
 
-            photoSvr.getRestaurantPhotos(restaurantId, params).then(function (photos) {
+           return  photoSvr.getRestaurantPhotos(restaurantId, params).then(function (photos) {
                 $scope.photos = photos.items;
                 $scope.maxSize = 6;
                 $scope.photosListItemPerPage = 8;
                 $scope.photosListTotalItems = photos._meta.totalCount;
                 $scope.photosListCurrentPage = photos._meta.currentPage + 1;
+               return true;
             });
         }
 
@@ -51,8 +52,19 @@ rxControllers.controller('photoCtrl', ['$scope', '$routeParams', 'photoSvr', 'me
 
 
                     photoSvr.uploadRestaurantPhoto(formData).then(function (response) {
-                        $scope.dynamic = 100;
-                        $scope.type = "success";
+
+                        if(response.items.success){
+                            var nextPage = $scope.photosListCurrentPage;
+
+                            getPhotos( {
+                                'sort':'popular',
+                                 page : nextPage
+                            }).then(function(res){
+                                $scope.dynamic = 100;
+                                $scope.type = "success";
+                            });
+                        }
+
                     }, function (response) {
                         $scope.type = "danger";
                     });
