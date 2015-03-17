@@ -181,8 +181,8 @@
 
                                         <!--Distance-->
 
-                                        <div class="panel-title m-b">Distance</div>
-                                        <ul class="list-unstyled">
+                                        <div class="panel-title m-b" ng-show="nearMe">Distance</div>
+                                        <ul class="list-unstyled" ng-show="nearMe">
                                             <li class="radio i-checks"><label>
                                                 <input type="radio" name="distance" ng-model="distanceFilterValue" value="0"
                                                        ng-change="setDistanceFilter(distanceFilterValue)"><i></i> Any distance</label>
@@ -208,6 +208,41 @@
                                                        ng-change="setDistanceFilter(distanceFilterValue)"><i></i> Greater than 10 KM</label>
                                             </li>
                                         </ul>
+
+                                        <div class="line line-dashed b-b line-lg"></div>
+
+                                        <!--Trend-->
+
+                                        <div class="panel-title m-b">Trend</div>
+                                        <ul class="list-unstyled">
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="0"
+                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> All</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="1"
+                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> Less than 60%</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="60"
+                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> Greater than 60%</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="70"
+                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> Greater than 70%</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="80"
+                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> Greater than 80%</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="90"
+                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> Greater than 90%</label>
+                                            </li>
+                                        </ul>
+
+
+
                                         <!--<div class="line line-dashed b-b line-lg"></div>-->
                                         <!--<ul class="list-unstyled">-->
                                         <!--<li class="radio i-checks"><label>-->

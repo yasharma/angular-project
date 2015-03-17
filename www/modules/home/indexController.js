@@ -59,7 +59,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     params: {
                         sort: 'popular',
                         'price_range-greater-than-or-equal-to': 0,
-                        'price_range-less-than-or-equal-to': 4
+                        'price_range-less-than-or-equal-to': 4,
+                        'distance-less-than-or-equal-to': 5
                     }
                 };
                 initTemplate();
@@ -75,7 +76,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 };
                 $scope.allCategoriesSelected = true;
                 $scope.ratingFilterValue = 0;
-                $scope.distanceFilterValue = 0;
+                $scope.trendFilterValue = 0;
+                $scope.distanceFilterValue = 5;
 
                 getAllCategories();
 
@@ -89,18 +91,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 //                        'category': $routeParams.category
                         });
 
-                    getPopularList();
-                }
-                if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {
-                    geoLocation.getLocation()
-                        .then(function (data) {
-                            localStorageService.add('latitude', data.coords.latitude);
-                            localStorageService.add('longitude', data.coords.longitude);
-                            getPopularList();
-                        });
-                    getPopularList();
-                }
-                else {
                     getPopularList();
                 }
 
@@ -123,8 +113,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     lineCap: 'circle'
                 };
 
-
-
                 $scope.$watch('restaurantList.params', function () {
                     getPopularList();
                 }, true); // true = watch nested objects too
@@ -145,6 +133,27 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         delete $scope.restaurantList.params['category-in']; // if none, show all
                     }
                 }, true); // true = watch nested objects too
+
+                $scope.setAutoLocation(true);
+
+            };
+
+            $scope.setAutoLocation = function (nearMe) { // turns 'Near Me' feature on or off
+                $scope.nearMe = nearMe;
+                if(nearMe === true) {
+                    if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {
+                        geoLocation.getLocation()
+                            .then(function (data) {
+                                localStorageService.add('latitude', data.coords.latitude);
+                                localStorageService.add('longitude', data.coords.longitude);
+                                getPopularList();
+                            });
+                    }
+                }else{
+                    localStorageService.remove('latitude');
+                    localStorageService.remove('longitude');
+                }
+                getPopularList();
 
             };
 
@@ -224,14 +233,27 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 }
             };
 
-            $scope.setDistanceFilter = function (value) {
+            $scope.setTrendFilter = function (value) {
                 if (value == 0) { // all ratings
+                    delete $scope.restaurantList.params['trend-greater-than-or-equal-to'];
+                    delete $scope.restaurantList.params['trend-less-than-or-equal-to'];
+                } else if (value == 1) { // < 60%
+                    delete $scope.restaurantList.params['trend-greater-than-or-equal-to'];
+                    $scope.restaurantList.params['trend-less-than-or-equal-to'] = 60
+                } else {
+                    delete $scope.restaurantList.params['trend-less-than-or-equal-to'];
+                    $scope.restaurantList.params['trend-greater-than-or-equal-to'] = value
+                }
+            };
+
+            $scope.setDistanceFilter = function (value) {
+                if (value == 0) { // all distances
                     delete $scope.restaurantList.params['distance-greater-than-or-equal-to'];
                     delete $scope.restaurantList.params['distance-less-than-or-equal-to'];
-                } else if (value < 0) { // < 60%
+                } else if (value < 0) { // greater than n KM
                     delete $scope.restaurantList.params['distance-less-than-or-equal-to'];
                     $scope.restaurantList.params['distance-greater-than-or-equal-to'] = -value
-                } else {
+                } else { // less than n KM
                     delete $scope.restaurantList.params['distance-greater-than-or-equal-to'];
                     $scope.restaurantList.params['distance-less-than-or-equal-to'] = value
                 }
