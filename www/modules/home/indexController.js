@@ -54,41 +54,99 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         '$routeParams','searchData', function ($scope, $http, localStorageService, $location, restaurantSvr, geoLocation,
          $routeParams, searchData) {
 
-            $scope.restaurantList = {
-                params: {
-                    sort: 'popular'
-                }
-            };
-            initTemplate();
-            $scope.filter = {};
-            $scope.categoryincludes = [];
+            $scope.init = function () {
+                $scope.restaurantList = {
+                    params: {
+                        sort: 'popular',
+                        'price_range-greater-than-or-equal-to': 0,
+                        'price_range-less-than-or-equal-to': 4
+                    }
+                };
+                initTemplate();
+                $scope.listedCategories = {
+                    'Indian': false,
+                    'Indonesian Restaurant': false,
+                    'Thai': false,
+                    'Italian': false,
+                    'Cafe': false,
+                    'Modern Australian': false,
+                    'African': false,
+                    'Vegetarian': false
+                };
+                $scope.allCategoriesSelected = true;
+                $scope.ratingFilterValue = 0;
+                $scope.distanceFilterValue = 0;
 
-            if($routeParams.search){
+                getAllCategories();
 
-                $scope.restaurantList.params = merge_objects($scope.restaurantList.params,
-                    {
-                        'formatted-address': $routeParams.formattedAddress,
-                        'price_range': $routeParams.priceRange,
-                        'category': '' //sending category empty for now @todo remove
+                if($routeParams.search){
+
+                    $scope.restaurantList.params = merge_objects($scope.restaurantList.params,
+                        {
+                            'formatted-address': $routeParams.formattedAddress,
+                            'price_range': $routeParams.priceRange
+                            //'category': '' //sending category empty for now @todo remove
 //                        'category': $routeParams.category
+                        });
+
+                    getPopularList();
+                }
+                if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {
+                    geoLocation.getLocation()
+                        .then(function (data) {
+                            localStorageService.add('latitude', data.coords.latitude);
+                            localStorageService.add('longitude', data.coords.longitude);
+                            getPopularList();
+                        });
+                    getPopularList();
+                }
+                else {
+                    getPopularList();
+                }
+
+                $scope.trend = [
+                    {
+                        "key": "Trend",
+                        "values": [[1025409600000, 0], [1028088000000, 6.3382185140371], [1030766400000, 5.9507873460847], [1033358400000, 11.569146943813], [1036040400000, 5.4767332317425], [1038632400000, 0.50794682203014], [1041310800000, 5.5310285460542], [1043989200000, 5.7838296963382], [1046408400000, 7.3249341615649], [1049086800000, 6.7078630712489], [1330491600000, 13.388148670744]]
+                    }];
+
+                $scope.options = {
+                    animate: {
+                        duration: 1000,
+                        enabled: true
+                    },
+                    barColor: '#428bca',//'rgb(31, 119, 180)',
+                    //trackColor:'#2C3E50',
+                    size: 60,
+                    scaleColor: false,
+                    lineWidth: 5,
+                    lineCap: 'circle'
+                };
+
+
+
+                $scope.$watch('restaurantList.params', function () {
+                    getPopularList();
+                }, true); // true = watch nested objects too
+
+                $scope.$watch('listedCategories', function () {
+                    var categoryIn = null;
+                    angular.forEach($scope.listedCategories, function (val, key) {
+                        if (val === true) {
+                            if (categoryIn === null) {
+                                categoryIn = key
+                            } else {
+                                categoryIn += ',' + key;
+                            }
+                        }
                     });
+                    $scope.restaurantList.params['category-in'] = categoryIn;
+                    if (categoryIn == null) {
+                        delete $scope.restaurantList.params['category-in']; // if none, show all
+                    }
+                }, true); // true = watch nested objects too
 
-                getPopularList();
-            }
-
-            if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {
-                geoLocation.getLocation()
-                    .then(function (data) {
-                        localStorageService.add('latitude', data.coords.latitude);
-                        localStorageService.add('longitude', data.coords.longitude);
-                        getPopularList();
-                    })
-                getPopularList();
-            }
-            else {
-                getPopularList();
-            }
-
+            };
 
             $scope.popularListPageChanged = function () {
                 var nextPage = $scope.popularListCurrentPage;
@@ -97,21 +155,21 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 });
             };
 
-            $scope.onSelect = function ($item, $model, $label) {
-                $scope.$item = $item;
-                $scope.$model = $model;
-                $scope.$label = $label;
-                alert($model);
-            };
+            //$scope.onSelect = function ($item, $model, $label) {
+            //    $scope.$item = $item;
+            //    $scope.$model = $model;
+            //    $scope.$label = $label;
+            //    alert($model);
+            //};
 
 
-            $scope.set = function () {
-                $scope.restaurantList.params = merge_objects($scope.restaurantList.params,
-                    {
-                        'sort': $scope.sort
-                    });
-                getPopularList();
-            };
+            //$scope.set = function () {
+            //    $scope.restaurantList.params = merge_objects($scope.restaurantList.params,
+            //        {
+            //            'sort': $scope.sort
+            //        });
+            //    getPopularList();
+            //};
 
             function getPopularList(params) {
                 if (typeof(params) !== "undefined") {
@@ -129,25 +187,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 });
             }
 
-            $scope.trend = [
-                {
-                    "key": "Trend",
-                    "values": [[1025409600000, 0], [1028088000000, 6.3382185140371], [1030766400000, 5.9507873460847], [1033358400000, 11.569146943813], [1036040400000, 5.4767332317425], [1038632400000, 0.50794682203014], [1041310800000, 5.5310285460542], [1043989200000, 5.7838296963382], [1046408400000, 7.3249341615649], [1049086800000, 6.7078630712489], [1330491600000, 13.388148670744]]
-                }];
-
-            $scope.options = {
-                animate: {
-                    duration: 1000,
-                    enabled: true
-                },
-                barColor: '#428bca',//'rgb(31, 119, 180)',
-                //trackColor:'#2C3E50',
-                size: 60,
-                scaleColor: false,
-                lineWidth: 5,
-                lineCap: 'circle'
-            };
-
             function initTemplate() {
 
                 $scope.sidebar = 'modules/partials/sidebar.html';
@@ -155,42 +194,50 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 $scope.footer = 'modules/partials/footer.html';
             }
 
-          restaurantSvr.getRestaurantCategories().then(function (response) {
-              $scope.allCategories = response;
-              $scope.filter.categories = response.slice(0,8);
-          });
+            $scope.selectAllCategories = function (value) {
+                angular.forEach($scope.listedCategories, function (val, key) {
+                    $scope.listedCategories[key] = false;
+                });
+            };
 
-          $scope.includeCategory = function(category){
+            function getAllCategories() {
+                restaurantSvr.getRestaurantCategories().then(function (response) {
+                    $scope.allCategories = response;
+                });
+            }
 
-              var indexExists = $scope.categoryincludes.indexOf(category);
+            $scope.addCategory = function (category) {
+                $scope.listedCategories[category] = true;
+                $scope.newCategory = null;
+            };
 
-              if (indexExists == -1) {
-                  $scope.categoryincludes.push(category);
-              } else {
-                  $scope.categoryincludes.splice(indexExists, 1);
-              }
+            $scope.setRatingFilter = function (value) {
+                if (value == 0) { // all ratings
+                    delete $scope.restaurantList.params['percentile-greater-than-or-equal-to'];
+                    delete $scope.restaurantList.params['percentile-less-than-or-equal-to'];
+                } else if (value == 1) { // < 60%
+                    delete $scope.restaurantList.params['percentile-greater-than-or-equal-to'];
+                    $scope.restaurantList.params['percentile-less-than-or-equal-to'] = 60
+                } else {
+                    delete $scope.restaurantList.params['percentile-less-than-or-equal-to'];
+                    $scope.restaurantList.params['percentile-greater-than-or-equal-to'] = value
+                }
+            };
 
-              if($scope.categoryincludes.length){
-                  $scope.categoryincludes.forEach(function(item){
-                      getPopularList({category :  $scope.categoryincludes});
-                  });
-              }else{
-                  getPopularList();
+            $scope.setDistanceFilter = function (value) {
+                if (value == 0) { // all ratings
+                    delete $scope.restaurantList.params['distance-greater-than-or-equal-to'];
+                    delete $scope.restaurantList.params['distance-less-than-or-equal-to'];
+                } else if (value < 0) { // < 60%
+                    delete $scope.restaurantList.params['distance-less-than-or-equal-to'];
+                    $scope.restaurantList.params['distance-greater-than-or-equal-to'] = -value
+                } else {
+                    delete $scope.restaurantList.params['distance-greater-than-or-equal-to'];
+                    $scope.restaurantList.params['distance-less-than-or-equal-to'] = value
+                }
+            };
 
-              }
-          }
-
-          $scope.addCategory = function (category){
-              var existsInallCategories = $scope.allCategories.indexOf(category);
-              var existsInFilterCategories =$scope.filter.categories.indexOf(category);
-              if( existsInallCategories > -1 && existsInFilterCategories == -1 && category.length){
-                  $scope.filter.categories.push(category);
-                  $scope.addedCategory = [];
-              }else{
-                  $scope.addedCategory = [];
-              }
-
-          }
+            $scope.init();
 
         }
     ])
