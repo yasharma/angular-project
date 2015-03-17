@@ -16,10 +16,11 @@
 <section class="vbox">
 <section class="scrollable padder">
 <section class="row m-b-md">
-    <div class="col-sm-6" ng-controller="mapCtrl">
+    <div class="col-sm-6">
         <h3 class="m-b-xs text-black">{{restaurant.name}}
-            <button class="btn btn-default btn-rounded btn-sm" data-toggle="class:nav-xs" ng-click="getMap()"><i
-                    class="fa fa-map-marker fa-lg text-primary"></i> Map
+            <button class="btn btn-default btn-rounded btn-sm" data-toggle="class:nav-xs"
+                    ng-click="showMap = ! showMap">
+                <i class="fa fa-map-marker fa-lg text-primary"></i> Map
             </button>
             <div class="modal-backdrop fade in"></div>
         </h3>
@@ -49,6 +50,12 @@
     </div>
 
 </section>
+<div class="row m-b-md" ng-if="showMap">
+    <div class="col-sm-12" ng-controller="mapCtrl" >
+        <div ng-include="'modules/restaurant/views/map.html'"></div>
+    </div>
+
+</div>
 <div class="row">
     <div class="col-sm-6">
         <div class="panel b-a">

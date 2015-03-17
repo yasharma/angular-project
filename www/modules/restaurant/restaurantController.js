@@ -29,7 +29,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
 
         $scope.changeLength = function (review) {
             review.textLength = 99999;
-        }
+        };
 
 
         chartData();

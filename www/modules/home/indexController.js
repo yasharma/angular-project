@@ -258,8 +258,11 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
             var latitude = localStorageService.get('latitude');
             var longitude = localStorageService.get('longitude');
+            //var latitude = -33.8945364;     // for test only
+            //var longitude = 151.26898979999999;
             $scope.originAddress ='';
             $scope.map = {};
+            $scope.viewDirections = false;
 
             $scope.getMap = function () {
 
@@ -272,7 +275,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         zoom: 17,
                         formattedAddress: location.formatted_address,
                         control: {}
-                    }
+                    };
 
                     $scope.options = {scrollwheel: false};
                     $scope.coordsUpdates = 0;
@@ -297,7 +300,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                             origin: latitude + ',' + longitude,
                             destination: $scope.map.center.latitude +',' + $scope.map.center.longitude,
                             showList: true
-                        }
+                        };
 
                     $scope.travelModes = [{ label : "Driving", value: "DRIVING" },{ label : "Walking", value : "WALKING"},
                         {label : "Bicycling", value:"BICYCLING"},{ label: "Transit", value:"TRANSIT"}];
@@ -314,49 +317,34 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                             if (results[1]) {
                                 $scope.originAddress = results[1].formatted_address;
                             } else {
-                                console.log('No location found');;
+                                console.log('No location found');
                             }
                         } else {
                             console.log('Geocoder failed due to: ' + status);
                         }
                     });
 
-                    console.log( $scope.originAddress);
+                    //console.log( $scope.originAddress);
 
-                    var modalInstance = $modal.open({
-                        templateUrl: "modules/restaurant/views/map.html",
-                        scope: $scope
-                    });
+                    $scope.showMap = true;
 
-                    modalInstance.opened.then(function () {
-                        $scope.showMap = true;
-                        $(".overlay-main").css("display", "block");
-                    });
-
-                    modalInstance.result.then(function (selectedItem) {
-                        $scope.selected = selectedItem;
-                    }, function () {
-                        $(".overlay-main").css("display", "none");
-                    });
                 });
-            }
-
-
-            // instantiate google map objects for directions
-            var directionsDisplay = new google.maps.DirectionsRenderer();
-            var directionsService = new google.maps.DirectionsService();
-            var geocoder = new google.maps.Geocoder();
-
+            };
 
             // get directions using google maps api
             $scope.getDirections = function (travelMode) {
 
-                var travelModeOpt = travelMode;
+                $scope.viewDirections = true;
+
+                // instantiate google map objects for directions
+                var directionsDisplay = new google.maps.DirectionsRenderer();
+                var directionsService = new google.maps.DirectionsService();
+                //var geocoder = new google.maps.Geocoder();
 
                 var request = {
                     origin: $scope.directions.origin,
                     destination: $scope.directions.destination,
-                    travelMode: google.maps.DirectionsTravelMode[travelModeOpt]
+                    travelMode: google.maps.DirectionsTravelMode[travelMode]
                 };
 
                 directionsService.route(request, function (response, status) {
@@ -366,10 +354,12 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         directionsDisplay.setPanel(document.getElementById('directionsList'));
                         $scope.directions.showList = true;
                     } else {
-                        alert('Google route unsuccesfull!');
+                        alert('Google route unsuccessful');
                     }
                 });
-            }
+            };
+
+            $scope.getMap();
 
         }]);
 
