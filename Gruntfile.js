@@ -12,6 +12,7 @@ module.exports = function (grunt) {
                     'www/css/site.min.css': [
                         'bower_components/nvd3/nv.d3.css',
                         'bower_components/angular-social/angular-social.css',
+                        'bower_components/angular-busy/angular-busy.css',
                         'js/slider/slider.css',
                         'css/bootstrap.css',
                         'css/font.css',
@@ -80,6 +81,8 @@ module.exports = function (grunt) {
                     'bower_components/ng-file-upload/angular-file-upload-shim.js',
                     'bower_components/ng-file-upload/angular-file-upload.min.js',
                     'bower_components/angular-social/angular-social.js',
+                    'bower_components/angular-animate/angular-animate.js',
+                    'bower_components/angular-busy/angular-busy.js',
 
                     'components/version/version.js',
                     'components/version/version-directive.js',

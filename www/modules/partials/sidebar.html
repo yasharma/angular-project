@@ -1,29 +1,42 @@
-
-    <section class="vbox">
-        <section class="w-f scrollable">
-            <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-color="#333333">
-                <div class="clearfix wrapper dk nav-user hidden-xs">
-                    <div class="dropdown"> <a href="#/index" class="dropdown-toggle" data-toggle="dropdown"> <span class="thumb avatar pull-left m-r"> <img src="images/avatar.ico"> <i class="on md b-light"></i> </span> <span class="hidden-nav-xs clear"> <span class="block m-t-xs"> <strong class="font-bold text-lt">Guest</strong> <b class="caret"></b> </span> <span class="text-muted text-xs block">...</span> </span> </a>
-                    </div>
+<section class="vbox">
+    <section class="w-f scrollable">
+        <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px"
+             data-color="#333333">
+            <div class="clearfix wrapper dk nav-user hidden-xs">
+                <div class="dropdown"><a href="#/index" class="dropdown-toggle" data-toggle="dropdown"> <span
+                        class="thumb avatar pull-left m-r"> <img src="images/avatar.ico"> <i class="on md b-light"></i> </span>
+                    <span class="hidden-nav-xs clear"> <span class="block m-t-xs"> <strong class="font-bold text-lt">Guest</strong> <b
+                            class="caret"></b> </span> <span class="text-muted text-xs block">...</span> </span> </a>
                 </div>
-                <!-- nav -->
-                <nav class="nav-primary hidden-xs" ng-controller="menuCtrl">
-                    <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Start</div>
-                    <ul class="nav nav-main" data-ride="collapse" ng-repeat="menu in menus">
-                        <li >
-                            <a href="{{ menu.link }}" class="auto"> <i class="i {{ menu.icon }} icon"> </i>
-                                <span class="font-bold">{{ menu.name }}</span>
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="line dk hidden-nav-xs"></div>
-                    <ul class="nav ">
-                    <li> <a href="" class="auto"> <span class="pull-right text-muted"> <i class="i i-circle-sm-o text"></i> <i class="i i-circle-sm text-active"></i> </span> <i class="i i-docs icon"> </i> <span class="font-bold">Add Photo</span> </a>
-                    </li>
-                        </ul>
-                </nav>
-                <!-- / nav -->
             </div>
-        </section>
-        <footer class="footer hidden-xs no-padder text-center-nav-xs"> <a href="modal.lockme.html" data-toggle="ajaxModal" class="btn btn-icon icon-muted btn-inactive pull-right m-l-xs m-r-xs hidden-nav-xs"> <i class="i i-logout"></i> </a> <a href="#nav" data-toggle="class:nav-xs" class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs"> <i class="i i-circleleft text"></i> <i class="i i-circleright text-active"></i> </a> </footer>
+            <!-- nav -->
+            <nav class="nav-primary hidden-xs" ng-controller="menuCtrl">
+                <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Start</div>
+                <ul class="nav nav-main" data-ride="collapse" ng-repeat="menu in menus">
+                    <li>
+                        <a href="{{ menu.link }}" class="auto"> <i class="i {{ menu.icon }} icon"> </i>
+                            <span class="font-bold">{{ menu.name }}</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="line dk hidden-nav-xs"></div>
+                <ul class="nav ">
+                    <li><a href="" class="auto"> <span class="pull-right text-muted"> <i
+                            class="i i-circle-sm-o text"></i> <i class="i i-circle-sm text-active"></i> </span> <i
+                            class="i i-docs icon"> </i> <span class="font-bold">Add Photo</span> </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- / nav -->
+        </div>
     </section>
+    <footer class="footer hidden-xs no-padder text-center-nav-xs">
+        <a href="modal.lockme.html" data-toggle="ajaxModal"
+           class="btn btn-icon icon-muted btn-inactive pull-right m-l-xs m-r-xs hidden-nav-xs">
+            <i class="i i-logout"></i>
+        </a>
+        <a href="#nav" data-toggle="class:nav-xs" class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs">
+            <i class="i i-circleleft text"></i> <i class="i i-circleright text-active"></i>
+        </a>
+    </footer>
+</section>

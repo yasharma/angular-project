@@ -4,7 +4,8 @@ var myApp = angular.module('myApp', ['ngRoute','config','LocalStorageModule','di
     'geoLocation','overviewService','restaurantService','reviewService','locationService','photoService','requestService','claimService',
     //'AngularChart',
     'GoogleMaps','angularFileUpload','ui.bootstrap','nvd3ChartDirectives','easypiechart','highcharts-ng',
-    'angular-flot','Controllers','Services', 'MessageCenterModule','angularFileUpload', 'uiGmapgoogle-maps', 'ngSocial'
+    'angular-flot','Controllers','Services', 'MessageCenterModule','angularFileUpload', 'uiGmapgoogle-maps',
+    'ngSocial', 'cgBusy'
 ]);
 
 // Declare app level module which depends on views, and components
@@ -25,8 +26,8 @@ myApp.config(["RestangularProvider", function(RestangularProvider){
     RestangularProvider.setRestangularFields({
         id: "id"
     });
-    //RestangularProvider.setBaseUrl('http://api.reviews-combined.com:80/v1/');
-    RestangularProvider.setBaseUrl('http://api.ireview.dev/v1/');
+    RestangularProvider.setBaseUrl('http://api.reviews-combined.com:80/v1/');
+    //RestangularProvider.setBaseUrl('http://api.ireview.dev/v1/');
     RestangularProvider.setDefaultRequestParams({
         "access-token" :"f899139df5e1059396431415e770c6dd",
         "per-page" : 8

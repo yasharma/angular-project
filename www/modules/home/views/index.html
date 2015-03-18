@@ -4,7 +4,7 @@
         <section class="hbox stretch">
             <aside ng-include="sidebar" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
 
-            <section id="content">
+            <section id="content" >
                 <section class="vbox">
                     <div>
                         <header class="header bg-white b-b b-light hide-for-small hide-for-touch" ng-include="'modules/restaurant/views/search-form.html'"></header>
@@ -31,11 +31,23 @@
                                     </header>
                                 </section>
 
-                                <section class="comment-list block">
-
+                                <!--Restaurant list-->
+                                <section class="comment-list block"
+                                         cg-busy="{promise:cgBusyPromise,message:'',templateUrl:'modules/partials/cgbusy-template.html',backdrop:true}" >
                                     <div class="panel-body no-padding-right">
-                                        <article ng-repeat="restaurant in restaurants" class="comment-item"><a
-                                                class="pull-left thumb-sm avatar">
+                                        <!--In case there are no results-->
+                                        <article class="comment-item" ng-hide="restaurants.length">
+                                            <section class="comment-body panel panel-default">
+                                                <section class="panel-body">
+                                                    <div class="m-md">
+                                                        No results
+                                                    </div>
+                                                </section>
+                                            </section>
+                                        </article>
+                                        <!--Results-->
+                                        <article ng-repeat="restaurant in restaurants" class="comment-item">
+                                            <a class="pull-left thumb-sm avatar">
                                             <span class="rating-circle">{{restaurant.overview__percentile | number : 1}}</span>
                                             <div easypiechart options="options" percent="restaurant.overview__percentile | number : 2"></div></a> <span
                                                 class="arrow left"></span>
@@ -262,24 +274,10 @@
                 <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
             </section>
 
-
+            <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
         </section>
     </section>
-
 </section>
 
 
-<footer class="ir-footer">
-    <ul ng-social-buttons
-        data-url="'http://www.reviews-combined.com/'"
-        data-title="'Reviews Combined'"
-        data-description="'Restaurant Reviews'"
-        data-image="'http://dev2.reviews-combined.com/images/logo.png'">
-        <!--<li>Share:</li>-->
-        <li class="ng-social-facebook">Facebook</li>
-        <li class="ng-social-google-plus">Google+</li>
-        <li class="ng-social-twitter">Twitter</li>
-        <li class="ng-social-pinterest">Pinterest</li>
-    </ul>
-</footer>
-
+<footer class="ir-footer" ng-include="footer"></footer>

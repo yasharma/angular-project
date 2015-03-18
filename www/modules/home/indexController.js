@@ -187,7 +187,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 else {
                     params = $scope.restaurantList.params;
                 }
-                restaurantSvr.getRestaurants(params).then(function (response) {
+                $scope.cgBusyPromise = restaurantSvr.getRestaurants(params);
+                $scope.cgBusyPromise.then(function (response) {
                     $scope.restaurants = response.items;
                     $scope.maxSize = 6;
                     $scope.popularListItemPerPage = 8;

@@ -17,7 +17,7 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                 latitude: localStorageService.get('latitude'),
                 longitude: localStorageService.get('longitude'),
                 //sort: 'popular',
-                page : 1
+                page : 0
             },params))
                 .then(function (response) {
                     var restaurants = response.data[0].items;
