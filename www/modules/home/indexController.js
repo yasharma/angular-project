@@ -300,6 +300,33 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     });
                 });
             }
+
+        }])
+
+    .controller('menuCtrl', ['$scope', '$routeParams',
+        function ($scope, routeParams) {
+            $scope.restaurantId = routeParams.restaurantId;
+
+
+            if(undefined !== $scope.restaurantId &&  $scope.restaurantId){
+                $scope.menus = [{
+                    name : 'Manage Photos',
+                    link : '#/manage/photos/' + $scope.restaurantId,
+                    icon : 'i-docs'
+                },
+                    {
+                        name : 'Dashboard',
+                        link : '#/dashboard/' + $scope.restaurantId,
+                        icon : 'i-statistics'
+                    },
+                    {
+                        name : 'Request Change',
+                        link : '#/request/change/' + $scope.restaurantId,
+                        icon : 'i-pencil'
+                    }
+                ];
+            }
+
         }]);
 
 
