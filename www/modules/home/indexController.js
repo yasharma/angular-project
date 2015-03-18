@@ -197,7 +197,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         $location, $routeParams, restaurantSvr, searchData) {
 
         $scope.restaurantList = { };
-        $scope.search= {};
+        $scope.search = {};
 
         restaurantSvr.getRestaurantCategories().then(function (response) {
             $scope.categories = response;
@@ -227,7 +227,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             });
         };
 
-        if($routeParams.search){
+        if ($routeParams.search) {
             $scope.search = searchData.get();
         }
 
@@ -235,23 +235,25 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
             searchData.set($scope.search);
 
-            $location.url('/index?search=true&formattedAddress='+ $scope.search.formattedAddress+
-                '&priceRange='+ $scope.search.price+
-                    '&category='+ $scope.search.category);
+            $location.url('/index?search=true&formattedAddress=' + $scope.search.formattedAddress +
+                '&priceRange=' + $scope.search.price +
+                '&category=' + $scope.search.category);
         }
 
-
         }])
+
     .controller('mapCtrl', ['$scope', 'locationSvr', '$modal', '$routeParams', '$log','localStorageService',
         function ($scope, locationSvr, $modal, routeParams, $log, localStorageService) {
 
             var latitude = localStorageService.get('latitude');
             var longitude = localStorageService.get('longitude');
+
             //var latitude = -33.8945364;     // for test only
             //var longitude = 151.26898979999999;
             $scope.originAddress ='';
             $scope.map = {};
             $scope.viewDirections = false;
+
             $scope.getMap = function () {
 
                 locationSvr.getLocation(routeParams.restaurantId).then(function (location) {
@@ -313,7 +315,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     });
 
                     //console.log( $scope.originAddress);
-
                     $scope.showMap = true;
 
                 });
@@ -322,6 +323,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
             // get directions using google maps api
             $scope.getDirections = function (travelMode) {
+
 
                 $scope.viewDirections = true;
 
@@ -349,6 +351,34 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             };
 
             $scope.getMap();
+
+
+
+        }])
+
+    .controller('menuCtrl', ['$scope', '$routeParams',
+        function ($scope, routeParams) {
+            $scope.restaurantId = routeParams.restaurantId;
+
+
+            if(undefined !== $scope.restaurantId &&  $scope.restaurantId){
+                $scope.menus = [{
+                    name : 'Manage Photos',
+                    link : '#/manage/photos/' + $scope.restaurantId,
+                    icon : 'i-docs'
+                },
+                    {
+                        name : 'Dashboard',
+                        link : '#/dashboard/' + $scope.restaurantId,
+                        icon : 'i-statistics'
+                    },
+                    {
+                        name : 'Request Change',
+                        link : '#/request/change/' + $scope.restaurantId,
+                        icon : 'i-pencil'
+                    }
+                ];
+            }
 
 
         }]);
