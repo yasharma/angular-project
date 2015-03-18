@@ -11,6 +11,7 @@ module.exports = function (grunt) {
                 files: {
                     'www/css/site.min.css': [
                         'bower_components/nvd3/nv.d3.css',
+                        'bower_components/angular-social/angular-social.css',
                         'js/slider/slider.css',
                         'css/bootstrap.css',
                         'css/font.css',
@@ -77,6 +78,7 @@ module.exports = function (grunt) {
                     'bower_components/message-center/message-center.js',
                     'bower_components/ng-file-upload/angular-file-upload-shim.js',
                     'bower_components/ng-file-upload/angular-file-upload.min.js',
+                    'bower_components/angular-social/angular-social.js',
 
                     'components/version/version.js',
                     'components/version/version-directive.js',
