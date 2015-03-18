@@ -65,7 +65,11 @@
 </section>
 <div class="row m-b-md" ng-if="showMap">
     <div class="col-sm-12" ng-controller="mapCtrl" >
-        <div ng-include="'modules/restaurant/views/map.html'"></div>
+        <div class="panel panel-info">
+            <div class="panel-body">
+                <div ng-include="'modules/restaurant/views/map.html'"></div>
+            </div>
+        </div>
     </div>
 
 </div>
