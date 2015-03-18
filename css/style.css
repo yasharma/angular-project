@@ -60,18 +60,18 @@
 
 /*Google map*/
 
-.google-map {
-    position: relative;
-}
-.google-map #panel {
-    position: absolute;
-    top: 30px;
-    left: 12%;
-    z-index: 5;
-    background-color: #fff;
-    padding: 5px;
-    border: 1px solid #999;
-}
+/*.google-map {*/
+    /*position: relative;*/
+/*}*/
+/*.google-map #panel {*/
+    /*position: absolute;*/
+    /*top: 30px;*/
+    /*left: 12%;*/
+    /*z-index: 5;*/
+    /*background-color: #fff;*/
+    /*padding: 5px;*/
+    /*border: 1px solid #999;*/
+/*}*/
 
 #panel .form-horizontal input, #panel .form-horizontal select, #panel .form-horizontal button{
     font-size: 10px;

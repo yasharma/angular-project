@@ -258,11 +258,11 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
             var latitude = localStorageService.get('latitude');
             var longitude = localStorageService.get('longitude');
-            //var latitude = -33.8945364;     // for test only
+            //var latitude = -33.8945364;     // for testing only
             //var longitude = 151.26898979999999;
             $scope.originAddress ='';
             $scope.map = {};
-            $scope.viewDirections = false;
+            var geocoder = new google.maps.Geocoder();
 
             $scope.getMap = function () {
 
@@ -316,6 +316,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         if (status == google.maps.GeocoderStatus.OK) {
                             if (results[1]) {
                                 $scope.originAddress = results[1].formatted_address;
+                                $scope.getDirections($scope.travelMode);
                             } else {
                                 console.log('No location found');
                             }
@@ -323,23 +324,16 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                             console.log('Geocoder failed due to: ' + status);
                         }
                     });
-
-                    //console.log( $scope.originAddress);
-
-                    $scope.showMap = true;
-
                 });
             };
 
             // get directions using google maps api
             $scope.getDirections = function (travelMode) {
 
-                $scope.viewDirections = true;
-
                 // instantiate google map objects for directions
                 var directionsDisplay = new google.maps.DirectionsRenderer();
                 var directionsService = new google.maps.DirectionsService();
-                //var geocoder = new google.maps.Geocoder();
+
 
                 var request = {
                     origin: $scope.directions.origin,
@@ -351,6 +345,12 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     if (status === google.maps.DirectionsStatus.OK) {
                         directionsDisplay.setDirections(response);
                         directionsDisplay.setMap($scope.map.control.getGMap());
+                        // Empty the directionsList div
+                        var node = document.getElementById('directionsList');
+                        while (node.hasChildNodes()) {
+                            node.removeChild(node.firstChild);
+                        }
+                        // Fill the div
                         directionsDisplay.setPanel(document.getElementById('directionsList'));
                         $scope.directions.showList = true;
                     } else {
