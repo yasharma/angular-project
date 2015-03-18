@@ -54,11 +54,12 @@
                         <header class="panel-heading">Photos</header>
                         <section class="chat-list panel-body">
                             <!--<section class="row m-l-none m-r-none m-b text-center box-shadow"> -->
-                            <div class="col-xs-3 no-padding jumbotron" ng-repeat="photo in photos">
+                            <div class="col-xs-3 no-padding jumbotron text-center" ng-repeat="photo in photos">
                                 <p><img ng-src="{{photo.url}}" class="displayphoto"/></p>
 
                                 <p>
-                                    <button class="btn btn-sm btn-danger" ng-click="deletePhoto($index)">Delete</button>
+                                    <button class="btn btn-sm btn-danger"  ng-click="deletePhoto(photo)">Delete </button>
+                                    <span ng-class="{'fa fa-spinner fa-spin' : photo.request}"></span>
                                 </p>
                             </div>
 
