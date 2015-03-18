@@ -12,16 +12,21 @@ rxControllers.controller('claimCtrl', ['$scope', '$modal', '$routeParams', '$tim
         $scope.claimRestaurant = function () {
 
             claimSvr.claimRestaurant($scope.claimForm).then(function (response) {
-                if(response.err){
+                if(response.err && response.data){
                     response.data.forEach(function(item){
                         messageCenterService.add('danger', item.message, {timeout : 3000});
                     });
                     return;
-                }
+                }else if(response.err){
+                    messageCenterService.add('danger', response.message, {timeout : 3000});
+                    return;
+                }else if(response.status < 400){
 
-                if(response.status < 400){
-                    messageCenterService.add('success', 'Your access code has been sent to your email.', {timeout : 3000});
-                    $timeout(closeModel, 3000);
+//                    handle close modal better ways
+                    $(".overlay-main").css("display", "none");
+                    $(".modal-dialog").css("display", "none");
+
+                    messageCenterService.add('success', 'Your access code has been sent to your email. Your request-token is ' + response.data.request_token);
                 }else{
                     initForm ();
                 }
@@ -30,7 +35,7 @@ rxControllers.controller('claimCtrl', ['$scope', '$modal', '$routeParams', '$tim
 
         $scope.verifyRestaurant = function () {
 
-            claimSvr.verifyRestaurant($scope.claimForm).then(function (response) {
+            claimSvr.verifyRestaurant($scope.activationForm).then(function (response) {
                 if(response.err){
                     response.data.forEach(function(item){
                         messageCenterService.add('danger', item.message, {timeout : 3000});
@@ -39,21 +44,16 @@ rxControllers.controller('claimCtrl', ['$scope', '$modal', '$routeParams', '$tim
                 }
 
                 if(response.status < 400){
-                    //@TODO success
+                    messageCenterService.add('success', 'Congratulations! you have owned restaurant dashboard. Enjoy, exploring all new and exciting features.');
                 }else{
                     initForm ();
                 }
             });
         }
 
-        function closeModel (){
-            modalInstance.close('');
-            $(".overlay-main").css("display", "none");
-            initForm ();
-        }
-
         function initForm (){
             $scope.claimForm = {};
+            $scope.activationForm = {};
             $scope.claimForm.restaurant_id = $routeParams.restaurantId;
             $scope.claimForm.user_id = user.id;
         }
