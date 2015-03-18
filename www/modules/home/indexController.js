@@ -294,6 +294,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     });
                 });
             }
+
         }])
 
     .controller('menuCtrl', ['$scope', '$routeParams',
@@ -319,6 +320,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     }
                 ];
             }
+
         }]);
 
 
