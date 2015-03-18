@@ -21,10 +21,10 @@
                                                 Popular Restaurants
                                             </div>
                                             <div class="col-sm-6 col-md-6 col-lg-3 pull-right">
-                                                <select ng-model="sort" ng-change="set()" class="form-control">
+                                                <select ng-model="restaurantList.params.sort" class="form-control">
                                                     <option value="popular">Sort by rating</option>
                                                     <option value="trending">Sort by trend</option>
-                                                    <option value="distance">sort by distance</option>
+                                                    <option value="distance">Sort by distance</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -94,35 +94,165 @@
                             </div>
                             <div class="col-sm-3 hide-for-small hide-for-touch">
                                 <div class="panel">
-                                    <div class="panel-heading b-b">Filter | Not Implemented yet</div>
+                                    <div class="panel-heading b-b">Filters</div>
                                     <div class="panel-body">
+
+                                        <!--Cuisine-->
+
+                                        <div class="panel-title m-b">Cuisine</div>
                                         <ul class="list-unstyled m-t-n-sm">
-                                            <li class="checkbox i-checks"><label> <input type="checkbox"
-                                                                                         checked=""><i></i> All Category
-                                            </label></li>
-                                            <li class="checkbox i-checks"><label> <input type="checkbox"
-                                                                                         checked=""><i></i> Chinese </label></li>
-                                            <li class="checkbox i-checks"><label> <input type="checkbox"><i></i> Indian
-                                            </label></li>
-                                            <li class="checkbox i-checks"><label> <input type="checkbox"><i></i>
-                                                Thai </label></li>
-                                            <li class="checkbox i-checks"><label> <input type="checkbox"><i></i>
-                                                Modern Australian </label></li>
-                                            <li class="checkbox i-checks"><label> <input type="checkbox"><i></i>
-                                                Bistro </label></li>
-                                            <li class="checkbox i-checks"><label> <input type="checkbox"><i></i>
-                                                Burgers </label></li>
+                                            <li class="checkbox i-checks">
+                                                <label> <input type="checkbox" ng-checked="! restaurantList.params['category-in']"
+                                                               ng-click="selectAllCategories(allCategoriesSelected)">
+                                                    <i></i> All Categories
+                                                </label>
+                                            </li>
+                                            <li class="checkbox i-checks" ng-repeat="(category, value) in listedCategories">
+                                                <label>
+                                                    <input type="checkbox" ng-model="listedCategories[category]"><i></i>
+                                                    {{ category }}
+                                                </label>
+                                            </li>
+                                            <input type="text" ng-model="newCategory" placeholder=" Search cuisine"
+                                                   typeahead-on-select="addCategory(newCategory)"
+                                                   typeahead="category for category in allCategories | filter:$viewValue"
+                                                   class="form-control ng-pristine ng-valid" >
                                         </ul>
                                         <div class="line line-dashed b-b line-lg"></div>
+
+                                        <!--Price-->
+
+                                        <div class="panel-title m-b">Price</div>
+                                        <label>
+                                            <select class="form-control icon price ng-pristine ng-valid"
+                                                    ng-model="restaurantList.params['price_range-greater-than-or-equal-to']"
+                                                    style="width: 90px; display: inline-block;">
+                                                <option value="0">$</option>
+                                                <option value="1">$$</option>
+                                                <option value="2">$$$</option>
+                                                <option value="3">$$$$</option>
+                                                <option value="4">$$$$$</option>
+                                            </select>
+                                        </label>
+                                        <label> to
+                                            <select class="form-control icon price ng-pristine ng-valid"
+                                                    ng-model="restaurantList.params['price_range-less-than-or-equal-to']"
+                                                    style="width: 90px; display: inline-block;">
+                                                <option value="0">$</option>
+                                                <option value="1">$$</option>
+                                                <option value="2">$$$</option>
+                                                <option value="3">$$$$</option>
+                                                <option value="4">$$$$$</option>
+                                            </select>
+                                        </label>
+                                        <div class="line line-dashed b-b line-lg"></div>
+
+                                        <!--Rating-->
+
+                                        <div class="panel-title m-b">Rating</div>
                                         <ul class="list-unstyled">
-                                            <li class="radio i-checks"><label> <input type="radio" name="filter"
-                                                                                      checked=""><i></i> Today </label>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="rating" ng-model="ratingFilterValue" value="0"
+                                                       ng-change="setRatingFilter(ratingFilterValue)"><i></i> All ratings</label>
                                             </li>
-                                            <li class="radio i-checks"><label> <input type="radio" name="filter"><i></i>
-                                                Last Week </label></li>
-                                            <li class="radio i-checks"><label> <input type="radio" name="filter"><i></i>
-                                                Last Month </label></li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="rating" ng-model="ratingFilterValue" value="1"
+                                                       ng-change="setRatingFilter(ratingFilterValue)"><i></i> Less than 60%</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="rating" ng-model="ratingFilterValue" value="60"
+                                                       ng-change="setRatingFilter(ratingFilterValue)"><i></i> Greater than 60%</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="rating" ng-model="ratingFilterValue" value="70"
+                                                       ng-change="setRatingFilter(ratingFilterValue)"><i></i> Greater than 70%</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="rating" ng-model="ratingFilterValue" value="80"
+                                                       ng-change="setRatingFilter(ratingFilterValue)"><i></i> Greater than 80%</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="rating" ng-model="ratingFilterValue" value="90"
+                                                       ng-change="setRatingFilter(ratingFilterValue)"><i></i> Greater than 90%</label>
+                                            </li>
                                         </ul>
+
+                                        <div class="line line-dashed b-b line-lg"></div>
+
+                                        <!--Distance-->
+
+                                        <div class="panel-title m-b" ng-show="nearMe">Distance</div>
+                                        <ul class="list-unstyled" ng-show="nearMe">
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="distance" ng-model="distanceFilterValue" value="0"
+                                                       ng-change="setDistanceFilter(distanceFilterValue)"><i></i> Any distance</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="distance" ng-model="distanceFilterValue" value="1"
+                                                       ng-change="setDistanceFilter(distanceFilterValue)"><i></i> Less than 1 KM</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="distance" ng-model="distanceFilterValue" value="2"
+                                                       ng-change="setDistanceFilter(distanceFilterValue)"><i></i> Less than 2 KM</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="distance" ng-model="distanceFilterValue" value="5"
+                                                       ng-change="setDistanceFilter(distanceFilterValue)"><i></i> Less than 5 KM</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="distance" ng-model="distanceFilterValue" value="10"
+                                                       ng-change="setDistanceFilter(distanceFilterValue)"><i></i> Less than 10 KM</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="distance" ng-model="distanceFilterValue" value="-10"
+                                                       ng-change="setDistanceFilter(distanceFilterValue)"><i></i> Greater than 10 KM</label>
+                                            </li>
+                                        </ul>
+
+                                        <div class="line line-dashed b-b line-lg"></div>
+
+                                        <!--Trend-->
+
+                                        <div class="panel-title m-b">Trend</div>
+                                        <ul class="list-unstyled">
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="0"
+                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> All</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="1"
+                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> Less than 60%</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="60"
+                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> Greater than 60%</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="70"
+                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> Greater than 70%</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="80"
+                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> Greater than 80%</label>
+                                            </li>
+                                            <li class="radio i-checks"><label>
+                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="90"
+                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> Greater than 90%</label>
+                                            </li>
+                                        </ul>
+
+
+
+                                        <!--<div class="line line-dashed b-b line-lg"></div>-->
+                                        <!--<ul class="list-unstyled">-->
+                                        <!--<li class="radio i-checks"><label>-->
+                                        <!--<input type="radio" name="filter" checked=""><i></i> Today </label>-->
+                                        <!--</li>-->
+                                        <!--<li class="radio i-checks"><label> <input type="radio" name="filter"><i></i>-->
+                                        <!--Last Week </label></li>-->
+                                        <!--<li class="radio i-checks"><label> <input type="radio" name="filter"><i></i>-->
+                                        <!--Last Month </label></li>-->
+                                        <!--</ul>-->
                                     </div>
                                 </div>
                             </div>
