@@ -28,6 +28,21 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                             priceRange = priceRange + "$";
                         }
                         restaurants[i].price_range_symbol = priceRange;
+                        var trend_data = JSON.parse(restaurants[i].overview__trend_series);
+                        var trend_array = [];
+
+                        for (var key in trend_data) {
+                            var obj = trend_data[key];
+                            for(var key2 in obj ){
+                                trend_array.push([key2,obj[key2]]);
+                            }
+                        }
+
+                        restaurants[i].trend_data = [{
+                            "key": "Trend",
+                            "values" : trend_array
+                        }];
+
                         //self.getOverviews(restaurants[i].id,restaurants[i]).then();
                     }
 

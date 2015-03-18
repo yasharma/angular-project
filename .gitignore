@@ -1,4 +1,4 @@
 bower_components
 node_modules
-www/js
-www/css
+www/js/**
+www/css/**
