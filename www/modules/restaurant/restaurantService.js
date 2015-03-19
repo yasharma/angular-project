@@ -30,11 +30,26 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                         restaurants[i].price_range_symbol = priceRange;
                         var trend_data = JSON.parse(restaurants[i].overview__trend_series);
                         var trend_array = [];
+                        var percentile_array = [];
+
+                        // Get the average trend value first
+                        var sumTrend = 0;
+                        var countTrend = 0;
+                        for (var id in trend_data) {
+                            var obj = trend_data[id];
+                            for (var key2 in obj) {
+                                sumTrend = sumTrend + obj[key2];
+                                countTrend++;
+                            }
+                        }
+
+                        var averageTrend = sumTrend/countTrend;
 
                         for (var id in trend_data) {
                             var obj = trend_data[id];
                             for (var key2 in obj) {
-                                trend_array.push([key2, obj[key2]]);
+                                trend_array.push([key2, averageTrend - obj[key2]]);
+                                percentile_array.push([key2,restaurants[i].overview__percentile - obj[key2]]);
                             }
                         }
 
@@ -44,10 +59,16 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                             trend_array.unshift([ii, 0]);
                         }
 
-                        restaurants[i].trend_data = [{
-                            "key": "Trend",
-                            "values" : trend_array
-                        }];
+                        restaurants[i].trend_data = [
+                            {
+                                "key": "Trend",
+                                "bar" : true,
+                                "values" : trend_array
+                            },
+                            {
+                                "key" : "Percentile",
+                                "values" : percentile_array
+                            }];
 
                         //self.getOverviews(restaurants[i].id,restaurants[i]).then();
                     }

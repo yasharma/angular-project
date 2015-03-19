@@ -33,7 +33,7 @@
                 </header>
                 <div class="panel-body">
                     <div class="col-sm-3 col-md-3 col-lg-4 no-padding pull-left">
-                        <nvd3-multi-bar-chart
+                        <nvd3-line-plus-bar-chart
                                 data="restaurant.trend_data"
                                 showXAxis="false"
                                 showYAxis="false"
@@ -42,7 +42,7 @@
                                 height="150"
                                 interactive="true">
                             <svg></svg>
-                        </nvd3-multi-bar-chart>
+                        </nvd3-line-plus-bar-chart>
                     </div>
                     <div class="col-sm-5 col-md-5 col-lg-6 pull-left">
                         <p><a href="#/restaurant/{{restaurant.id}}/{{hash}}">
