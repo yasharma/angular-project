@@ -58,6 +58,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             $scope.init = function () {
                 $scope.user = localStorageService.get('user');
 
+                $scope.Math = Math;
                 $scope.restaurantList = {
                     params: {
                         sort: 'popular',
@@ -80,7 +81,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 $scope.allCategoriesSelected = true;
                 $scope.ratingFilterValue = 0;
                 $scope.trendFilterValue = 0;
-                $scope.distanceFilterValue = 5;
+                $scope.distanceFilterValue = 2;
 
                 getAllCategories();
 
@@ -345,11 +346,11 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         });
 
         $scope.prices = [
-            {'value': '$', "numericValue": 1},
-            {'value': '$$', "numericValue": 2},
-            {'value': '$$$', "numericValue": 3},
-            {'value': '$$$$', "numericValue": 4},
-            {'value': '$$$$$', "numericValue": 5}
+            {'value': '$', "numericValue": 0},
+            {'value': '$$', "numericValue": 1},
+            {'value': '$$$', "numericValue": 2},
+            {'value': '$$$$', "numericValue": 3},
+            {'value': '$$$$$', "numericValue": 4}
         ];
 
         $scope.getLocation = function (val) {

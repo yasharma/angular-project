@@ -91,12 +91,19 @@
                                                         <p><a href="#/restaurant/{{restaurant.id}}/{{hash}}">
                                                             <h3 class="title"> {{restaurant.name}} </h3>
                                                         </a></p>
-                                                        <p><rating  ng-model="restaurant.overview__rating" max="5" readonly="true"></rating>
-                                                            <span class="label" ng-class="{'label-warning': restaurant.overview__rating/5 *100 <30, 'label-info': restaurant.overview__rating/5 *100 >=30 && restaurant.overview__rating/5 *100 <70, 'label-success':restaurant.overview__rating/5 *100 >=70}">{{restaurant.overview__rating/5 *100}}%</span>
+                                                        <p class="m-t-md">
+                                                            <rating  ng-model="restaurant.rating_rounded" max="5" readonly="true"></rating>
+                                                            <span class="label m-l-xs m-r-sm"
+                                                                  ng-class="{'label-warning': restaurant.rating <= 2,
+                                                                  'label-info': restaurant.rating > 2 && restaurant.rating < 4,
+                                                                  'label-success':restaurant.rating >= 4}">
+
+                                                                {{ restaurant.rating }}
+                                                            </span>
                                                             {{restaurant.overview__total_reviews}} Reviews
                                                         </p>
-                                                        <p>Restaurant Overview : {{restaurant.overview__percentile | number : 2}}</p>
-                                                        <p>Overview Trend : {{restaurant.overview__trend | number : 2}}</p>
+                                                        <!--<p>Restaurant Overview : {{restaurant.overview__percentile | number : 2}}</p>-->
+                                                        <!--<p>Overview Trend : {{restaurant.overview__trend | number : 2}}</p>-->
 
                                                     </div>
                                                     <div class="col-lg-2 pull-left no-padding clearfix">

@@ -70,6 +70,9 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                                 "values" : percentile_array
                             }];
 
+                        restaurants[i].rating = Math.round(restaurants[i].overview__percentile / 2) / 10;
+                        restaurants[i].rating_rounded = Math.round(restaurants[i].overview__percentile / 20);
+
                         //self.getOverviews(restaurants[i].id,restaurants[i]).then();
                     }
 

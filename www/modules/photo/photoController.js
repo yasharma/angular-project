@@ -38,7 +38,7 @@ rxControllers.controller('photoCtrl', ['$scope', '$routeParams', 'photoSvr', 'me
             photoSvr.deleteRestaurantPhotos(photo).then(function (response) {
                 if (index > -1) $scope.photos.splice(index, 1);
             });
-        }
+        };
 
         $scope.$watch('restaurantPhotos', function (restaurantPhotos) {
             $scope.type = "warning";
