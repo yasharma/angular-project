@@ -50,17 +50,20 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         };
     })
 
-    .controller('indexCtrl', ['$scope', '$http', 'localStorageService', '$location', 'restaurantSvr', 'geoLocation',
-        '$routeParams','searchData', function ($scope, $http, localStorageService, $location, restaurantSvr, geoLocation,
-         $routeParams, searchData) {
+    .controller('indexCtrl', ['$scope', '$rootScope', '$http', 'localStorageService', '$location',
+        'restaurantSvr', 'geoLocation', '$routeParams','$anchorScroll', 'searchData', function (
+            $scope, $rootScope, $http, localStorageService, $location, restaurantSvr, geoLocation,
+            $routeParams, $anchorScroll, searchData) {
 
             $scope.init = function () {
+                $scope.user = localStorageService.get('user');
+
                 $scope.restaurantList = {
                     params: {
                         sort: 'popular',
                         'price_range-greater-than-or-equal-to': 0,
                         'price_range-less-than-or-equal-to': 4,
-                        'distance-less-than-or-equal-to': 5
+                        'distance-less-than-or-equal-to': 2
                     }
                 };
                 initTemplate();
@@ -275,52 +278,61 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 }
             };
 
+            // get nav search results
+            $scope.navSearch = function (val) {
+                return restaurantSvr.findRestaurant(val)
+                    .then(function (response) {
+                        if(!response.length){
+                            response.push({formatted : "no results found"});
+                        }
+
+                        return response.map(function (item) {
+                            if( "no results found" !== item.formatted) {
+                                var formatted = item.formatted.split(' - ');
+                                item.searchText = formatted[0];
+                                var tags = formatted[1].split(':');
+                                item.tag = tags[0];
+                                item.tagValue = tags[1];
+                            }
+                            return item;
+                        });
+                    });
+            };
+
+            // navigate to detail view
+            $scope.setRestaurant = function (restaurants){
+                if(Object.keys(restaurants).length) {
+                    $location.path('/restaurant/' + restaurants.data.id);
+                    $scope.searchRestaurant ='';
+                }
+            };
+
+            // logout
+            $scope.clearToken = function(){
+                localStorageService.remove('token');
+                localStorageService.remove('user');
+                delete $scope.user;
+                $rootScope.isLogged = false;
+                $location.path("/index");
+            };
+
+            $scope.toggleFiltersMobile = function(){
+                $scope.showFiltersMobile = ! $scope.showFiltersMobile;
+                $scope.scrollTop();
+            };
+
+            $scope.scrollTop = $anchorScroll;
+
             $scope.init();
 
         }
     ])
 
-    .controller('navigationController', ['$scope', '$http', '$location', '$rootScope', 'restaurantSvr',
-        'localStorageService', function ($scope, $http, $location, $rootScope, restaurantSvr, localStorageService) {
-
-
-        $scope.user = localStorageService.get('user');
-
-        $scope.navSearch = function (val) {
-            return restaurantSvr.findRestaurant(val)
-                .then(function (response) {
-                    if(!response.length){
-                        response.push({formatted : "no results found"});
-                    }
-
-                    return response.map(function (item) {
-                        if( "no results found" !== item.formatted) {
-                            var formatted = item.formatted.split(' - ');
-                            item.searchText = formatted[0];
-                            var tags = formatted[1].split(':');
-                            item.tag = tags[0];
-                            item.tagValue = tags[1];
-                        }
-                        return item;
-                    });
-                });
-        };
-
-        $scope.setRestaurant = function (restaurants){
-            if(Object.keys(restaurants).length) {
-                $location.path('/restaurant/' + restaurants.data.id);
-                $scope.searchRestaurant ='';
-            }
-        }
-
-        $scope.clearToken = function(){
-            localStorageService.remove('token');
-            localStorageService.remove('user');
-            $rootScope.isLogged = false;
-            $location.path("/index");
-        }
-
-    }])
+    // merged with indexCtrl
+    //.controller('navigationController', ['$scope', '$http', '$location', '$rootScope', 'restaurantSvr',
+    //    'localStorageService', function ($scope, $http, $location, $rootScope, restaurantSvr, localStorageService) {
+    //
+    //}])
 
     .controller('searchCtrl', ['$scope', '$http','$location', '$routeParams','restaurantSvr', 'searchData',function ($scope, $http,
         $location, $routeParams, restaurantSvr, searchData) {

@@ -1,117 +1,137 @@
-<section class="vbox" ng-controller="navigationController">
+<section class="vbox">
     <header class="bg-primary header header-md navbar navbar-fixed-top-xs box-shadow">
-        <div class="navbar-header aside-md dk"><a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen"
-                                                  data-target="#nav"> <i class="fa fa-bars"></i> </a> <a href="index.html"
-                                                                                                         class="navbar-brand"><img
-                src="images/logo.png" class="m-r-sm">iReview</a> <a class="btn btn-link visible-xs" data-toggle="dropdown"
-                                                                    data-target=".user"> <i class="fa fa-cog"></i> </a>
+        <!--Mobile nav-->
+        <div class="navbar-header aside-md dk">
+            <!--Sidebar toggle-->
+            <a class="btn btn-link visible-xs"
+               data-toggle="class:nav-off-screen"
+               data-target="#nav" ng-click="scrollTop()">
+                <i class="fa fa-bars"></i>
+            </a>
+            <!--&lt;!&ndash;Mobile login&ndash;&gt;-->
+            <!--<a href="#/login" class="btn btn-link visible-xs" data-toggle="dropdown" ng-if="!isLogged">-->
+                    <!--<span class="thumb-sm avatar pull-left"> <img src="images/avatar.png"> </span> Login-->
+            <!--</a>-->
+
+            <!--Logo-->
+            <a href="index.html" class="navbar-brand"><img
+                src="images/logo.png" class="m-r-sm">iReview</a>
+            <!--Settings-->
+
+            <!--<a class="btn btn-link visible-xs" data-toggle="dropdown"-->
+               <!--data-target=".user"> <i class="fa fa-cog"></i>-->
+            <!--</a>-->
+
+            <!--Search button-->
+            <a class="btn btn-link visible-xs" ng-click="$parent.showFiltersMobile = !$parent.showFiltersMobile">
+                <i class="fa fa-search"></i>
+            </a>
         </div>
-        <ul class="nav navbar-nav hidden-xs">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="i i-grid"></i></a>
-                <section class="dropdown-menu aside-lg bg-white on animated fadeInLeft">
-                    <div class="row m-l-none m-r-none m-t m-b text-center">
+        <!--Navbar menu button (remove in future if not needed) -->
+        <!--<ul class="nav navbar-nav hidden-xs">-->
+            <!--<li class="dropdown">-->
+                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="i i-grid"></i></a>-->
+                <!--<section class="dropdown-menu aside-lg bg-white on animated fadeInLeft">-->
+                    <!--<div class="row m-l-none m-r-none m-t m-b text-center">-->
 
-                        <div class="col-xs-4">
-                            <div class="padder-v"><a href="#"> <span class="m-b-xs block"> <i
-                                    class="i i-mail i-2x text-primary-lt"></i> </span>
-                                <small class="text-muted">Mailbox</small></a>
-                            </div>
-                        </div>
+                        <!--<div class="col-xs-4">-->
+                            <!--<div class="padder-v"><a href="#"> <span class="m-b-xs block"> <i-->
+                                    <!--class="i i-mail i-2x text-primary-lt"></i> </span>-->
+                                <!--<small class="text-muted">Mailbox</small></a>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
-                        <div class="col-xs-4">
-                            <div class="padder-v"><a href="#"> <span class="m-b-xs block"> <i
-                                    class="i i-calendar i-2x text-danger-lt"></i> </span>
-                                <small class="text-muted">Calendar</small></a>
-                            </div>
-                        </div>
+                        <!--<div class="col-xs-4">-->
+                            <!--<div class="padder-v"><a href="#"> <span class="m-b-xs block"> <i-->
+                                    <!--class="i i-calendar i-2x text-danger-lt"></i> </span>-->
+                                <!--<small class="text-muted">Calendar</small></a>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
-                        <div class="col-xs-4">
-                            <div class="padder-v"><a href="#"> <span class="m-b-xs block"> <i
-                                    class="i i-map i-2x text-success-lt"></i> </span>
-                                <small class="text-muted">Map</small></a>
-                            </div>
-                        </div>
+                        <!--<div class="col-xs-4">-->
+                            <!--<div class="padder-v"><a href="#"> <span class="m-b-xs block"> <i-->
+                                    <!--class="i i-map i-2x text-success-lt"></i> </span>-->
+                                <!--<small class="text-muted">Map</small></a>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
-                        <div class="col-xs-4">
-                            <div class="padder-v"><a href="#"> <span class="m-b-xs block"> <i
-                                    class="i i-paperplane i-2x text-info-lt"></i> </span>
-                                <small class="text-muted">Trainning</small></a>
-                            </div>
-                        </div>
+                        <!--<div class="col-xs-4">-->
+                            <!--<div class="padder-v"><a href="#"> <span class="m-b-xs block"> <i-->
+                                    <!--class="i i-paperplane i-2x text-info-lt"></i> </span>-->
+                                <!--<small class="text-muted">Trainning</small></a>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
-                        <div class="col-xs-4">
-                            <div class="padder-v"><a href="#"> <span class="m-b-xs block"> <i
-                                    class="i i-images i-2x text-muted"></i> </span>
-                                <small class="text-muted">Photos</small></a>
-                            </div>
-                        </div>
+                        <!--<div class="col-xs-4">-->
+                            <!--<div class="padder-v"><a href="#"> <span class="m-b-xs block"> <i-->
+                                    <!--class="i i-images i-2x text-muted"></i> </span>-->
+                                <!--<small class="text-muted">Photos</small></a>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
-                        <div class="col-xs-4">
-                            <div class="padder-v"><a href="#"> <span class="m-b-xs block"> <i
-                                    class="i i-clock i-2x text-warning-lter"></i> </span>
-                                <small class="text-muted">Timeline</small></a>
-                            </div>
-                        </div>
+                        <!--<div class="col-xs-4">-->
+                            <!--<div class="padder-v"><a href="#"> <span class="m-b-xs block"> <i-->
+                                    <!--class="i i-clock i-2x text-warning-lter"></i> </span>-->
+                                <!--<small class="text-muted">Timeline</small></a>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
-                    </div>
-                </section>
-            </li>
-        </ul>
+                    <!--</div>-->
+                <!--</section>-->
+            <!--</li>-->
+        <!--</ul>-->
 
-        <div  class="col-xs-5 col-sm-4 col-md-6 col-lg-6">
-            <form class="navbar-left m-t m-l-n-xs hidden-xs" role="search"  ng-submit="findRestaurent()">
-                <div class="form-group">
-                    <div class="input-group tt-input-group">
-                        <span class="input-group-btn"><button type="submit" class="btn btn-sm bg-white b-white btn-icon"><i class="fa fa-search"></i></button></span>
-                        <input type="text" class="form-control input-sm no-border radius" ng-model="searchRestaurant" typeahead="address.formatted for address in navSearch($viewValue)| filter: $viewValue" typeahead-on-select="setRestaurant($item)"  typeahead-template-url="itemTpl.html" placeholder="Search restaurants, locations ..." >
-                    </div>
-                </div>
-            </form>
+        <!--Search box-->
+        <div class="col-xs-5 col-sm-4 col-md-6 col-lg-6 hidden-xs"
+             ng-include="'modules/partials/search-box.html'">
         </div>
+
 
         <ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user user">
-            <li class="hidden-xs">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="i i-chat3"></i> <span
-                    class="badge badge-sm up bg-danger count">2</span> </a>
+            <!--Notifications button and menu, removed until needed-->
 
-                <section class="dropdown-menu aside-xl animated flipInY">
-                    <section class="panel bg-white">
-                        <header class="panel-heading b-light bg-light"><strong>You have <span class="count">2</span>
-                            notifications</strong>
-                        </header>
-                        <div class="list-group list-group-alt">
-                            <a href="#" class="media list-group-item">
-                                <span class="pull-left thumb-sm"> <img src="images/avatar.png" alt="John said" class="img-circle"></span>
-                                <span class="media-body block m-b-none"> Use awesome animate.css
-                                <br>
-                                <small class="text-muted">10 minutes ago</small> </span>
-                            </a>
-                            <a href="#" class="media list-group-item">
-                                <span  class="media-body block m-b-none"> 1.0 initial released
-                                <br>
-                                <small class="text-muted">1 hour ago</small></span>
-                            </a>
-                        </div>
-                        <footer class="panel-footer text-sm"><a href="#" class="pull-right"><i class="fa fa-cog"></i></a> <a
-                                href="#notes" data-toggle="class:show animated fadeInRight">See all the notifications</a>
-                        </footer>
-                    </section>
-                </section>
-            </li>
+            <!--<li class="hidden-xs">-->
+                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="i i-chat3"></i> <span-->
+                    <!--class="badge badge-sm up bg-danger count">2</span> </a>-->
+
+                <!--<section class="dropdown-menu aside-xl animated flipInY">-->
+                    <!--<section class="panel bg-white">-->
+                        <!--<header class="panel-heading b-light bg-light"><strong>You have <span class="count">2</span>-->
+                            <!--notifications</strong>-->
+                        <!--</header>-->
+                        <!--<div class="list-group list-group-alt">-->
+                            <!--<a href="#" class="media list-group-item">-->
+                                <!--<span class="pull-left thumb-sm"> <img src="images/avatar.png" alt="John said" class="img-circle"></span>-->
+                                <!--<span class="media-body block m-b-none"> Use awesome animate.css-->
+                                <!--<br>-->
+                                <!--<small class="text-muted">10 minutes ago</small> </span>-->
+                            <!--</a>-->
+                            <!--<a href="#" class="media list-group-item">-->
+                                <!--<span  class="media-body block m-b-none"> 1.0 initial released-->
+                                <!--<br>-->
+                                <!--<small class="text-muted">1 hour ago</small></span>-->
+                            <!--</a>-->
+                        <!--</div>-->
+                        <!--<footer class="panel-footer text-sm"><a href="#" class="pull-right"><i class="fa fa-cog"></i></a> <a-->
+                                <!--href="#notes" data-toggle="class:show animated fadeInRight">See all the notifications</a>-->
+                        <!--</footer>-->
+                    <!--</section>-->
+                <!--</section>-->
+            <!--</li>-->
             <li  class="dropdown"  ng-show="!isLogged">
-                <a  href="#/login" class="dropdown-toggle" data-toggle="dropdown">
-                    <span class="thumb-sm avatar pull-left"> <img src="images/avatar.png"> </span> Login </a>
+                <a  href="#/login" class="dropdown-toggle pointer" data-toggle="dropdown">
+                    <span class="thumb-sm avatar pull-left"> <img src="images/avatar.png"> </span> Login
+                </a>
             </li>
-            <li class="dropdown" ng-show="isLogged">
-                <a class="dropdown-toggle" data-toggle="dropdown">
+            <li class="dropdown pointer" ng-show="isLogged">
+                <a class="dropdown-toggle pointer" data-toggle="dropdown">
                     <span class="thumb-sm avatar pull-left"> <img src="images/avatar.png"> </span> {{ user.username }} <b class="caret"></b> </a>
                 <ul class="dropdown-menu animated fadeInRight">
                     <span class="arrow top"></span>
                     <li><a href="#">Settings</a></li>
                     <li><a href="profile.html">Profile</a></li>
-                    <li><a href="#"> <span class="badge bg-danger pull-right">3</span> Notifications </a></li>
-                    <li><a href="docs.html">Help</a></li>
+                    <!--<li><a href="#"> <span class="badge bg-danger pull-right">3</span> Notifications </a></li>-->
+                    <!--<li><a href="docs.html">Help</a></li>-->
                     <li class="divider"></li>
                     <li><a href="#/login" ng-show="!isLogged">Login</a></li>
                     <li><a ng-click="clearToken()" ng-show="isLogged">Logout</a></li>

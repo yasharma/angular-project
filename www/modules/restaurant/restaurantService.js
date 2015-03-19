@@ -24,18 +24,24 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                     //var restaurants = response.data[0].data;
                     for (var i = 0; i < restaurants.length; i++) {
                         var priceRange = "";
-                        for (var k = 0; k < restaurants[i].price_range; k++) {
+                        for (var k = 0; k <= restaurants[i].price_range; k++) {
                             priceRange = priceRange + "$";
                         }
                         restaurants[i].price_range_symbol = priceRange;
                         var trend_data = JSON.parse(restaurants[i].overview__trend_series);
                         var trend_array = [];
 
-                        for (var key in trend_data) {
-                            var obj = trend_data[key];
-                            for(var key2 in obj ){
-                                trend_array.push([key2,obj[key2]]);
+                        for (var id in trend_data) {
+                            var obj = trend_data[id];
+                            for (var key2 in obj) {
+                                trend_array.push([key2, obj[key2]]);
                             }
+                        }
+
+                        var trend_array_length = trend_array.length;
+                        // fill the rest with zeros
+                        for(var ii = 0; ii < (12 - trend_array_length); ii++){
+                            trend_array.unshift([ii, 0]);
                         }
 
                         restaurants[i].trend_data = [{

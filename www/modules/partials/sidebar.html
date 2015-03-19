@@ -2,28 +2,77 @@
     <section class="w-f scrollable">
         <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px"
              data-color="#333333">
+
+            <!--User avatar and menu-->
             <div class="clearfix wrapper dk nav-user hidden-xs">
-                <div class="dropdown"><a href="#/index" class="dropdown-toggle" data-toggle="dropdown"> <span
-                        class="thumb avatar pull-left m-r"> <img src="images/avatar.ico"> <i class="on md b-light"></i> </span>
-                    <span class="hidden-nav-xs clear"> <span class="block m-t-xs"> <strong class="font-bold text-lt">Guest</strong> <b
-                            class="caret"></b> </span> <span class="text-muted text-xs block">...</span> </span> </a>
+                <div class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="thumb avatar pull-left m-r m-b-xs m-t-xs ">
+                            <img src="images/avatar.ico"> <i class="on md b-light"></i>
+                        </span>
+                        <span class="hidden-nav-xs clear">
+                            <span class="block m-t-xs">
+                                <strong class="font-bold text-lt">
+                                    {{ user.username || 'Guest' }}
+                                </strong>
+                                <!--<b class="caret"></b>-->
+                            </span>
+                            <span class="text-muted text-xs block">...</span>
+                        </span>
+                    </a>
+                    <!--<ul class="dropdown-menu animated fadeInLeft">-->
+                        <!--<span class="arrow top"></span>-->
+                        <!--&lt;!&ndash;<li><a href="#">Settings</a></li>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<li><a href="profile.html">Profile</a></li>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<li><a href="#"> <span class="badge bg-danger pull-right">3</span> Notifications </a></li>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<li><a href="docs.html">Help</a></li>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+                        <!--<li><a href="#/login" ng-show="!isLogged">Login</a></li>-->
+                        <!--<li><a ng-click="clearToken()" ng-show="isLogged">Logout</a></li>-->
+                    <!--</ul>-->
                 </div>
             </div>
+
             <!-- nav -->
             <nav class="nav-primary hidden-xs" ng-controller="menuCtrl">
-                <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Start</div>
-                <ul class="nav nav-main" data-ride="collapse" ng-repeat="menu in menus">
-                    <li>
-                        <a href="{{ menu.link }}" class="auto"> <i class="i {{ menu.icon }} icon"> </i>
-                            <span class="font-bold">{{ menu.name }}</span>
+                <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">
+                    <!--Start-->
+                </div>
+                <ul class="nav nav-main">
+                    <li ng-show="!isLogged">
+                        <a href="#/login" class="auto" >
+                            <i class="i i-login icon"> </i>
+                            <span class="font-bold">Login</span>
+                        </a>
+                    </li>
+                    <li ng-show="isLogged">
+
+                        <a ng-click="clearToken()" class="auto pointer" >
+                            <i class="i i-logout icon"> </i>
+                            <!--<span class="font-bold">Add Photo</span>-->
+                            <span class="font-bold">Logout</span>
                         </a>
                     </li>
                 </ul>
+                <!--<div class="line dk hidden-nav-xs"></div>-->
+                <!--<ul class="nav nav-main" data-ride="collapse" ng-repeat="menu in menus">-->
+                    <!--<li>-->
+                        <!--<a href="{{ menu.link }}" class="auto"> <i class="i {{ menu.icon }} icon"> </i>-->
+                            <!--<span class="font-bold">{{ menu.name }}</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                <!--</ul>-->
                 <div class="line dk hidden-nav-xs"></div>
                 <ul class="nav ">
-                    <li><a href="" class="auto"> <span class="pull-right text-muted"> <i
-                            class="i i-circle-sm-o text"></i> <i class="i i-circle-sm text-active"></i> </span> <i
-                            class="i i-docs icon"> </i> <span class="font-bold">Add Photo</span> </a>
+                    <li>
+                        <a href="" class="auto">
+                            <span class="pull-right text-muted">
+                                <i class="i i-circle-sm-o text"></i>
+                                <i class="i i-circle-sm text-active"></i>
+                            </span>
+                            <i class="i i-docs icon"> </i>
+                            <span class="font-bold">Add Photo</span>
+                        </a>
                     </li>
                 </ul>
             </nav>

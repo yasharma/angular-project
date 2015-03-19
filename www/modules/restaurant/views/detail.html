@@ -1,17 +1,17 @@
-<nav-top></nav-top>
+<section class="vbox">
+
+<header class="bg-primary header header-md navbar navbar-fixed-top-xs box-shadow" ng-include="header"></header>
 
 <section>
 <section class="hbox stretch">
 
-<aside class="bg-light lt b-r b-light aside-md hidden-print">
-    <nav-left></nav-left>
-</aside>
+<aside ng-include="sidebar" id="nav" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
 
 <section id="content">
 <section class="vbox">
    <div>
         <header class="header bg-white b-b b-light hide-for-small hide-for-touch" ng-include="'modules/restaurant/views/search-form.html'"></header>
-    </div>
+   </div>
 
 <!--Dynamic view goes here-->
 
@@ -271,6 +271,7 @@
 
 </section>
 
+<footer class="ir-footer" ng-include="footer"></footer>
 
 </section>
 <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
@@ -279,5 +280,4 @@
 </section>
 </section>
 </section>
-
-<footer class="ir-footer" ng-include="footer"></footer>
+</section>

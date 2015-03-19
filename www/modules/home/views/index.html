@@ -2,23 +2,39 @@
     <header class="bg-primary header header-md navbar navbar-fixed-top-xs box-shadow" ng-include="header"></header>
     <section>
         <section class="hbox stretch">
-            <aside ng-include="sidebar" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
+            <aside ng-include="sidebar" id="nav" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
 
             <section id="content" >
                 <section class="vbox">
-                    <div>
-                        <header class="header bg-white b-b b-light hide-for-small hide-for-touch" ng-include="'modules/restaurant/views/search-form.html'"></header>
+                    <!--Search box-->
+                    <div class="visible-xs">
+                        <!--class="col-xs-5 col-sm-4 col-md-6 col-lg-6"-->
+                        <!--<div ng-include="'modules/partials/search-box.html'">-->
+                        <!--</div>-->
+                        <div class="panel panel-tight">
+                            <div class="">
+                                <div ng-include="'modules/partials/search-box.html'"></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="hidden-xs">
+                        <header class="header bg-white b-b b-light hide-for-small hide-for-touch"
+                                ng-include="'modules/restaurant/views/search-form.html'">
+
+                        </header>
                     </div>
                     <section class="scrollable wrapper w-f">
                         <div class="row">
-
-                            <div class="col-sm-12 col-md-9 col-lg-9 ">
+                            <!--Restaurant list-->
+                            <div class="col-sm-8 col-md-9 col-lg-9 " ng-class="{'hidden-xs': showFiltersMobile}">
                                 <section>
                                     <header class="panel-heading ">
                                         <div class="row">
 
                                             <div class="col-sm-6">
-                                                Popular Restaurants
+                                                <!--Popular Restaurants-->
                                             </div>
                                             <div class="col-sm-6 col-md-6 col-lg-3 pull-right">
                                                 <select ng-model="restaurantList.params.sort" class="form-control">
@@ -61,7 +77,7 @@
                                                 <div class="panel-body">
                                                     <div class="col-sm-3 col-md-3 col-lg-4 no-padding pull-left">
                                                         <nvd3-multi-bar-chart
-                                                                data="trend"
+                                                                data="restaurant.trend_data"
                                                                 showXAxis="false"
                                                                 showYAxis="false"
                                                                 tooltips="true"
@@ -91,7 +107,7 @@
                                                     </div>
                                                     <div class="clearfix"></div>
                                                     <div class="col-sm-3 col-md-4 col-lg-4 col-md-offset-4"></div>
-                                                    <div class="pull-right">Price : $ {{restaurant.price_range}} -  {{restaurant.price_range}}</div>
+                                                    <div class="pull-right">Price : {{restaurant.price_range_symbol}}</div>
                                                 </div>
                                             </section>
                                         </article>
@@ -104,7 +120,8 @@
                                     </div>
                                 </section>
                             </div>
-                            <div class="col-sm-3 hide-for-small hide-for-touch">
+                            <!--Filters-->
+                            <div class="col-sm-4 col-md-3 hide-for-small hide-for-touch" ng-class="{'hidden-xs': !showFiltersMobile}">
                                 <div class="panel">
                                     <div class="panel-heading b-b">Filters</div>
                                     <div class="panel-body">
@@ -253,7 +270,11 @@
                                             </li>
                                         </ul>
 
+                                        <div class="line line-dashed b-b line-lg"></div>
 
+                                        <button class="btn btn-dark form-control" ng-click="toggleFiltersMobile()">
+                                            <i class="glyphicon glyphicon-search"></i>
+                                        </button>
 
                                         <!--<div class="line line-dashed b-b line-lg"></div>-->
                                         <!--<ul class="list-unstyled">-->
@@ -270,14 +291,16 @@
                             </div>
                         </div>
                     </section>
+                    <footer class="ir-footer" ng-include="footer"></footer>
                 </section>
                 <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
             </section>
-
             <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
         </section>
+
+
     </section>
+
 </section>
 
 
-<footer class="ir-footer" ng-include="footer"></footer>
