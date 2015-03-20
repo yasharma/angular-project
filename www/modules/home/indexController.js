@@ -58,13 +58,12 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             $scope.init = function () {
                 $scope.user = localStorageService.get('user');
 
-                $scope.Math = Math;
                 $scope.restaurantList = {
                     params: {
                         sort: 'popular',
                         'price_range-greater-than-or-equal-to': 0,
                         'price_range-less-than-or-equal-to': 4,
-                        'distance-less-than-or-equal-to': 2
+                        'distance-less-than-or-equal-to': 1
                     }
                 };
                 initTemplate();
@@ -81,7 +80,39 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 $scope.allCategoriesSelected = true;
                 $scope.ratingFilterValue = 0;
                 $scope.trendFilterValue = 0;
-                $scope.distanceFilterValue = 2;
+                $scope.distanceFilterValue = 1;
+
+                $scope.priceFilterOptions = [
+                    {label: '$', value: 0},
+                    {label: '$$', value: 1},
+                    {label: '$$$', value: 2},
+                    {label: '$$$$', value: 3},
+                    {label: '$$$$$', value: 4}
+                ];
+                $scope.ratingFilterOptions = [
+                    {label: 'All ratings', value: 0},
+                    {label: 'Less than 60%', value: 1},
+                    {label: 'Greater than 60%', value: 60},
+                    {label: 'Greater than 70%', value: 70},
+                    {label: 'Greater than 80%', value: 80},
+                    {label: 'Greater than 90%', value: 90}
+                ];
+                $scope.distanceFilterOptions = [
+                    {label: 'Any distance', value: 0},
+                    {label: 'Less than 1 KM', value: 1},
+                    {label: 'Less than 2 KM', value: 2},
+                    {label: 'Less than 5 KM', value: 5},
+                    {label: 'Less than 10 KM', value: 10},
+                    {label: 'Greater than 10 KM', value: -10}
+                ];
+                $scope.trendFilterOptions = [
+                    {label: 'All', value: 0},
+                    {label: 'Less than 60%', value: 1},
+                    {label: 'Greater than 60%', value: 60},
+                    {label: 'Greater than 70%', value: 70},
+                    {label: 'Greater than 80%', value: 80},
+                    {label: 'Greater than 90%', value: 90}
+                ];
 
                 getAllCategories();
 
@@ -94,15 +125,14 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                             //'category': '' //sending category empty for now @todo remove
 //                        'category': $routeParams.category
                         });
-
                     getPopularList();
                 }
 
-                $scope.trend = [
-                    {
-                        "key": "Trend",
-                        "values": [[1025409600000, 0], [1028088000000, 6.3382185140371], [1030766400000, 5.9507873460847], [1033358400000, 11.569146943813], [1036040400000, 5.4767332317425], [1038632400000, 0.50794682203014], [1041310800000, 5.5310285460542], [1043989200000, 5.7838296963382], [1046408400000, 7.3249341615649], [1049086800000, 6.7078630712489], [1330491600000, 13.388148670744]]
-                    }];
+                //$scope.trend = [
+                //    {
+                //        "key": "Trend",
+                //        "values": [[1025409600000, 0], [1028088000000, 6.3382185140371], [1030766400000, 5.9507873460847], [1033358400000, 11.569146943813], [1036040400000, 5.4767332317425], [1038632400000, 0.50794682203014], [1041310800000, 5.5310285460542], [1043989200000, 5.7838296963382], [1046408400000, 7.3249341615649], [1049086800000, 6.7078630712489], [1330491600000, 13.388148670744]]
+                //    }];
 
                 $scope.options = {
                     animate: {
@@ -150,15 +180,16 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                             .then(function (data) {
                                 localStorageService.add('latitude', data.coords.latitude);
                                 localStorageService.add('longitude', data.coords.longitude);
-                                getPopularList();
+                                getPopularList(null, true);
                             });
+                    }else{
+                        getPopularList(null, true);
                     }
                 }else{
                     localStorageService.remove('latitude');
                     localStorageService.remove('longitude');
+                    getPopularList(null, false);
                 }
-                getPopularList();
-
             };
 
             $scope.popularListPageChanged = function () {
@@ -184,23 +215,43 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             //    getPopularList();
             //};
 
-            function getPopularList(params) {
-                if (typeof(params) !== "undefined") {
+            function getPopularList(params, initial) {
+                if (params) {
                     params = merge_objects($scope.restaurantList.params, params);
                 }
                 else {
                     params = $scope.restaurantList.params;
                 }
+                // initially:
+                // while there are 0 responses and distance-less-than filter is active, increase distance and repeat
                 $scope.cgBusyPromise = restaurantSvr.getRestaurants(params);
                 $scope.cgBusyPromise.then(function (response) {
-                    $scope.restaurants = response.items;
-                    $scope.maxSize = 6;
-                    $scope.popularListItemPerPage = 8;
-                    $scope.popularListTotalItems = response._meta.totalCount;
-                    $scope.popularListCurrentPage = response._meta.currentPage + 1;
+                    if(response.items.length == 0 && $scope.distanceFilterValue != 0 && initial){
+                        // none found:
+                        // find next distance option and set it
+                        for (var i = 1; i < $scope.distanceFilterOptions.length - 1 ; i++) {
+                            if (i == $scope.distanceFilterOptions.length - 2){
+                                // set to any distance
+                                $scope.distanceFilterValue = 0;
+                                $scope.setDistanceFilter($scope.distanceFilterValue);
+                                break;
+                            } else if($scope.distanceFilterOptions[i].value == $scope.distanceFilterValue){
+                                // set next distance
+                                $scope.distanceFilterValue = $scope.distanceFilterOptions[i+1].value;
+                                $scope.setDistanceFilter($scope.distanceFilterValue);
+                                break;
+                            }
+                        }
+                        getPopularList(params, initial);
+                    }else { // success
+                        $scope.restaurants = response.items;
+                        $scope.maxSize = 6;
+                        $scope.popularListItemPerPage = 8;
+                        $scope.popularListTotalItems = response._meta.totalCount;
+                        $scope.popularListCurrentPage = response._meta.currentPage + 1;
+                    }
                 });
             }
-
 
             $scope.options = {
                 animate: {

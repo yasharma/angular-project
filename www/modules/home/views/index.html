@@ -163,22 +163,14 @@
                                             <select class="form-control icon price ng-pristine ng-valid"
                                                     ng-model="restaurantList.params['price_range-greater-than-or-equal-to']"
                                                     style="width: 90px; display: inline-block;">
-                                                <option value="0">$</option>
-                                                <option value="1">$$</option>
-                                                <option value="2">$$$</option>
-                                                <option value="3">$$$$</option>
-                                                <option value="4">$$$$$</option>
+                                                <option ng-repeat="option in priceFilterOptions" value="{{option.value}}">{{option.label}}</option>
                                             </select>
                                         </label>
                                         <label> to
                                             <select class="form-control icon price ng-pristine ng-valid"
                                                     ng-model="restaurantList.params['price_range-less-than-or-equal-to']"
                                                     style="width: 90px; display: inline-block;">
-                                                <option value="0">$</option>
-                                                <option value="1">$$</option>
-                                                <option value="2">$$$</option>
-                                                <option value="3">$$$$</option>
-                                                <option value="4">$$$$$</option>
+                                                <option ng-repeat="option in priceFilterOptions" value="{{option.value}}">{{option.label}}</option>
                                             </select>
                                         </label>
                                         <div class="line line-dashed b-b line-lg"></div>
@@ -187,29 +179,9 @@
 
                                         <div class="panel-title m-b">Rating</div>
                                         <ul class="list-unstyled">
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="rating" ng-model="ratingFilterValue" value="0"
-                                                       ng-change="setRatingFilter(ratingFilterValue)"><i></i> All ratings</label>
-                                            </li>
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="rating" ng-model="ratingFilterValue" value="1"
-                                                       ng-change="setRatingFilter(ratingFilterValue)"><i></i> Less than 60%</label>
-                                            </li>
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="rating" ng-model="ratingFilterValue" value="60"
-                                                       ng-change="setRatingFilter(ratingFilterValue)"><i></i> Greater than 60%</label>
-                                            </li>
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="rating" ng-model="ratingFilterValue" value="70"
-                                                       ng-change="setRatingFilter(ratingFilterValue)"><i></i> Greater than 70%</label>
-                                            </li>
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="rating" ng-model="ratingFilterValue" value="80"
-                                                       ng-change="setRatingFilter(ratingFilterValue)"><i></i> Greater than 80%</label>
-                                            </li>
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="rating" ng-model="ratingFilterValue" value="90"
-                                                       ng-change="setRatingFilter(ratingFilterValue)"><i></i> Greater than 90%</label>
+                                            <li class="radio i-checks" ng-repeat="option in ratingFilterOptions"><label>
+                                                <input type="radio" name="rating" ng-model="ratingFilterValue" value="{{option.value}}"
+                                                       ng-change="setRatingFilter(ratingFilterValue)"><i></i> {{option.label}}</label>
                                             </li>
                                         </ul>
 
@@ -219,29 +191,9 @@
 
                                         <div class="panel-title m-b" ng-show="nearMe">Distance</div>
                                         <ul class="list-unstyled" ng-show="nearMe">
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="distance" ng-model="distanceFilterValue" value="0"
-                                                       ng-change="setDistanceFilter(distanceFilterValue)"><i></i> Any distance</label>
-                                            </li>
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="distance" ng-model="distanceFilterValue" value="1"
-                                                       ng-change="setDistanceFilter(distanceFilterValue)"><i></i> Less than 1 KM</label>
-                                            </li>
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="distance" ng-model="distanceFilterValue" value="2"
-                                                       ng-change="setDistanceFilter(distanceFilterValue)"><i></i> Less than 2 KM</label>
-                                            </li>
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="distance" ng-model="distanceFilterValue" value="5"
-                                                       ng-change="setDistanceFilter(distanceFilterValue)"><i></i> Less than 5 KM</label>
-                                            </li>
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="distance" ng-model="distanceFilterValue" value="10"
-                                                       ng-change="setDistanceFilter(distanceFilterValue)"><i></i> Less than 10 KM</label>
-                                            </li>
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="distance" ng-model="distanceFilterValue" value="-10"
-                                                       ng-change="setDistanceFilter(distanceFilterValue)"><i></i> Greater than 10 KM</label>
+                                            <li class="radio i-checks" ng-repeat="option in distanceFilterOptions"><label>
+                                                <input type="radio" name="distance" ng-model="distanceFilterValue" value="{{option.value}}"
+                                                       ng-change="setDistanceFilter(distanceFilterValue)"><i></i> {{option.label}}</label>
                                             </li>
                                         </ul>
 
@@ -251,29 +203,9 @@
 
                                         <div class="panel-title m-b">Trend</div>
                                         <ul class="list-unstyled">
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="0"
-                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> All</label>
-                                            </li>
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="1"
-                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> Less than 60%</label>
-                                            </li>
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="60"
-                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> Greater than 60%</label>
-                                            </li>
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="70"
-                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> Greater than 70%</label>
-                                            </li>
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="80"
-                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> Greater than 80%</label>
-                                            </li>
-                                            <li class="radio i-checks"><label>
-                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="90"
-                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> Greater than 90%</label>
+                                            <li class="radio i-checks" ng-repeat="option in trendFilterOptions"><label>
+                                                <input type="radio" name="trend" ng-model="trendFilterValue" value="{{option.value}}"
+                                                       ng-change="setTrendFilter(trendFilterValue)"><i></i> {{option.label}}</label>
                                             </li>
                                         </ul>
 
