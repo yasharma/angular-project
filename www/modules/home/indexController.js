@@ -249,6 +249,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         $scope.popularListItemPerPage = 8;
                         $scope.popularListTotalItems = response._meta.totalCount;
                         $scope.popularListCurrentPage = response._meta.currentPage;
+                        $scope.numPages = response._meta.pageCount;
                     }
                 });
             }

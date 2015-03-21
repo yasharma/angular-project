@@ -2,7 +2,7 @@
     <header class="panel-heading">Reviews</header>
     <section class="chat-list panel-body review-wrapper" ng-show="reviews">
 
-        <div  ng-repeat="review in reviews" class="col-sm-12 no-padding media">
+        <div  ng-repeat="review in reviews.items" class="col-sm-12 no-padding media">
 
             <div class="col-sm-2 no-padding text-center">
                 <a href="#">
@@ -42,13 +42,13 @@
         <!--</article>-->
 
         <!--<div class="line bg-danger-ltest  col-sm-12 no-padding-left no-padding-right"></div>-->
-        </div>
-        <div class="panel-body hide-for-small bg-white b-b b-light" ng-show="review.length >8 ">
+        <!--</div>-->
+        <div class="panel-body bg-white b-b b-light" ng-show="numPages > 1">
             <pagination total-items="reviewListTotalItems" ng-model="reviewListCurrentPage"
                         max-size="maxSize"
                         class="pagination-sm " boundary-links="true" rotate="false"
                         num-pages="numPages"
-                        ng-change="reviewListPageChanged()"
+                        ng-change="reviewListPageChanged(reviewListCurrentPage)"
                         items-per-page="reviewListItemPerPage"></pagination>
         </div>
     </section>

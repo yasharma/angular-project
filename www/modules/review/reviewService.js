@@ -11,7 +11,7 @@ reviewService.factory('reviewSvr', ['localStorageService', 'Restangular', functi
         getRestaurantReviews: function (restaurantId, params) {
             var resource = Restangular.all('restaurants/' + restaurantId + '/reviews');
 
-            return resource.getList(params)
+            return resource.withHttpConfig({cache: false}).getList(params)
                 .then(function (reviews) {
                     console.log('reviewService line no 16 :: reviewService sending reviews');
                     return {

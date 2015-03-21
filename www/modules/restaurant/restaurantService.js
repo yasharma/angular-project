@@ -107,7 +107,6 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
 
             return photos.getList()
                 .then(function (response) {
-                    console.log(response.data);
                     return response.data[0].items;
                 });
         },

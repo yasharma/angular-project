@@ -31,12 +31,12 @@ rxControllers.controller('reviewCtrl', ['$scope', 'localStorageService', '$route
                     clearForm ();
                 }
             });
-        }
+        };
 
         function closeModel (){
             modalInstance.close('');
             $(".overlay-main").css("display", "none");
-            getReviews();
+            $scope.reviewListPageChanged($scope.reviewListCurrentPage);
             clearForm ();
         }
 
@@ -68,20 +68,23 @@ rxControllers.controller('reviewCtrl', ['$scope', 'localStorageService', '$route
                 $(".overlay-main").css("display", "none");
             });
 
-        }
+        };
 
+        $scope.reviewListPageChanged = function(page){
+            $scope.getReviews({page: page});
+        };
 
-        getReviews();
-
-
-        function getReviews(params) {
+        $scope.getReviews = function(params) {
             reviewSvr.getRestaurantReviews(routeParams.restaurantId, params).then(function (reviews) {
-                $scope.reviews = reviews.items;
+                $scope.reviews = {items: reviews.items};
                 $scope.maxSize = 6;
                 $scope.reviewListItemPerPage = 8;
                 $scope.reviewListTotalItems = reviews._meta.totalCount;
-                $scope.reviewListCurrentPage = reviews._meta.currentPage + 1;
+                $scope.reviewListCurrentPage = reviews._meta.currentPage;
+                $scope.numPages = reviews._meta.pageCount;
             });
-        }
+        };
+
+        $scope.getReviews();
 
     }]);
