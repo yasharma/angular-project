@@ -248,7 +248,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         $scope.maxSize = 6;
                         $scope.popularListItemPerPage = 8;
                         $scope.popularListTotalItems = response._meta.totalCount;
-                        $scope.popularListCurrentPage = response._meta.currentPage + 1;
+                        $scope.popularListCurrentPage = response._meta.currentPage;
                     }
                 });
             }

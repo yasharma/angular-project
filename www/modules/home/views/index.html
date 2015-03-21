@@ -92,7 +92,24 @@
                                                             <h3 class="title"> {{restaurant.name}} </h3>
                                                         </a></p>
                                                         <p class="m-t-md">
-                                                            <rating  ng-model="restaurant.rating_rounded" max="5" readonly="true"></rating>
+                                                            <!--<rating  ng-model="restaurant.rating_rounded" max="5" readonly="true"></rating>-->
+                                                            <span ng-repeat="Star in [1,2,3,4,5]">
+                                                                <span ng-switch="restaurant.rating >= Star - 0.25">
+                                                                    <span ng-switch-when="true">
+                                                                        <i class="fa fa-star"></i>
+                                                                    </span>
+                                                                    <span ng-switch-when="false">
+                                                                        <span ng-switch="restaurant.rating >= (Star-0.75)">
+                                                                            <span ng-switch-when="true">
+                                                                                <i class="fa fa-star-half-o"></i>
+                                                                            </span>
+                                                                            <span ng-switch-when="false">
+                                                                                <i class="fa fa-star-o"></i>
+                                                                            </span>
+                                                                        </span>
+                                                                    </span>
+                                                                </span>
+                                                            </span>
                                                             <span class="label m-l-xs m-r-sm"
                                                                   ng-class="{'label-warning': restaurant.rating <= 2,
                                                                   'label-info': restaurant.rating > 2 && restaurant.rating < 4,
@@ -119,6 +136,7 @@
                                             </section>
                                         </article>
                                         <div class="panel-body hide-for-small bg-white b-b b-light" style="margin-left: 45px;">
+
                                             <pagination total-items="popularListTotalItems" ng-model="popularListCurrentPage" max-size="maxSize"
                                                         class="pagination-sm " boundary-links="true" rotate="false" num-pages="numPages"
                                                         ng-change="popularListPageChanged()"
@@ -163,14 +181,22 @@
                                             <select class="form-control icon price ng-pristine ng-valid"
                                                     ng-model="restaurantList.params['price_range-greater-than-or-equal-to']"
                                                     style="width: 90px; display: inline-block;">
-                                                <option ng-repeat="option in priceFilterOptions" value="{{option.value}}">{{option.label}}</option>
+                                                <option value="0">$</option>
+                                                <option value="1">$$</option>
+                                                <option value="2">$$$</option>
+                                                <option value="3">$$$$</option>
+                                                <option value="4">$$$$$</option>
                                             </select>
                                         </label>
                                         <label> to
                                             <select class="form-control icon price ng-pristine ng-valid"
                                                     ng-model="restaurantList.params['price_range-less-than-or-equal-to']"
                                                     style="width: 90px; display: inline-block;">
-                                                <option ng-repeat="option in priceFilterOptions" value="{{option.value}}">{{option.label}}</option>
+                                                <option value="0">$</option>
+                                                <option value="1">$$</option>
+                                                <option value="2">$$$</option>
+                                                <option value="3">$$$$</option>
+                                                <option value="4">$$$$$</option>
                                             </select>
                                         </label>
                                         <div class="line line-dashed b-b line-lg"></div>
