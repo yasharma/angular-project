@@ -54,7 +54,7 @@
                 <!--<li role="presentation"><a tabindex="-1" href="#/request/change/{{ restaurantId }}">Go to Request Information Change by owner</a></li>-->
             <!--</ul>-->
 
-            <a href="#" class="btn btn-icon b-2x btn-default btn-rounded hover"><i
+            <a class="btn btn-icon b-2x btn-default btn-rounded hover"><i
                     class="i i-bars3 hover-rotate"></i></a> <a href="#nav, #sidebar"
                                                                class="btn btn-icon b-2x btn-info btn-rounded"
                                                                data-toggle="class:nav-xs, show"><i
@@ -169,18 +169,18 @@
                                 class="dropdown-label">Week</span> <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-select">
-                            <li><a href="#">
+                            <li><a >
                                 <input type="radio" name="b">
                                 Month</a></li>
-                            <li><a href="#">
+                            <li><a >
                                 <input type="radio" name="b">
                                 Week</a></li>
-                            <li><a href="#">
+                            <li><a >
                                 <input type="radio" name="b">
                                 Day</a></li>
                         </ul>
                     </div>
-                    <a href="#" class="btn btn-default btn-icon btn-rounded btn-sm">Go</a></div>
+                    <a class="btn btn-default btn-icon btn-rounded btn-sm">Go</a></div>
                 Statistics
             </header>
             <div class="panel-body">
@@ -213,25 +213,25 @@
                             class="dropdown-label">Last 24 Hours</span> <span
                             class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-select">
-                        <li><a href="#">
+                        <li><a >
                             <input type="radio" name="a">
                             Today</a></li>
-                        <li><a href="#">
+                        <li><a >
                             <input type="radio" name="a">
                             Yesterday</a></li>
-                        <li><a href="#">
+                        <li><a >
                             <input type="radio" name="a">
                             Last 24 Hours</a></li>
-                        <li><a href="#">
+                        <li><a >
                             <input type="radio" name="a">
                             Last 7 Days</a></li>
-                        <li><a href="#">
+                        <li><a >
                             <input type="radio" name="a">
                             Last 30 days</a></li>
-                        <li><a href="#">
+                        <li><a >
                             <input type="radio" name="a">
                             Last Month</a></li>
-                        <li><a href="#">
+                        <li><a >
                             <input type="radio" name="a">
                             All Time</a></li>
                     </ul>
@@ -254,6 +254,9 @@
             <header class="panel-heading">Photos</header>
             <section class="chat-list panel-body">
                 <!--<section class="row m-l-none m-r-none m-b text-center box-shadow"> -->
+                <div ng-hide="restaurant.restaurantPhotos.length">
+                    No photos
+                </div>
                 <div class="col-xs-4 no-padding" ng-repeat="photo in restaurant.restaurantPhotos">
                     <!--{{ photo }}-->
                     <img ng-src="{{photo.url}}" style="width: 100%;padding:0px 2px;min-height: 124px;"/>
@@ -275,7 +278,7 @@
 <footer class="ir-footer" ng-include="footer"></footer>
 
 </section>
-<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+<!--<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>-->
 </section>
 
 </section>
