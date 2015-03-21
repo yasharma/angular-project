@@ -124,10 +124,14 @@
 
                                                     </div>
                                                     <div class="col-lg-2 pull-left no-padding clearfix">
-                                                        <img src="images/r3.jpg" class="list-image">
-                                                        <img src="images/r3.jpg" class="list-image">
-                                                        <img src="images/r3.jpg" class="list-image">
-                                                        <img src="images/r3.jpg" class="list-image">
+                                                        <img ng-show="restaurant.restaurantPhotos[0].thumbnail_url"
+                                                             ng-src="{{ restaurant.restaurantPhotos[0].thumbnail_url }}" class="list-image">
+                                                        <img ng-show="restaurant.restaurantPhotos[1].thumbnail_url"
+                                                             ng-src="{{ restaurant.restaurantPhotos[1].thumbnail_url }}" class="list-image">
+                                                        <img ng-show="restaurant.restaurantPhotos[2].thumbnail_url"
+                                                             ng-src="{{ restaurant.restaurantPhotos[2].thumbnail_url }}" class="list-image">
+                                                        <img ng-show="restaurant.restaurantPhotos[3].thumbnail_url"
+                                                             ng-src="{{ restaurant.restaurantPhotos[3].thumbnail_url }}" class="list-image">
                                                     </div>
                                                     <div class="clearfix"></div>
                                                     <div class="col-sm-3 col-md-4 col-lg-4 col-md-offset-4"></div>

@@ -14,6 +14,7 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
             var self = this;
 
             return resource.getList(merge_objects({
+                expand: 'restaurantPhotos',
                 latitude: localStorageService.get('latitude'),
                 longitude: localStorageService.get('longitude'),
                 //sort: 'popular',
@@ -73,6 +74,11 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                         restaurants[i].rating = Math.round(restaurants[i].overview__percentile / 2) / 10;
                         restaurants[i].rating_rounded = Math.round(restaurants[i].overview__percentile / 20);
 
+                        //restaurants[i].thumbnails = [];
+                        //angular.forEach(restaurants[i].restaurantPhotos, function(photo){
+                        //
+                        //});
+
                         //self.getOverviews(restaurants[i].id,restaurants[i]).then();
                     }
 
@@ -91,6 +97,18 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
             return restaurant.get()
                 .then(function (response) {
                     return response.data;
+                });
+        },
+
+        getPhotos: function (restaurantId) {
+
+            var resource = 'restaurants/' + restaurantId + '/photos';
+            var photos = Restangular.all(resource);
+
+            return photos.getList()
+                .then(function (response) {
+                    console.log(response.data);
+                    return response.data[0].items;
                 });
         },
 

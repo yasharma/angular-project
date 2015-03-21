@@ -148,6 +148,11 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
             var restaurantId = $scope.restaurantId;
             restaurantSvr.getRestaurant(restaurantId).then(function (restaurant) {
                 $scope.restaurant = restaurant;
+                restaurantSvr.getPhotos(restaurantId).then(function (photos) {
+                    $scope.restaurant.restaurantPhotos = photos;
+                    console.log($scope.restaurant.restaurantPhotos);
+                });
+                console.log($scope.restaurant);
             });
 
             restaurantSvr.getOverviews(restaurantId, $scope);

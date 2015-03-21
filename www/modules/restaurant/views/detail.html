@@ -254,15 +254,16 @@
             <header class="panel-heading">Photos</header>
             <section class="chat-list panel-body">
                 <!--<section class="row m-l-none m-r-none m-b text-center box-shadow"> -->
-                <div class="col-xs-4 no-padding">
-                    <img src="images/r1.jpg" style="width: 100%;padding:0px 2px;min-height: 124px;"/>
+                <div class="col-xs-4 no-padding" ng-repeat="photo in restaurant.restaurantPhotos">
+                    <!--{{ photo }}-->
+                    <img ng-src="{{photo.url}}" style="width: 100%;padding:0px 2px;min-height: 124px;"/>
                 </div>
-                <div class="col-xs-4 no-padding">
-                    <img src="images/r2.jpeg" style="width:100%;padding:0px 2px;min-height: 124px;"/>
-                </div>
-                <div class="col-xs-4 no-padding">
-                    <img src="images/r3.jpg" style="width:100%;padding:0px 2px;min-height: 124px;"/>
-                </div>
+                <!--<div class="col-xs-4 no-padding">-->
+                    <!--<img src="images/r2.jpeg" style="width:100%;padding:0px 2px;min-height: 124px;"/>-->
+                <!--</div>-->
+                <!--<div class="col-xs-4 no-padding">-->
+                    <!--<img src="images/r3.jpg" style="width:100%;padding:0px 2px;min-height: 124px;"/>-->
+                <!--</div>-->
             </section>
         </section>
     </div>
