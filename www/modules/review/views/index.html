@@ -5,13 +5,13 @@
         <div  ng-repeat="review in reviews.items" class="col-sm-12 no-padding media">
 
             <div class="col-sm-2 no-padding text-center">
-                <a href="#">
+                <a>
                     <img class="media-object thumbnail-medium" alt="avatar" src="images/a2.png" data-holder-rendered="true" >
                 </a>
                 <small class="block m-t-sm">Name</small>
             </div>
             <div class="col-sm-10 no-padding">
-                <a href="#" class="h4">{{review.short_comment}}</a>
+                <a class="h4">{{review.short_comment}}</a>
                 <small class="block m-t-sm">{{review.comment}}</small>
                 <small>
                     <rating  ng-model="review.rating" max="max" readonly="true"></rating>

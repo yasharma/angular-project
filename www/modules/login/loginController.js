@@ -22,7 +22,13 @@ rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','logi
                 $rootScope.isLogged = true;
 
                 localStorageService.set('token', response.items.accessToken);
-                localStorageService.set('user',{"id" : response.items.id, "username" : response.items.username, "email" :  response.items.email });
+                localStorageService.set('user', {
+                    "id" : response.items.id,
+                    "username" : response.items.username,
+                    "email" :  response.items.email,
+                    "ownsRestaurants": response.items.details.owned_restaurants && response.items.details.owned_restaurants.length,
+                    "ownedRestaurants": response.items.details.owned_restaurants || []
+                });
                 $location.path("/index");
             });
     };
