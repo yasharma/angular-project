@@ -59,6 +59,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 $scope.user = localStorageService.get('user');
 
                 $scope.restaurantList = {
+                    page: 1,
                     params: {
                         sort: 'popular',
                         'price_range-greater-than-or-equal-to': 0,
@@ -193,7 +194,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             };
 
             $scope.popularListPageChanged = function () {
-                var nextPage = $scope.popularListCurrentPage;
+                var nextPage = $scope.restaurantList.page;
                 getPopularList({
                     page: nextPage
                 });
@@ -248,7 +249,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         $scope.maxSize = 6;
                         $scope.popularListItemPerPage = 8;
                         $scope.popularListTotalItems = response._meta.totalCount;
-                        $scope.popularListCurrentPage = response._meta.currentPage;
+                        $scope.restaurantList.page = response._meta.currentPage;
                         $scope.numPages = response._meta.pageCount;
                     }
                 });

@@ -133,10 +133,17 @@ module.exports = function (grunt) {
                     grunt.log.writeln('Waiting for more changes...');
                 }
             },
-            scripts: {
-                files: ['www/modules/**/*.js','Gruntfile.js','app.js','models/*.js'],
-                tasks: ['uglify']
-
+            angular: {
+                files: ['<%= uglify.angular.src %>'],
+                tasks: ['uglify:angular']
+            },
+            applib: {
+                files: ['<%= uglify.applib.src %>'],
+                tasks: ['uglify:applib']
+            },
+            appmin: {
+                files: ['<%= uglify.appmin.src %>'],
+                tasks: ['uglify:appmin']
             },
             css: {
                 files: ['css/*.css'],
