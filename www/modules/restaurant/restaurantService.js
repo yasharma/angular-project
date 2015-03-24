@@ -111,14 +111,37 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                 });
         },
 
-        getOverviews: function (restaurantId,obj) {
+        getOverviews: function (restaurantId) {
 
             var resource = 'restaurants/' + restaurantId + '/stats';
-
             var stat = Restangular.one(resource);
+
             return stat.get().then(function (response) {
-                obj.stats = response.data.items;
                 return response.data.items;
+            });
+
+        },
+
+        getGraphs: function (restaurantId, duration) {
+
+            var resource = 'restaurants/' + restaurantId + '/graphs';
+
+            var graphs = Restangular.one(resource);
+            return graphs.get({
+                duration: duration,
+                type: 'PERCENTILE-TREND-AND-SOURCE'
+            }).then(function (response) {
+                var source = [];
+                angular.forEach(response.data.source, function(value, key){
+                    source.push({
+                        label: key,
+                        data: value
+                    });
+                });
+                return {
+                    data: response.data.data,
+                    source: source
+                };
             });
 
         },

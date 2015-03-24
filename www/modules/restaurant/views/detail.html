@@ -207,33 +207,17 @@
     <div class="col-md-5 col-sm-12">
         <section>
             <header class="font-bold padder-v">
-                <div class="btn-group pull-right">
+                <div class="btn-group pull-right dropdown">
                     <button data-toggle="dropdown"
-                            class="btn btn-sm btn-rounded btn-default dropdown-toggle"><span
-                            class="dropdown-label">Last 24 Hours</span> <span
+                            class="btn btn-sm btn-rounded btn-default dropdown-toggle">
+                        <span>{{graphDuration.label}}</span> <span
                             class="caret"></span></button>
-                    <ul class="dropdown-menu dropdown-select">
-                        <li><a >
-                            <input type="radio" name="a">
-                            Today</a></li>
-                        <li><a >
-                            <input type="radio" name="a">
-                            Yesterday</a></li>
-                        <li><a >
-                            <input type="radio" name="a">
-                            Last 24 Hours</a></li>
-                        <li><a >
-                            <input type="radio" name="a">
-                            Last 7 Days</a></li>
-                        <li><a >
-                            <input type="radio" name="a">
-                            Last 30 days</a></li>
-                        <li><a >
-                            <input type="radio" name="a">
-                            Last Month</a></li>
-                        <li><a >
-                            <input type="radio" name="a">
-                            All Time</a></li>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="option in graphDurations">
+                            <a class="pointer" ng-click="setGraphDuration(option)">
+                                {{ option.label }}
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 Analysis
@@ -254,10 +238,10 @@
             <header class="panel-heading">Photos</header>
             <section class="chat-list panel-body">
                 <!--<section class="row m-l-none m-r-none m-b text-center box-shadow"> -->
-                <div ng-hide="restaurant.restaurantPhotos.length">
+                <div class="m-l-sm" ng-hide="photos.length">
                     No photos
                 </div>
-                <div class="col-xs-4 no-padding" ng-repeat="photo in restaurant.restaurantPhotos">
+                <div class="col-xs-4 no-padding" ng-repeat="photo in photos">
                     <!--{{ photo }}-->
                     <img ng-src="{{photo.url}}" style="width: 100%;padding:0px 2px;min-height: 124px;"/>
                 </div>

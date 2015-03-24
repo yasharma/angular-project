@@ -1,6 +1,9 @@
 <section class="panel panel-default">
     <header class="panel-heading">Reviews</header>
     <section class="chat-list panel-body review-wrapper" ng-show="reviews">
+        <div class="m-l-sm" ng-hide="reviews.items.length">
+            No reviews
+        </div>
 
         <div  ng-repeat="review in reviews.items" class="col-sm-12 no-padding media">
 

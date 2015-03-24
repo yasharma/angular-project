@@ -10,6 +10,7 @@
             <section id="content" ng-include="'modules/home/views/list.html'" ng-if="! user.ownsRestaurants">
             </section>
 
+            <!--Restaurant owner panel-->
             <section id="content" ng-include="'modules/home/views/owner.html'" ng-if="user.ownsRestaurants">
             </section>
 

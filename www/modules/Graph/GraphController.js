@@ -1,7 +1,30 @@
 'use strict';
 
-rxControllers.controller('graphCtrl', ['$scope',
-    function ($scope) {
+rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams',
+    function ($scope, restaurantSvr, $routeParams) {
+
+        $scope.restaurantId = $routeParams.restaurantId;
+
+        $scope.graphDurations = [
+            {label:'Last 7 Days', value:'WEEKLY'},
+            {label:'Last Month', value:'MONTHLY'},
+            {label:'Last Year', value:'YEARLY'},
+            {label:'Overall', value:'OVERALL'}
+        ];
+        $scope.graphDuration = $scope.graphDurations[3];
+
+        $scope.setGraphDuration = function(option){
+            $scope.graphDuration = option;
+            $scope.getGraphs();
+        };
+
+        $scope.getGraphs = function(){
+            restaurantSvr.getGraphs($scope.restaurantId, $scope.graphDuration.value).then(function (graphs) {
+                $scope.donutDataset = graphs.source;
+            });
+        };
+
+        $scope.getGraphs();
 
         var jsonData = {
             "person1": [[1394110800000, 4], [1394542800000, 4], [1395493200000, 4], [1396357200000, 2], [1396616400000, 4], [1398175200000, 5], [1399471200000, 5], [1399471200000, 3], [1401026400000, 2], [1401199200000, 5], [1401976800000, 3], [1402840800000, 4], [1402840800000, 5], [1403186400000, 5], [1405432800000, 5], [1409580000000, 5], [1409580000000, 5], [1410962400000, 4], [1411135200000, 5], [1411221600000, 5], [1411394400000, 5], [1411394400000, 4], [1413464400000, 4]],
@@ -151,23 +174,26 @@ rxControllers.controller('graphCtrl', ['$scope',
             }
         };
 
-        $scope.donutDataset = [
-            {
-                label: "Tripadvisor",
-                data: 40
-            },
-            {
-                label: "Eatability",
-                data: 10
-            },
-            {
-                label: "Urbanspoon",
-                data: 20
-            },
-            {
-                label: "Yelp",
-                data: 12
-            }         ];
+        //$scope.donutDataset = [
+        //    {
+        //        label: "Tripadvisor",
+        //        data: 40
+        //    },
+        //    {
+        //        label: "Eatability",
+        //        data: 10
+        //    },
+        //    {
+        //        label: "Urbanspoon",
+        //        data: 20
+        //    },
+        //    {
+        //        label: "Yelp",
+        //        data: 12
+        //    }
+        //];
+
+
 
         $scope.donutOptions = {
             series: {
@@ -194,6 +220,5 @@ rxControllers.controller('graphCtrl', ['$scope',
                 content: "%s: %p.0%"
             }
         };
-
 
     }]);

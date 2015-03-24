@@ -145,15 +145,20 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
         }
 
         function getRestaurant() {
+
             var restaurantId = $scope.restaurantId;
             restaurantSvr.getRestaurant(restaurantId).then(function (restaurant) {
                 $scope.restaurant = restaurant;
-                restaurantSvr.getPhotos(restaurantId).then(function (photos) {
-                    $scope.restaurant.restaurantPhotos = photos;
-                });
             });
 
-            restaurantSvr.getOverviews(restaurantId, $scope);
+            //restaurantSvr.getPhotos(restaurantId).then(function (photos) {
+            //    $scope.restaurantPhotos = photos;
+            //});
+
+            restaurantSvr.getOverviews(restaurantId, $scope).then(function (stats) {
+                $scope.stats = stats;
+            });
+
         }
 
         function chartData() {

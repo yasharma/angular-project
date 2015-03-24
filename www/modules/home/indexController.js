@@ -290,7 +290,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
             $scope.addCategory = function (category) {
                 $scope.listedCategories[category] = true;
-                $scope.newCategory = null;
             };
 
             $scope.setRatingFilter = function (value) {
