@@ -559,11 +559,12 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
 
             if(undefined !== $scope.restaurantId &&  $scope.restaurantId){
-                $scope.menus = [{
-                    name : 'Manage Photos',
-                    link : '#/manage/photos/' + $scope.restaurantId,
-                    icon : 'i-docs'
-                },
+                $scope.menus = [
+                    {
+                        name : 'Manage Photos',
+                        link : '#/manage/photos/' + $scope.restaurantId,
+                        icon : 'i-docs'
+                    },
                     {
                         name : 'Dashboard',
                         link : '#/dashboard/' + $scope.restaurantId,

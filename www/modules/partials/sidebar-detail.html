@@ -20,21 +20,11 @@
                             <span class="text-muted text-xs block">...</span>
                         </span>
                     </a>
-                    <!--<ul class="dropdown-menu animated fadeInLeft">-->
-                        <!--<span class="arrow top"></span>-->
-                        <!--&lt;!&ndash;<li><a href="#">Settings</a></li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li><a href="profile.html">Profile</a></li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li><a href="#"> <span class="badge bg-danger pull-right">3</span> Notifications </a></li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li><a href="docs.html">Help</a></li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
-                        <!--<li><a href="#/login" ng-show="!isLogged">Login</a></li>-->
-                        <!--<li><a ng-click="clearToken()" ng-show="isLogged">Logout</a></li>-->
-                    <!--</ul>-->
                 </div>
             </div>
 
             <!-- nav -->
-            <nav class="nav-primary hidden-xs" ng-controller="menuCtrl">
+            <nav class="nav-primary hidden-xs">
                 <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">
                     <!--Start-->
                 </div>
@@ -46,11 +36,17 @@
                         </a>
                     </li>
                     <li ng-show="isLogged">
-
                         <a ng-click="clearToken()" class="auto pointer" >
                             <i class="i i-logout icon"> </i>
                             <!--<span class="font-bold">Add Photo</span>-->
                             <span class="font-bold">Logout</span>
+                        </a>
+                    </li>
+                    <div class="line dk hidden-nav-xs"></div>
+                    <li>
+                        <a href="#/index" class="auto" >
+                            <i class="i i-home icon"> </i>
+                            <span class="font-bold">Dashboard</span>
                         </a>
                     </li>
                 </ul>
@@ -62,17 +58,12 @@
                         <!--</a>-->
                     <!--</li>-->
                 <!--</ul>-->
-
-                <ul class="nav " ng-show="user.ownsRestaurants">
-                    <li ng-repeat="restaurant in user.ownedRestaurants">
-                        <div class="line dk hidden-nav-xs"></div>
-                        <a href="#/restaurant/{{restaurant}}" class="auto">
-                            <!--<span class="pull-right text-muted">-->
-                                <!--<i class="i i-circle-sm-o text"></i>-->
-                                <!--<i class="i i-circle-sm text-active"></i>-->
-                            <!--</span>-->
+                <div class="line dk hidden-nav-xs"></div>
+                <ul class="nav" ng-show="isOwner">
+                    <li>
+                        <a href="#/manage/photos/{{restaurantId}}" class="auto">
                             <i class="i i-docs icon"> </i>
-                            <span class="font-bold">Edit restaurant {{restaurant}}</span>
+                            <span class="font-bold">Manage Photos</span>
                         </a>
                     </li>
                 </ul>

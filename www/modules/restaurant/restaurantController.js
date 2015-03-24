@@ -1,34 +1,25 @@
 'use strict';
 
-rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localStorageService', '$location', '$routeParams', 'restaurantSvr', 'geoLocation', 'reviewSvr', 'overviewSvr', 'locationSvr', 'photoSvr', '$anchorScroll', '$modal',
-    function ($scope, $timeout, $upload, localStorageService, $location, $routeParams, restaurantSvr, geoLocation, reviewSvr, overviewSvr, locationSvr, photoSvr, $anchorScroll, $modal) {
+rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localStorageService', '$location',
+    '$routeParams', 'restaurantSvr', 'geoLocation', 'reviewSvr', 'overviewSvr', 'locationSvr',
+    'photoSvr', '$anchorScroll', '$modal', '$rootScope',
+    function ($scope, $timeout, $upload, localStorageService, $location, $routeParams, restaurantSvr,
+              geoLocation, reviewSvr, overviewSvr, locationSvr, photoSvr, $anchorScroll, $modal, $rootScope) {
 
         var modalInstance = null;
 
         initTemplate();
         $anchorScroll();
-        var user = localStorageService.get('user');
+        $scope.user = localStorageService.get('user');
         $scope.restaurantId = $routeParams.restaurantId;
+        $scope.isOwner = $scope.user && $scope.user.ownedRestaurants && _.contains($scope.user.ownedRestaurants, parseInt($scope.restaurantId));
 
         clearForm ();
 
         function clearForm (){
             $scope.activationForm = {};
             $scope.activationForm.restaurant_id = $scope.restaurantId;
-            if(user !== null) $scope.activationForm.user_id = user.id;
-        }
-
-        if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {
-            geoLocation.getLocation()
-                .then(function (data) {
-                    localStorageService.add('latitude', data.coords.latitude);
-                    localStorageService.add('longitude', data.coords.longitude);
-                    getRestaurant();
-                })
-            getRestaurant();
-        }
-        else {
-            getRestaurant();
+            if($scope.user) $scope.activationForm.user_id = $scope.user.id;
         }
 
         $scope.reviewListPageChanged = function () {
@@ -42,20 +33,16 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
             review.textLength = 99999;
         };
 
-
-        chartData();
-
-
         $scope.showPhone = function () {
             alert($scope.restaurant.phone);
-        }
+        };
 
 
         $scope.getPhotos = function () {
             photoSvr.getRestaurantPhotos($scope.restaurantId).then(function (photos) {
                 $scope.photos = photos.items;
             });
-        }
+        };
 
         $scope.onFileSelect = function ($files) {
             //$files: an array of files selected, each file has name, size, and type.
@@ -92,12 +79,12 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
 
         $scope.claim = function(){
             $location.url($location.path() + '?request=claimRestaurant');
-        }
+        };
 
 
         var modalInstance = checkParams($routeParams.request);
 
-        if(typeof modalInstance !== undefined && Object.keys(modalInstance).length && user !== null){
+        if(typeof modalInstance !== undefined && Object.keys(modalInstance).length && $scope.user !== null){
 
             modalInstance = $modal.open({
                 templateUrl: modalInstance.templateLocation,
@@ -129,7 +116,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
                         templateLocation : "modules/claim/views/activation-form.html",
                         controller: "claimCtrl"
 
-                    }
+                    };
                     break;
                 case "claimRestaurant" :
                     modalDetails = {
@@ -138,7 +125,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
                         templateLocation : "modules/claim/views/form.html",
                         controller: "claimCtrl",
                         windowClass: "claim-modal-window"
-                    }
+                    };
                     break;
             }
             return modalDetails;
@@ -151,9 +138,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
                 $scope.restaurant = restaurant;
             });
 
-            //restaurantSvr.getPhotos(restaurantId).then(function (photos) {
-            //    $scope.restaurantPhotos = photos;
-            //});
+            $scope.getPhotos();
 
             restaurantSvr.getOverviews(restaurantId, $scope).then(function (stats) {
                 $scope.stats = stats;
@@ -170,7 +155,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
                 [
                     {name: 'review-widget.html', url: 'modules/partials/review-widget.html'},
                 ];
-            $scope.sidebar = 'modules/partials/sidebar.html';
+            $scope.sidebar = 'modules/partials/sidebar-detail.html';
             $scope.header = 'modules/partials/header.html';
             $scope.footer = 'modules/partials/footer.html';
             $scope.reviewBox = 'modules/review/views/index.html';
@@ -185,5 +170,30 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
                 $scope.lineChartXData = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
             })
         }
+
+
+        if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {
+            geoLocation.getLocation()
+                .then(function (data) {
+                    localStorageService.add('latitude', data.coords.latitude);
+                    localStorageService.add('longitude', data.coords.longitude);
+                    getRestaurant();
+                })
+            getRestaurant();
+        }
+        else {
+            getRestaurant();
+        }
+
+        chartData();
+
+        // logout
+        $scope.clearToken = function(){
+            localStorageService.remove('token');
+            localStorageService.remove('user');
+            delete $scope.user;
+            $rootScope.isLogged = false;
+            $location.path("/index");
+        };
     }
-])
+]);

@@ -36,7 +36,14 @@
 }
 /*Photos*/
 .displayphoto{
-    width: 247px; height: 247px; padding:0px 2px;min-height: 124px;
+    max-width: 247px; max-height: 170px; padding:0px 2px;
+}
+
+
+.displayphoto-frame{
+    padding: 10px;
+    height: 200px;
+
 }
 
 /*Drop images section*/
@@ -44,14 +51,19 @@
     border: 3px dashed #ccc;
     padding: 10px;
     background: #fff;
-    min-height: 200px;
+    min-height: 100px;
 }
 
 .drop .info {
     color: #999;
     text-align: center;
 }
+.thumb-image{
+    width: 100%;
+    padding:0px 2px;
+    min-height: 124px;
 
+}
 .list-image{
     width: 50px; height: 50px; padding:0px 2px;
     margin-bottom: 7px;

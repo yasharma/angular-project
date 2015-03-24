@@ -74,12 +74,6 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                         restaurants[i].rating = Math.round(restaurants[i].overview__percentile / 2) / 10;
                         restaurants[i].rating_rounded = Math.round(restaurants[i].overview__percentile / 20);
 
-                        //restaurants[i].thumbnails = [];
-                        //angular.forEach(restaurants[i].restaurantPhotos, function(photo){
-                        //
-                        //});
-
-                        //self.getOverviews(restaurants[i].id,restaurants[i]).then();
                     }
 
                     return  {
