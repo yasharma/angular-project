@@ -14,7 +14,6 @@ loginService.factory('loginSvr', ['Restangular', function (Restangular) {
             var resource = Restangular.all('authentications/login');
             params.encrypted = false;
             var formData = $.param(params);
-
             return resource.post(formData, null, { "Content-Type": "application/x-www-form-urlencoded"})
                 .then(function (response) {
                     return {

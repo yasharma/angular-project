@@ -1,9 +1,10 @@
 'use strict';
 
 rxControllers.controller('photoCtrl', ['$scope', '$routeParams', 'photoSvr', 'messageCenterService',
-    function ($scope, $routeParams, photoSvr, messageCenterService) {
+    'localStorageService', '$rootScope', '$location',
+    function ($scope, $routeParams, photoSvr, messageCenterService, localStorageService, $rootScope, $location) {
 
-        var restaurantId = $routeParams.restaurantId;
+        $scope.restaurantId = $routeParams.restaurantId;
         $scope.dynamic = '';
         $scope.type = '';
 
@@ -14,7 +15,7 @@ rxControllers.controller('photoCtrl', ['$scope', '$routeParams', 'photoSvr', 'me
                 params = {page: 1};
             }
 
-           return  photoSvr.getRestaurantPhotos(restaurantId, params).then(function (photos) {
+           return  photoSvr.getRestaurantPhotos($scope.restaurantId, params).then(function (photos) {
                 $scope.photos = photos.items;
                 $scope.maxSize = 6;
                 $scope.photosListItemPerPage = 8;
@@ -47,8 +48,7 @@ rxControllers.controller('photoCtrl', ['$scope', '$routeParams', 'photoSvr', 'me
                 for (var i = 0; i < restaurantPhotos.length; i++) {
                     var file = restaurantPhotos[i];
 
-                    //@TODO take user_id from localstorage in branch rc-56
-                    var formData = {"data": file, "restaurant_id": restaurantId, "user_id": 1};
+                    var formData = {"data": file, "restaurant_id": $scope.restaurantId, "user_id": $scope.user.id};
 
 
                     photoSvr.uploadRestaurantPhoto(formData).then(function (response) {

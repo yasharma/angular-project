@@ -5,7 +5,7 @@
         <!-- Error Flash messages-->
         <div mc-messages></div>
 
-        <div class="xs-top20 col-xs-12 col-sm-6 col-md-4 col-lg-4 m-b-sm">
+        <div class="xs-top20 col-xs-12 col-sm-8 col-md-4 col-lg-4 m-b-sm">
             <div class="input-group">
                 <input ng-model='search.formattedAddress' class="form-control icon location"
                        placeholder="-- Location --" ng-model="asyncSelected"
@@ -19,7 +19,7 @@
                 </span>
             </div>
         </div>
-        <div class="xs-top20 col-xs-12 col-sm-6 col-md-2 col-lg-2 m-b-sm">
+        <div class="xs-top20 col-xs-12 col-sm-4 col-md-2 col-lg-2 m-b-sm">
             <select class="form-control icon price" ng-model="search.price">
                 <option value="">-- Price --</option>
                 <option ng-repeat="price in prices" value="{{price.numericValue}}"  ng-selected="search.price == price.numericValue">
@@ -27,7 +27,7 @@
                 </option>
             </select>
         </div>
-        <div class="xs-top20 col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-sm">
+        <div class="xs-top20 col-xs-12 col-sm-8 col-md-4 col-lg-4 m-b-sm">
             <select class="form-control icon type" ng-model="search.category">
                 <option value="">-- Cuisine --</option>
                 <option ng-repeat="category in categories" value="{{category}}" ng-selected="search.category == category">
@@ -35,7 +35,7 @@
                 </option>
             </select>
         </div>
-        <div class="xs-top20 col-xs-12 col-sm-6 col-md-3 col-lg-3 m-b-sm">
+        <div class="xs-top20 col-xs-12 col-sm-4 col-md-2 col-lg-2 m-b-sm">
             <button class="btn btn-dark form-control" ng-click="searchRestaurant()">
                 <i class="glyphicon glyphicon-search"></i>
             </button>

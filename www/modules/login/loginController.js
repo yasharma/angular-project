@@ -16,6 +16,7 @@ rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','logi
                     localStorageService.remove('user');
                     AuthenticationService.isLogged = 0;
                     $rootScope.isLogged = false;
+                    delete $rootScope.user;
                     return;
                 }
                 AuthenticationService.isLogged = true;
@@ -29,6 +30,7 @@ rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','logi
                     "ownsRestaurants": response.items.details.owned_restaurants && response.items.details.owned_restaurants.length,
                     "ownedRestaurants": response.items.details.owned_restaurants || []
                 });
+                $rootScope.user = localStorageService.get('user');
                 $location.path("/index");
             });
     };
@@ -44,7 +46,7 @@ rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','logi
                 }
                 messageCenterService.add('success', 'Thank you for registration.');
             });
-    }
+    };
 
     function getErrorMsg (module, errStatus){
         var statusText = '';

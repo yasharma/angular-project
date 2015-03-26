@@ -76,6 +76,7 @@ module.exports = function (grunt) {
                     'bower_components/flot/jquery.flot.pie.js',
                     'bower_components/flot/jquery.flot.image.js',
                     'bower_components/flot/jquery.flot.fillbetween.js',
+                    'bower_components/flot/jquery.flot.time.js',
                     'bower_components/angular-flot/angular-flot.js',
                     'bower_components/message-center/message-center.js',
                     'bower_components/ng-file-upload/angular-file-upload-shim.js',

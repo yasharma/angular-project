@@ -5,7 +5,6 @@ rxControllers.controller('claimCtrl', ['$scope', '$modal', '$routeParams', '$tim
 
     function ($scope, $modal, $routeParams, $timeout, messageCenterService, claimSvr, localStorageService) {
 
-        var user = localStorageService.get('user');
         initForm();
         var modalInstance = null;
 
@@ -49,13 +48,13 @@ rxControllers.controller('claimCtrl', ['$scope', '$modal', '$routeParams', '$tim
                     initForm ();
                 }
             });
-        }
+        };
 
         function initForm (){
             $scope.claimForm = {};
             $scope.activationForm = {};
             $scope.claimForm.restaurant_id = $routeParams.restaurantId;
-            $scope.claimForm.user_id = user.id;
+            $scope.claimForm.user_id = $scope.user.id;
         }
 
     }]);

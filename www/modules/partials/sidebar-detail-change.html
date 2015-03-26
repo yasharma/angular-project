@@ -20,16 +20,6 @@
                             <span class="text-muted text-xs block">...</span>
                         </span>
                     </a>
-                    <!--<ul class="dropdown-menu animated fadeInLeft">-->
-                        <!--<span class="arrow top"></span>-->
-                        <!--&lt;!&ndash;<li><a href="#">Settings</a></li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li><a href="profile.html">Profile</a></li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li><a href="#"> <span class="badge bg-danger pull-right">3</span> Notifications </a></li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li><a href="docs.html">Help</a></li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
-                        <!--<li><a href="#/login" ng-show="!isLogged">Login</a></li>-->
-                        <!--<li><a ng-click="clearToken()" ng-show="isLogged">Logout</a></li>-->
-                    <!--</ul>-->
                 </div>
             </div>
 
@@ -46,40 +36,38 @@
                         </a>
                     </li>
                     <li ng-show="isLogged">
-
                         <a ng-click="clearToken()" class="auto pointer" >
                             <i class="i i-logout icon"> </i>
                             <!--<span class="font-bold">Add Photo</span>-->
                             <span class="font-bold">Logout</span>
                         </a>
                     </li>
-                </ul>
-                <div class="line dk hidden-nav-xs" ng-show="user.ownsRestaurants"></div>
-                <ul class="nav " ng-show="user.ownsRestaurants">
-
                     <!--<div class="line dk hidden-nav-xs"></div>-->
-                    <li ng-repeat="restaurant in ownedRestaurants">
-                        <a href="#/restaurant/{{restaurant.id}}" class="auto">
-                            <!--<span class="pull-right text-muted">-->
-                                <!--<i class="i i-circle-sm-o text"></i>-->
-                                <!--<i class="i i-circle-sm text-active"></i>-->
-                            <!--</span>-->
-                            <i class="i i-pencil2 icon"> </i>
-                            <span class="font-bold">{{restaurant.name}}</span>
+                    <li>
+                        <a href="#/index" class="auto" >
+                            <i class="fa fa-home icon"> </i>
+                            <span class="font-bold">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#/restaurant/{{restaurantId}}" class="auto" >
+                            <i class="fa fa-angle-left icon"> </i>
+                            <span class="font-bold">Restaurant Info</span>
                         </a>
                     </li>
                 </ul>
+                <!--<div class="line dk hidden-nav-xs"></div>-->
             </nav>
             <!-- / nav -->
         </div>
     </section>
     <!--<footer class="footer hidden-xs no-padder text-center-nav-xs">-->
-        <!--<a href="modal.lockme.html" data-toggle="ajaxModal"-->
-           <!--class="btn btn-icon icon-muted btn-inactive pull-right m-l-xs m-r-xs hidden-nav-xs">-->
-            <!--<i class="i i-logout"></i>-->
-        <!--</a>-->
-        <!--<a href="#nav" data-toggle="class:nav-xs" class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs">-->
-            <!--<i class="i i-circleleft text"></i> <i class="i i-circleright text-active"></i>-->
-        <!--</a>-->
+    <!--<a href="modal.lockme.html" data-toggle="ajaxModal"-->
+    <!--class="btn btn-icon icon-muted btn-inactive pull-right m-l-xs m-r-xs hidden-nav-xs">-->
+    <!--<i class="i i-logout"></i>-->
+    <!--</a>-->
+    <!--<a href="#nav" data-toggle="class:nav-xs" class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs">-->
+    <!--<i class="i i-circleleft text"></i> <i class="i i-circleright text-active"></i>-->
+    <!--</a>-->
     <!--</footer>-->
 </section>

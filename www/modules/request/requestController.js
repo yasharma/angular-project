@@ -1,14 +1,13 @@
 'use strict';
 
-rxControllers.controller('requestCtrl', ['$scope', '$routeParams', 'requestSvr', 'messageCenterService',
-    function ($scope, routeParams, requestSvr, messageCenterService) {
-
-        var restaurantId = routeParams.restaurantId;
+rxControllers.controller('requestCtrl', ['$scope', '$routeParams', 'requestSvr', 'messageCenterService', 'localStorageService',
+    function ($scope, routeParams, requestSvr, messageCenterService, localStorageService) {
+        $scope.restaurantId = routeParams.restaurantId;
         $scope.request = {};
 
         $scope.submitRequest = function () {
 
-            $scope.request.restaurant_id = restaurantId;
+            $scope.request.restaurant_id = $scope.restaurantId;
 
             requestSvr.postRestaurantInfoRequest($scope.request).then(function (response) {
                 if(response.status < 400){
@@ -16,6 +15,6 @@ rxControllers.controller('requestCtrl', ['$scope', '$routeParams', 'requestSvr',
                 }
             });
             return false;
-        }
+        };
 
     }]);

@@ -10,10 +10,10 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
 
         initTemplate();
         $anchorScroll();
-        $scope.user = localStorageService.get('user');
         $scope.restaurantId = $routeParams.restaurantId;
-        $scope.isOwner = $scope.user && $scope.user.ownedRestaurants && _.contains($scope.user.ownedRestaurants, parseInt($scope.restaurantId));
-
+        $scope.$watch('user', function() {
+            $scope.isOwner = $scope.user && $scope.user.ownedRestaurants && _.contains($scope.user.ownedRestaurants, parseInt($scope.restaurantId));
+        });
         clearForm ();
 
         function clearForm (){
@@ -84,7 +84,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
 
         var modalInstance = checkParams($routeParams.request);
 
-        if(typeof modalInstance !== undefined && Object.keys(modalInstance).length && $scope.user !== null){
+        if(typeof modalInstance !== undefined && Object.keys(modalInstance).length && $scope.user){
 
             modalInstance = $modal.open({
                 templateUrl: modalInstance.templateLocation,
@@ -178,7 +178,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
                     localStorageService.add('latitude', data.coords.latitude);
                     localStorageService.add('longitude', data.coords.longitude);
                     getRestaurant();
-                })
+                });
             getRestaurant();
         }
         else {
@@ -187,13 +187,5 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
 
         chartData();
 
-        // logout
-        $scope.clearToken = function(){
-            localStorageService.remove('token');
-            localStorageService.remove('user');
-            delete $scope.user;
-            $rootScope.isLogged = false;
-            $location.path("/index");
-        };
     }
 ]);

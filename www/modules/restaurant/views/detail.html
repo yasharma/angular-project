@@ -158,50 +158,55 @@
     </div>
 
 </div>
-<div class="row bg-light dk m-b" ng-controller="graphCtrl">
-    <div class="col-md-7 col-sm-12 dker">
+
+<!--Graphs-->
+<div class="panel panel-info">
+<div class="panel-body">
+<div class="row m-sm" ng-controller="graphCtrl">
+    <!--<div class="m-b-xl b-t-xl text-center" ng-hide="flotDataset[0].length">-->
+        <!--No data available for this period-->
+    <!--</div>-->
+    <div class="col-md-7 col-sm-12 ">
         <section>
             <header class="font-bold padder-v">
                 <div class="pull-right">
-                    <div class="btn-group">
+                    <div class="btn-group m-r-xl">
                         <button data-toggle="dropdown"
                                 class="btn btn-sm btn-rounded btn-default dropdown-toggle"><span
-                                class="dropdown-label">Week</span> <span class="caret"></span>
+                                class="dropdown-label">{{graphType.label}}</span> <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu dropdown-select">
-                            <li><a >
-                                <input type="radio" name="b">
-                                Month</a></li>
-                            <li><a >
-                                <input type="radio" name="b">
-                                Week</a></li>
-                            <li><a >
-                                <input type="radio" name="b">
-                                Day</a></li>
+                        <ul class="dropdown-menu">
+                            <li ng-repeat="option in graphTypes">
+                                <a class="pointer" ng-click="setGraphType(option)">
+                                    {{ option.label }}
+                                </a>
+                            </li>
                         </ul>
                     </div>
-                    <a class="btn btn-default btn-icon btn-rounded btn-sm">Go</a></div>
-                Statistics
+                    <!--<a class="btn btn-default btn-icon btn-rounded btn-sm">Go</a>-->
+                </div>
+                <span class="m-l">Statistics</span>
+
             </header>
             <div class="panel-body">
                 <!--<div id="flot-sp1ine" style="height:210px"></div> -->
 
                 <flot dataset="flotDataset" options="flotOptions" height="212px"></flot>
             </div>
-            <div class="row text-center no-gutter">
-                <div class="col-xs-3"><span class="h4 font-bold m-t block">2,000</span>
-                    <small class="text-muted m-b block">Total Reviews</small>
-                </div>
-                <div class="col-xs-3"><span class="h4 font-bold m-t block">200</span>
-                    <small class="text-muted m-b block">&gt; 60%</small>
-                </div>
-                <div class="col-xs-3"><span class="h4 font-bold m-t block">900</span>
-                    <small class="text-muted m-b block">&gt; 70%</small>
-                </div>
-                <div class="col-xs-3"><span class="h4 font-bold m-t block">800</span>
-                    <small class="text-muted m-b block">&gt; 80%</small>
-                </div>
-            </div>
+            <!--<div class="row text-center no-gutter">-->
+                <!--<div class="col-xs-3"><span class="h4 font-bold m-t block">2,000</span>-->
+                    <!--<small class="text-muted m-b block">Total Reviews</small>-->
+                <!--</div>-->
+                <!--<div class="col-xs-3"><span class="h4 font-bold m-t block">200</span>-->
+                    <!--<small class="text-muted m-b block">&gt; 60%</small>-->
+                <!--</div>-->
+                <!--<div class="col-xs-3"><span class="h4 font-bold m-t block">900</span>-->
+                    <!--<small class="text-muted m-b block">&gt; 70%</small>-->
+                <!--</div>-->
+                <!--<div class="col-xs-3"><span class="h4 font-bold m-t block">800</span>-->
+                    <!--<small class="text-muted m-b block">&gt; 80%</small>-->
+                <!--</div>-->
+            <!--</div>-->
         </section>
     </div>
     <div class="col-md-5 col-sm-12">
@@ -220,13 +225,15 @@
                         </li>
                     </ul>
                 </div>
-                Analysis
+                Sources
             </header>
         </section>
         <div class="panel-body flot-legend">
-            <flot dataset="donutDataset" options="donutOptions" height="280px"></flot>
+            <flot dataset="donutDataset" options="donutOptions" height="240px"></flot>
         </div>
     </div>
+</div>
+</div>
 </div>
 
 <div class="row">

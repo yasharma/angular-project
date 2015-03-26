@@ -116,7 +116,9 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
 
         },
 
-        getGraphs: function (restaurantId, duration) {
+        getGraphs: function (restaurantId, duration, field) {
+            // duration
+            // field: 'percentile', 'trend'
 
             var resource = 'restaurants/' + restaurantId + '/graphs';
 
@@ -126,14 +128,18 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                 type: 'PERCENTILE-TREND-AND-SOURCE'
             }).then(function (response) {
                 var source = [];
+                var data = [];
                 angular.forEach(response.data.source, function(value, key){
                     source.push({
                         label: key,
                         data: value
                     });
                 });
+                angular.forEach(response.data.data, function(value, key){
+                    data.push([key, value[field]]);
+                });
                 return {
-                    data: response.data.data,
+                    data: data,
                     source: source
                 };
             });

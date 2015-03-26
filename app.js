@@ -75,6 +75,18 @@ myApp.run(['$rootScope', '$location', 'localStorageService', 'AuthenticationServ
             $location.path("/login");
         }
     });
+
+    // logout
+    $rootScope.clearToken = function(){
+        localStorageService.remove('token');
+        localStorageService.remove('user');
+        $rootScope.isLogged = false;
+        delete $rootScope.user;
+        $location.path("/index");
+    };
+
+    $rootScope.user = localStorageService.get('user');
+
 }]);
 
 myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, RestangularProvider) {

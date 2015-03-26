@@ -56,8 +56,19 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             $routeParams, $anchorScroll, searchData) {
 
             $scope.init = function () {
-                $scope.user = localStorageService.get('user');
-
+                // get user's owned restaurants
+                $scope.$watch('user', function() {
+                    if ($scope.user && $scope.user.ownedRestaurants && $scope.user.ownedRestaurants.length) {
+                        restaurantSvr.getRestaurants(
+                            {
+                                'id-in': $scope.user.ownedRestaurants.join(),
+                                'per-page': 50
+                            }
+                        ).then(function (response) {
+                                $scope.ownedRestaurants = response.items;
+                            });
+                    }
+                });
                 $scope.restaurantList = {
                     page: 1,
                     params: {
@@ -360,15 +371,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 }
             };
 
-            // logout
-            $scope.clearToken = function(){
-                localStorageService.remove('token');
-                localStorageService.remove('user');
-                delete $scope.user;
-                $rootScope.isLogged = false;
-                $location.path("/index");
-            };
-
             $scope.toggleFiltersMobile = function(){
                 $scope.showFiltersMobile = ! $scope.showFiltersMobile;
                 $scope.scrollTop();
@@ -541,8 +543,9 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         // Fill the div
                         directionsDisplay.setPanel(document.getElementById('directionsList'));
                         $scope.directions.showList = true;
+                        $scope.routeMessage = '';
                     } else {
-                        alert('Google route unsuccessful');
+                        $scope.routeMessage = 'Google route unsuccessful';
                     }
                 });
             };
