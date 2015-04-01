@@ -18,8 +18,8 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                 latitude: localStorageService.get('latitude'),
                 longitude: localStorageService.get('longitude'),
                 //sort: 'popular',
-                page : 0
-            },params))
+                page: 0
+            }, params))
                 .then(function (response) {
                     var restaurants = response.data[0].items;
                     //var restaurants = response.data[0].data;
@@ -44,31 +44,31 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                             }
                         }
 
-                        var averageTrend = sumTrend/countTrend;
+                        var averageTrend = sumTrend / countTrend;
 
                         for (var id in trend_data) {
                             var obj = trend_data[id];
                             for (var key2 in obj) {
                                 trend_array.push([key2, averageTrend - obj[key2]]);
-                                percentile_array.push([key2,restaurants[i].overview__percentile - obj[key2]]);
+                                percentile_array.push([key2, restaurants[i].overview__percentile - obj[key2]]);
                             }
                         }
 
                         var trend_array_length = trend_array.length;
                         // fill the rest with zeros
-                        for(var ii = 0; ii < (12 - trend_array_length); ii++){
+                        for (var ii = 0; ii < (12 - trend_array_length); ii++) {
                             trend_array.unshift([ii, 0]);
                         }
 
                         restaurants[i].trend_data = [
                             {
                                 "key": "Trend",
-                                "bar" : true,
-                                "values" : trend_array
+                                "bar": true,
+                                "values": trend_array
                             },
                             {
-                                "key" : "Percentile",
-                                "values" : percentile_array
+                                "key": "Percentile",
+                                "values": percentile_array
                             }];
 
                         restaurants[i].rating = Math.round(restaurants[i].overview__percentile / 2) / 10;
@@ -76,9 +76,9 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
 
                     }
 
-                    return  {
-                        items : restaurants,
-                        _meta : response.data[0]._meta
+                    return {
+                        items: restaurants,
+                        _meta: response.data[0]._meta
                     };
                 });
         },
@@ -116,62 +116,75 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
 
         },
 
-        getGraphs: function (restaurantId, duration, field) {
+        getGraphs: function (restaurantId, duration, start, end) {
             // duration
             // field: 'percentile', 'trend'
 
             var resource = 'restaurants/' + restaurantId + '/graphs';
 
             var graphs = Restangular.one(resource);
-            return graphs.get({
-                duration: duration,
-                type: 'PERCENTILE-TREND-AND-SOURCE'
-            }).then(function (response) {
+            var params = {};
+            if (duration){
+                params.duration = duration;
+            } else {
+                params.start = start.toISOString().substring(0,10);
+                params.end = end.toISOString().substring(0,10);
+            }
+            params.type = 'PERCENTILE-TREND-AND-SOURCE';
+            return graphs.get(params).then(function (response) {
                 var source = [];
-                var data = [];
-                angular.forEach(response.data.source, function(value, key){
-                    source.push({
-                        label: key,
-                        data: value
-                    });
+                var percentile = [];
+                var trend = [];
+                angular.forEach(response.data.source, function (value, key) {
+                    if (value && parseInt(value) > 0) {
+                        source.push({
+                            label: key,
+                            data: parseInt(value)
+                        });
+                    }
                 });
-                angular.forEach(response.data.data, function(value, key){
-                    data.push([key, value[field]]);
+                angular.forEach(response.data.data, function (value, key) {
+                    percentile.push([parseInt(key), value.percentile]);
+                });
+                angular.forEach(response.data.data, function (value, key) {
+                    trend.push([parseInt(key), value.trend]);
                 });
                 return {
-                    data: data,
-                    source: source
+                    percentile: percentile,
+                    trend: trend,
+                    source: source,
+                    stats: response.data.stats
                 };
             });
 
         },
 
-        getRestaurantCategories : function(){
+        getRestaurantCategories: function () {
             var resource = 'restaurants/category';
 
             var stat = Restangular.all(resource);
             return stat.getList().then(function (response) {
-               return response.data[0].items;
+                return response.data[0].items;
             });
         },
 
-        getRestaurantLocations : function(search){
+        getRestaurantLocations: function (search) {
             var resource = 'restaurants/location';
 
             var stat = Restangular.all(resource);
             return stat.getList({
-                search : search
+                search: search
             }).then(function (response) {
                 return response.data[0].items;
             });
         },
 
-        findRestaurant: function(search){
+        findRestaurant: function (search) {
             var resource = 'restaurants/find';
 
             var stat = Restangular.all(resource);
             return stat.getList({
-                search : search
+                search: search
             }).then(function (response) {
                 return response.data[0].items;
             });

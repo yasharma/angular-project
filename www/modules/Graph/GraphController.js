@@ -9,35 +9,190 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             {label:'Last 7 Days', value:'WEEKLY'},
             {label:'Last Month', value:'MONTHLY'},
             {label:'Last Year', value:'YEARLY'},
-            {label:'Overall', value:'OVERALL'}
+            {label:'Overall', value:'OVERALL'},
+            {label:'Custom Period', value:''}
         ];
         $scope.graphDuration = $scope.graphDurations[3];
 
-        $scope.graphTypes = [
-            {label:'Rating', value:'percentile'},
-            {label:'Trend', value:'trend'}
-        ];
-        $scope.graphType = $scope.graphTypes[0];
-
         $scope.setGraphDuration = function(option){
-            $scope.graphDuration = option;
-            $scope.getGraphs();
+            if (option.value in $scope.graphs) {
+                $scope.graphDuration = option;
+                var graph = $scope.graphs[option.value];
+                $scope.flotDataset[0].data = graph.percentile;
+                $scope.flotDataset[1].data = graph.trend;
+                $scope.donutDataset = graph.source;
+                $scope.stats = graph.stats;
+            }
         };
 
-        $scope.setGraphType = function(option){
-            $scope.graphType = option;
-            $scope.getGraphs();
-        };
+        $scope.getGraphs = function(graphDuration){
+            var graphDurations = $scope.graphDurations;
+            if(graphDuration){ // only one
+                graphDurations = [graphDuration];
+            } else if (!$scope.dates.start.date || !$scope.dates.start.date){
+                return;
+            } else {
+                $scope.graphs = {};
+                $scope.noGraphs = true;
+            }
 
-        $scope.getGraphs = function(){
-            restaurantSvr.getGraphs($scope.restaurantId, $scope.graphDuration.value, $scope.graphType.value).then(function (graphs) {
-                $scope.flotDataset = [graphs.data];
-
-                $scope.donutDataset = graphs.source;
+            angular.forEach(graphDurations, function(duration){
+                restaurantSvr.getGraphs($scope.restaurantId, duration.value,
+                    $scope.dates.start.date, $scope.dates.end.date)
+                    .then(function (graph) {
+                    if(graph.percentile && graph.percentile.length){
+                        $scope.graphs[duration.value] = graph;
+                        $scope.noGraphs = false;
+                        $scope.setGraphDuration($scope.graphDuration);
+                    }
+                });
             });
         };
 
-        //todo: remove commented code
+        //$scope.flotDataset = [d0];
+        $scope.donutDataset = [];
+        $scope.flotDataset = [
+            //[[173401200000, 381.78], [207702000000, 330.64], [237702000000, 130.64], [297702000000, 230.64]],
+            {
+                data: [],
+                label: ' Overview',
+                lines: {
+                    show: false
+                },
+                splines: {
+                    show: true,
+                    tension: 0.4,
+                    lineWidth: 1,
+                    fill: 0.4
+                },
+                points: {
+                    radius: 0,
+                    show: true
+                },
+                shadowSize: 2
+            },
+            {
+                data: [],
+                label: ' Trend',
+                dashes: {
+                    show: true,
+                    dashLength: 3,
+                    lineWidth: 1
+                },
+                points: {
+                    radius: 0,
+                    show: true
+                },
+                shadowSize: 2
+            }
+
+        ];
+
+        $scope.flotOptions =
+        {
+            //series: {},
+            grid: {
+                hoverable: true,
+                clickable: true,
+                tickColor: "#d9dee9",
+                borderColor: "#d9dee9",
+                borderWidth: 1,
+                color: '#555'
+            },
+            colors: ["#19b39b", "#2e7bad"],
+            xaxis: {
+                mode:'time' //,
+                //timeformat:"%y-%m-%d"
+            },
+            yaxis: {
+                ticks: 4
+            },
+            tooltip: true,
+            tooltipOpts: {
+                content: function(label, xval, yval, flotItem){
+                    var date = new Date(xval);
+                    var dateFormatted = $.plot.formatDate(date, '%Y-%m-%d');
+                    var prevIndex = flotItem.dataIndex - 1;
+                    var percentChangeStr = '';
+                    if (prevIndex >= 0){
+                        var prevValue = flotItem.series.data[prevIndex][1];
+                        var percentDiff = yval - prevValue;
+                        if (percentDiff >= 0.1){
+                            percentChangeStr = 'up by ' + percentDiff.toFixed(1) + '%';
+                        } else if (percentDiff <= -0.1){
+                            percentChangeStr = 'down by ' + (-percentDiff).toFixed(1) + '%';
+                        }
+                    }
+                    return Math.round(yval) + '% at ' + dateFormatted + ' ' + percentChangeStr;
+
+
+                },
+                defaultTheme: false,
+                shifts: {
+                    x: 0,
+                    y: 20
+                },
+                lines: {
+                    track: true
+                }
+            },
+            legend: {
+                //container: $('#flotLegend')
+            }
+        };
+
+        $scope.donutOptions = {
+            series: {
+                pie: {
+                    innerRadius: 0.35,
+                    radius: 0.65,
+                    show: true,
+                    stroke: {
+                        width: 0
+                    },
+                    label: {
+                        show: true,
+                        threshold: 0.05
+                    }
+
+                }
+            },
+            colors: ["#65b5c2", "#4da7c1", "#3993bb", "#2e7bad", "#23649e"],
+            grid: {
+                hoverable: true,
+                clickable: false
+            },
+            tooltip: true,
+            tooltipOpts: {
+                content: '%s'
+            }
+        };
+
+        var today = new Date();
+        $scope.dates = {
+            start: {
+                date: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate())
+            },
+            end: {
+                date: today
+            },
+            today: today
+        };
+
+        $scope.openCalendar = function($event, calendarName) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.dates.start.opened = false;
+            $scope.dates.end.opened = false;
+
+            $scope.dates[calendarName].opened = true;
+        };
+
+
+        $scope.getGraphs();
+
+        //todo: remove commented code if no longer needed
 
         //var jsonData = {
         //    "person1": [[1394110800000, 4], [1394542800000, 4], [1395493200000, 4], [1396357200000, 2], [1396616400000, 4], [1398175200000, 5], [1399471200000, 5], [1399471200000, 3], [1401026400000, 2], [1401199200000, 5], [1401976800000, 3], [1402840800000, 4], [1402840800000, 5], [1403186400000, 5], [1405432800000, 5], [1409580000000, 5], [1409580000000, 5], [1410962400000, 4], [1411135200000, 5], [1411221600000, 5], [1411394400000, 5], [1411394400000, 4], [1413464400000, 4]],
@@ -143,104 +298,5 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
         //var d0 = [
         //    [0, 0], [1, 0], [2, 1], [3, 2], [4, 15], [5, 5], [6, 12], [7, 10], [8, 55], [9, 13], [10, 25], [11, 10], [12, 12], [13, 6], [14, 2], [15, 0], [16, 0]
         //];
-
-        //$scope.flotDataset = [d0];
-        //$scope.flotDataset = [[
-        //    [173401200000, 381.78], [207702000000, 330.64], [237702000000, 130.64]
-        //]];
-
-        $scope.flotOptions =
-        {
-            series: {
-                lines: {
-                    show: false
-                },
-                splines: {
-                    show: true,
-                    tension: 0.4,
-                    lineWidth: 1,
-                    fill: 0.4
-                },
-                points: {
-                    radius: 0,
-                    show: true
-                },
-                shadowSize: 2
-            },
-            grid: {
-                hoverable: true,
-                clickable: true,
-                tickColor: "#d9dee9",
-                borderWidth: 1,
-                color: '#d9dee9'
-            },
-            colors: ["#19b39b", "#644688"],
-            xaxis: {
-                mode:'time'
-                //timeformat:"%y/%m/%d"
-            },
-            yaxis: {
-                ticks: 4
-            },
-            tooltip: true,
-            tooltipOpts: {
-                content: "%y.4",
-                defaultTheme: false,
-                shifts: {
-                    x: 0,
-                    y: 20
-                }
-            }
-        };
-
-        //$scope.donutDataset = [
-        //    {
-        //        label: "Tripadvisor",
-        //        data: 40
-        //    },
-        //    {
-        //        label: "Eatability",
-        //        data: 10
-        //    },
-        //    {
-        //        label: "Urbanspoon",
-        //        data: 20
-        //    },
-        //    {
-        //        label: "Yelp",
-        //        data: 12
-        //    }
-        //];
-
-
-
-        $scope.donutOptions = {
-            series: {
-                pie: {
-                    innerRadius: 0.35,
-                    radius: 0.65,
-                    show: true,
-                    stroke: {
-                        width: 0
-                    },
-                    label: {
-                        show: true,
-                        threshold: 0.05
-                    }
-
-                }
-            },
-            colors: ["#65b5c2", "#4da7c1", "#3993bb", "#2e7bad", "#23649e"],
-            grid: {
-                hoverable: true,
-                clickable: false
-            },
-            tooltip: true,
-            tooltipOpts: {
-                content: '%s'
-            }
-        };
-
-        $scope.getGraphs();
 
     }]);

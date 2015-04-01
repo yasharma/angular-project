@@ -342,35 +342,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 }
             };
 
-            // get nav search results
-            $scope.navSearch = function (val) {
-                return restaurantSvr.findRestaurant(val)
-                    .then(function (response) {
-                        if(!response.length){
-                            response.push({formatted : "no results found"});
-                        }
-
-                        return response.map(function (item) {
-                            if( "no results found" !== item.formatted) {
-                                var formatted = item.formatted.split(' - ');
-                                item.searchText = formatted[0];
-                                var tags = formatted[1].split(':');
-                                item.tag = tags[0];
-                                item.tagValue = tags[1];
-                            }
-                            return item;
-                        });
-                    });
-            };
-
-            // navigate to detail view
-            $scope.setRestaurant = function (restaurants){
-                if(Object.keys(restaurants).length) {
-                    $location.path('/restaurant/' + restaurants.data.id);
-                    $scope.searchRestaurant ='';
-                }
-            };
-
             $scope.toggleFiltersMobile = function(){
                 $scope.showFiltersMobile = ! $scope.showFiltersMobile;
                 $scope.scrollTop();
@@ -383,11 +354,40 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         }
     ])
 
-    // merged with indexCtrl
-    //.controller('navigationController', ['$scope', '$http', '$location', '$rootScope', 'restaurantSvr',
-    //    'localStorageService', function ($scope, $http, $location, $rootScope, restaurantSvr, localStorageService) {
-    //
-    //}])
+
+    .controller('navigationController', ['$scope', '$http', '$location', '$rootScope', 'restaurantSvr',
+        'localStorageService', function ($scope, $http, $location, $rootScope, restaurantSvr, localStorageService) {
+
+        // get nav search results
+        $scope.navSearch = function (val) {
+            return restaurantSvr.findRestaurant(val)
+                .then(function (response) {
+                    if(!response.length){
+                        response.push({formatted : "no results found"});
+                    }
+
+                    return response.map(function (item) {
+                        if( "no results found" !== item.formatted) {
+                            var formatted = item.formatted.split(' - ');
+                            item.searchText = formatted[0];
+                            var tags = formatted[1].split(':');
+                            item.tag = tags[0];
+                            item.tagValue = tags[1];
+                        }
+                        return item;
+                    });
+                });
+        };
+
+        // navigate to detail view
+        $scope.setRestaurant = function (restaurants){
+            if(Object.keys(restaurants).length) {
+                $location.path('/restaurant/' + restaurants.data.id);
+                $scope.searchRestaurant ='';
+            }
+        };
+
+    }])
 
     .controller('searchCtrl', ['$scope', '$http','$location', '$routeParams','restaurantSvr', 'searchData',function ($scope, $http,
         $location, $routeParams, restaurantSvr, searchData) {

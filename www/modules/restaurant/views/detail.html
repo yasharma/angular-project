@@ -71,7 +71,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <div class="row">
     <div class="col-sm-6">
@@ -111,8 +110,8 @@
                         class="i i-hexagon2 i-s-base text-success-lter hover-rotate"></i> <i
                         class="fa fa-arrow-circle-up text-white"></i> </span> <span
                         class="clear"> <span
-                        class="h3 block m-t-xs text-info">{{stats.max_percentile | number : 2}}% <span
-                        class="text-sm">m</span></span> <small class="text-muted text-u-c">
+                        class="h3 block m-t-xs text-info">{{stats.max_percentile | number : 2}}%
+                        </span> <small class="text-muted text-u-c">
                     Maximum Rating
                 </small> </span> </a></div>
                 <div class="col-md-6 b-b"><a class="block padder-v hover"> <span
@@ -159,72 +158,85 @@
 
 </div>
 
-<!--Graphs-->
-<div class="panel panel-info">
-<div class="panel-body">
-<div class="row m-sm" ng-controller="graphCtrl">
-    <!--<div class="m-b-xl b-t-xl text-center" ng-hide="flotDataset[0].length">-->
-        <!--No data available for this period-->
-    <!--</div>-->
-    <div class="col-md-7 col-sm-12 ">
+<div class="row bg-light dk m-b" ng-controller="graphCtrl">
+
+    <!--Message when empty-->
+    <div class="m-b-lg m-t-lg text-center" ng-show="noGraphs">
+        Not enough data to show analytics graph
+    </div>
+    <!--Duration and date pickers-->
+    <div class="clearfix m pull-right z-index-10">
+        <div class="btn-group pull-right dropdown">
+            <button data-toggle="dropdown"
+                    class="btn btn-sm btn-rounded btn-default dropdown-toggle m-b-xs m-r-sm z-index-10">
+                <span>{{graphDuration.label}}</span> <span
+                    class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li ng-repeat="option in graphDurations" ng-show="graphs[option.value].trend.length">
+                    <a class="pointer" ng-click="setGraphDuration(option)">
+                        {{ option.label }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="pull-right">
+            <div class="btn-group pull-right input-group m-r-sm m-b-xs no-padding-m adjust-left z-index-10"
+                 style="width: 190px;" ng-hide="graphDuration.value">
+                <span class="input-group-addon btn-rounded">End:</span>
+                <input type="text" class="form-control input-sm " datepicker-popup="yy/MM/dd" ng-model="dates.end.date"
+                       is-open="dates.end.opened" max-date="{{dates.today}}" ng-change="getGraphs()"
+                       ng-required="true" close-text="Close" datepicker-append-to-body="true" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default btn-rounded input-sm " ng-click="openCalendar($event, 'end')"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+            </div>
+            <div class="btn-group pull-right input-group m-r-sm m-b-xs no-padding-m adjust-left z-index-10"
+                 style="width: 195px;" ng-hide="graphDuration.value">
+                <span class="input-group-addon btn-rounded">Start:</span>
+                <input type="text" class="form-control input-sm " datepicker-popup="yy/MM/dd" ng-model="dates.start.date"
+                       is-open="dates.start.opened" max-date="{{dates.today}}" ng-change="getGraphs()"
+                       ng-required="true" close-text="Close" datepicker-append-to-body="true" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default btn-rounded input-sm " ng-click="openCalendar($event, 'start')"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7 col-sm-12 dker" ng-hide="noGraphs">
         <section>
             <header class="font-bold padder-v">
-                <div class="pull-right">
-                    <div class="btn-group m-r-xl">
-                        <button data-toggle="dropdown"
-                                class="btn btn-sm btn-rounded btn-default dropdown-toggle"><span
-                                class="dropdown-label">{{graphType.label}}</span> <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li ng-repeat="option in graphTypes">
-                                <a class="pointer" ng-click="setGraphType(option)">
-                                    {{ option.label }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--<a class="btn btn-default btn-icon btn-rounded btn-sm">Go</a>-->
-                </div>
                 <span class="m-l">Statistics</span>
 
             </header>
-            <div class="panel-body">
+            <div class="panel-body flot-legend">
                 <!--<div id="flot-sp1ine" style="height:210px"></div> -->
 
                 <flot dataset="flotDataset" options="flotOptions" height="212px"></flot>
             </div>
-            <!--<div class="row text-center no-gutter">-->
-                <!--<div class="col-xs-3"><span class="h4 font-bold m-t block">2,000</span>-->
-                    <!--<small class="text-muted m-b block">Total Reviews</small>-->
-                <!--</div>-->
-                <!--<div class="col-xs-3"><span class="h4 font-bold m-t block">200</span>-->
-                    <!--<small class="text-muted m-b block">&gt; 60%</small>-->
-                <!--</div>-->
-                <!--<div class="col-xs-3"><span class="h4 font-bold m-t block">900</span>-->
-                    <!--<small class="text-muted m-b block">&gt; 70%</small>-->
-                <!--</div>-->
-                <!--<div class="col-xs-3"><span class="h4 font-bold m-t block">800</span>-->
-                    <!--<small class="text-muted m-b block">&gt; 80%</small>-->
-                <!--</div>-->
-            <!--</div>-->
+            <div class="row text-center no-gutter">
+                <div class="col-xs-1"></div>
+                <div class="col-xs-2"><span class="h4 font-bold m-t block">{{stats.total}}</span>
+                    <small class="text-muted m-b block">Total Reviews</small>
+                </div>
+                <div class="col-xs-2"><span class="h4 font-bold m-t block">{{stats['<60']}}</span>
+                    <small class="text-muted m-b block">&lt; 60%</small>
+                </div>
+                <div class="col-xs-2"><span class="h4 font-bold m-t block">{{stats['60-70']}}</span>
+                    <small class="text-muted m-b block">&gt; 60%</small>
+                </div>
+                <div class="col-xs-2"><span class="h4 font-bold m-t block">{{stats['71-80']}}</span>
+                    <small class="text-muted m-b block">&gt; 70%</small>
+                </div>
+                <div class="col-xs-2"><span class="h4 font-bold m-t block">{{stats['>80']}}</span>
+                    <small class="text-muted m-b block">&gt; 80%</small>
+                </div>
+            </div>
         </section>
     </div>
-    <div class="col-md-5 col-sm-12">
+    <div class="col-md-5 col-sm-12"  ng-hide="noGraphs">
         <section>
-            <header class="font-bold padder-v">
-                <div class="btn-group pull-right dropdown">
-                    <button data-toggle="dropdown"
-                            class="btn btn-sm btn-rounded btn-default dropdown-toggle">
-                        <span>{{graphDuration.label}}</span> <span
-                            class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                        <li ng-repeat="option in graphDurations">
-                            <a class="pointer" ng-click="setGraphDuration(option)">
-                                {{ option.label }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+            <header class="font-bold m-l-md m-t-sm">
                 Sources
             </header>
         </section>
@@ -232,8 +244,6 @@
             <flot dataset="donutDataset" options="donutOptions" height="240px"></flot>
         </div>
     </div>
-</div>
-</div>
 </div>
 
 <div class="row">

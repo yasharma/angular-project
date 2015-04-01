@@ -61,11 +61,13 @@
                                 <div easypiechart options="options" percent="restaurant.overview__percentile | number : 2"></div></a> <span
                                 class="arrow left"></span>
                             <section class="comment-body panel panel-default">
-                                <header class="panel-heading"><a href="">{{restaurant.locations__formatted_address}}</a>
+                                <header class="panel-heading">
+                                    <a>{{restaurant.locations__formatted_address}}</a>
                                     <label class="label bg-primary m-l-xs">{{restaurant.category}}</label>
-
-                                                    <span class="text-muted m-l-sm pull-right"> <i
-                                                            class="fa fa-clock-o"></i> {{restaurant.distance | number : 2}} KM </span>
+                                    <div class="pull-right">
+                                        <span class="text-muted m-l-sm "> <i
+                                                class="fa fa-clock-o"></i> {{restaurant.distance | number : 2}} KM </span>
+                                    </div>
                                 </header>
                                 <div class="panel-body">
                                     <div class="col-sm-3 col-md-3 col-lg-4 no-padding pull-left">
@@ -75,7 +77,7 @@
                                                 showYAxis="false"
                                                 tooltips="true"
                                                 width="222"
-                                                height="150"
+                                                height="130"
                                                 interactive="true">
                                             <svg></svg>
                                         </nvd3-multi-bar-chart>

@@ -94,7 +94,8 @@ module.exports = function (grunt) {
                     'lib/extern/angular-local-storage.js',
                     'lib/extern/Highcharts/js/highcharts.js',
                     'lib/extern/jquery.flot.spline.js',
-                    'lib/extern/jquery.flot.tooltip.min.js'
+                    'lib/extern/jquery.flot.tooltip.js',
+                    'lib/extern/jquery-flot-dashes.js'
                 ],
                 dest: 'www/js/lib.min.js'
             },
