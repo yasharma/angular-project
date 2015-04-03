@@ -23,6 +23,13 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             controller: 'requestCtrl',
             access: { requiredLogin: true }
         })
+        .when("/compare/:restaurantId", {
+            templateUrl: "modules/compare/views/index.html",
+            controller: "compareCtrl",
+            access: {
+                requiredLogin: true
+            }
+        })
         .when('/restaurant/:restaurantId', {
             templateUrl: 'modules/restaurant/views/detail.html',
             controller: 'detailCtrl'
@@ -355,35 +362,13 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
     ])
 
 
-    .controller('navigationController', ['$scope', '$http', '$location', '$rootScope', 'restaurantSvr',
-        'localStorageService', function ($scope, $http, $location, $rootScope, restaurantSvr, localStorageService) {
-
-        // get nav search results
-        $scope.navSearch = function (val) {
-            return restaurantSvr.findRestaurant(val)
-                .then(function (response) {
-                    if(!response.length){
-                        response.push({formatted : "no results found"});
-                    }
-
-                    return response.map(function (item) {
-                        if( "no results found" !== item.formatted) {
-                            var formatted = item.formatted.split(' - ');
-                            item.searchText = formatted[0];
-                            var tags = formatted[1].split(':');
-                            item.tag = tags[0];
-                            item.tagValue = tags[1];
-                        }
-                        return item;
-                    });
-                });
-        };
+    .controller('navigationController', ['$scope', '$http', '$location',
+        function ($scope, $http, $location) {
 
         // navigate to detail view
         $scope.setRestaurant = function (restaurants){
             if(Object.keys(restaurants).length) {
                 $location.path('/restaurant/' + restaurants.data.id);
-                $scope.searchRestaurant ='';
             }
         };
 

@@ -1,17 +1,13 @@
 <section class="vbox">
     <!--Search box-->
     <div class="visible-xs">
-        <!--class="col-xs-5 col-sm-4 col-md-6 col-lg-6"-->
-        <!--<div ng-include="'modules/partials/search-box.html'">-->
-        <!--</div>-->
-        <div class="panel panel-tight">
-            <div class="">
-                <div ng-include="'modules/partials/search-box.html'"></div>
-            </div>
+        <div class="panel panel-tight" ng-controller="navigationController">
+            <search-box class="m-t m-l-n-xs" set-restaurant="setRestaurant(restaurant)" placeholder="Search restaurants, locations ..."></search-box>
         </div>
 
     </div>
 
+    <!--Search form-->
     <div class="hidden-xs">
         <header class="header bg-white b-b b-light hide-for-small hide-for-touch"
                 ng-include="'modules/restaurant/views/search-form.html'">

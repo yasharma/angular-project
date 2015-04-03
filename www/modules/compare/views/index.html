@@ -1,0 +1,67 @@
+<!--Header-->
+<header class="bg-primary header header-md navbar navbar-fixed-top-xs box-shadow" ng-include="'modules/partials/header.html'"></header>
+
+<section class="hbox stretch">
+    <!--Sidebar-->
+    <aside ng-include="'modules/partials/sidebar-detail-change.html'" id="nav" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
+
+    <section id="content">
+        <!--<header class="header bg-white b-b b-light hide-for-small hide-for-touch"-->
+                <!--ng-include="'modules/restaurant/views/search-form.html'"></header>-->
+
+        <!--Dynamic view goes here-->
+        <section class="vbox">
+            <section class="scrollable padder">
+                <h3 class="m-l m-t-lg">Compare Restaurants</h3>
+                <div class="row">
+                    <div class="col-md-7 col-sm-10 col-xs-12">
+                        <div class="panel panel-default m-t">
+                            <header class="panel-heading">
+                                <!--Search box-->
+                                <div class="bordered-input-group clearfix">
+                                    <search-box set-restaurant="addItem(restaurant)" class="m-b-sx m-t-xs"
+                                                 placeholder="Add Restaurant"></search-box>
+                                </div>
+                            </header>
+                                <div class="list-group">
+                                    <div class="list-group-item clearfix" ng-repeat="restaurant in restaurants"
+                                         ng-mouseenter="setStrong(restaurant, true)" ng-mouseleave="setStrong(restaurant, false)" >
+                                        <div class="legendColorBoxCustom pull-left" style="background-color:{{restaurant.color}}"></div>
+                                        <div class="pull-left">{{restaurant.name}}</div>
+                                        <a class="btn btn-xs btn-danger pull-right"
+                                                ng-click="removeRestaurant(restaurant)">
+                                            <span class="glyphicon glyphicon-remove m-xs" ></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!--<table class="table borderless-table">-->
+                                    <!--<tr ng-repeat="restaurant in restaurants">-->
+                                        <!--<td>{{restaurant.name}}</td>-->
+                                        <!--<td>-->
+                                            <!--<button class="btn btn-rounded no-padding m-l-sm" ng-click="removeRestaurant(restaurant)">-->
+                                                <!--<span class="glyphicon glyphicon-remove m-xs" ></span>-->
+                                            <!--</button>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                <!--</table>-->
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <!--Graph-->
+                        <div class="dker" ng-hide="noGraphs">
+                            <section>
+                                <div class="panel-body flot-legend">
+                                    <flot dataset="flotDataset" options="flotOptions" height="350px"></flot>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <footer class="ir-footer" ng-include="'modules/partials/footer.html'"></footer>
+    </section>
+</section>
+
+
+

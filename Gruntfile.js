@@ -108,6 +108,7 @@ module.exports = function (grunt) {
                     'www/modules/review/reviewController.js',
                     'www/modules/login/loginController.js',
                     'www/modules/photo/photoController.js',
+                    'www/modules/compare/compareController.js',
                     'www/modules/claim/claimController.js',
                     'www/modules/request/requestController.js',
                     'www/modules/directives/directive.js',
