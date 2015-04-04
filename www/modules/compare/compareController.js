@@ -11,49 +11,63 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
 
         $scope.removeRestaurant  = function (restaurant){
             $scope.restaurants = _.without($scope.restaurants, restaurant);
-            $scope.removeGraph(restaurant);
+            delete $scope.graphs[restaurant.id];
+            $scope.refreshGraphs($scope.graphDuration);
         };
 
-        $scope.addItem = function (item){
-            $scope.addRestaurant(item.data);
+        $scope.graphs = {}; // {restaurant id : {duration: graph}}
+        $scope.haveGraphs = {};  //{duration: boolean}
+        ///=
+
+        var today = new Date();
+        $scope.dates = {
+            start: {
+                date: new Date(today.getFullYear() - 1, today.getMonth(), today.getDate())
+            },
+            end: {
+                date: today
+            },
+            today: today
         };
 
-        $scope.addRestaurant = function (restaurant){
-            if(Object.keys(restaurant).length) {
-                $scope.numAdded = ($scope.numAdded || 0) + 1; // for generating new colors
-                restaurant.color = $scope.flotColors[$scope.numAdded % $scope.flotColors.length];
-                $scope.restaurants.push(restaurant);
-                $scope.addGraph(restaurant);
+        $scope.openCalendar = function($event, calendarName) {
+            $event.preventDefault();
+            $event.stopPropagation();
+
+            $scope.dates.start.opened = false;
+            $scope.dates.end.opened = false;
+
+            $scope.dates[calendarName].opened = true;
+        };
+
+        $scope.graphDurations = [
+            {label:'Last 7 Days', value:'WEEKLY'},
+            {label:'Last Month', value:'MONTHLY'},
+            {label:'Last Year', value:'YEARLY'},
+            {label:'Overall', value:'OVERALL'},
+            {label:'Custom Period', value:''}
+        ];
+        $scope.graphDuration = $scope.graphDurations[3];
+
+        $scope.setGraphDuration = function(option){
+            $scope.graphDuration = option;
+            if(option.value == ''){
+                $scope.updateCustomPeriodGraphs();
+            }else{
+                $scope.refreshGraphs(option);
             }
         };
 
-        $scope.removeGraph = function(restaurant){
-            var flotDataset = $scope.flotDataset;
-            for (var i=0; i< flotDataset.length; i++){
-                if (flotDataset[i].restaurantId==restaurant.id){
-                    flotDataset.splice(i, 1);
-                    return;
-                }
-            }
-        };
-
-        $scope.addGraph = function(restaurant){
-            //var graphDurations = $scope.graphDurations;
-            //if(graphDuration){ // only one
-            //    graphDurations = [graphDuration];
-            //} else if (!$scope.dates.start.date || !$scope.dates.start.date){
-            //    return;
-            //} else {
-            //    $scope.graphs = {};
-            //    $scope.noGraphs = true;
-            //}
-            console.log(restaurant);
-            restaurantSvr.getGraphs(restaurant.id, 'OVERALL')
-                .then(function (graph) {
+        $scope.refreshGraphs = function(option){
+            // for every graph, copy data for selected duration into view
+            $scope.flotDataset = [];
+            angular.forEach($scope.graphs, function(graphGroup, id){
+                var graph = graphGroup[option.value];
+                if(graph) {
                     $scope.flotDataset.push({
-                        data: graph.trend,
-                        label: ' ' + restaurant.name,
-                        restaurantId: restaurant.id,
+                        data: graph.trend || [],
+                        label: ' ' + graph.restaurant.name,
+                        restaurantId: graph.restaurant.id,
                         lines: {
                             show: false
                         },
@@ -68,9 +82,59 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
                             show: true
                         },
                         shadowSize: 2,
-                        color: restaurant.color
+                        color: graph.restaurant.color
                     });
-                });
+                }
+            });
+        };
+
+        $scope.updateCustomPeriodGraphs = function(){
+            angular.forEach($scope.restaurants, function(restaurant){
+                restaurantSvr.getGraphs(restaurant.id, '',
+                    $scope.dates.start.date, $scope.dates.end.date)
+                    .then(function (graph) {
+                        graph.restaurant = restaurant;
+                        delete $scope.graphs[restaurant.id][''];
+                        $scope.graphs[restaurant.id][''] = graph;
+                        $scope.refreshGraphs($scope.graphDuration);
+                    });
+
+            });
+        };
+
+        $scope.addGraph = function(restaurant){
+            var graphDurations = $scope.graphDurations;
+
+            angular.forEach(graphDurations, function(duration){
+                restaurantSvr.getGraphs(restaurant.id, duration.value,
+                    $scope.dates.start.date, $scope.dates.end.date)
+                    .then(function (graph) {
+                        graph.restaurant = restaurant;
+                        if(graph.percentile && graph.percentile.length){
+                            $scope.haveGraphs[duration.value] = true;
+                            if (! $scope.graphs[restaurant.id]){
+                                $scope.graphs[restaurant.id] = {}
+                            }
+                            $scope.graphs[restaurant.id][duration.value] = graph;
+                            $scope.refreshGraphs($scope.graphDuration);
+                        }
+                    });
+            });
+        };
+
+        ///-
+
+        $scope.addItem = function (item){
+            $scope.addRestaurant(item.data);
+        };
+
+        $scope.addRestaurant = function (restaurant){
+            if(Object.keys(restaurant).length) {
+                $scope.numAdded = ($scope.numAdded || 0) + 1; // for generating new colors
+                restaurant.color = $scope.flotColors[$scope.numAdded % $scope.flotColors.length];
+                $scope.restaurants.push(restaurant);
+                $scope.addGraph(restaurant);
+            }
         };
 
         $scope.setStrong = function(restaurant, strong){
@@ -148,7 +212,8 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
                 }
             },
             legend: {
-                show: false
+                show: true,
+                noColumns:5
             }
         };
 

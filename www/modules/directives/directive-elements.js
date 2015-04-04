@@ -1,8 +1,5 @@
 'use strict';
 
-// for reference
-// templates are dynamic, and must be used with ng-include, not with directives
-
 angular.module('directive', ['restaurantService'])
     .directive('searchBox', ['restaurantSvr', searchBox]);
 
@@ -18,6 +15,10 @@ function searchBox(restaurantSvr) {
                         if (!response.length) {
                             response.push({formatted: "no results found"});
                         }
+                        var filterOutKeys = {};
+                        angular.forEach(scope.filterOut, function(restaurant){
+                            filterOutKeys[restaurant.id] = true;
+                        });
 
                         return response.map(function (item) {
                             if ("no results found" !== item.formatted) {
@@ -28,33 +29,16 @@ function searchBox(restaurantSvr) {
                                 item.tagValue = tags[1];
                             }
                             return item;
+                        }).filter(function(item){
+                            return ! filterOutKeys[item.data.id];
                         });
                     });
             }
         },
         scope: {
-            setRestaurant: '&',
-            placeholder: '@'
+            setRestaurant: '&', // action that's called on restaurant selection
+            placeholder: '@',
+            filterOut: '=' // list of restaurant ids to hide in results
         }
     };
 }
-
-//angular.module('directive')
-//    .directive('navTop' , navTop)
-//    .directive('navLeft' , navLeft);
-//
-//function navTop() {
-//    return {
-//        restrict: 'E',
-//        templateUrl: 'modules/partials/header.html',
-//        replace: true
-//    };
-//}
-//
-//function navLeft() {
-//    return {
-//        restrict: 'E',
-//        templateUrl: 'modules/partials/sidebar.html',
-//        replace: true
-//    };
-//}
