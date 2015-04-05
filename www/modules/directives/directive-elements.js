@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('directive', ['restaurantService'])
-    .directive('searchBox', ['restaurantSvr', searchBox]);
+    .directive('searchBox', ['restaurantSvr', searchBox])
+    .directive('shareLinks', ['$location', shareLinks]);
 
 function searchBox(restaurantSvr) {
     return {
@@ -39,6 +40,54 @@ function searchBox(restaurantSvr) {
             setRestaurant: '&', // action that's called on restaurant selection
             placeholder: '@',
             filterOut: '=' // list of restaurant ids to hide in results
+        }
+    };
+}
+
+function shareLinks($location) {
+    return {
+        link: function (scope, elem, attrs) {
+            var i,
+                sites = ['twitter', 'facebook', 'linkedin', 'google-plus'],
+                theLink,
+                links = attrs.shareLinks.toLowerCase().split(','),
+                pageLink = encodeURIComponent($location.absUrl()),
+                pageTitle = attrs.shareTitle,
+                pageTitleUri = encodeURIComponent(pageTitle),
+                shareLinks = [];
+
+            // assign share link for each network
+            angular.forEach(links, function (key) {
+                key = key.trim();
+
+                switch (key) {
+                    case 'twitter':
+                        theLink = 'http://twitter.com/intent/tweet?text=' + pageTitleUri + '%20' + pageLink;
+                        break;
+                    case 'facebook':
+                        theLink = 'http://facebook.com/sharer.php?u=' + pageLink;
+                        break;
+                    case 'linkedin':
+                        theLink = 'http://www.linkedin.com/shareArticle?mini=true&url=' + pageLink + '&title=' + pageTitleUri;
+                        break;
+                    case 'google-plus':
+                        theLink = 'https://plus.google.com/share?url=' + pageLink;
+                        break;
+                }
+
+                if (sites.indexOf(key) > -1) {
+                    shareLinks.push({network: key, url: theLink});
+                }
+            });
+
+            for (i = 0; i < shareLinks.length; i++) {
+                var anchor = '';
+                anchor += '<a href="' + shareLinks[i].url + '" target="_blank"';
+                //anchor += '<a onclick="window.open("'+ shareLinks[i].url +'", "_system");"';
+                anchor += 'class="m-r-xs"';
+                anchor += '><img width="32" height="32" src="images/social/' + shareLinks[i].network + '-32.png"></a>';
+                elem.append(anchor);
+            }
         }
     };
 }

@@ -8,7 +8,7 @@
         <div class="xs-top20 col-xs-12 col-sm-8 col-md-4 col-lg-4 m-b-sm">
             <div class="input-group">
                 <input ng-model='search.formattedAddress' class="form-control icon location"
-                       placeholder="-- Location --" ng-model="asyncSelected"
+                       placeholder="-- Location --" ng-model="asyncSelected" ng-change="nearMe = false;"
                        typeahead="address.formatted_address for address in getLocation($viewValue) "
                        typeahead-loading="loadingLocations">
 

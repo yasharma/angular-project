@@ -5,7 +5,7 @@ var myApp = angular.module('myApp', ['ngRoute','config','LocalStorageModule','di
     //'AngularChart',
     'GoogleMaps','angularFileUpload','ui.bootstrap','nvd3ChartDirectives','easypiechart','highcharts-ng',
     'angular-flot','Controllers','Services', 'MessageCenterModule','angularFileUpload', 'uiGmapgoogle-maps',
-    'ngSocial', 'cgBusy'
+    'cgBusy'
 ]);
 
 // Declare app level module which depends on views, and components

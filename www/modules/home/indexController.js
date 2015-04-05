@@ -135,15 +135,21 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
                 getAllCategories();
 
-                if($routeParams.search){
+                $scope.setAutoLocation(! $routeParams.formattedAddress);
 
-                    $scope.restaurantList.params = merge_objects($scope.restaurantList.params,
-                        {
-                            'formatted-address': $routeParams.formattedAddress,
-                            'price_range': $routeParams.priceRange
-                            //'category': '' //sending category empty for now @todo remove
-//                        'category': $routeParams.category
-                        });
+                if($routeParams.search){
+                    var routeParams = {};
+                    if ($routeParams.formattedAddress){
+                        routeParams['formatted-address'] = $routeParams.formattedAddress;
+                    }
+                    if ($routeParams.priceRange){
+                        routeParams['price_range'] = $routeParams.priceRange;
+                    }
+                    if ($routeParams.category){ // @todo remove
+                        routeParams['category'] = $routeParams.category;
+                    }
+                    $scope.restaurantList.params = merge_objects($scope.restaurantList.params, routeParams);
+
                     getPopularList();
                 }
 
@@ -187,7 +193,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     }
                 }, true); // true = watch nested objects too
 
-                $scope.setAutoLocation(true);
 
             };
 
@@ -416,9 +421,14 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
             searchData.set($scope.search);
 
-            $location.url('/index?search=true&formattedAddress=' + $scope.search.formattedAddress +
-                '&priceRange=' + $scope.search.price +
-                '&category=' + $scope.search.category);
+            var url = '/index';
+            if( $scope.search.formattedAddress || $scope.search.price || $scope.search.category){
+                url += '?search=true';
+            }
+            if($scope.search.formattedAddress) url += '&formattedAddress=' + $scope.search.formattedAddress;
+            if($scope.search.price) url += '&priceRange=' + $scope.search.price;
+            if($scope.search.category) url += '&category=' + $scope.search.category;
+            $location.url(url);
         }
 
         }])

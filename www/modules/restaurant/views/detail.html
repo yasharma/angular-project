@@ -26,8 +26,7 @@
             </button>
             <div class="modal-backdrop fade in"></div>
         </h3>
-        <small> {{restaurant.address}},
-            {{restaurant.city}}, {{restaurant.postcode}} {{restaurant.state}}
+        <small> {{restaurant.address}}
         </small>
 
     </div>
@@ -130,12 +129,12 @@
         <section class="panel panel-default">
 
             <div class="list-group no-radius alt">
-                <a class="list-group-item" >
+                <a class="list-group-item" ng-hide="!restaurant.phone">
                     <span class="badge bg-success"></span>
                     <i class="fa fa-phone icon-muted"></i>
                     Phone : {{restaurant.phone}}
                 </a>
-                <a class="list-group-item" >
+                <a class="list-group-item" ng-hide="!restaurant.email">
                     <span class="badge bg-info"></span>
                     <i class="fa fa-envelope icon-muted"></i>
                     Email : {{restaurant.email}}
@@ -143,7 +142,12 @@
                 <a class="list-group-item"  >
                     <span class="badge bg-money"></span>
                     <i class="fa fa-eye icon-muted"></i>
-                    Price Range :<span class="text-primary-dk"><rating ng-model="restaurant.price_range" state-on="'glyphicon-usd'" state-off="'blank'" readonly="true"></rating></span>
+                    <span>Price Range :</span>
+
+                    <span class="text-primary-dk ir-price">
+                        <!--<rating ng-model="restaurant.price_range" state-on="'glyphicon-usd'" state-off="'blank'" readonly="true"></rating>-->
+                        {{restaurant.price_range_symbol}}
+                    </span>
                 </a>
             </div>
         </section>

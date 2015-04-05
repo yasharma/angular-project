@@ -90,7 +90,15 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
 
             return restaurant.get()
                 .then(function (response) {
-                    return response.data;
+                    var restaurant = response.data;
+
+                    var priceRange = "";
+                    for (var k = 0; k <= restaurant.price_range; k++) {
+                        priceRange = priceRange + "$";
+                    }
+                    restaurant.price_range_symbol = priceRange;
+
+                    return restaurant;
                 });
         },
 

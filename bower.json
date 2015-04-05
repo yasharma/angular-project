@@ -28,7 +28,6 @@
     "message-center": "~1.0.3",
     "ng-file-upload": "~2.1.1",
     "ng-file-upload-shim": "~2.1.1",
-    "angular-social": "0.1.0",
     "angular-busy": "4.1.2"
   }
 }
