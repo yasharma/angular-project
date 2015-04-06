@@ -84,8 +84,7 @@ function shareLinks($location) {
                 var anchor = '';
                 anchor += '<a href="' + shareLinks[i].url + '" target="_blank"';
                 //anchor += '<a onclick="window.open("'+ shareLinks[i].url +'", "_system");"';
-                anchor += 'class="share-button"';
-                anchor += '><img width="36" height="36" src="images/social/' + shareLinks[i].network + '.png"></a>';
+                anchor += '><i width="36" height="36" title="Share" class="share-button fa fa-' + shareLinks[i].network + '"></a>';
                 elem.append(anchor);
             }
         }

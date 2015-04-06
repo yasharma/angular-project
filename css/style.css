@@ -14,16 +14,11 @@
 }
 
 .comment-list .avatar2{
-    left: -16px;
-    top: 10px;
-    background: white;
-
-    width: 40px !important;
-    height: 40px !important;
-    text-align: center;
-    padding-top: 7px;
-    color: darkgray;
-    font-weight: bold;
+    font-size: 50%;
+    display: inline-block;
+    padding: 6px 8px;
+    position: relative;
+    top: -4px;
 }
 
 /*Typeahead css*/

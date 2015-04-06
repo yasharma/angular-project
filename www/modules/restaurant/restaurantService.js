@@ -74,15 +74,24 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                         restaurants[i].rating = Math.round(restaurants[i].overview__percentile / 2) / 10;
                         restaurants[i].rating_rounded = Math.round(restaurants[i].overview__percentile / 20);
 
+
                         // for trend change circle
                         restaurants[i].trend_change = 0.0;
-                        if(trend_array && trend_array.length > 1){
-                            restaurants[i].trend_change = trend_array[trend_array.length-1][1] - trend_array[trend_array.length-2][1];
+                        if(trend_data && trend_data.length > 1){
+                            var last1, last2;
+                            for (var kkey1 in trend_data[trend_data.length-1]){
+                                last1 = trend_data[trend_data.length-1][kkey1];
+                            }
+                            for (var kkey2 in trend_data[trend_data.length-2]){
+                                last2 = trend_data[trend_data.length-2][kkey2];
+                            }
+                            restaurants[i].trend_change = Math.round((parseFloat(last1) - parseFloat(last2))*10) / 10;
+                            restaurants[i].trend_change_abs = Math.abs(restaurants[i].trend_change);
                         }
                         restaurants[i].trend_change_color = '#bbb';
-                        if(restaurants[i].trend_change > 1){
+                        if(restaurants[i].trend_change > 0){
                             restaurants[i].trend_change_color = '#99ff99'; // green
-                        } else if(restaurants[i].trend_change < -1){
+                        } else if(restaurants[i].trend_change < 0){
                             restaurants[i].trend_change_color = '#ff9977'; // red
                         }
 

@@ -4,13 +4,6 @@
         <div easypiechart options="avatarOptions"
              percent="restaurant.overview__percentile | number : 2"></div>
     </div>
-    <br/>
-    <div></div>
-    <div class="thumb-sm avatar avatar2" title="Trend change"
-         style="border: 3px solid {{restaurant.trend_change_color}};">
-        <span class="rating-circle">{{restaurant.trend_change | number : 1}}</span>
-        <!--<div easypiechart options="avatarOptions2" percent="restaurant.overview__percentile | number : 2"></div>-->
-    </div>
 </div>
 <span class="arrow left"></span>
 <section class="comment-body panel panel-default">
@@ -24,21 +17,34 @@
     </header>
     <div class="panel-body">
         <div class="row">
-            <div class="col-md-4 col-lg-3 no-padding hidden-xs hidden-sm">
-                <nvd3-multi-bar-chart
-                        data="restaurant.trend_data"
-                        showXAxis="false"
-                        showYAxis="false"
-                        tooltips="true"
-                        height="130"
-                        interactive="true">
-                    <svg></svg>
-                </nvd3-multi-bar-chart>
-            </div>
-            <div class="col-xs-7 col-sm-7 col-md-4 col-lg-5">
-                <p><a href="#/restaurant/{{restaurant.id}}/{{hash}}">
-                    <h3 class="title"> {{restaurant.name}} </h3>
-                </a></p>
+            <div class="col-xs-7 col-sm-7 col-md-8">
+                <!--<div class="thumb-sm avatar2 pull-left" title="Trend change"-->
+                     <!--style="border: 3px solid {{restaurant.trend_change_color}};">-->
+                    <!--<span>{{restaurant.trend_change | number : 1}}</span>-->
+                    <!--&lt;!&ndash;<div easypiechart options="avatarOptions2" percent="restaurant.overview__percentile | number : 2"></div>&ndash;&gt;-->
+                <!--</div>-->
+
+                <p>
+
+                    <a href="#/restaurant/{{restaurant.id}}/{{hash}}">
+
+                        <h3 class="title">
+                            <span class="inline-block label label-success avatar2 m-r-sm"
+                                  ng-show="restaurant.trend_change > 0">
+                                <i class="fa fa-arrow-up"></i>
+                                {{restaurant.trend_change_abs | number : 1}}%
+                            </span>
+                            <span class="inline-block label label-warning avatar2 m-r-sm"
+                                  ng-show="restaurant.trend_change < 0">
+                                <i class="fa fa-arrow-down"></i>
+                                {{restaurant.trend_change_abs | number : 1}}%
+                            </span>
+                            <span>
+                                {{restaurant.name}}
+                            </span>
+                        </h3>
+                    </a>
+                </p>
                 <p class="m-t-md">
                     <!--<rating  ng-model="restaurant.rating_rounded" max="5" readonly="true"></rating>-->
                         <span ng-repeat="Star in [1,2,3,4,5]">
