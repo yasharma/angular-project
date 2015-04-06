@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-sm-12 col-md-6 col-lg-4 col-md-offset-3 col-lg-offset-4">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 col-sm-offset-2 col-md-offset-3 col-lg-offset-4">
         <section id="content" class="m-t-lg wrapper-md animated fadeInUp">
             <div class="container aside-xl">
                 <a class="navbar-brand block" href="index.html">Reviews Combined</a>
@@ -16,7 +16,7 @@
                                 <p ng-show="loginForm.username.$error.required && !loginForm.username.$pristine" class="help-block">Your username is required.</p>
                                 <p ng-show="loginForm.username.$error.minlength" class="help-block">Username is too short.</p>
                             </div>
-                            <div class="list-group-item" ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
+                            <div class="list-group-item m-t-sm" ng-class="{ 'has-error' : loginForm.password.$invalid && !loginForm.password.$pristine }">
                                 <input type="password" placeholder="Password" class="form-control no-border" name="password" ng-model="credentials.password" required ng-minlength="3">
                                 <p ng-show="loginForm.password.$error.required && !loginForm.password.$pristine" class="help-block">Password is required.</p>
                                 <p ng-show="loginForm.password.$error.minlength" class="help-block">Password is too short.</p>

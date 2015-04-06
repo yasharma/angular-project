@@ -1,16 +1,31 @@
-.comment-list .avatar{
-    left: -24px;
+.comment-list .avatar1{
+    left: -26px;
     background: white;
     width: 60px !important;
+    height: 55px;
 }
 
-.comment-list .avatar .rating-circle{
+.comment-list .avatar1 .rating-circle{
     position: absolute;
-    top: 20px;
+    top: 18px;
     left: 12px;
     font-size: 16px;
     font-weight: bolder;
 }
+
+.comment-list .avatar2{
+    left: -16px;
+    top: 10px;
+    background: white;
+
+    width: 40px !important;
+    height: 40px !important;
+    text-align: center;
+    padding-top: 7px;
+    color: darkgray;
+    font-weight: bold;
+}
+
 /*Typeahead css*/
 .tt-input-group ul.dropdown-menu{
     /*width: 100%;*/

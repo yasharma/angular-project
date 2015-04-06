@@ -56,6 +56,15 @@
                 </ul>
                 <div class="line dk hidden-nav-xs" ng-show="user.ownsRestaurants"></div>
                 <ul class="nav " ng-show="user.ownsRestaurants">
+                    <li>
+                        <a href="#/compare" class="auto">
+                            <i class="i i-graph icon"> </i>
+                            <span class="font-bold">Compare Restaurants</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="line dk hidden-nav-xs" ng-show="user.ownsRestaurants"></div>
+                <ul class="nav " ng-show="user.ownsRestaurants">
 
                     <!--<div class="line dk hidden-nav-xs"></div>-->
                     <li ng-repeat="restaurant in ownedRestaurants">
