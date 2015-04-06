@@ -1,11 +1,4 @@
 <section class="vbox">
-    <!--Search box-->
-    <div class="visible-xs">
-        <div class="panel panel-tight" ng-controller="navigationController">
-            <search-box class="m-t m-l-n-xs" set-restaurant="setRestaurant(restaurant)" placeholder="Search restaurants, locations ..."></search-box>
-        </div>
-
-    </div>
 
     <!--Search form-->
     <div class="hidden-xs">
@@ -19,19 +12,25 @@
             <!--Restaurant list-->
             <div class="col-sm-8 col-md-9 col-lg-9 " ng-class="{'hidden-xs': showFiltersMobile}">
                 <section>
+
+                    <!--Search box-->
+                    <div class="visible-xs">
+                        <div class="panel panel-tight" ng-controller="navigationController">
+                            <search-box class="m-t m-l-n-xs" set-restaurant="setRestaurant(restaurant)" placeholder="Search restaurants, locations ..."></search-box>
+                        </div>
+
+                    </div>
+
                     <header class="panel-heading ">
                         <div class="row">
-
-                            <div class="col-sm-6">
-                                <!--Popular Restaurants-->
+                            <div share-links="Facebook, Twitter, LinkedIn, Google-Plus"
+                                share-title="reviews-combined dummy title" class="m-l-md m-t-xs pull-right">
                             </div>
-                            <div class="col-sm-6 col-md-6 col-lg-3 pull-right">
-                                <select ng-model="restaurantList.params.sort" class="form-control">
-                                    <option value="popular">Sort by rating</option>
-                                    <option value="trending">Sort by trend</option>
-                                    <option value="distance">Sort by distance</option>
-                                </select>
-                            </div>
+                            <select ng-model="restaurantList.params.sort" class="form-control m-t-sm pull-right" style="width: 160px;">
+                                <option value="popular">Sort by rating</option>
+                                <option value="trending">Sort by trend</option>
+                                <option value="distance">Sort by distance</option>
+                            </select>
                         </div>
                     </header>
                 </section>
@@ -255,5 +254,5 @@
             </div>
         </div>
     </section>
-    <footer class="ir-footer" ng-include="footer"></footer>
+    <!--<footer class="ir-footer" ng-include="footer"></footer>-->
 </section>

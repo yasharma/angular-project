@@ -34,7 +34,7 @@
     <!--Includes claim section-->
     <div class="col-sm-2 m-t-md">
 
-        <button class="btn btn-default btn-rounded btn-sm" data-toggle="class:nav-xs" ng-click="claim()" ng-disabled="!isLogged"><i
+        <button class="btn btn-default btn-rounded btn-sm m-t-sm" data-toggle="class:nav-xs" ng-click="claim()" ng-disabled="!isLogged" ng-hide="isOwner"><i
 
                 class="i i-paperplane icon text-primary"></i> Claim this Restaurant
         </button>
@@ -53,11 +53,17 @@
                 <!--<li role="presentation"><a tabindex="-1" href="#/request/change/{{ restaurantId }}">Go to Request Information Change by owner</a></li>-->
             <!--</ul>-->
 
-            <a class="btn btn-icon b-2x btn-default btn-rounded hover"><i
-                    class="i i-bars3 hover-rotate"></i></a> <a href="#nav, #sidebar"
-                                                               class="btn btn-icon b-2x btn-info btn-rounded"
-                                                               data-toggle="class:nav-xs, show"><i
-                class="fa fa-bars"></i></a>
+            <!--<a class="btn btn-icon b-2x btn-default btn-rounded hover">-->
+                <!--<i class="i i-bars3 hover-rotate"></i></a> -->
+            <!--<a href="#nav, #sidebar"-->
+                <!--class="btn btn-icon b-2x btn-info btn-rounded"-->
+                <!--data-toggle="class:nav-xs, show"><i-->
+                <!--class="fa fa-bars"></i></a>-->
+
+            <div share-links="Facebook, Twitter, LinkedIn, Google-Plus"
+                 share-title="reviews-combined dummy title" class="m-r-md">
+            </div>
+
         </div>
     </div>
 
@@ -262,9 +268,11 @@
                 <div class="m-l-sm" ng-hide="photos.length">
                     No photos
                 </div>
-                <div class="col-xs-4 no-padding" ng-repeat="photo in photos">
+                <div class="col-lg-4 col-sm-3 col-xs-4 no-padding" ng-repeat="photo in photos">
                     <!--{{ photo }}-->
-                    <img ng-src="{{photo.url}}" class="thumb-image"/>
+                    <a href="">
+                        <span class="thumb-image" style="background-image:url('{{photo.url}}')" > </span>
+                    </a>
                 </div>
                 <!--<div class="col-xs-4 no-padding">-->
                     <!--<img src="images/r2.jpeg" style="width:100%;padding:0px 2px;min-height: 124px;"/>-->
@@ -280,7 +288,7 @@
 
 </section>
 
-<footer class="ir-footer" ng-include="footer"></footer>
+<!--<footer class="ir-footer" ng-include="footer"></footer>-->
 
 </section>
 <!--<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>-->

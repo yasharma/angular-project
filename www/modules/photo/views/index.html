@@ -54,9 +54,12 @@
                         <header class="panel-heading">Photos</header>
                         <section class="chat-list panel-body">
                             <!--<section class="row m-l-none m-r-none m-b text-center box-shadow"> -->
-                            <div class="col-xs-3 no-padding text-center" ng-repeat="photo in photos">
-                                <div class="displayphoto-frame">
-                                    <img ng-src="{{photo.url}}" class="displayphoto"/></div>
+                            <div class="col-lg-3 col-sm-3 col-xs-4 text-center" ng-repeat="photo in photos">
+                                <!--<div class="displayphoto-frame">-->
+                                    <!--<img ng-src="{{photo.url}}" class="displayphoto"/></div>-->
+                                    <a href="">
+                                        <span class="thumb-image" style="background-image:url('{{photo.url}}')" > </span>
+                                    </a>
                                 <div class=" m-b-md">
                                     <button class="btn btn-sm btn-danger"  ng-click="deletePhoto(photo)">Delete </button>
                                     <span ng-class="{'fa fa-spinner fa-spin' : photo.request}"></span>
@@ -76,7 +79,7 @@
                         </section>
                     </section>
                 </section>
-                <footer class="ir-footer" ng-include="'modules/partials/footer.html'"></footer>
+                <!--<footer class="ir-footer" ng-include="'modules/partials/footer.html'"></footer>-->
             </section>
 
         </section>

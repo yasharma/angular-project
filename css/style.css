@@ -59,9 +59,19 @@
     text-align: center;
 }
 .thumb-image{
-    width: 100%;
-    padding:0px 2px;
-    min-height: 124px;
+    /*width: 100%;*/
+    /*padding:0px 2px;*/
+    /*min-height: 124px;*/
+    display: block;
+    position:relative;
+    width: 96%;
+    height: 0;
+    padding-bottom: 80% ; /* % of width, defines aspect ratio*/
+    margin-bottom: 4%;
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
 
 }
 .list-image{
