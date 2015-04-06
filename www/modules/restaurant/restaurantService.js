@@ -83,7 +83,7 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                         if(restaurants[i].trend_change > 1){
                             restaurants[i].trend_change_color = '#99ff99'; // green
                         } else if(restaurants[i].trend_change < -1){
-                            restaurants[i].trend_change_color = '#ff9999'; // red
+                            restaurants[i].trend_change_color = '#ff9977'; // red
                         }
 
                     }
