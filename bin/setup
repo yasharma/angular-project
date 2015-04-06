@@ -11,6 +11,7 @@ Updates bower packages and integrates js and css packages using grunt
     -a       update bower packages and grunt scripts.
     -g       only implement grunt scripts
     -b       only update bower packages
+    -u       update from git
 
 
 EOF
@@ -40,6 +41,9 @@ while getopts "hagb" opt; do
         b)  bower update
             exit 0
             ;;
+        u) sudo git reset --hard
+           sudo git clean -f -d
+           sudo git pull origin sandbox_merged
         '?')
             show_help >&2
             exit 1;
