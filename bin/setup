@@ -3,7 +3,7 @@
 # Usage info
 show_help() {
 cat << EOF
-Usage: ${0##*/} [-h|g|a|b]
+Usage: ${0##*/} [-h|g|a|b|u]
 
 Updates bower packages and integrates js and css packages using grunt
 
@@ -21,7 +21,7 @@ EOF
 verbose=0
 
 OPTIND=1 # Reset is necessary if getopts was used previously in the script.
-while getopts "hagb" opt; do
+while getopts "hagbu" opt; do
     case "$opt" in
         h)
             show_help
@@ -44,6 +44,7 @@ while getopts "hagb" opt; do
         u) sudo git reset --hard
            sudo git clean -f -d
            sudo git pull origin sandbox_merged
+           ;;
         '?')
             show_help >&2
             exit 1;
