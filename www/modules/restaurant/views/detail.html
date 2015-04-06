@@ -20,7 +20,7 @@
 <section class="row m-b-md">
     <div class="col-sm-6">
         <h3 class="m-b-xs text-black">{{restaurant.name}}
-            <button class="btn btn-default btn-rounded btn-sm" data-toggle="class:nav-xs"
+            <button class="btn btn-default btn-rounded btn-sm m-l-xs" data-toggle="class:nav-xs"
                     ng-click="showMap = ! showMap">
                 <i class="fa fa-map-marker fa-lg text-primary"></i> Map
             </button>
@@ -32,16 +32,20 @@
     </div>
 
     <!--Includes claim section-->
-    <div class="col-sm-2 m-t-md">
+    <div class="col-sm-6 m-t-md">
 
-        <button class="btn btn-default btn-rounded btn-sm m-t-sm" data-toggle="class:nav-xs" ng-click="claim()" ng-disabled="!isLogged" ng-hide="isOwner"><i
+        <div share-links="Facebook, Twitter, LinkedIn, Google-Plus"
+             share-title="reviews-combined dummy title" class="m-r-md pull-right">
+        </div>
 
+        <button class="btn btn-default btn-rounded btn-sm m-t-sm"
+                data-toggle="class:nav-xs" ng-click="claim()" ng-disabled="!isLogged" ng-hide="isOwner"><i
                 class="i i-paperplane icon text-primary"></i> Claim this Restaurant
         </button>
+
     </div>
 
-    <div class="col-sm-4 text-right m-t-md">
-        <div class="dropdown  pull-right">
+    <!--<div class="col-sm-4 text-right m-t-md">-->
 
            <!--  Commented for future references -->
             <!--<a class="btn btn-icon b-2x btn-info btn-rounded hover dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">-->
@@ -60,12 +64,7 @@
                 <!--data-toggle="class:nav-xs, show"><i-->
                 <!--class="fa fa-bars"></i></a>-->
 
-            <div share-links="Facebook, Twitter, LinkedIn, Google-Plus"
-                 share-title="reviews-combined dummy title" class="m-r-md">
-            </div>
-
-        </div>
-    </div>
+    <!--</div>-->
 
 </section>
 <div class="row m-b-md" ng-if="showMap">
