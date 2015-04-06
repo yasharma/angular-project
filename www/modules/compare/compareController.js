@@ -2,12 +2,28 @@
 
 rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSvr',
     function ($scope, routeParams, restaurantSvr) {
-        $scope.restaurantId = routeParams.restaurantId;
-        restaurantSvr.getRestaurant($scope.restaurantId).then(function (restaurant) {
-            $scope.restaurant = restaurant;
-            $scope.restaurants = [];
-            $scope.addRestaurant(restaurant);
-        });
+        if ($scope.user && $scope.user.ownedRestaurants && $scope.user.ownedRestaurants.length) {
+            restaurantSvr.getRestaurants(
+                {
+                    'id-in': $scope.user.ownedRestaurants.join(),
+                    'per-page': 50
+                }
+            ).then(function (response) {
+                    //$scope.ownedRestaurants = response.items;
+                    $scope.restaurants = [];
+                    console.log(response);
+                    angular.forEach(response.items, function(restaurant){
+                        $scope.addRestaurant(restaurant);
+                    });
+                });
+        }
+
+        //$scope.restaurantId = routeParams.restaurantId;
+        //restaurantSvr.getRestaurant($scope.restaurantId).then(function (restaurant) {
+        //    $scope.restaurant = restaurant;
+        //    $scope.restaurants = [];
+        //    $scope.addRestaurant(restaurant);
+        //});
 
         $scope.removeRestaurant  = function (restaurant){
             $scope.restaurants = _.without($scope.restaurants, restaurant);

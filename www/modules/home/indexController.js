@@ -23,7 +23,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             controller: 'requestCtrl',
             access: { requiredLogin: true }
         })
-        .when("/compare/:restaurantId", {
+        .when("/compare", {
             templateUrl: "modules/compare/views/index.html",
             controller: "compareCtrl",
             access: {
@@ -159,12 +159,12 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 //        "values": [[1025409600000, 0], [1028088000000, 6.3382185140371], [1030766400000, 5.9507873460847], [1033358400000, 11.569146943813], [1036040400000, 5.4767332317425], [1038632400000, 0.50794682203014], [1041310800000, 5.5310285460542], [1043989200000, 5.7838296963382], [1046408400000, 7.3249341615649], [1049086800000, 6.7078630712489], [1330491600000, 13.388148670744]]
                 //    }];
 
-                $scope.options = {
+                $scope.avatarOptions = {
                     animate: {
                         duration: 1000,
                         enabled: true
                     },
-                    barColor: '#428bca',//'rgb(31, 119, 180)',
+                    barColor: '#428bca',
                     //trackColor:'#2C3E50',
                     size: 60,
                     scaleColor: false,

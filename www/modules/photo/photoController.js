@@ -20,7 +20,7 @@ rxControllers.controller('photoCtrl', ['$scope', '$routeParams', 'photoSvr', 'me
                 $scope.maxSize = 6;
                 $scope.photosListItemPerPage = 8;
                 $scope.photosListTotalItems = photos._meta.totalCount;
-                $scope.photosListCurrentPage = photos._meta.currentPage + 1;
+                $scope.photosListCurrentPage = photos._meta.currentPage;
                return true;
             });
         }
