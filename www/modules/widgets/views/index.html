@@ -1,0 +1,57 @@
+<!--Header-->
+<header class="bg-primary header header-md navbar navbar-fixed-top-xs box-shadow" ng-include="'modules/partials/header.html'"></header>
+
+<section class="hbox stretch">
+    <!--Sidebar-->
+    <aside ng-include="'modules/partials/sidebar-detail-change.html'" id="nav" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
+
+    <section id="content">
+        <!--<header class="header bg-white b-b b-light hide-for-small hide-for-touch"-->
+        <!--ng-include="'modules/restaurant/views/search-form.html'"></header>-->
+
+        <!--Dynamic view goes here-->
+        <section class="vbox">
+            <section class="scrollable padder">
+                <h3 class="m-l m-t-lg m-b-lg">Widgets</h3>
+
+                <div class="row">
+                    <div class="m-l-lg col-md-8 col-lg-6">
+                        <p>
+                            Widgets allow you to add iReview rating to your restaurant website.
+                        </p>
+                        <p>
+                            Please select your restaurant:
+                        </p>
+
+                        <search-box set-restaurant="options.restaurantId = restaurant.data.id" class="m-b-sm m-t-sm bordered-input-group"
+                                    placeholder="Search Restaurants"></search-box>
+
+                        <div>
+                            <label><input type="checkbox" ng-model="options.hideOnRatingLessThan"/>Automatically hide widget if rating is less than </label>
+                            <input type="number" ng-model="options.ratingLessThan"/>
+
+                            <p class="m-t-md">Copy and paste this code to your website:</p>
+
+
+                            <textarea rows="12" cols="80" class="m-t-sm" readonly="true">{{snippet}}
+                            </textarea>
+
+                            If you are already using jQuery, you can omit the first line.
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+                <div></div>
+            </section>
+        </section>
+        <!--<footer class="ir-footer" ng-include="'modules/partials/footer.html'"></footer>-->
+    </section>
+</section>
+
+
+

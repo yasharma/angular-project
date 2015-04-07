@@ -77,6 +77,7 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
 
                         // for trend change circle
                         restaurants[i].trend_change = 0.0;
+                        restaurants[i].trend_change_abs = 0.0;
                         if(trend_data && trend_data.length > 1){
                             var last1, last2;
                             for (var kkey1 in trend_data[trend_data.length-1]){
@@ -87,6 +88,7 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                             }
                             restaurants[i].trend_change = Math.round((parseFloat(last1) - parseFloat(last2))*10) / 10;
                             restaurants[i].trend_change_abs = Math.abs(restaurants[i].trend_change);
+
                         }
                         restaurants[i].trend_change_color = '#bbb';
                         if(restaurants[i].trend_change > 0){

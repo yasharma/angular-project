@@ -30,6 +30,13 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 requiredLogin: true
             }
         })
+        .when("/widgets", {
+            templateUrl: "modules/widgets/views/index.html",
+            controller: "widgetsCtrl",
+            access: {
+                requiredLogin: true
+            }
+        })
         .when('/restaurant/:restaurantId', {
             templateUrl: 'modules/restaurant/views/detail.html',
             controller: 'detailCtrl'

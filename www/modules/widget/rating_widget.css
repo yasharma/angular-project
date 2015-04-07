@@ -1,0 +1,29 @@
+.ireview-container{
+    background-color: #fff !important;
+    font-family: Arial,Verdana,"Bitstream Vera Sans",Helvetica,sans-serif !important;
+    font-size: 14px !important;
+    height: auto !important;
+    position: relative !important;
+    text-decoration: none !important;
+    outline: none !important;
+    padding: 6px 11px 0 !important;
+    border: 1px solid #568EA2 !important;
+    text-align: center;
+}
+
+.ireview-container #restaurantName{
+    padding-bottom: 10px;
+    line-height: 110%;
+}
+
+.ireview-container #restaurantName a {
+    font-weight: bold !important;
+    color: #000 !important;
+}
+.ireview-container a, .ireview-container a:hover {
+    text-decoration: underline !important;
+}
+
+.ireview-container a:hover, .ireview-container a:visited, .ireview-container a:link, .ireview-container a:active {
+    text-decoration: none !important;
+}

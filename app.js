@@ -87,6 +87,8 @@ myApp.run(['$rootScope', '$location', 'localStorageService', 'AuthenticationServ
 
     $rootScope.user = localStorageService.get('user');
 
+    $rootScope.baseUrl = 'http://dev2.reviews-combined.com/'
+
 }]);
 
 myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, RestangularProvider) {
