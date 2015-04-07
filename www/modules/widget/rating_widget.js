@@ -48,6 +48,7 @@ function irRatingWidget(params) {
                         return;
                     }
 
+                    // calculate rating
                     var rating = Math.round(stats.items.current_percentile / 10) / 2;
                     if (rating < 1) rating = 1;
                     var ratingWhole = Math.trunc(rating);
@@ -56,10 +57,12 @@ function irRatingWidget(params) {
                         ratingHalf = 5;
                     }
 
+                    // do not show widget if rating is too low
                     if (params.hideIfRatingLessThan && rating < params.hideIfRatingLessThan){
                         return;
                     }
 
+                    // set parameters to be injected in html
                     var parameters = {
                         id: params.restaurantId,
                         base: base,
@@ -77,24 +80,25 @@ function irRatingWidget(params) {
                     var html =  ' \
                         <link rel="stylesheet" type="text/css" href="{{base}}modules/widget/rating_widget.css" media="screen" /> \
                         <div class="ireview-container" style="width:{{width}}">     \
-                          <div id="restaurantName"><a style="color: #444 !important;" href="{{base}}index.html#/restaurant/{{id}}">{{restaurant_name}}</a></div> \
+                          <div id="restaurantName"><a style="color: #444 !important;" href="{{base}}#/restaurant/{{id}}">{{restaurant_name}}</a></div> \
                           <div style="margin-top: 3px;">\
                             <img src="{{base}}modules/widget/{{ratingWhole}}.{{ratingHalf}}.png" alt="" style="max-width: 62px;width: 62px;height: auto; vertical-align: middle;"/> \
-                            <a href="{{base}}index.html#/restaurant/{{id}}" style="margin-left: 4px; color:#707070; ">{{reviews_str}}</a>\
+                            <a href="{{base}}#/restaurant/{{id}}" style="margin-left: 4px; color:#707070; ">{{reviews_str}}</a>\
                           </div> \
                           <div id="logo" style="margin-top: 8px;"> \
-                              <a href="{{base}}index.html" style="text-decoration:none;">\
+                              <a href="{{base}}" style="text-decoration:none;">\
                                 <img src="{{base}}modules/widget/logo.png" alt="" style="vertical-align:middle;width:30px; height: auto;"/> \
                                 <span style="vertical-align:middle; font-size: 16px; color: #568EA2; ">iReview</span>\
                               </a> \
                             </div> \
                         </div>';
 
-
+                    // inject parameters
                     $.each( parameters, function(param, val){
                         html = html.split('{{' + param + '}}').join(val);
                     });
 
+                    // inject html into container
                     $(params.container).html(html);
 
                 });

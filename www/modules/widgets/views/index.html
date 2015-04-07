@@ -23,11 +23,15 @@
                             Please select your restaurant:
                         </p>
 
-                        <search-box set-restaurant="options.restaurantId = restaurant.data.id" class="m-b-sm m-t-sm bordered-input-group"
+                        <search-box set-restaurant="options.restaurantId = restaurant.data.id"
+                                    class="m-b-sm m-t-sm bordered-input-group"
                                     placeholder="Search Restaurants"></search-box>
 
                         <div>
-                            <label><input type="checkbox" ng-model="options.hideOnRatingLessThan"/>Automatically hide widget if rating is less than </label>
+                            <label>
+                                <input type="checkbox" ng-model="options.hideOnRatingLessThan"/>
+                                Automatically hide widget if rating is less than
+                            </label>
                             <input type="number" ng-model="options.ratingLessThan"/>
 
                             <p class="m-t-md">Copy and paste this code to your website:</p>
@@ -38,15 +42,8 @@
 
                             If you are already using jQuery, you can omit the first line.
                         </div>
-
                     </div>
                 </div>
-
-
-
-
-
-                <div></div>
             </section>
         </section>
         <!--<footer class="ir-footer" ng-include="'modules/partials/footer.html'"></footer>-->
