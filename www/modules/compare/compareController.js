@@ -90,7 +90,7 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
                         splines: {
                             show: true,
                             tension: 0.4,
-                            lineWidth: 1,
+                            lineWidth: 2,
                             fill: false
                         },
                         points: {
@@ -162,7 +162,7 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
                         flotDataset[i].splines.lineWidth = 3;
                         flotDataset[i].points.radius = 2;
                     } else {
-                        flotDataset[i].splines.lineWidth = 1;
+                        flotDataset[i].splines.lineWidth = 2;
                         flotDataset[i].points.radius = 0;
                     }
 
@@ -173,11 +173,12 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
 
         $scope.flotDataset = [];
         $scope.flotColors = [
-            "#235039",
-            "#2B4C66",
-            "#81283C",
-            "#733919",
-            "#5E3B67"
+            "#1F2D6D",
+            "#4897C3",
+            "#B75E8F",
+            "#BF1E10",
+            "#D8C746",
+            "#2F9630"
         ];
 
         $scope.flotOptions =
