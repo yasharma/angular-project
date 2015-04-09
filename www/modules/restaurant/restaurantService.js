@@ -90,12 +90,6 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                             restaurants[i].trend_change_abs = Math.abs(restaurants[i].trend_change);
 
                         }
-                        restaurants[i].trend_change_color = '#bbb';
-                        if(restaurants[i].trend_change > 0){
-                            restaurants[i].trend_change_color = '#99ff99'; // green
-                        } else if(restaurants[i].trend_change < 0){
-                            restaurants[i].trend_change_color = '#ff9977'; // red
-                        }
 
                     }
 
@@ -219,6 +213,20 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
             }).then(function (response) {
                 return response.data[0].items;
             });
+        },
+
+        favorite: function (params){
+            var favorites = Restangular.all('favorites');
+            var data_encoded = $.param(params);
+            return favorites.post(data_encoded, {}, {'Content-Type': 'application/x-www-form-urlencoded'}).
+                then(function (response) {
+                    return response;
+                },
+                function (response) {
+                    response.err = true;
+                    return response;
+                });
+
         }
     };
 }]);

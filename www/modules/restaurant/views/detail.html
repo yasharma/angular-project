@@ -24,6 +24,10 @@
                     ng-click="showMap = ! showMap">
                 <i class="fa fa-map-marker fa-lg text-primary"></i> Map
             </button>
+            <button class="btn btn-default btn-rounded btn-sm m-l-xs" ng-show="isLogged" ng-click="favorite()">
+                <i class="icon fa fa-star-o" ng-show="! isFavorite"></i>
+                <i class="icon fa fa-star" ng-show="isFavorite"></i>
+            </button>
             <div class="modal-backdrop fade in"></div>
         </h3>
         <small> {{restaurant.address}}

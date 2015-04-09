@@ -57,6 +57,12 @@
                 <div class="line dk hidden-nav-xs" ng-show="user.ownsRestaurants"></div>
                 <ul class="nav " ng-show="user.ownsRestaurants">
                     <li>
+                        <a href="#/index" class="auto">
+                            <i class="fa fa-list icon"> </i>
+                            <span class="font-bold">My Restaurants</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="#/compare" class="auto">
                             <i class="i i-graph icon"> </i>
                             <span class="font-bold">Compare Restaurants</span>
@@ -65,18 +71,19 @@
                 </ul>
                 <div class="line dk hidden-nav-xs" ng-show="user.ownsRestaurants"></div>
                 <ul class="nav " ng-show="user.ownsRestaurants">
-
-                    <!--<div class="line dk hidden-nav-xs"></div>-->
-                    <li ng-repeat="restaurant in ownedRestaurants">
-                        <a href="#/restaurant/{{restaurant.id}}" class="auto">
-                            <!--<span class="pull-right text-muted">-->
-                                <!--<i class="i i-circle-sm-o text"></i>-->
-                                <!--<i class="i i-circle-sm text-active"></i>-->
-                            <!--</span>-->
-                            <i class="i i-pencil2 icon"> </i>
-                            <span class="font-bold">{{restaurant.name}}</span>
+                    <li>
+                        <a href="#/widgets" class="auto">
+                            <i class="fa fa-code icon"> </i>
+                            <span class="font-bold">Get iReview Widget</span>
                         </a>
                     </li>
+                    <!--<li ng-repeat="restaurant in ownedRestaurants">-->
+                        <!--<a href="#/restaurant/{{restaurant.id}}" class="auto">-->
+                            <!--<i class="i i-pencil2 icon"> </i>-->
+                            <!--<span class="font-bold">{{restaurant.name}}</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+
                 </ul>
             </nav>
             <!-- / nav -->

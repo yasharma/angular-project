@@ -81,6 +81,12 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
             $location.url($location.path() + '?request=claimRestaurant');
         };
 
+        $scope.favorite = function(){
+            restaurantSvr.favorite({
+                user_id: $scope.user.id,
+                restaurant_id: $scope.restaurant.id
+            });
+        };
 
         var modalInstance = checkParams($routeParams.request);
 
