@@ -28,10 +28,10 @@ rxControllers.controller('widgetsCtrl', ['$scope', '$routeParams', 'restaurantSv
         };
 
         $scope.setRestaurant = function(restaurant){
+            if (! (restaurant && restaurant.id)) return; // if none was selected
+
             $scope.options.restaurantId = restaurant.id;
             $scope.options.restaurantName = restaurant.name;
-
-
 
             restaurantSvr.getRestaurants({'id-in': restaurant.id}).then(function(res){
                 var restaurant = res.items[0];

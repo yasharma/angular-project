@@ -11,7 +11,6 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
             ).then(function (response) {
                     //$scope.ownedRestaurants = response.items;
                     $scope.restaurants = [];
-                    console.log(response);
                     angular.forEach(response.items, function(restaurant){
                         $scope.addRestaurant(restaurant);
                     });

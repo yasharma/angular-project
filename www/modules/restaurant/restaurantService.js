@@ -21,83 +21,78 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                 page: 0
             }, params))
                 .then(function (response) {
-                    var restaurants = response.data[0].items;
-                    //var restaurants = response.data[0].data;
-                    for (var i = 0; i < restaurants.length; i++) {
-                        var priceRange = "";
-                        for (var k = 0; k <= restaurants[i].price_range; k++) {
-                            priceRange = priceRange + "$";
-                        }
-                        restaurants[i].price_range_symbol = priceRange;
-                        var trend_data = JSON.parse(restaurants[i].overview__trend_series);
-                        var trend_array = [];
-                        var percentile_array = [];
-
-                        // Get the average trend value first
-                        var sumTrend = 0;
-                        var countTrend = 0;
-                        for (var id in trend_data) {
-                            var obj = trend_data[id];
-                            for (var key2 in obj) {
-                                sumTrend = sumTrend + obj[key2];
-                                countTrend++;
-                            }
-                        }
-
-                        var averageTrend = sumTrend / countTrend;
-
-                        for (var id in trend_data) {
-                            var obj = trend_data[id];
-                            for (var key2 in obj) {
-                                trend_array.push([key2, averageTrend - obj[key2]]);
-                                percentile_array.push([key2, restaurants[i].overview__percentile - obj[key2]]);
-                            }
-                        }
-
-                        var trend_array_length = trend_array.length;
-                        // fill the rest with zeros
-                        for (var ii = 0; ii < (12 - trend_array_length); ii++) {
-                            trend_array.unshift([ii, 0]);
-                        }
-
-                        restaurants[i].trend_data = [
-                            {
-                                "key": "Trend",
-                                "bar": true,
-                                "values": trend_array
-                            },
-                            {
-                                "key": "Percentile",
-                                "values": percentile_array
-                            }];
-
-                        restaurants[i].rating = Math.round(restaurants[i].overview__percentile / 2) / 10;
-                        restaurants[i].rating_rounded = Math.round(restaurants[i].overview__percentile / 20);
-
-
-                        // for trend change circle
-                        restaurants[i].trend_change = 0.0;
-                        restaurants[i].trend_change_abs = 0.0;
-                        if(trend_data && trend_data.length > 1){
-                            var last1, last2;
-                            for (var kkey1 in trend_data[trend_data.length-1]){
-                                last1 = trend_data[trend_data.length-1][kkey1];
-                            }
-                            for (var kkey2 in trend_data[trend_data.length-2]){
-                                last2 = trend_data[trend_data.length-2][kkey2];
-                            }
-                            restaurants[i].trend_change = Math.round((parseFloat(last1) - parseFloat(last2))*10) / 10;
-                            restaurants[i].trend_change_abs = Math.abs(restaurants[i].trend_change);
-
-                        }
-
-                    }
-
                     return {
-                        items: restaurants,
+                        items: self.expandRestaurantList(response.data[0].items),
                         _meta: response.data[0]._meta
                     };
+
                 });
+        },
+
+        expandRestaurantList: function (restaurants){
+
+            //var restaurants = response.data[0].data;
+            for (var i = 0; i < restaurants.length; i++) {
+                var priceRange = "";
+                for (var k = 0; k <= restaurants[i].price_range; k++) {
+                    priceRange = priceRange + "$";
+                }
+                restaurants[i].price_range_symbol = priceRange;
+                var trend_data = JSON.parse(restaurants[i].overview__trend_series);
+                var trend_array = [];
+                var percentile_array = [];
+
+                // Get the average trend value first
+                var sumTrend = 0;
+                var countTrend = 0;
+                for (var id in trend_data) {
+                    var obj = trend_data[id];
+                    for (var key2 in obj) {
+                        sumTrend = sumTrend + obj[key2];
+                        countTrend++;
+                    }
+                }
+
+                var averageTrend = sumTrend / countTrend;
+
+                for (var id in trend_data) {
+                    var obj = trend_data[id];
+                    for (var key2 in obj) {
+                        trend_array.push([key2, averageTrend - obj[key2]]);
+                        percentile_array.push([key2, restaurants[i].overview__percentile - obj[key2]]);
+                    }
+                }
+
+                restaurants[i].trend_data = [
+                    {
+                        "key": "Trend",
+                        "bar": true,
+                        "values": trend_array
+                    },
+                    {
+                        "key": "Percentile",
+                        "values": percentile_array
+                    }];
+
+                restaurants[i].rating = Math.round(restaurants[i].overview__percentile / 2) / 10;
+                restaurants[i].rating_rounded = Math.round(restaurants[i].overview__percentile / 20);
+
+                // for trend change circle
+                restaurants[i].trend_change = 0.0;
+                restaurants[i].trend_change_abs = 0.0;
+                if(trend_data && trend_data.length > 1){
+                    var last1, last2;
+                    for (var kkey1 in trend_data[trend_data.length-1]){
+                        last1 = trend_data[trend_data.length-1][kkey1];
+                    }
+                    for (var kkey2 in trend_data[trend_data.length-2]){
+                        last2 = trend_data[trend_data.length-2][kkey2];
+                    }
+                    restaurants[i].trend_change = Math.round((parseFloat(last1) - parseFloat(last2))*10) / 10;
+                    restaurants[i].trend_change_abs = Math.abs(restaurants[i].trend_change);
+                }
+            }
+            return restaurants;
         },
 
         getRestaurant: function (restaurantId) {
@@ -213,20 +208,7 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
             }).then(function (response) {
                 return response.data[0].items;
             });
-        },
-
-        favorite: function (params){
-            var favorites = Restangular.all('favorites');
-            var data_encoded = $.param(params);
-            return favorites.post(data_encoded, {}, {'Content-Type': 'application/x-www-form-urlencoded'}).
-                then(function (response) {
-                    return response;
-                },
-                function (response) {
-                    response.err = true;
-                    return response;
-                });
-
         }
+
     };
 }]);

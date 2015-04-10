@@ -9,17 +9,17 @@
                          cg-busy="{promise:cgBusyPromise,message:'',templateUrl:'modules/partials/cgbusy-template.html',backdrop:true}" >
                     <div class="panel-body no-padding-right">
                         <!--In case there are no results-->
-                        <article class="comment-item" ng-hide="ownedRestaurants.length">
+                        <article class="comment-item" ng-hide="favoriteRestaurants.length">
                             <section class="comment-body panel panel-default">
                                 <section class="panel-body">
                                     <div class="m-md">
-                                        No results
+                                        No favorites
                                     </div>
                                 </section>
                             </section>
                         </article>
                         <!--Results-->
-                        <article ng-repeat="restaurant in ownedRestaurants" class="comment-item"
+                        <article ng-repeat="restaurant in favoriteRestaurants" class="comment-item"
                                  ng-include="'modules/partials/restaurant-list-item.html'">
                         </article>
                     </div>

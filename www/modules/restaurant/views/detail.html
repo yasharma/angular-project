@@ -24,9 +24,9 @@
                     ng-click="showMap = ! showMap">
                 <i class="fa fa-map-marker fa-lg text-primary"></i> Map
             </button>
-            <button class="btn btn-default btn-rounded btn-sm m-l-xs" ng-show="isLogged" ng-click="favorite()">
-                <i class="icon fa fa-star-o" ng-show="! isFavorite"></i>
-                <i class="icon fa fa-star" ng-show="isFavorite"></i>
+            <button class="btn btn-default btn-rounded btn-sm m-l-xs" ng-show="isLogged" ng-click="favourite()">
+                <i class="icon fa fa-star-o" ng-show="! isFavourite"></i>
+                <i class="icon fa fa-star text-warning" ng-show="isFavourite"></i>
             </button>
             <div class="modal-backdrop fade in"></div>
         </h3>
@@ -140,17 +140,17 @@
             <div class="list-group no-radius alt">
                 <a class="list-group-item" ng-hide="!restaurant.phone">
                     <span class="badge bg-success"></span>
-                    <i class="fa fa-phone icon-muted"></i>
+                    <i class="fa fa-phone icon-muted m-r-sm"></i>
                     Phone : {{restaurant.phone}}
                 </a>
                 <a class="list-group-item" ng-hide="!restaurant.email">
                     <span class="badge bg-info"></span>
-                    <i class="fa fa-envelope icon-muted"></i>
+                    <i class="fa fa-envelope icon-muted m-r-sm"></i>
                     Email : {{restaurant.email}}
                 </a>
                 <a class="list-group-item"  >
                     <span class="badge bg-money"></span>
-                    <i class="fa fa-eye icon-muted"></i>
+                    <i class="fa fa-eye icon-muted m-r-sm"></i>
                     <span>Price Range :</span>
 
                     <span class="text-primary-dk ir-price">
@@ -160,7 +160,7 @@
                 </a>
             </div>
         </section>
-        <section class="panel panel-info">
+        <section class="panel panel-info" ng-hide="! restaurant.category">
             <div class="panel-body">
                 <div class="clear">
                     <a class="btn btn-xs btn-success m-t-xs">{{restaurant.category}}</a>

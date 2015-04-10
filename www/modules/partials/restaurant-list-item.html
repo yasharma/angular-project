@@ -11,7 +11,7 @@
         <a>{{restaurant.locations__formatted_address}}</a>
         <label class="label bg-primary m-l-xs">{{restaurant.category}}</label>
         <div class="pull-right">
-            <span class="text-muted m-l-sm bg-white"> <i
+            <span class="text-muted m-l-sm bg-white" ng-show="restaurant.distance"> <i
                     class="fa fa-clock-o"></i> {{restaurant.distance | number : 2}} KM </span>
         </div>
     </header>

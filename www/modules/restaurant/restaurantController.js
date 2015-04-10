@@ -2,9 +2,9 @@
 
 rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localStorageService', '$location',
     '$routeParams', 'restaurantSvr', 'geoLocation', 'reviewSvr', 'overviewSvr', 'locationSvr',
-    'photoSvr', '$anchorScroll', '$modal', '$rootScope',
+    'photoSvr', 'userSvr', '$anchorScroll', '$modal', '$rootScope',
     function ($scope, $timeout, $upload, localStorageService, $location, $routeParams, restaurantSvr,
-              geoLocation, reviewSvr, overviewSvr, locationSvr, photoSvr, $anchorScroll, $modal, $rootScope) {
+              geoLocation, reviewSvr, overviewSvr, locationSvr, photoSvr, userSvr, $anchorScroll, $modal, $rootScope) {
 
         var modalInstance = null;
 
@@ -81,11 +81,27 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
             $location.url($location.path() + '?request=claimRestaurant');
         };
 
-        $scope.favorite = function(){
-            restaurantSvr.favorite({
-                user_id: $scope.user.id,
-                restaurant_id: $scope.restaurant.id
+        $scope.checkFavourite = function(){
+            userSvr.getFavorites().then(function(response){
+                $scope.favoriteRestaurants = response;
+                $scope.isFavourite = false;
+                angular.forEach(response, function(restaurant){
+                    if (restaurant.id == $scope.restaurantId){
+                        $scope.isFavourite = true;
+                    }
+                });
             });
+        };
+
+        $scope.checkFavourite();
+
+        $scope.favourite = function(){
+            if($scope.isFavourite){
+                userSvr.removeFavorite($scope.restaurantId);
+            } else {
+                userSvr.addFavorite($scope.user.id, $scope.restaurant.id);
+            }
+            $scope.isFavourite = !$scope.isFavourite;
         };
 
         var modalInstance = checkParams($routeParams.request);

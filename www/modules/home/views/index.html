@@ -7,12 +7,18 @@
             <aside ng-include="sidebar" id="nav" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
 
             <!--Content for regular users-->
-            <section id="content" ng-include="'modules/home/views/list.html'" ng-if="! user.ownsRestaurants">
+            <section id="content" ng-include="'modules/home/views/list.html'" ng-if="view == 'index' && ! user.ownsRestaurants">
             </section>
 
             <!--Restaurant owner panel-->
-            <section id="content" ng-include="'modules/home/views/owner.html'" ng-if="user.ownsRestaurants">
+            <section id="content" ng-include="'modules/home/views/owner.html'" ng-if="view == 'index' && user.ownsRestaurants">
             </section>
+
+            <!--Favorites panel-->
+            <section id="content" ng-include="'modules/home/views/favorites.html'" ng-if="view == 'favorites'">
+            </section>
+
+
 
             <!--<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>-->
         </section>

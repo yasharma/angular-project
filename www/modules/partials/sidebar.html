@@ -46,11 +46,19 @@
                         </a>
                     </li>
                     <li ng-show="isLogged">
-
                         <a ng-click="clearToken()" class="auto pointer" >
                             <i class="i i-logout icon"> </i>
                             <!--<span class="font-bold">Add Photo</span>-->
                             <span class="font-bold">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="line dk hidden-nav-xs" ng-show="isLogged"></div>
+                <ul class="nav ">
+                    <li ng-show="isLogged">
+                        <a href="#/index/favorites" class="auto">
+                            <i class="fa fa-star icon"> </i>
+                            <span class="font-bold">Favorites</span>
                         </a>
                     </li>
                 </ul>

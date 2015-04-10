@@ -8,6 +8,10 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'modules/home/views/index.html',
             controller: 'indexCtrl'
         })
+        .when('/index/:view', {
+            templateUrl: 'modules/home/views/index.html',
+            controller: 'indexCtrl'
+        })
         .when('/dashboard/:restaurantId', {
             templateUrl: 'modules/restaurant/views/owner.html',
             controller: 'detailCtrl',
@@ -65,9 +69,19 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
     })
 
     .controller('indexCtrl', ['$scope', '$rootScope', '$http', 'localStorageService', '$location',
-        'restaurantSvr', 'geoLocation', '$routeParams','$anchorScroll', 'searchData', function (
-            $scope, $rootScope, $http, localStorageService, $location, restaurantSvr, geoLocation,
+        'restaurantSvr', 'userSvr', 'geoLocation', '$routeParams','$anchorScroll', 'searchData', function (
+            $scope, $rootScope, $http, localStorageService, $location, restaurantSvr, userSvr, geoLocation,
             $routeParams, $anchorScroll, searchData) {
+
+            if ($routeParams.view) {
+                if ($routeParams.view == 'favorites'){
+                    $scope.view = 'favorites';
+                } else {
+                    $location.path("/index");
+                }
+            } else {
+                $scope.view = 'index';
+            }
 
             $scope.init = function () {
                 // get user's owned restaurants
@@ -81,6 +95,9 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         ).then(function (response) {
                                 $scope.ownedRestaurants = response.items;
                             });
+                        userSvr.getFavorites().then(function(response){
+                            $scope.favoriteRestaurants = response;
+                        });
                     }
                 });
                 $scope.restaurantList = {
@@ -378,9 +395,9 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         function ($scope, $http, $location) {
 
         // navigate to detail view
-        $scope.setRestaurant = function (restaurants){
-            if(Object.keys(restaurants).length) {
-                $location.path('/restaurant/' + restaurants.data.id);
+        $scope.setRestaurant = function (restaurant){
+            if(restaurant && restaurant.data && restaurant.data.id) {
+                $location.path('/restaurant/' + restaurant.data.id);
             }
         };
 

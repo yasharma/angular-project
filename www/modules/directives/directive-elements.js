@@ -31,7 +31,11 @@ function searchBox(restaurantSvr) {
                             }
                             return item;
                         }).filter(function(item){
-                            return ! filterOutKeys[item.data.id];
+                            if(! (item && item.data)){
+                                return true; // in case item is invalid, return it
+                            } else {
+                                return ! filterOutKeys[item.data.id];
+                            }
                         });
                     });
             }
