@@ -95,7 +95,9 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         ).then(function (response) {
                                 $scope.ownedRestaurants = response.items;
                             });
-                        userSvr.getFavorites().then(function(response){
+                    }
+                    if($scope.user && $scope.view == 'favorites') {
+                        userSvr.getFavorites().then(function (response) {
                             $scope.favoriteRestaurants = response;
                         });
                     }
