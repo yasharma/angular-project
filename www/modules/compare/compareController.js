@@ -62,7 +62,7 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
             {label:'Overall', value:'OVERALL'},
             {label:'Custom Period', value:''}
         ];
-        $scope.graphDuration = $scope.graphDurations[3];
+        $scope.graphDuration = $scope.graphDurations[2];
 
         $scope.setGraphDuration = function(option){
             $scope.graphDuration = option;

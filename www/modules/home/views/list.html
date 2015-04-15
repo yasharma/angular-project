@@ -9,8 +9,7 @@
     </div>
     <section class="scrollable wrapper w-f">
         <div class="row">
-            <!--Restaurant list-->
-            <div class="col-sm-8 col-md-9 col-lg-9 " ng-class="{'hidden-xs': showFiltersMobile}">
+            <div class="col-sm-12 col-md-12 col-lg-12" ng-class="{'hidden-xs': showFiltersMobile}">
                 <section>
 
                     <!--Search box-->
@@ -18,25 +17,48 @@
                         <div class="panel panel-tight" ng-controller="navigationController">
                             <search-box class="m-t m-l-n-xs" set-restaurant="setRestaurant(restaurant)" placeholder="Search restaurants, locations ..."></search-box>
                         </div>
-
                     </div>
 
-                    <header class="panel-heading ">
+                    <header class="">
                         <div class="row">
                             <div share-links="Facebook, Twitter, LinkedIn, Google-Plus"
-                                share-title="reviews-combined dummy title" class="m-l-md m-t-xs pull-right">
+                                share-title="reviews-combined dummy title" class="m-r-md m-t-xs pull-right">
                             </div>
-                            <select ng-model="restaurantList.params.sort" class="form-control m-t-sm pull-right" style="width: 160px;">
-                                <option value="popular">Sort by rating</option>
-                                <option value="trending">Sort by trend</option>
-                                <option value="distance">Sort by distance</option>
-                            </select>
+                            <div class="pull-left m-l-lg m-t-xs sort-picker">
+                                <!--<span>-->
+                                    <!--Sort by:-->
+                                <!--</span>-->
+                                <span class="btn" ng-click="restaurantList.params.sort = 'popular'">
+                                    Rating
+                                    <i class="sort-icon glyphicon glyphicon-triangle-bottom"
+                                       ng-show="restaurantList.params.sort == 'popular'">
+                                    </i>
+                                </span>
+                                <span class="btn" ng-click="restaurantList.params.sort = 'trending'">
+                                    Trend
+                                    <i class="sort-icon glyphicon glyphicon-triangle-bottom"
+                                       ng-show="restaurantList.params.sort == 'trending'">
+                                    </i>
+                                </span>
+                                <span class="btn" ng-click="restaurantList.params.sort = 'distance'">
+                                    Distance
+                                    <i class="sort-icon glyphicon glyphicon-triangle-top"
+                                       ng-show="restaurantList.params.sort == 'distance'">
+                                    </i>
+                                </span>
+                            </div>
+                            <!--<select ng-model="restaurantList.params.sort" class="form-control m-t-sm pull-right" style="width: 160px;">-->
+                                <!--<option value="popular">Sort by rating</option>-->
+                                <!--<option value="trending">Sort by trend</option>-->
+                                <!--<option value="distance">Sort by distance</option>-->
+                            <!--</select>-->
                         </div>
                     </header>
                 </section>
-
+            </div>
+            <div class="col-sm-8 col-md-9 col-lg-9" ng-class="{'hidden-xs': showFiltersMobile}">
                 <!--Restaurant list-->
-                <section class="comment-list block"
+                <section class="comment-list block m-l"
                          cg-busy="{promise:cgBusyPromise,message:'',templateUrl:'modules/partials/cgbusy-template.html',backdrop:true}" >
                     <div class="panel-body no-padding-right">
                         <!--In case there are no results-->
@@ -53,20 +75,26 @@
                         <article ng-repeat="restaurant in restaurants" class="comment-item"
                                  ng-include="'modules/partials/restaurant-list-item.html'">
                         </article>
-                        <div class="panel-body hide-for-small bg-white b-b b-light" style="margin-left: 45px;">
+                        <div style="margin-left: 45px;">
 
                             <pagination total-items="popularListTotalItems" ng-model="restaurantList.page" max-size="maxSize"
-                                        class="pagination-sm " boundary-links="true" rotate="false" num-pages="numPages"
+                                        class="pagination-sm hidden-xs" boundary-links="true" rotate="true" num-pages="numPages"
                                         ng-change="popularListPageChanged()"
                                         items-per-page="popularListItemPerPage"></pagination>
+
+                            <pagination total-items="popularListTotalItems" ng-model="restaurantList.page" max-size="1"
+                                        class="pagination-sm visible-xs" boundary-links="true" rotate="true" num-pages="numPages"
+                                        ng-change="popularListPageChanged()"
+                                        items-per-page="popularListItemPerPage"></pagination>
+
                         </div>
                     </div>
                 </section>
             </div>
             <!--Filters-->
-            <div class="col-sm-4 col-md-3 hide-for-small hide-for-touch" ng-class="{'hidden-xs': !showFiltersMobile}">
-                <div class="panel">
-                    <div class="panel-heading b-b">Filters</div>
+            <div class="col-sm-4 col-md-3 hide-for-small hide-for-touch m-t" ng-class="{'hidden-xs': !showFiltersMobile}">
+                <div class="panel panel-default">
+                    <div class="panel-heading b-b">Refine search</div>
                     <div class="panel-body">
 
                         <!--Cuisine-->
@@ -155,7 +183,7 @@
 
                         <div class="line line-dashed b-b line-lg"></div>
 
-                        <button class="btn btn-dark form-control" ng-click="toggleFiltersMobile()">
+                        <button class="btn btn-info btn-rounded form-control" ng-click="toggleFiltersMobile()">
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
 

@@ -8,8 +8,10 @@ userService.factory('userSvr', ['Restangular', 'restaurantSvr', function (Restan
     return {
         // gets user's favorite restaurants
         getFavorites: function () {
-            return Restangular.one('users/me').withHttpConfig({cache: false}).get().then(function (response) {
-                var restaurants = response.data.favourites;
+            return Restangular.one('users/favourites').withHttpConfig({
+                cache: false
+            }).get().then(function (response) {
+                var restaurants = response.data.items;
                 return restaurantSvr.expandRestaurantList(restaurants);
             });
         },
@@ -22,7 +24,7 @@ userService.factory('userSvr', ['Restangular', 'restaurantSvr', function (Restan
                 });
         },
         removeFavorite: function (restaurantId){
-            var favorite = Restangular.one('favourites/restaurant/' + restaurantId);
+            var favorite = Restangular.all('favourites/restaurant/' + restaurantId);
             return favorite.remove()
                 .then(function (response) {
                     return response;

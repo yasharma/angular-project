@@ -4,6 +4,10 @@ rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','logi
     'messageCenterService', 'localStorageService' , function ($scope, $location, $rootScope, loginSvr,
     AuthenticationService, messageCenterService, localStorageService) {
 
+    $scope.navbarConfig = {
+        hideButtons: true
+    };
+
     $scope.credentials = '';
     $scope.signup = {};
 

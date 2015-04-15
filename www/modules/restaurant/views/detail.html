@@ -9,7 +9,7 @@
 
 <section id="content">
 <section class="vbox">
-   <div>
+   <div class="hidden-xs">
         <header class="header bg-white b-b b-light hide-for-small hide-for-touch" ng-include="'modules/restaurant/views/search-form.html'"></header>
    </div>
 
@@ -163,7 +163,9 @@
         <section class="panel panel-info" ng-hide="! restaurant.category">
             <div class="panel-body">
                 <div class="clear">
-                    <a class="btn btn-xs btn-success m-t-xs">{{restaurant.category}}</a>
+                    <a class="btn btn-xs btn-success m-t-xs m-r-xs" ng-repeat="category in restaurant.category.split(',')">
+                        {{category}}
+                    </a>
                 </div>
             </div>
         </section>

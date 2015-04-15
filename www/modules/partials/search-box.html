@@ -5,7 +5,8 @@
             <input type="text" class="form-control input-sm no-border radius"
                    ng-model="searchRestaurant"
                    typeahead="address.formatted for address in navSearch($viewValue)| filter: $viewValue"
-                   typeahead-on-select="setRestaurant({restaurant: $item}); searchRestaurant = '';"  typeahead-template-url="itemTpl.html"
+                   typeahead-on-select="setRestaurant({restaurant: $item}); searchRestaurant = '';"
+                   typeahead-template-url="itemTpl.html"
                    placeholder="{{placeholder}}" >
             <!--Search restaurants, locations ... -->
         </div>

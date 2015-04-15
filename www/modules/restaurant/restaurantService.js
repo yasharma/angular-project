@@ -76,6 +76,7 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
 
                 restaurants[i].rating = Math.round(restaurants[i].overview__percentile / 2) / 10;
                 restaurants[i].rating_rounded = Math.round(restaurants[i].overview__percentile / 20);
+                restaurants[i].overview__percentile_rounded = Math.round(restaurants[i].overview__percentile * 10) / 10;
 
                 // for trend change circle
                 restaurants[i].trend_change = 0.0;

@@ -1,6 +1,6 @@
 <div class="pull-left">
     <div class="thumb-sm avatar avatar1" title="Percentile">
-        <span class="rating-circle">{{restaurant.overview__percentile | number : 1}}</span>
+        <span class="rating-circle">{{restaurant.overview__percentile_rounded}}</span>
         <div easypiechart options="avatarOptions"
              percent="restaurant.overview__percentile | number : 2"></div>
     </div>
@@ -9,7 +9,9 @@
 <section class="comment-body panel panel-default">
     <header class="panel-heading">
         <a>{{restaurant.locations__formatted_address}}</a>
-        <label class="label bg-primary m-l-xs">{{restaurant.category}}</label>
+        <label class="label bg-primary m-l-xs" ng-repeat="category in restaurant.category.split(',')">
+            {{category}}
+        </label>
         <div class="pull-right">
             <span class="text-muted m-l-sm bg-white" ng-show="restaurant.distance"> <i
                     class="fa fa-clock-o"></i> {{restaurant.distance | number : 2}} KM </span>
@@ -17,32 +19,31 @@
     </header>
     <div class="panel-body">
         <div class="row">
-            <div class="col-xs-7 col-sm-7 col-md-8">
-                <!--<div class="thumb-sm avatar2 pull-left" title="Trend change"-->
-                     <!--style="border: 3px solid {{restaurant.trend_change_color}};">-->
-                    <!--<span>{{restaurant.trend_change | number : 1}}</span>-->
-                    <!--&lt;!&ndash;<div easypiechart options="avatarOptions2" percent="restaurant.overview__percentile | number : 2"></div>&ndash;&gt;-->
-                <!--</div>-->
-
+            <div ng-class="{'col-xs-7 col-sm-7 col-md-8' :
+                            restaurant.restaurantPhotos && restaurant.restaurantPhotos.length > 2,
+                            'col-xs-9 col-sm-9 col-md-10' :
+                            restaurant.restaurantPhotos && restaurant.restaurantPhotos.length > 0 && restaurant.restaurantPhotos.length <= 2,
+                            'col-xs-11 col-sm-11 col-md-11' :
+                            !restaurant.restaurantPhotos || !restaurant.restaurantPhotos.length
+                            }">
                 <p>
-
                     <a href="#/restaurant/{{restaurant.id}}/{{hash}}">
 
                         <h3 class="title">
-                            <span class="inline-block label label-success avatar2 m-r-sm"
+                            <span class="inline-block label label-success trend-label m-r-sm"
                                   ng-show="restaurant.trend_change > 0">
                                 <i class="fa fa-arrow-up"></i>
-                                {{restaurant.trend_change_abs | number : 1}}%
+                                {{restaurant.trend_change_abs}}%
                             </span>
-                            <span class="inline-block label label-warning avatar2 m-r-sm"
+                            <span class="inline-block label label-warning trend-label m-r-sm"
                                   ng-show="restaurant.trend_change < 0">
                                 <i class="fa fa-arrow-down"></i>
-                                {{restaurant.trend_change_abs | number : 1}}%
+                                {{restaurant.trend_change_abs}}%
                             </span>
-                            <span class="inline-block label label-default avatar2 m-r-sm"
+                            <span class="inline-block label label-default trend-label m-r-sm"
                                   ng-show="restaurant.trend_change == 0">
                                 <i class="fa fa-arrow-up"></i>
-                                {{restaurant.trend_change_abs | number : 1}}%
+                                {{restaurant.trend_change_abs}}%
                             </span>
                             <span>
                                 {{restaurant.name}}
@@ -69,12 +70,12 @@
                                 </span>
                             </span>
                         </span>
-                        <span class="label m-l-xs m-r-sm"
+                        <span class="label rating-label m-l-xs m-r-sm"
                               ng-class="{'label-warning': restaurant.rating <= 2,
                               'label-info': restaurant.rating > 2 && restaurant.rating < 4,
                               'label-success':restaurant.rating >= 4}">
 
-                            {{ restaurant.rating }}
+                            {{ restaurant.rating | number:1 }}
                         </span>
                     {{restaurant.overview__total_reviews}} Reviews
                 </p>
@@ -82,9 +83,18 @@
                 <!--<p>Overview Trend : {{restaurant.overview__trend | number : 2}}</p>-->
 
             </div>
-            <div class="col-xs-4 col-sm-4 col-md-3">
+
+            <div ng-class="{'col-xs-4 col-sm-4 col-md-3' :
+                            restaurant.restaurantPhotos && restaurant.restaurantPhotos.length > 2,
+                            'col-xs-2 col-sm-2 col-md-1' :
+                            restaurant.restaurantPhotos && restaurant.restaurantPhotos.length > 0 && restaurant.restaurantPhotos.length <= 2,
+                            'hidden' :
+                            !restaurant.restaurantPhotos || !restaurant.restaurantPhotos.length
+                            }">
                 <div class="row m-t">
-                    <div class="col-xs-6 no-padding"
+                    <div class="no-padding"
+                         ng-class="{'col-xs-6': restaurant.restaurantPhotos && restaurant.restaurantPhotos.length > 2,
+                                    'col-xs-12': restaurant.restaurantPhotos && restaurant.restaurantPhotos.length <= 2}"
                          ng-repeat="photo in restaurant.restaurantPhotos | limitTo:4">
                         <a>
                             <span class="thumb-image"

@@ -3,7 +3,7 @@
         <!--Mobile nav-->
         <div class="navbar-header aside-md dk">
             <!--Sidebar toggle-->
-            <a class="btn btn-link visible-xs"
+            <a class="btn btn-link visible-xs" ng-hide="navbarConfig.hideButtons"
                data-toggle="class:nav-off-screen"
                data-target="#nav" ng-click="scrollTop()">
                 <i class="fa fa-bars"></i>
@@ -23,7 +23,8 @@
             <!--</a>-->
 
             <!--Search button-->
-            <a class="btn btn-link visible-xs" ng-click="$parent.showFiltersMobile = !$parent.showFiltersMobile">
+            <a class="btn btn-link visible-xs" ng-hide="navbarConfig.hideButtons"
+               ng-click="$parent.showFiltersMobile = !$parent.showFiltersMobile">
                 <i class="fa fa-search"></i>
             </a>
         </div>
@@ -118,12 +119,12 @@
                     <!--</section>-->
                 <!--</section>-->
             <!--</li>-->
-            <li  class="dropdown"  ng-show="!isLogged">
+            <li  class="dropdown"  ng-show="!isLogged && !navbarConfig.hideButtons">
                 <a  href="#/login" class="dropdown-toggle pointer" data-toggle="dropdown">
                     <span class="thumb-sm avatar pull-left"> <img src="images/avatar.png"> </span> Login
                 </a>
             </li>
-            <li class="dropdown pointer" ng-show="isLogged">
+            <li class="dropdown pointer" ng-show="isLogged && !navbarConfig.hideButtons">
                 <a class="dropdown-toggle pointer" data-toggle="dropdown">
                     <span class="thumb-sm avatar pull-left"> <img src="images/avatar.png"> </span> {{ user.username }} <b class="caret"></b> </a>
                 <ul class="dropdown-menu animated fadeInRight">
@@ -147,10 +148,16 @@
             <span> No Results Found</span>
         </a>
 
-        <a tabindex="-1" ng-if = " 'no results found' !== match.model.formatted">
-            <span class="search-text clearfix"> {{match.model.searchText}}</span>
+        <a tabindex="-1" ng-if=" 'no results found' !== match.model.formatted">
+            <span class="search-text clearfix"
+                  bind-html-unsafe="match.model.searchText | typeaheadHighlight:query">
+                <!--{{match.model.searchText}}-->
+            </span>
 
-            <span class="clearfix grey-icon"><span class="glyphicon glyphicon-map-marker"></span> {{match.model.data.address}}<span ng-if="match.model.data.city">, {{match.model.data.city}}</span><span ng-if="match.model.data.state">, {{match.model.data.state}}</span><span ng-if="match.model.data.postcode">, {{match.model.data.postcode}}</span></span>
+            <span class="clearfix grey-icon search-subtext">
+                <span class="glyphicon glyphicon-map-marker"></span>
+                <span bind-html-unsafe="match.model.data.address | typeaheadHighlight:query"></span>
+            </span>
             <!--<span bind-html-unsafe="match.model.searchText | typeaheadHighlight:query"> &nbsp; {{match.model.tagValue}}</span>-->
             <!--<span class="label label-tag pull-right">{{match.model.tag}}  </span>-->
         </a>
