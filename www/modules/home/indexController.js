@@ -159,6 +159,12 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     {label: 'Greater than 90%', value: 90}
                 ];
 
+                $scope.sortOptions = [
+                    {label:'Rating', value:'popular', direction:'bottom'},
+                    {label:'Trend', value:'trending', direction:'bottom'},
+                    {label:'Distance', value:'distance', direction:'top'}
+                ];
+
                 getAllCategories();
 
                 $scope.setAutoLocation(! $routeParams.formattedAddress);

@@ -84,8 +84,8 @@
     <div class="col-sm-6">
         <div class="panel b-a">
             <div class="row m-n">
-                <div class="col-md-6 b-b b-r"><a class="block padder-v hover"> <span
-                        class="i-s i-s-2x pull-left m-r-sm"> <i
+                <div class="col-md-6 b-b b-r"><a class="block padder-v hover">
+                    <span class="i-s i-s-2x pull-left m-r-sm"> <i
                         class="i i-hexagon2 i-s-base text-danger hover-rotate"></i> <i
                         class="i i-users2 i-1x text-white"></i> </span> <span
                         class="clear"> <span class="h3 block m-t-xs text-danger">{{stats.total_reviews}}</span> <small
@@ -102,8 +102,9 @@
                         class="i-s i-s-2x pull-left m-r-sm"> <i
                         class="i i-hexagon2 i-s-base text-info hover-rotate"></i> <i
                         class="i i-location i-sm text-white"></i> </span> <span
-                        class="clear"> <span class="h3 block m-t-xs text-info">25 <span
-                        class="text-sm">m</span></span> <small class="text-muted text-u-c">
+                        class="clear"> <span class="h3 block m-t-xs text-info">{{restaurant.distance}}
+                        <span ng-hide="restaurant.distance">N/A</span><span
+                        class="text-sm" ng-show="restaurant.distance">m</span></span> <small class="text-muted text-u-c">
                     location
                 </small> </span> </a></div>
                 <div class="col-md-6 b-b"><a class="block padder-v hover"> <span
@@ -180,7 +181,7 @@
         Not enough data to show analytics graph
     </div>
     <!--Duration and date pickers-->
-    <div class="clearfix m pull-right z-index-10">
+    <div class="clearfix m pull-right z-index-10" ng-hide="noGraphs">
         <div class="btn-group pull-right dropdown">
             <button data-toggle="dropdown"
                     class="btn btn-sm btn-rounded btn-default dropdown-toggle m-b-xs m-r-sm z-index-10">

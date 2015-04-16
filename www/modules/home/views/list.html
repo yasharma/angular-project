@@ -28,23 +28,16 @@
                                 <!--<span>-->
                                     <!--Sort by:-->
                                 <!--</span>-->
-                                <span class="btn" ng-click="restaurantList.params.sort = 'popular'">
-                                    Rating
-                                    <i class="sort-icon glyphicon glyphicon-triangle-bottom"
-                                       ng-show="restaurantList.params.sort == 'popular'">
-                                    </i>
-                                </span>
-                                <span class="btn" ng-click="restaurantList.params.sort = 'trending'">
-                                    Trend
-                                    <i class="sort-icon glyphicon glyphicon-triangle-bottom"
-                                       ng-show="restaurantList.params.sort == 'trending'">
-                                    </i>
-                                </span>
-                                <span class="btn" ng-click="restaurantList.params.sort = 'distance'">
-                                    Distance
-                                    <i class="sort-icon glyphicon glyphicon-triangle-top"
-                                       ng-show="restaurantList.params.sort == 'distance'">
-                                    </i>
+                                <span class="btn m-l-n-xs" ng-repeat="option in sortOptions"
+                                      title="Sort by {{option.label}}"
+                                      ng-click="restaurantList.params.sort = option.value">
+                                    <span ng-hide="restaurantList.params.sort == option.value">
+                                        {{option.label}}
+                                    </span>
+                                    <span ng-show="restaurantList.params.sort == option.value">
+                                        <strong>{{option.label}}</strong>
+                                        <i class="sort-icon glyphicon glyphicon-triangle-{{option.direction}}"></i>
+                                    </span>
                                 </span>
                             </div>
                             <!--<select ng-model="restaurantList.params.sort" class="form-control m-t-sm pull-right" style="width: 160px;">-->
@@ -183,7 +176,7 @@
 
                         <div class="line line-dashed b-b line-lg"></div>
 
-                        <button class="btn btn-info btn-rounded form-control" ng-click="toggleFiltersMobile()">
+                        <button class="btn btn-default btn-rounded form-control" ng-click="toggleFiltersMobile()">
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
 

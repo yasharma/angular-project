@@ -40,7 +40,7 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
                 restaurantSvr.getGraphs($scope.restaurantId, duration.value,
                     $scope.dates.start.date, $scope.dates.end.date)
                     .then(function (graph) {
-                    if(graph.percentile && graph.percentile.length){
+                    if(graph.percentile && graph.percentile.length > 1){
                         $scope.graphs[duration.value] = graph;
                         $scope.noGraphs = false;
                         $scope.setGraphDuration($scope.graphDuration);
@@ -144,14 +144,14 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
         $scope.donutOptions = {
             series: {
                 pie: {
-                    innerRadius: 0.35,
-                    radius: 0.65,
+                    innerRadius: 0.50,
+                    radius: 0.90,
                     show: true,
                     stroke: {
                         width: 0
                     },
                     label: {
-                        show: true,
+                        show: false,
                         threshold: 0.05
                     }
 
