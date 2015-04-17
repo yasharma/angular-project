@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Personal Phone Number (Mobile)</label>
                     <div class="col-sm-8" ng-class="{ 'has-error' : claimsFrom.phone_personal.$invalid && !claimsFrom.phone_personal.$pristine }">
-                        <input type="number" name="phone_personal" ng-model="claimForm.phone_personal" class="form-control" required ng-minlength="5" />
+                        <input type="text" name="phone_personal" ng-model="claimForm.phone_personal" class="form-control" required ng-minlength="5" />
                         <p ng-show="claimsFrom.phone_personal.$error.required && !claimsFrom.phone_personal.$pristine" class="help-block">Please enter a phone number.</p>
                         <p ng-show="claimsFrom.phone_personal.$error.$invalid && !claimsFrom.phone_personal.$pristine " class="help-block">Please enter a valid phone number.</p>
                     </div>
@@ -40,7 +40,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Restaurant Phone Number</label>
                     <div class="col-sm-8" ng-class="{ 'has-error' : claimsFrom.phone_restaurant.$invalid && !claimsFrom.phone_restaurant.$pristine }">
-                        <input type="number" name="phone_restaurant" ng-model="claimForm.phone_restaurant" class="form-control" required ng-minlength="8" />
+                        <input type="text" name="phone_restaurant" ng-model="claimForm.phone_restaurant" class="form-control" required ng-minlength="8" />
                         <p ng-show="claimsFrom.phone_restaurant.$error.required && !claimsFrom.phone_restaurant.$pristine" class="help-block">Please enter a phone number.</p>
                         <p ng-show="claimsFrom.phone_restaurant.$error.$invalid && !claimsFrom.phone_restaurant.$pristine" class="help-block">Please enter a valid phone number.</p>
                     </div>

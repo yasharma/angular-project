@@ -83,10 +83,15 @@ function shareLinks($location) {
                     shareLinks.push({network: key, url: theLink});
                 }
             });
-
+            scope.openWindow = function (ii){
+                alert(ii);
+                alert(shareLinks[ii].url);
+            };
             for (i = 0; i < shareLinks.length; i++) {
                 var anchor = '';
-                anchor += '<a href="' + shareLinks[i].url + '" target="_blank"';
+                anchor += '<a class="pointer" onclick="window.open(' + "'" + shareLinks[i].url +
+                  "', '_blank', 'width=550,height=450,toolbar=0,location=0,menubar=0'" + ')" ';
+                   //+ 'href="' + shareLinks[i].url + '" target="_blank"';
                 //anchor += '<a onclick="window.open("'+ shareLinks[i].url +'", "_system");"';
                 anchor += '><i width="36" height="36" title="Share" class="share-button fa fa-' + shareLinks[i].network + '"></a>';
                 elem.append(anchor);

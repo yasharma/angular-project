@@ -9,7 +9,7 @@
 <section class="comment-body panel panel-default">
     <header class="panel-heading">
         <a>{{restaurant.locations__formatted_address}}</a>
-        <label class="label bg-primary m-l-xs" ng-repeat="category in restaurant.category.split(',')">
+        <label class="label bg-primary m-l-xs" ng-repeat="category in restaurant.category.split(',')" ng-show="category">
             {{category}}
         </label>
         <div class="pull-right">
@@ -53,31 +53,32 @@
                 </p>
                 <p class="m-t-md">
                     <!--<rating  ng-model="restaurant.rating_rounded" max="5" readonly="true"></rating>-->
-                        <span ng-repeat="Star in [1,2,3,4,5]">
-                            <span ng-switch="restaurant.rating >= Star - 0.25">
-                                <span ng-switch-when="true">
-                                    <i class="fa fa-star"></i>
-                                </span>
-                                <span ng-switch-when="false">
-                                    <span ng-switch="restaurant.rating >= (Star-0.75)">
-                                        <span ng-switch-when="true">
-                                            <i class="fa fa-star-half-o"></i>
-                                        </span>
-                                        <span ng-switch-when="false">
-                                            <i class="fa fa-star-o"></i>
-                                        </span>
+                    <span ng-repeat="Star in [1,2,3,4,5]">
+                        <span ng-switch="restaurant.rating >= Star - 0.25">
+                            <span ng-switch-when="true">
+                                <i class="fa fa-star"></i>
+                            </span>
+                            <span ng-switch-when="false">
+                                <span ng-switch="restaurant.rating >= (Star-0.75)">
+                                    <span ng-switch-when="true">
+                                        <i class="fa fa-star-half-o"></i>
+                                    </span>
+                                    <span ng-switch-when="false">
+                                        <i class="fa fa-star-o"></i>
                                     </span>
                                 </span>
                             </span>
                         </span>
-                        <span class="label rating-label m-l-xs m-r-sm"
-                              ng-class="{'label-warning': restaurant.rating <= 2,
-                              'label-info': restaurant.rating > 2 && restaurant.rating < 4,
-                              'label-success':restaurant.rating >= 4}">
+                    </span>
+                    <span class="label rating-label m-l-xs m-r-sm"
+                          ng-class="{'label-warning': restaurant.rating <= 2,
+                          'label-info': restaurant.rating > 2 && restaurant.rating < 4,
+                          'label-success':restaurant.rating >= 4}">
 
-                            {{ restaurant.rating | number:1 }}
-                        </span>
-                    {{restaurant.overview__total_reviews}} Reviews
+                        {{ restaurant.rating | number:1 }}
+                    </span>
+                    <span class="nowrap">{{restaurant.overview__total_reviews}} Reviews</span>
+
                 </p>
                 <!--<p>Restaurant Overview : {{restaurant.overview__percentile | number : 2}}</p>-->
                 <!--<p>Overview Trend : {{restaurant.overview__trend | number : 2}}</p>-->

@@ -274,12 +274,11 @@
                 <div class="m-l-sm" ng-hide="photos.length">
                     No photos
                 </div>
-                <div class="col-lg-4 col-sm-3 col-xs-4 no-padding" ng-repeat="photo in photos">
                     <!--{{ photo }}-->
-                    <a href="">
-                        <span class="thumb-image" style="background-image:url('{{photo.url}}')" > </span>
-                    </a>
-                </div>
+                <a class="col-lg-4 col-sm-3 col-xs-4 no-padding block"
+                   href="" ng-click="openLightboxModal($index)" ng-repeat="photo in photos" >
+                    <span class="thumb-image" style="background-image:url('{{photo.url}}')" > </span>
+                </a>
                 <!--<div class="col-xs-4 no-padding">-->
                     <!--<img src="images/r2.jpeg" style="width:100%;padding:0px 2px;min-height: 124px;"/>-->
                 <!--</div>-->

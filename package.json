@@ -9,6 +9,7 @@
         "grunt-contrib-qunit": "*",
         "grunt-contrib-jshint": "*",
         "grunt-contrib-uglify": "*",
+        "grunt-ng-annotate": "*",
         "grunt-webfont": "*",
         "matchdep": "*",
         "grunt-contrib-watch":"*",

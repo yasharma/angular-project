@@ -12,6 +12,7 @@ module.exports = function (grunt) {
                     'www/css/site.min.css': [
                         'bower_components/nvd3/nv.d3.css',
                         'bower_components/angular-busy/angular-busy.css',
+                        'bower_components/angular-bootstrap-lightbox-no-bar/dist/angular-bootstrap-lightbox-no-bar.css',
                         'js/slider/slider.css',
                         'css/bootstrap.css',
                         'css/font.css',
@@ -31,22 +32,33 @@ module.exports = function (grunt) {
             }
         },
         uglify: {
-            options: {
-                compress: false,
-                report: 'gzip',
-                drop_console: true,
-                beautify: true
-
-                //sourceMap: true,
-                //sourceMapName: 'www/js/app.min.js.map'
-            },
 
             angular: {
+                options: {
+                    compress: false,
+                    report: 'gzip',
+                    //drop_console: true,
+                    beautify: true
+
+                    //sourceMap: true,
+                    //sourceMapName: 'www/js/app.min.js.map'
+                },
                 src: ['bower_components/angular/angular.js'],
                 dest: 'www/js/angular.min.js'
             },
 
             applib: {
+                options: {
+                    compress: false,
+                    mangle: false,
+                    preserveComments: 'all'
+
+                    //drop_console: true,
+                    //beautify: true
+
+                    //sourceMap: true,
+                    //sourceMapName: 'www/js/app.min.js.map'
+                },
                 src: [
                     'bower_components/jquery/dist/jquery.min.js',
                     'bower_components/ng-file-upload/angular-file-upload-shim.min.js',
@@ -82,6 +94,7 @@ module.exports = function (grunt) {
                     'bower_components/ng-file-upload/angular-file-upload.min.js',
                     'bower_components/angular-animate/angular-animate.js',
                     'bower_components/angular-busy/angular-busy.js',
+                    'bower_components/angular-bootstrap-lightbox-no-bar/dist/angular-bootstrap-lightbox-no-bar.js',
 
                     'components/version/version.js',
                     'components/version/version-directive.js',
@@ -95,6 +108,17 @@ module.exports = function (grunt) {
                     'lib/extern/jquery.flot.tooltip.js',
                     'lib/extern/jquery-flot-dashes.js'
                 ],
+                dest: 'www/js/lib.js'
+            },
+            applibmin: {
+                options:{
+                    compress: false,
+                    report: 'min',
+                    sourceMap: true,
+                    sourceMapName: 'www/js/lib.min.js.map',
+                    mangle: false
+                },
+                src: ['www/js/lib-annotated.js'],
                 dest: 'www/js/lib.min.js'
             },
             appmin: {
@@ -129,6 +153,12 @@ module.exports = function (grunt) {
                 dest: 'www/js/app.min.js'
             }
         },
+        ngAnnotate: {
+            applib:{
+                src: ['www/js/lib.js'],
+                dest: 'www/js/lib-annotated.js'
+            }
+        },
         watch: {
             options: {
                 dateFormat: function (time) {
@@ -144,9 +174,17 @@ module.exports = function (grunt) {
                 files: ['<%= uglify.applib.src %>'],
                 tasks: ['uglify:applib']
             },
+            applibmin: {
+                files: ['<%= uglify.applibmin.src %>'],
+                tasks: ['uglify:applibmin']
+            },
             appmin: {
                 files: ['<%= uglify.appmin.src %>'],
                 tasks: ['uglify:appmin']
+            },
+            ngAnnotate:{
+                files: ['<%= ngAnnotate.applib.src %>'],
+                tasks: ['ngAnnotate:applib']
             },
             css: {
                 files: ['css/*.css'],
@@ -155,6 +193,10 @@ module.exports = function (grunt) {
             less: {
                 files: ['less/*.less'],
                 tasks: ['less']
+            },
+            gruntfile: {
+                files: ['Gruntfile.js'],
+                tasks: ['uglify:applib', 'uglify:applibmin', 'uglify:appmin', 'cssmin', 'less']
             }
         },
         less: {
@@ -174,4 +216,6 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['uglify', 'cssmin', 'less']);
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-ng-annotate');
+
 };

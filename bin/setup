@@ -30,12 +30,20 @@ while getopts "hagbu" opt; do
         a)  bower update
             grunt less
             grunt cssmin
-            grunt uglify
+            grunt uglify:angular
+            grunt uglify:applib
+            grunt uglify:appmin
+            grunt ngAnnotate:applib
+            grunt uglify:applibmin
             exit 0
             ;;
         g)  grunt less
             grunt cssmin
-            grunt uglify
+            grunt uglify:angular
+            grunt uglify:applib
+            grunt uglify:appmin
+            grunt ngAnnotate:applib
+            grunt uglify:applibmin
             exit 0
             ;;
         b)  bower update

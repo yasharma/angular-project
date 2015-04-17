@@ -2,9 +2,9 @@
 
 rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localStorageService', '$location',
     '$routeParams', 'restaurantSvr', 'geoLocation', 'reviewSvr', 'overviewSvr', 'locationSvr',
-    'photoSvr', 'userSvr', '$anchorScroll', '$modal', '$rootScope',
+    'photoSvr', 'Lightbox', 'userSvr', '$anchorScroll', '$modal', '$rootScope',
     function ($scope, $timeout, $upload, localStorageService, $location, $routeParams, restaurantSvr,
-              geoLocation, reviewSvr, overviewSvr, locationSvr, photoSvr, userSvr, $anchorScroll, $modal, $rootScope) {
+              geoLocation, reviewSvr, overviewSvr, locationSvr, photoSvr, Lightbox, userSvr, $anchorScroll, $modal, $rootScope) {
 
         var modalInstance = null;
 
@@ -42,6 +42,9 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
             photoSvr.getRestaurantPhotos($scope.restaurantId).then(function (photos) {
                 $scope.photos = photos.items;
             });
+            $scope.openLightboxModal = function (index) {
+                Lightbox.openModal($scope.photos, index);
+            };
         };
 
         $scope.onFileSelect = function ($files) {

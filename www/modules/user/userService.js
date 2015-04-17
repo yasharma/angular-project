@@ -10,7 +10,7 @@ userService.factory('userSvr', ['Restangular', 'restaurantSvr', function (Restan
         getFavorites: function () {
             return Restangular.one('users/favourites').withHttpConfig({
                 cache: false
-            }).get().then(function (response) {
+            }).get({expand: 'restaurantPhotos'}).then(function (response) {
                 var restaurants = response.data.items;
                 return restaurantSvr.expandRestaurantList(restaurants);
             });

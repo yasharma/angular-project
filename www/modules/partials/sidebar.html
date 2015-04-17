@@ -62,8 +62,17 @@
                         </a>
                     </li>
                 </ul>
-                <div class="line dk hidden-nav-xs" ng-show="user.ownsRestaurants"></div>
-                <ul class="nav " ng-show="user.ownsRestaurants">
+                <!--<div class="line dk hidden-nav-xs" ng-show="user.ownsRestaurants"></div>-->
+                <ul class="dk wrapper m-t" ng-show="user.ownsRestaurants">
+                    <li>
+                        <a>
+                            <i class="fa fa-cog icon"> </i>
+                            <span class="font-bold">Owner's Panel</span>
+                        </a>
+                    </li>
+                </ul>
+                <!--<div class="line dk hidden-nav-xs" ng-show="user.ownsRestaurants"></div>-->
+                <ul class="nav m-l" ng-show="user.ownsRestaurants">
                     <li>
                         <a href="#/index" class="auto">
                             <i class="fa fa-list icon"> </i>
@@ -77,8 +86,8 @@
                         </a>
                     </li>
                 </ul>
-                <div class="line dk hidden-nav-xs" ng-show="user.ownsRestaurants"></div>
-                <ul class="nav " ng-show="user.ownsRestaurants">
+                <div class="line dk m-l hidden-nav-xs" ng-show="user.ownsRestaurants"></div>
+                <ul class="nav m-l" ng-show="user.ownsRestaurants">
                     <li>
                         <a href="#/widgets" class="auto">
                             <i class="fa fa-code icon"> </i>
