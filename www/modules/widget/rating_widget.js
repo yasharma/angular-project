@@ -10,7 +10,7 @@ function irRatingWidget(params) {
 
     $('document').ready(function() {
 
-        var apiPath = 'http://api.reviews-combined.com:80/v1/';
+        var apiPath = 'http://api.ratingscombined.com:80/v1/';
 
         // Get the base URL of the enclosing script
         var base = $("script[src$='/rating_widget.js']").attr('src').split("/").slice(0, -3).join("/") + "/";

@@ -82,6 +82,9 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             } else {
                 $scope.view = 'index';
             }
+            //console.log($location.search());
+            //$location.search({aa:'bb', cc:[1,2], dd: [3]});
+            //console.log($location.search());
 
             $scope.init = function () {
                 // get user's owned restaurants

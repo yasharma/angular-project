@@ -22,9 +22,10 @@
                     <header class="">
                         <div class="row">
                             <div share-links="Facebook, Twitter, LinkedIn, Google-Plus"
-                                share-title="reviews-combined dummy title" class="m-r-md m-t-xs pull-right">
+                                share-title="reviews-combined dummy title"
+                                class="m-r-sm m-t-xs m-l-xl pull-right">
                             </div>
-                            <div class="pull-left m-l-lg m-t-xs sort-picker">
+                            <div class="pull-right m-l-md m-r-sm m-t-sm sort-picker">
                                 <!--<span>-->
                                     <!--Sort by:-->
                                 <!--</span>-->
@@ -117,7 +118,7 @@
 
                         <div class="panel-title m-b">Price</div>
                         <label>
-                            <select class="form-control icon price ng-pristine ng-valid"
+                            <select class="form-control price-select ng-pristine ng-valid"
                                     ng-model="restaurantList.params['price_range-greater-than-or-equal-to']"
                                     style="width: 90px; display: inline-block;">
                                 <option value="0">$</option>
@@ -128,7 +129,7 @@
                             </select>
                         </label>
                         <label> to
-                            <select class="form-control icon price ng-pristine ng-valid"
+                            <select class="form-control price-select ng-pristine ng-valid"
                                     ng-model="restaurantList.params['price_range-less-than-or-equal-to']"
                                     style="width: 90px; display: inline-block;">
                                 <option value="0">$</option>
