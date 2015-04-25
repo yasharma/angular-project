@@ -1,10 +1,10 @@
 <section class="vbox">
     <!--Header-->
-    <header class="bg-primary header header-md navbar navbar-fixed-top-xs box-shadow" ng-include="header"></header>
+    <header class="bg-primary header header-md navbar navbar-fixed-top-xs box-shadow" ng-include="'modules/partials/header.html'"></header>
     <section class="ir-content">
         <section class="hbox stretch">
             <!--Sidebar-->
-            <aside ng-include="sidebar" id="nav" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
+            <aside ng-include="'modules/partials/sidebar.html'" id="nav" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
 
             <!--Content for regular users-->
             <section id="content" ng-include="'modules/home/views/list.html'" ng-if="view == 'index' && ! user.ownsRestaurants">

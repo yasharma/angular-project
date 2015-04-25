@@ -6,7 +6,7 @@ var myApp = angular.module('myApp', ['ngRoute','config','LocalStorageModule','di
     //'AngularChart',
     'GoogleMaps','angularFileUpload','ui.bootstrap','nvd3ChartDirectives','easypiechart','highcharts-ng',
     'angular-flot','Controllers','Services', 'MessageCenterModule','angularFileUpload', 'uiGmapgoogle-maps',
-    'cgBusy', 'bootstrapLightbox'
+    'cgBusy', 'bootstrapLightbox', 'angular-dropdown-multiselect'
 ]);
 
 // Declare app level module which depends on views, and components
@@ -86,9 +86,19 @@ myApp.run(['$rootScope', '$location', 'localStorageService', 'AuthenticationServ
         $location.path("/index");
     };
 
+    // logout and user are stored in root scope so they can be accessed from any controller or view
     $rootScope.user = localStorageService.get('user');
 
-    $rootScope.baseUrl = 'http://dev2.reviews-combined.com/'
+    $rootScope.baseUrl = 'http://dev2.reviews-combined.com/';
+
+    // whether to show search filters on mobile view (on index page)
+    $rootScope.showFiltersMobile = false;
+
+    // go to index page and show search filters
+    $rootScope.showSearchFilters = function(){
+        $rootScope.showFiltersMobile = true;
+        $location.path("/index");
+    }
 
 }]);
 

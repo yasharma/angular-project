@@ -7,33 +7,49 @@
 
         <div class="xs-top20 col-xs-12 col-sm-8 col-md-4 col-lg-4 m-b-sm">
             <div class="input-group">
-                <input ng-model='search.formattedAddress' class="form-control icon location"
-                       placeholder="-- Location --" ng-model="asyncSelected" ng-change="nearMe = false;"
-                       typeahead="address.formatted_address for address in getLocation($viewValue) "
+                <input ng-model='formattedAddress' class="form-control icon location"
+                       typeahead-on-select="setLocation($item)"
+                       placeholder="-- Location --"
+                       typeahead="address.formatted_address for address in getLocations($viewValue) "
                        typeahead-loading="loadingLocations">
 
                 <span class="checkbox i-checks input-group-addon">
                     <label><input type="checkbox" ng-model="nearMe"
-                            ng-change="setAutoLocation(nearMe)"
+                            ng-change="setNearMe(nearMe)"
                             ><i></i> Near Me</label>
                 </span>
             </div>
         </div>
         <div class="xs-top20 col-xs-12 col-sm-4 col-md-2 col-lg-2 m-b-sm">
-            <select class="form-control icon price" ng-model="search.price">
-                <option value="">-- Price --</option>
-                <option ng-repeat="price in prices" value="{{price.numericValue}}"  ng-selected="search.price == price.numericValue">
-                    {{price.value}}
-                </option>
-            </select>
+            <div ng-dropdown-multiselect="" options="prices"
+                 style="width: 100%;"
+                 selected-model="selectedPrices"
+                 extra-settings="priceDropdownSettings"
+                 translation-texts="priceDropdownLabels" >
+
+            </div>
+
+            <!--<select class="form-control icon price" ng-model="search.price">-->
+                <!--<option value="">-- Price --</option>-->
+                <!--<option ng-repeat="price in prices" value="{{price.numericValue}}"  ng-selected="search.price == price.numericValue">-->
+                    <!--{{price.value}}-->
+                <!--</option>-->
+            <!--</select>-->
         </div>
         <div class="xs-top20 col-xs-12 col-sm-8 col-md-4 col-lg-4 m-b-sm">
-            <select class="form-control icon type" ng-model="search.category">
-                <option value="">-- Cuisine --</option>
-                <option ng-repeat="category in categories" value="{{category}}" ng-selected="search.category == category">
-                    {{category}}
-                </option>
-            </select>
+            <div ng-dropdown-multiselect="" options="categories"
+                 style="width: 100%;"
+                 selected-model="selectedCategories"
+                 translation-texts="categoryDropdownLabels"
+                 extra-settings="categoryDropdownSettings" >
+
+            </div>
+            <!--<select class="form-control icon type" ng-model="search.category">-->
+                <!--<option value="">-- Cuisine --</option>-->
+                <!--<option ng-repeat="category in categories" value="{{category}}" ng-selected="search.category == category">-->
+                    <!--{{category}}-->
+                <!--</option>-->
+            <!--</select>-->
         </div>
         <div class="xs-top20 col-xs-12 col-sm-4 col-md-2 col-lg-2 m-b-sm">
             <button class="btn btn-default btn-rounded form-control" ng-click="searchRestaurant()">

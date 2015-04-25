@@ -15,10 +15,10 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
 
             return resource.getList(merge_objects({
                 expand: 'restaurantPhotos',
-                latitude: localStorageService.get('latitude'),
-                longitude: localStorageService.get('longitude'),
+                //latitude: localStorageService.get('latitude'),
+                //longitude: localStorageService.get('longitude'),
                 //sort: 'popular',
-                page: 0
+                page: 1
             }, params))
                 .then(function (response) {
                     return {

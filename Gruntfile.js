@@ -51,7 +51,8 @@ module.exports = function (grunt) {
                 options: {
                     compress: false,
                     mangle: false,
-                    preserveComments: 'all'
+                    preserveComments: 'all',
+                    beautify: true
 
                     //drop_console: true,
                     //beautify: true
@@ -60,7 +61,7 @@ module.exports = function (grunt) {
                     //sourceMapName: 'www/js/app.min.js.map'
                 },
                 src: [
-                    'bower_components/jquery/dist/jquery.min.js',
+                    'bower_components/jquery/dist/jquery.js',
                     'bower_components/ng-file-upload/angular-file-upload-shim.min.js',
                     'bower_components/ng-file-upload/angular-file-upload.min.js',
                     'bower_components/angular-route/angular-route.js',
@@ -106,7 +107,8 @@ module.exports = function (grunt) {
                     'lib/extern/Highcharts/js/highcharts.js',
                     'lib/extern/jquery.flot.spline.js',
                     'lib/extern/jquery.flot.tooltip.js',
-                    'lib/extern/jquery-flot-dashes.js'
+                    'lib/extern/jquery-flot-dashes.js',
+                    'lib/extern/angular-dropdown-multiselect-master/angular-dropdown-multiselect.js'
                 ],
                 dest: 'www/js/lib.js'
             },
@@ -122,6 +124,12 @@ module.exports = function (grunt) {
                 dest: 'www/js/lib.min.js'
             },
             appmin: {
+                options:{
+                    compress: false,
+                    report: 'min',
+                    sourceMap: true,
+                    sourceMapName: 'www/js/app.min.js.map'
+                },
                 src: [
 
                     'www/modules/home/indexController.js',

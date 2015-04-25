@@ -81,7 +81,11 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
         };
 
         $scope.claim = function(){
-            $location.url($location.path() + '?request=claimRestaurant');
+            if($scope.isLogged) {
+                $location.url($location.path() + '?request=claimRestaurant');
+            } else {
+                $location.url('/login');
+            }
         };
 
         $scope.checkFavourite = function(){
