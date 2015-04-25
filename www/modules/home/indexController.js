@@ -470,14 +470,12 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 // while there are 0 responses and distance-less-than filter is active, increase distance and repeat
                 $scope.cgBusyPromise = restaurantSvr.getRestaurants(params);
                 $scope.cgBusyPromise.then(function (response) {
-                    if(response.items.length == 0 && $scope.distance.toString() != '0' && initial){
+                    if(response.items.length == 0 && $scope.distance.toString() != '0'
+                        && params.latitude && params.longitude && initial){
                         // none found:
                         // find next distance option and set it
-                        if(params.latitude && params.longitude){
-                            alert($scope.distance.toString());
-                            setDistanceFilter(getNextDistance($scope.distance));
-                        }
 
+                        setDistanceFilter(getNextDistance($scope.distance));
 
                         //getPopularList(params, initial);
                     }else { // success
