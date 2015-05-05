@@ -80,6 +80,18 @@
 
         <div class="line line-dashed b-b line-lg"></div>
 
+        <!--Num. of reviews-->
+
+        <div class="panel-title m-b">Reviews</div>
+        <ul class="list-unstyled">
+            <li class="radio i-checks" ng-repeat="option in filters.reviews.options"><label>
+                <input type="radio" name="reviews" ng-model="filters.reviews.value" value="{{option.value}}">
+                <i></i> {{option.label}}</label>
+            </li>
+        </ul>
+
+        <div class="line line-dashed b-b line-lg"></div>
+
         <button class="btn btn-default btn-rounded form-control" ng-click="toggleFiltersMobile()">
             <i class="glyphicon glyphicon-search"></i>
         </button>

@@ -119,7 +119,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     ]
                 },
                 distance: {
-                    //value: 1,
                     options: [
                         {label: 'Any distance', value: 0},
                         {label: 'Less than 1 KM', value: 1},
@@ -139,6 +138,17 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         {label: 'Greater than 70%', value: 70},
                         {label: 'Greater than 80%', value: 80},
                         {label: 'Greater than 90%', value: 90}
+                    ]
+                },
+                reviews: {
+                    //value: 0,
+                    options: [
+                        {label: 'Any number', value: 0},
+                        {label: 'Less than 10', value: -10},
+                        {label: 'More than 10', value: 10},
+                        {label: 'More than 50', value: 50},
+                        {label: 'More than 200', value: 200},
+                        {label: 'More than 500', value: 500}
                     ]
                 }
             };
@@ -210,6 +220,18 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         $scope.filters.trend.value = option.value;
                     }
                 });
+
+                // reviews: select given option
+                var reviewsGreaterThan = search['total_reviews-greater-than-or-equal-to'] || '';
+                var reviewsLessThan = search['total_reviews-less-than-or-equal-to'] || '';
+                $scope.filters.reviews.value = 0;
+                angular.forEach($scope.filters.reviews.options, function(option){
+                    if (reviewsGreaterThan.toString() == option.value.toString() ||
+                        reviewsLessThan.toString() == (-option.value).toString()){
+                        $scope.filters.reviews.value = option.value;
+                    }
+                });
+
             };
 
             $scope.setUrl = function(){
@@ -260,6 +282,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 }
 
                 // rating
+                search['percentile-greater-than-or-equal-to'] = null;
+                search['percentile-less-than-or-equal-to'] = null;
                 if ($scope.filters.rating.value > 0){
                     search['percentile-greater-than-or-equal-to'] = $scope.filters.rating.value;
                 } else if ($scope.filters.rating.value < 0){
@@ -268,20 +292,33 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
 
                 // distance
+                search['distance-greater-than-or-equal-to'] = null;
+                search['distance-less-than-or-equal-to'] = null;
                 if (parseInt($scope.filters.distance.value) < 0){
                     search['distance-greater-than-or-equal-to'] = (- parseInt($scope.filters.distance.value)).toString();
                 } else if (parseInt($scope.filters.distance.value) > 0){
                     search['distance-less-than-or-equal-to'] = $scope.filters.distance.value.toString();
-                } else {
-                    search['distance-greater-than-or-equal-to'] = null;
+
                 }
 
                 // trend
+                search['trend-greater-than-or-equal-to'] = null;
+                search['trend-less-than-or-equal-to'] = null;
                 if ($scope.filters.trend.value > 0){
                     search['trend-greater-than-or-equal-to'] = $scope.filters.trend.value;
                 } else if ($scope.filters.trend.value < 0){
                     search['trend-less-than-or-equal-to'] = - $scope.filters.trend.value;
                 }
+
+                // reviews
+                search['total_reviews-greater-than-or-equal-to'] = null;
+                search['total_reviews-less-than-or-equal-to'] = null;
+                if ($scope.filters.reviews.value > 0){
+                    search['total_reviews-greater-than-or-equal-to'] = $scope.filters.reviews.value;
+                } else if ($scope.filters.reviews.value < 0){
+                    search['total_reviews-less-than-or-equal-to'] = - $scope.filters.reviews.value;
+                }
+
                 $location.search(search);
             };
 
@@ -429,17 +466,17 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
             }
 
-            var setDistanceFilter = function (value) {
+            var setDistanceUrl = function (value) {
                 var search = clone_object($location.search());
-
+///
                 if (parseInt(value) == 0) { // all distances
-                    search['distance-greater-than-or-equal-to'] = '0';
-                    delete search['distance-less-than-or-equal-to'];
+                    search['distance-greater-than-or-equal-to'] = null;
+                    search['distance-less-than-or-equal-to'] = null;
                 } else if (parseInt(value) < 0) { // greater than n KM
-                    delete search['distance-less-than-or-equal-to'];
+                    search['distance-less-than-or-equal-to'] = null;
                     search['distance-greater-than-or-equal-to'] = (-value).toString();
                 } else { // less than n KM
-                    delete search['distance-greater-than-or-equal-to'];
+                    search['distance-greater-than-or-equal-to'] = null;
                     search['distance-less-than-or-equal-to'] = value.toString();
                 }
 
@@ -453,9 +490,9 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 if ('distance-greater-than-or-equal-to' in search) {
                     return ((- parseInt(search['distance-greater-than-or-equal-to'])).toString());
                 }else if ('distance-less-than-or-equal-to' in search){
-                    return search['distance-less-than-or-equal-to'] || 0;
+                    return search['distance-less-than-or-equal-to'] || '0';
                 } else {
-                    return 1; // default distance
+                    return '0'; // default distance
                 }
             };
 
@@ -474,11 +511,11 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         && params.latitude && params.longitude && initial){
                         // none found:
                         // find next distance option and set it
+                        $scope.distance = getNextDistance($scope.distance);
+                        getPopularList(params, initial);
 
-                        setDistanceFilter(getNextDistance($scope.distance));
-
-                        //getPopularList(params, initial);
                     }else { // success
+                        setDistanceUrl($scope.distance);
                         $scope.restaurants = response.items;
                         $scope.maxSize = 6;
                         $scope.popularListItemPerPage = 8;
@@ -642,10 +679,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 $scope.search.latitude = null;
                 $scope.search.longitude = null;
             }
-            //} else {
-            //    console.log('index:setAutoLocation2');
-            //    getPopularList(null, true);
-            //}
         };
 
         function parseUrlSearchParams(){
