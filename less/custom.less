@@ -184,3 +184,38 @@
     border: none !important;
   }
 }
+
+//restaurant list item for mobile view
+@media(max-width: @screen-xs-max){
+  .comment-list .comment-item.restaurant-list-item {
+    margin-top: -13px;
+
+    .comment-body{
+      margin-left: -20px;
+    }
+    .avatar-container{
+      width: 40px;
+      height: 40px;
+    }
+    .avatar1{
+      left: -30px;
+      top: -9px;
+    }
+    .panel-body{
+      padding-top: 0;
+      padding-bottom: 8px;
+    }
+
+    .panel-body > .row{
+      clear: both;
+    }
+
+    h3.title{
+      margin-top: 15px;
+      margin-bottom: -10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+
+}

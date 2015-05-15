@@ -397,7 +397,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         enabled: true
                     },
                     barColor: '#428bca',
-                    //trackColor:'#2C3E50',
+                    trackColor:'#d2d2d2',
+                    //trackWidth: 8,
                     size: 60,
                     scaleColor: false,
                     lineWidth: 5,

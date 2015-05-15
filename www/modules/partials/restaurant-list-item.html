@@ -1,4 +1,4 @@
-<div class="pull-left">
+<div class="pull-left avatar-container">
     <div class="thumb-sm avatar avatar1"
          tooltip-html-unsafe="{{ 'Trend: <b>' + restaurant.latest_trend + '</b></br>' +
          'Percentile: <b>' + restaurant.overview__percentile_rounded + '</b>' }}"
@@ -10,17 +10,17 @@
         </div>
     </div>
 </div>
-<span class="arrow left"></span>
+<span class="arrow left hidden-xs"></span>
 <section class="comment-body panel panel-default">
     <header class="panel-heading">
         <a>{{restaurant.locations__formatted_address}}</a>
         <!-- non-clickable categories -->
-        <label class="label bg-primary m-l-xs" ng-repeat="category in restaurant.category.split(',')"
+        <label class="label bg-primary m-l-xs hidden-xs" ng-repeat="category in restaurant.category.split(',')"
                ng-show="category && view != 'index'">
             {{category}}
         </label>
         <!-- clickable categories (on index page) -->
-        <label class="label bg-primary m-l-xs pointer" ng-repeat="category in restaurant.category.split(',')"
+        <label class="label bg-primary m-l-xs pointer hidden-xs" ng-repeat="category in restaurant.category.split(',')"
                ng-show="category && view == 'index'" ng-click="changeUrlParam('category-in', category)">
             {{category}}
         </label>
@@ -31,31 +31,33 @@
     </header>
     <div class="panel-body">
         <div class="row">
-            <div ng-class="{'col-xs-7 col-sm-7 col-md-8' :
+            <div ng-class="{'col-xs-8 col-sm-7 col-md-8' :
                             restaurant.restaurantPhotos && restaurant.restaurantPhotos.length > 2,
-                            'col-xs-9 col-sm-9 col-md-10' :
+                            'col-xs-10 col-sm-9 col-md-10' :
                             restaurant.restaurantPhotos && restaurant.restaurantPhotos.length > 0 && restaurant.restaurantPhotos.length <= 2,
-                            'col-xs-11 col-sm-11 col-md-11' :
+                            'col-xs-12 col-sm-11 col-md-11' :
                             !restaurant.restaurantPhotos || !restaurant.restaurantPhotos.length
                             }">
                 <p>
                     <a href="#/restaurant/{{restaurant.id}}/{{hash}}">
 
                         <h3 class="title">
-                            <span class="inline-block label label-success trend-label m-r-sm"
-                                  ng-show="restaurant.trend_change > 0">
-                                <i class="fa fa-arrow-up"></i>
-                                {{restaurant.trend_change_abs}}%
-                            </span>
-                            <span class="inline-block label label-warning trend-label m-r-sm"
-                                  ng-show="restaurant.trend_change < 0">
-                                <i class="fa fa-arrow-down"></i>
-                                {{restaurant.trend_change_abs}}%
-                            </span>
-                            <span class="inline-block label label-default trend-label m-r-sm"
-                                  ng-show="restaurant.trend_change == 0">
-                                <i class="fa fa-arrow-up"></i>
-                                {{restaurant.trend_change_abs}}%
+                            <span class="trend-change-label hidden-xs">
+                                <span class="inline-block label label-success trend-label m-r-sm"
+                                      ng-show="restaurant.trend_change > 0">
+                                    <i class="fa fa-arrow-up"></i>
+                                    {{restaurant.trend_change_abs}}%
+                                </span>
+                                <span class="inline-block label label-warning trend-label m-r-sm"
+                                      ng-show="restaurant.trend_change < 0">
+                                    <i class="fa fa-arrow-down"></i>
+                                    {{restaurant.trend_change_abs}}%
+                                </span>
+                                <span class="inline-block label label-default trend-label m-r-sm"
+                                      ng-show="restaurant.trend_change == 0">
+                                    <i class="fa fa-arrow-up"></i>
+                                    {{restaurant.trend_change_abs}}%
+                                </span>
                             </span>
                             <span>
                                 {{restaurant.name}}
@@ -92,6 +94,18 @@
                     <span class="nowrap">{{restaurant.overview__total_reviews}} Reviews</span>
 
                 </p>
+
+                <!--price and categories, only mobile view:-->
+                <div class="m-r-md visible-xs">Price :
+                <span class="text-primary-dk ir-price">
+                    {{restaurant.price_range_symbol}}
+                </span>
+                    <!--categories-->
+                <span class="m-l-md">
+                    {{ restaurant.category }}
+                </span>
+                </div>
+
                 <!--<p>Restaurant Overview : {{restaurant.overview__percentile | number : 2}}</p>-->
                 <!--<p>Overview Trend : {{restaurant.overview__trend | number : 2}}</p>-->
 
@@ -119,7 +133,8 @@
                 </div>
             </div>
             <div class="clearfix"></div>
-            <div class="pull-right m-r-md">Price :
+            <!--price, for desktop view:-->
+            <div class="pull-right m-r-md hidden-xs">Price :
                 <span class="text-primary-dk ir-price">
                     {{restaurant.price_range_symbol}}
                 </span>
