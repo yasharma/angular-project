@@ -4,24 +4,24 @@
              data-color="#333333">
 
             <!--User avatar and menu-->
-            <div class="clearfix wrapper dk nav-user hidden-xs">
-                <div class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="thumb avatar pull-left m-r m-b-xs m-t-xs ">
-                            <img src="images/avatar.ico"> <i class="on md b-light"></i>
-                        </span>
-                        <span class="hidden-nav-xs clear">
-                            <span class="block m-t-xs">
-                                <strong class="font-bold text-lt">
-                                    {{ user.username || 'Guest' }}
-                                </strong>
-                                <!--<b class="caret"></b>-->
-                            </span>
-                            <span class="text-muted text-xs block">...</span>
-                        </span>
-                    </a>
-                </div>
-            </div>
+            <!--<div class="clearfix wrapper dk nav-user hidden-xs">-->
+                <!--<div class="dropdown">-->
+                    <!--<a class="dropdown-toggle" data-toggle="dropdown">-->
+                        <!--<span class="thumb avatar pull-left m-r m-b-xs m-t-xs ">-->
+                            <!--<img src="images/avatar.ico"> <i class="on md b-light"></i>-->
+                        <!--</span>-->
+                        <!--<span class="hidden-nav-xs clear">-->
+                            <!--<span class="block m-t-xs">-->
+                                <!--<strong class="font-bold text-lt">-->
+                                    <!--{{ user.username || 'Guest' }}-->
+                                <!--</strong>-->
+                                <!--&lt;!&ndash;<b class="caret"></b>&ndash;&gt;-->
+                            <!--</span>-->
+                            <!--<span class="text-muted text-xs block">...</span>-->
+                        <!--</span>-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
 
             <!-- nav -->
             <nav class="nav-primary hidden-xs">
@@ -29,13 +29,13 @@
                     <!--Start-->
                 </div>
                 <ul class="nav nav-main">
-                    <li ng-show="!isLogged">
+                    <li ng-show="!isLogged" class="visible-xs">
                         <a href="#/login" class="auto" >
                             <i class="i i-login icon"> </i>
                             <span class="font-bold">Login</span>
                         </a>
                     </li>
-                    <li ng-show="isLogged">
+                    <li ng-show="isLogged" class="visible-xs">
                         <a ng-click="clearToken()" class="auto pointer" >
                             <i class="i i-logout icon"> </i>
                             <!--<span class="font-bold">Add Photo</span>-->

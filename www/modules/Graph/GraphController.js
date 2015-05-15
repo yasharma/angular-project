@@ -8,11 +8,13 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
         $scope.graphDurations = [
             {label:'Last 7 Days', value:'WEEKLY'},
             {label:'Last Month', value:'MONTHLY'},
+            {label:'Last 3 Months', value:'QUARTERLY'},
+            {label:'Last 6 Months', value:'HALF_YEARLY'},
             {label:'Last Year', value:'YEARLY'},
             {label:'Overall', value:'OVERALL'},
             {label:'Custom Period', value:''}
         ];
-        $scope.graphDuration = $scope.graphDurations[3];
+        $scope.graphDuration = $scope.graphDurations[5];
 
         $scope.setGraphDuration = function(option){
             if (option.value in $scope.graphs) {
@@ -29,7 +31,7 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             var graphDurations = $scope.graphDurations;
             if(graphDuration){ // only one
                 graphDurations = [graphDuration];
-            } else if (!$scope.dates.start.date || !$scope.dates.start.date){
+            } else if (!$scope.dates.start.date || !$scope.dates.end.date){
                 return;
             } else {
                 $scope.graphs = {};
@@ -40,7 +42,7 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
                 restaurantSvr.getGraphs($scope.restaurantId, duration.value,
                     $scope.dates.start.date, $scope.dates.end.date)
                     .then(function (graph) {
-                    if(graph.percentile && graph.percentile.length > 1){
+                    if(graph.percentile && graph.percentile.length > 5){
                         $scope.graphs[duration.value] = graph;
                         $scope.noGraphs = false;
                         $scope.setGraphDuration($scope.graphDuration);
@@ -111,19 +113,21 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             tooltipOpts: {
                 content: function(label, xval, yval, flotItem){
                     var date = new Date(xval);
-                    var dateFormatted = $.plot.formatDate(date, '%Y-%m-%d');
+                    var dateFormatted = $.plot.formatDate(date, '%d %b %Y');
                     var prevIndex = flotItem.dataIndex - 1;
                     var percentChangeStr = '';
                     if (prevIndex >= 0){
                         var prevValue = flotItem.series.data[prevIndex][1];
                         var percentDiff = yval - prevValue;
                         if (percentDiff >= 0.1){
-                            percentChangeStr = 'up by ' + percentDiff.toFixed(1) + '%';
+                            percentChangeStr = 'Up by <b>' + percentDiff.toFixed(1) + '%</b>';
                         } else if (percentDiff <= -0.1){
-                            percentChangeStr = 'down by ' + (-percentDiff).toFixed(1) + '%';
+                            percentChangeStr = 'Down by <b>' + (-percentDiff).toFixed(1) + '%</b>';
                         }
                     }
-                    return Math.round(yval) + '% at ' + dateFormatted + ' ' + percentChangeStr;
+                    return '<b>' + dateFormatted + '</b></br>' +
+                        label + ': <b>' + Math.round(yval) + '% </b><br>' +
+                        percentChangeStr;
 
 
                 },
@@ -164,7 +168,9 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             },
             tooltip: true,
             tooltipOpts: {
-                content: '%s'
+                content: function(label, xval, yval, flotItem){
+                    return label + ': <b>' + Math.round(flotItem.datapoint[0]) + '%</b>';
+                }
             }
         };
 

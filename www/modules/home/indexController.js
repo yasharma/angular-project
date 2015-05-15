@@ -354,8 +354,10 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             $routeParams, $anchorScroll) {
 
             if ($routeParams.view) {
-                if ($routeParams.view == 'favorites'){
+                if ($routeParams.view == 'favorites') {
                     $scope.view = 'favorites';
+                } else if ($routeParams.view == 'listall'){
+                    $scope.view = 'listall';
                 } else {
                     $location.path("/index");
                 }
@@ -384,8 +386,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 });
 
                 $scope.sortOptions = [
-                    {label:'Rating', value:'popular', direction:'bottom'},
                     {label:'Trend', value:'trending', direction:'bottom'},
+                    {label:'Rating', value:'popular', direction:'bottom'},
                     {label:'Distance', value:'distance', direction:'top'}
                 ];
 
@@ -411,7 +413,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         addParamsToUrl.page = 1
                     }
                     if (! search.sort){
-                        addParamsToUrl.sort = 'popular'
+                        addParamsToUrl.sort = 'trending'
                     }
                     //if (! ('distance-less-than-or-equal-to' in search)){
                     //    if (! ('distance-greater-than-or-equal-to' in search)){
@@ -552,8 +554,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
     }])
 
     .controller('searchCtrl', ['$scope', '$http','$location', 'restaurantSvr',
-        'localStorageService', 'geoLocation',
-        function ($scope, $http, $location, restaurantSvr, localStorageService, geoLocation) {
+        'localStorageService', 'geoLocation', 'messageCenterService',
+        function ($scope, $http, $location, restaurantSvr, localStorageService, geoLocation, messageCenterService) {
 
         $scope.search = {}; // raw search parameters
 
@@ -673,6 +675,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         $scope.search.latitude = data.coords.latitude;
                         $scope.search.longitude = data.coords.longitude;
                         $scope.formattedAddress = '';
+                    }, function(error){
+                        messageCenterService.add('danger', error, {timeout : 3000});
                     });
 
             } else {
