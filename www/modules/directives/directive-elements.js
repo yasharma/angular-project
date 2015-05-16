@@ -115,7 +115,7 @@ function accordionGroupMod() {
         },
         template: '<accordion-group is-open="open"><accordion-heading>' +
         '<i class="glyphicon" ng-class="{\'glyphicon-minus\': open, \'glyphicon-plus\': !open}"'+
-        'style="font-size: 60%; vertical-align: 2px; padding-right: 10px; color: #bbb;"></i>{{heading}}' +
+        'style="font-size: 60%; vertical-align: 2px; padding-right: 10px;"></i>{{heading}}' +
         '</accordion-heading><div ng-transclude></div></accordion-group>'
     };
 }

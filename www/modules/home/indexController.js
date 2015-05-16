@@ -53,6 +53,14 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         .when('/login/signup', {
             templateUrl: 'modules/login/views/signUp.html',
             controller: 'loginCtrl'
+        })
+        .when('/login/forgotpassword', {
+            templateUrl: 'modules/login/views/forgotPassword.html',
+            controller: 'loginCtrl'
+        })
+        .when('/login/resetpassword', {
+            templateUrl: 'modules/login/views/resetPassword.html',
+            controller: 'loginCtrl'
         });
 }])
 

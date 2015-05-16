@@ -11,6 +11,30 @@ rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','logi
     $scope.credentials = '';
     $scope.signup = {};
 
+    $scope.resetPassword = function (isValid) {
+        if(!isValid) return;
+        loginSvr.resetPassword(merge_objects($scope.credentials, $location.search()))
+            .then(function(response){
+                if(response.err){
+                    messageCenterService.add('danger', response.message, { timeout: 3000 });
+                    return;
+                }
+                $scope.resetRequestSent = true;
+            });
+    };
+
+    $scope.forgotPassword = function (isValid) {
+        if(!isValid) return;
+        loginSvr.forgotPassword($scope.credentials)
+            .then(function(response){
+                if(response.err){
+                    messageCenterService.add('danger', response.message, { timeout: 3000 });
+                    return;
+                }
+                $scope.forgotRequestSent = true;
+            });
+    };
+
     $scope.login = function (isValid) {
         if(!isValid) return;
         loginSvr.authenticate($scope.credentials)
