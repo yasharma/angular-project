@@ -2,7 +2,8 @@
 
 angular.module('directive', ['restaurantService'])
     .directive('searchBox', ['restaurantSvr', searchBox])
-    .directive('shareLinks', ['$location', shareLinks]);
+    .directive('shareLinks', ['$location', shareLinks])
+    .directive('accordionGroupMod', [accordionGroupMod]);
 
 function searchBox(restaurantSvr) {
     return {
@@ -97,5 +98,24 @@ function shareLinks($location) {
                 elem.append(anchor);
             }
         }
+    };
+}
+
+// angular ui accordion-group mod with plus/minus icon
+function accordionGroupMod() {
+    return {
+        restrict: "E",
+        transclude: true,
+        scope: {
+            heading: "@",
+            isOpen: "@"
+        },
+        link: function(scope, el, attrs) {
+            scope.open = (attrs.isOpen == 'true');
+        },
+        template: '<accordion-group is-open="open"><accordion-heading>' +
+        '<i class="glyphicon" ng-class="{\'glyphicon-minus\': open, \'glyphicon-plus\': !open}"'+
+        'style="font-size: 60%; vertical-align: 2px; padding-right: 10px;"></i>{{heading}}' +
+        '</accordion-heading><div ng-transclude></div></accordion-group>'
     };
 }

@@ -3,6 +3,7 @@
     background: white;
     width: 60px !important;
     height: 55px;
+    z-index: 1;
 }
 
 .comment-list .avatar1 .rating-circle{

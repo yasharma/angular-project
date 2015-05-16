@@ -28,6 +28,7 @@ loginService.factory('loginSvr', ['Restangular', function (Restangular) {
                     };
                 });
         },
+
         signup: function (params) {
 
             if(!params || undefined == params) params = {};
@@ -47,7 +48,46 @@ loginService.factory('loginSvr', ['Restangular', function (Restangular) {
                         statusText: response.statusText
                     };
                 });
+        },
+
+        resetPassword: function (params) {
+
+            if(!params || undefined == params) params = {};
+
+            var resource = Restangular.all('authentications/reset');
+            var formData = $.param(params);
+            return resource.post(formData, null, { "Content-Type": "application/x-www-form-urlencoded"})
+                .then(function (response) {
+                    return response;
+                }, function(response){
+                    return {
+                        err : 1,
+                        status: response.status,
+                        statusText: response.statusText,
+                        message: response.message
+                    };
+                });
+        },
+
+        forgotPassword: function (params) {
+
+            if(!params || undefined == params) params = {};
+
+            var resource = Restangular.all('authentications/forgot');
+            var formData = $.param(params);
+            return resource.post(formData, null, { "Content-Type": "application/x-www-form-urlencoded"})
+                .then(function (response) {
+                    return response;
+                }, function(response){
+                    return {
+                        err : 1,
+                        status: response.status,
+                        statusText: response.statusText,
+                        message: response.message
+                    };
+                });
         }
+
     };
 }]);
 

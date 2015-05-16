@@ -81,16 +81,21 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                 // for trend change circle
                 restaurants[i].trend_change = 0.0;
                 restaurants[i].trend_change_abs = 0.0;
-                if(trend_data && trend_data.length > 1){
+                // latest trend
+                restaurants[i].latest_trend = 0.0;
+                if(trend_data && trend_data.length > 0){
                     var last1, last2;
                     for (var kkey1 in trend_data[trend_data.length-1]){
                         last1 = trend_data[trend_data.length-1][kkey1];
                     }
-                    for (var kkey2 in trend_data[trend_data.length-2]){
-                        last2 = trend_data[trend_data.length-2][kkey2];
+                    if(trend_data.length > 1){
+                        for (var kkey2 in trend_data[trend_data.length-2]){
+                            last2 = trend_data[trend_data.length-2][kkey2];
+                        }
+                        restaurants[i].trend_change = Math.round((parseFloat(last1) - parseFloat(last2)) * 10) / 10;
+                        restaurants[i].trend_change_abs = Math.abs(restaurants[i].trend_change);
                     }
-                    restaurants[i].trend_change = Math.round((parseFloat(last1) - parseFloat(last2))*10) / 10;
-                    restaurants[i].trend_change_abs = Math.abs(restaurants[i].trend_change);
+                    restaurants[i].latest_trend = Math.round(parseFloat(last1) * 10) / 10;
                 }
             }
             return restaurants;

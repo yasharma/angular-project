@@ -4,41 +4,31 @@
              data-color="#333333">
 
             <!--User avatar and menu-->
-            <div class="clearfix wrapper dk nav-user hidden-xs">
-                <div class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="thumb avatar pull-left m-r m-b-xs m-t-xs ">
-                            <img src="images/avatar.ico"> <i class="on md b-light"></i>
-                        </span>
-                        <span class="hidden-nav-xs clear">
-                            <span class="block m-t-xs">
-                                <strong class="font-bold text-lt">
-                                    {{ user.username || 'Guest' }}
-                                </strong>
-                                <!--<b class="caret"></b>-->
-                            </span>
-                            <span class="text-muted text-xs block">...</span>
-                        </span>
-                    </a>
-                    <!--<ul class="dropdown-menu animated fadeInLeft">-->
-                        <!--<span class="arrow top"></span>-->
-                        <!--&lt;!&ndash;<li><a href="#">Settings</a></li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li><a href="profile.html">Profile</a></li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li><a href="#"> <span class="badge bg-danger pull-right">3</span> Notifications </a></li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li><a href="docs.html">Help</a></li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
-                        <!--<li><a href="#/login" ng-show="!isLogged">Login</a></li>-->
-                        <!--<li><a ng-click="clearToken()" ng-show="isLogged">Logout</a></li>-->
-                    <!--</ul>-->
-                </div>
-            </div>
+            <!--<div class="clearfix wrapper dk nav-user hidden-xs">-->
+                <!--<div class="dropdown">-->
+                    <!--<a class="dropdown-toggle" data-toggle="dropdown">-->
+                        <!--<span class="thumb avatar pull-left m-r m-b-xs m-t-xs ">-->
+                            <!--<img src="images/avatar.ico"> <i class="on md b-light"></i>-->
+                        <!--</span>-->
+                        <!--<span class="hidden-nav-xs clear">-->
+                            <!--<span class="block m-t-xs">-->
+                                <!--<strong class="font-bold text-lt">-->
+                                    <!--{{ user.username || 'Guest' }}-->
+                                <!--</strong>-->
+                                <!--&lt;!&ndash;<b class="caret"></b>&ndash;&gt;-->
+                            <!--</span>-->
+                            <!--<span class="text-muted text-xs block">...</span>-->
+                        <!--</span>-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
 
             <!-- nav -->
             <nav class="nav-primary hidden-xs">
                 <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">
                     <!--Start-->
                 </div>
-                <ul class="nav nav-main">
+                <ul class="nav nav-main visible-xs">
                     <li ng-show="!isLogged">
                         <a href="#/login" class="auto" >
                             <i class="i i-login icon"> </i>
@@ -53,12 +43,18 @@
                         </a>
                     </li>
                 </ul>
-                <div class="line dk hidden-nav-xs" ng-show="isLogged"></div>
+                <div class="line dk hidden-nav-xs visible-xs" ng-show="isLogged"></div>
                 <ul class="nav ">
                     <li ng-show="isLogged">
                         <a href="#/index/favorites" class="auto">
                             <i class="fa fa-star icon"> </i>
                             <span class="font-bold">Favorites</span>
+                        </a>
+                    </li>
+                    <li ng-show="isLogged">
+                        <a href="#/index/listall" class="auto">
+                            <i class="fa fa-search icon"> </i>
+                            <span class="font-bold">Restaurant Search</span>
                         </a>
                     </li>
                 </ul>
