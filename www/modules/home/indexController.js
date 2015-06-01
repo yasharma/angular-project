@@ -11,7 +11,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         })
         .when('/index/:view', {
             templateUrl: 'modules/home/views/index.html',
-            controller: 'indexCtrl'
+            controller: 'indexCtrl',
+            reloadOnSearch: false
         })
         .when('/dashboard/:restaurantId', {
             templateUrl: 'modules/restaurant/views/owner.html',
@@ -61,6 +62,13 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         .when('/login/resetpassword', {
             templateUrl: 'modules/login/views/resetPassword.html',
             controller: 'loginCtrl'
+        })
+        .when('/login/changepassword', {
+            templateUrl: 'modules/login/views/changePassword.html',
+            controller: 'loginCtrl'
+        })
+        .when('/profile', {
+            templateUrl: 'modules/profile/views/index.html'
         });
 }])
 
@@ -91,11 +99,13 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                             value.selected = false;
                         });
                         $scope.filters.cuisine.allSelected = true;
+                        $scope.setUrl();
                     },
                     show: function(i){
                         $scope.filters.cuisine.values[i].shown = true;
                         $scope.filters.cuisine.values[i].selected = true;
                         $scope.filters.cuisine.allSelected = false;
+                        $scope.setUrl();
                     }
                 },
                 price: {
@@ -113,6 +123,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                             value.selected = false;
                         });
                         $scope.filters.price.allSelected = true;
+                        $scope.setUrl();
                     }
                 },
                 rating: {
@@ -347,10 +358,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     $scope.getFromUrl();
                 });
                 $scope.getFromUrl();
-                // start watching for changes in filters
-                $scope.$watch('filters', function(){
-                    $scope.setUrl();
-                }, true); // deep watch
 
             });
 
@@ -563,8 +570,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
     }])
 
     .controller('searchCtrl', ['$scope', '$http','$location', 'restaurantSvr',
-        'localStorageService', 'geoLocation', 'messageCenterService',
-        function ($scope, $http, $location, restaurantSvr, localStorageService, geoLocation, messageCenterService) {
+        'localStorageService', 'geoLocation', 'messageCenterService', 'growl',
+        function ($scope, $http, $location, restaurantSvr, localStorageService, geoLocation, messageCenterService, growl) {
 
         $scope.search = {}; // raw search parameters
 
@@ -640,6 +647,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         $scope.getLocations = function (val) {
             return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
                 params: {
+                    components: "country:AU",
                     address: val,
                     sensor: false
                 }
@@ -685,7 +693,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         $scope.search.longitude = data.coords.longitude;
                         $scope.formattedAddress = '';
                     }, function(error){
-                        messageCenterService.add('danger', error, {timeout : 3000});
+                        //messageCenterService.add('warning', error, {timeout : 5000});
+                        growl.addWarnMessage(error);
                     });
 
             } else {
@@ -716,13 +725,16 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
         parseUrlSearchParams(); // do it on init
 
+        $scope.nearMe = true;
+        $scope.setNearMe();
+
         $scope.$on('$routeUpdate', function(){ // as well as on any route change
             parseUrlSearchParams();
         });
 
         $scope.searchRestaurant = function () {
             // set search parameters to url
-            var url = '/index';
+            var url = '/index/listall';
             var searchAndResetPage = merge_objects($scope.search, {page: 1});
             var query = objectToQueryString(merge_objects_null($location.search(), searchAndResetPage));
 

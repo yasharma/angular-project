@@ -13,6 +13,7 @@ module.exports = function (grunt) {
                         'bower_components/nvd3/nv.d3.css',
                         'bower_components/angular-busy/angular-busy.css',
                         'bower_components/angular-bootstrap-lightbox-no-bar/dist/angular-bootstrap-lightbox-no-bar.css',
+                        'bower_components/angular-growl/build/angular-growl.min.css',
                         'js/slider/slider.css',
                         'css/bootstrap.css',
                         'css/font.css',
@@ -96,6 +97,7 @@ module.exports = function (grunt) {
                     'bower_components/angular-animate/angular-animate.js',
                     'bower_components/angular-busy/angular-busy.js',
                     'bower_components/angular-bootstrap-lightbox-no-bar/dist/angular-bootstrap-lightbox-no-bar.js',
+                    'bower_components/angular-growl/build/angular-growl.min.js',
 
                     'components/version/version.js',
                     'components/version/version-directive.js',

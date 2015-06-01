@@ -17,9 +17,9 @@ rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','logi
             .then(function(response){
                 if(response.err){
                     messageCenterService.add('danger', response.message, { timeout: 3000 });
-                    return;
+                } else {
+                    $scope.passwordChanged = true;
                 }
-                $scope.resetRequestSent = true;
             });
     };
 

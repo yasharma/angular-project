@@ -36,11 +36,19 @@
     </div>
 
     <!--Includes claim section-->
-    <div class="col-sm-6 m-t-md">
+    <div class="col-sm-6 m-t-lg">
 
-        <div share-links="Facebook, Twitter, LinkedIn, Google-Plus"
-             share-title="reviews-combined dummy title" class="m-r-md pull-right">
-        </div>
+        <!--<div share-links="Facebook, Twitter, LinkedIn, Google-Plus"-->
+             <!--share-title="reviews-combined dummy title" class="m-r-md pull-right">-->
+        <!--</div>-->
+        <!--Social share button-->
+        <button class="btn btn-default btn-rounded m-t-sm m-r-md pull-right"
+                popover-template="'modules/partials/share-popover.html'"
+                popover-placement="left" popover-trigger="focus"
+                popover-append-to-bod="true">
+            <span class="i i-share"></span>
+            <span class="m-l-xs"> Share</span>
+        </button>
 
         <button class="btn btn-default btn-rounded btn-sm m-t-sm"
                 ng-click="claim()" ng-hide="isOwner"><i
@@ -197,9 +205,9 @@
         </div>
         <div class="pull-right">
             <div class="btn-group pull-right input-group m-r-sm m-b-xs no-padding-m adjust-left z-index-10"
-                 style="width: 190px;" ng-hide="graphDuration.value">
+                 style="width: 200px;" ng-hide="graphDuration.value">
                 <span class="input-group-addon btn-rounded">End:</span>
-                <input type="text" class="form-control input-sm " datepicker-popup="yy/MM/dd" ng-model="dates.end.date"
+                <input type="text" class="form-control input-sm " datepicker-popup="dd/MM/yyyy" ng-model="dates.end.date"
                        is-open="dates.end.opened" max-date="{{dates.today}}" ng-change="getGraphs()"
                        ng-required="true" close-text="Close" datepicker-append-to-body="true" />
                             <span class="input-group-btn">
@@ -207,9 +215,9 @@
                             </span>
             </div>
             <div class="btn-group pull-right input-group m-r-sm m-b-xs no-padding-m adjust-left z-index-10"
-                 style="width: 195px;" ng-hide="graphDuration.value">
+                 style="width: 200px;" ng-hide="graphDuration.value">
                 <span class="input-group-addon btn-rounded">Start:</span>
-                <input type="text" class="form-control input-sm " datepicker-popup="yy/MM/dd" ng-model="dates.start.date"
+                <input type="text" class="form-control input-sm " datepicker-popup="dd/MM/yyyy" ng-model="dates.start.date"
                        is-open="dates.start.opened" max-date="{{dates.today}}" ng-change="getGraphs()"
                        ng-required="true" close-text="Close" datepicker-append-to-body="true" />
                             <span class="input-group-btn">

@@ -49,6 +49,17 @@ photoService.factory('photoSvr', ['localStorageService', 'Restangular', '$http',
                         items: response.data
                     }
             });
+        },
+
+        updateRestaurantPhoto: function (photo) {
+            var resource = 'photos';
+            var formData = $.param(photo);
+
+            return Restangular.one(resource, photo.id)
+                .customPUT(formData, null, null, {'Content-Type': 'application/x-www-form-urlencoded'})
+                .then(function (response) {
+                    return response;
+                });
         }
     };
 }]);

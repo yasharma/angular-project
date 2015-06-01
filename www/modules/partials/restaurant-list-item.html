@@ -1,7 +1,7 @@
 <div class="pull-left avatar-container">
     <div class="thumb-sm avatar avatar1"
          tooltip-html-unsafe="{{ 'Trend: <b>' + restaurant.latest_trend + '</b></br>' +
-         'Percentile: <b>' + restaurant.overview__percentile_rounded + '</b>' }}"
+         'Overall: <b>' + restaurant.overview__percentile_rounded + '</b>' }}"
          tooltip-placement="right" >
         <div ng-if="cgBusyPromise.$cgBusyFulfilled">
             <span class="rating-circle">{{restaurant.latest_trend}}</span>
@@ -24,9 +24,16 @@
                ng-show="category && view == 'index'" ng-click="changeUrlParam('category-in', category)">
             {{category}}
         </label>
-        <div class="pull-right">
+        <!--Distance-->
+        <div class="pull-right restaurant-distance">
             <span class="text-muted m-l-sm bg-white" ng-show="restaurant.distance"> <i
                     class="fa fa-clock-o"></i> {{restaurant.distance | number : 2}} KM </span>
+            <span class="pointer text-warning fa fa-info-circle" tabindex="-1"
+                  ng-show="restaurant.distance_accuracy=='APPROXIMATE'"
+                    popover="Approximate location based on your IP address"
+                    popover-placement="bottom" popover-trigger="focus">
+
+            </span>
         </div>
     </header>
     <div class="panel-body">
@@ -41,7 +48,7 @@
                 <p>
                     <a href="#/restaurant/{{restaurant.id}}/{{hash}}">
 
-                        <h3 class="title">
+                        <h3 class="restaurant-title">
                             <span class="trend-change-label hidden-xs">
                                 <span class="inline-block label label-success trend-label m-r-sm"
                                       ng-show="restaurant.trend_change > 0">
@@ -59,7 +66,7 @@
                                     {{restaurant.trend_change_abs}}%
                                 </span>
                             </span>
-                            <span>
+                            <span class="restaurant-name">
                                 {{restaurant.name}}
                             </span>
                         </h3>

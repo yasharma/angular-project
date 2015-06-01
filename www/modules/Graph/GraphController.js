@@ -120,9 +120,9 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
                         var prevValue = flotItem.series.data[prevIndex][1];
                         var percentDiff = yval - prevValue;
                         if (percentDiff >= 0.1){
-                            percentChangeStr = 'Up by <b>' + percentDiff.toFixed(1) + '%</b>';
+                            percentChangeStr = '<span class="graph-tooltip-green">Up by <b>' + percentDiff.toFixed(1) + '%</b></span>';
                         } else if (percentDiff <= -0.1){
-                            percentChangeStr = 'Down by <b>' + (-percentDiff).toFixed(1) + '%</b>';
+                            percentChangeStr = '<span class="graph-tooltip-red">Down by <b>' + (-percentDiff).toFixed(1) + '%</b></span>';
                         }
                     }
                     return '<b>' + dateFormatted + '</b></br>' +

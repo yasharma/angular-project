@@ -44,6 +44,7 @@ rxControllers.controller('widgetsCtrl', ['$scope', '$routeParams', 'restaurantSv
                 if (rating - ratingWhole > 0){
                     ratingHalf = 5;
                 }
+                $scope.options.rating = rating;
                 $scope.options.ratingWhole = ratingWhole;
                 $scope.options.ratingHalf = ratingHalf;
                 $scope.options.reviews_str = restaurant.overview__total_reviews == 1 ? '1 review' : restaurant.overview__total_reviews + ' reviews';
@@ -66,6 +67,14 @@ rxControllers.controller('widgetsCtrl', ['$scope', '$routeParams', 'restaurantSv
                 //ratingLessThanText += '\n';
             } else{
                 ratingLessThanText += ' \n';
+            }
+
+            if ($scope.options.hideOnRatingLessThan && $scope.options.rating < $scope.options.ratingLessThan) {
+                $scope.isHidden = true;
+            } else if ($scope.options.hideOnTrendNegative && $scope.options.trend_change < 0){
+                $scope.isHidden = true;
+            } else {
+                $scope.isHidden = false;
             }
 
             $scope.snippet =

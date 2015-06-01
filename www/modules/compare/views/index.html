@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-md-7 col-sm-10 col-xs-12">
                         <div class="panel panel-default m-t">
-                            <header class="panel-heading">
+                            <header class="panel-heading" ng-show="restaurants.length < 5">
                                 <!--Search box-->
                                 <div class="bordered-input-group clearfix">
                                     <search-box set-restaurant="addItem(restaurant)" class="m-b-sx m-t-xs"
@@ -32,6 +32,12 @@
                                                 ng-click="removeRestaurant(restaurant)">
                                             <span class="glyphicon glyphicon-remove m-xs" ></span>
                                         </a>
+                                        <span class="pull-right m-r-md"
+                                                ng-class="{'text-danger-dk':
+                                                ! (graphs[restaurant.id][graphDuration.value].trend &&
+                                                graphs[restaurant.id][graphDuration.value].trend.length>5)}">
+                                            {{graphs[restaurant.id][graphDuration.value].trend.length || 0}} reviews
+                                        </span>
                                     </div>
                                 </div>
                         </div>
@@ -55,9 +61,9 @@
                             <div class="clearfix"></div>
                             <div class="" ng-hide="graphDuration.value">
                                 <div class="btn-group input-group m-l-xs m-b-xs no-padding-m pull-right z-index-10"
-                                     style="width: 195px;">
+                                     style="width: 200px;">
                                     <span class="input-group-addon btn-rounded">End:</span>
-                                    <input type="text" class="form-control input-sm " datepicker-popup="yy/MM/dd" ng-model="dates.end.date"
+                                    <input type="text" class="form-control input-sm " datepicker-popup="dd/MM/yyyy" ng-model="dates.end.date"
                                            is-open="dates.end.opened" max-date="{{dates.today}}" ng-change="updateCustomPeriodGraphs()"
                                            ng-required="true" close-text="Close" datepicker-append-to-body="true" />
                                     <span class="input-group-btn">
@@ -65,9 +71,9 @@
                                     </span>
                                 </div>
                                 <div class="btn-group input-group m-l-xs m-b-xs no-padding-m pull-right z-index-10"
-                                     style="width: 195px;">
+                                     style="width: 200px;">
                                     <span class="input-group-addon btn-rounded">Start:</span>
-                                    <input type="text" class="form-control input-sm " datepicker-popup="yy/MM/dd" ng-model="dates.start.date"
+                                    <input type="text" class="form-control input-sm " datepicker-popup="dd/MM/yyyy" ng-model="dates.start.date"
                                            is-open="dates.start.opened" max-date="{{dates.today}}" ng-change="updateCustomPeriodGraphs()"
                                            ng-required="true" close-text="Close" datepicker-append-to-body="true" />
                                     <span class="input-group-btn">

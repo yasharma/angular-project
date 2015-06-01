@@ -16,7 +16,7 @@ directiveMod.directive('showRating', function () {
             }
             element.html(htmlData);
         }
-    }
+    };
     return showRating;
 });
 

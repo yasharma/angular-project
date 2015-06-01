@@ -21,31 +21,46 @@
 
                     <header class="">
                         <div class="row">
-                            <div share-links="Facebook, Twitter, LinkedIn, Google-Plus"
-                                share-title="reviews-combined dummy title"
-                                class="m-r-sm m-t-xs m-l-xl pull-right">
-                            </div>
-                            <div class="pull-right m-l-md m-r-sm m-t-sm sort-picker">
-                                <!--<span>-->
+                            <div class="col-sm-8 col-md-9 col-lg-9" ng-class="{'hidden-xs': showFiltersMobile}">
+                                <div class="pull-right m-l-md m-r-sm m-t-sm sort-picker clearfix">
                                     <!--Sort by:-->
-                                <!--</span>-->
-                                <span class="btn m-l-n-xs" ng-repeat="option in sortOptions"
-                                      title="Sort by {{option.label}}"
-                                      ng-click="changeUrlParam('sort', option.value)">
-                                    <span ng-hide="searchParams.sort == option.value">
-                                        {{option.label}}
+                                    <span class="btn m-l-n-xs" ng-repeat="option in sortOptions"
+                                          title="Sort by {{option.label}}"
+                                          ng-click="changeUrlParam('sort', option.value)">
+                                        <span ng-hide="searchParams.sort == option.value">
+                                            {{option.label}}
+                                        </span>
+                                        <span ng-show="searchParams.sort == option.value">
+                                            <strong>{{option.label}}</strong>
+                                            <i class="sort-icon glyphicon glyphicon-triangle-{{option.direction}}"></i>
+                                        </span>
                                     </span>
-                                    <span ng-show="searchParams.sort == option.value">
-                                        <strong>{{option.label}}</strong>
-                                        <i class="sort-icon glyphicon glyphicon-triangle-{{option.direction}}"></i>
-                                    </span>
-                                </span>
+                                </div>
                             </div>
+                            <!--<div share-links="Facebook, Twitter, LinkedIn, Google-Plus"-->
+                            <!--share-title="reviews-combined dummy title"-->
+                            <!--class="m-r-sm m-t-xs m-l-xl pull-right">-->
+                            <!--</div>-->
+
+                            <!--Social share button-->
+                            <div class="col-sm-4 col-md-3 hide-for-small hide-for-touch"
+                                 ng-class="{'hidden-xs': !showFiltersMobile}">
+                                <button class="btn btn-default btn-rounded m-t-sm m-r-sm m-t-xs pull-right"
+                                        popover-template="'modules/partials/share-popover.html'"
+                                        popover-placement="left" popover-trigger="focus"
+                                        popover-append-to-bod="true">
+                                    <span class="i i-share"></span>
+                                    <span class="m-l-xs"> Share</span>
+                                </button>
+                            </div>
+
                             <!--<select ng-model="search.sort" class="form-control m-t-sm pull-right" style="width: 160px;">-->
                                 <!--<option value="popular">Sort by rating</option>-->
                                 <!--<option value="trending">Sort by trend</option>-->
                                 <!--<option value="distance">Sort by distance</option>-->
                             <!--</select>-->
+
+
                         </div>
                     </header>
                 </section>

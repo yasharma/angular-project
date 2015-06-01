@@ -41,6 +41,15 @@ rxControllers.controller('photoCtrl', ['$scope', '$routeParams', 'photoSvr', 'me
             });
         };
 
+        $scope.setFeatured = function (photo) {
+            photo.featured = 1;
+
+            photoSvr.updateRestaurantPhoto(photo).then(function (response) {
+
+            });
+
+        };
+
         $scope.$watch('restaurantPhotos', function (restaurantPhotos) {
             $scope.type = "warning";
             //$scope.onFileSelect = function ($files) {

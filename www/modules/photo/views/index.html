@@ -57,12 +57,21 @@
                             <div class="col-lg-3 col-sm-3 col-xs-4 text-center" ng-repeat="photo in photos">
                                 <!--<div class="displayphoto-frame">-->
                                     <!--<img ng-src="{{photo.url}}" class="displayphoto"/></div>-->
-                                    <a href="">
-                                        <span class="thumb-image" style="background-image:url('{{photo.url}}')" > </span>
-                                    </a>
+                                <a href="">
+                                    <span class="thumb-image" style="background-image:url('{{photo.url}}')" > </span>
+                                </a>
                                 <div class=" m-b-md">
-                                    <button class="btn btn-sm btn-danger"  ng-click="deletePhoto(photo)">Delete </button>
+                                    <button class="btn btn-sm btn-danger"  ng-click="deletePhoto(photo)"
+                                            tooltip="Remove" tooltip-placement="left">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
                                     <span ng-class="{'fa fa-spinner fa-spin' : photo.request}"></span>
+                                    <button class="btn btn-sm"
+                                            ng-class="{'btn-success': photo.featured}"
+                                            ng-click="setFeatured(photo)"
+                                            tooltip="Set as featured" tooltip-placement="right">
+                                        <span class="glyphicon glyphicon-star"></span>
+                                    </button>
                                 </div>
                             </div>
 

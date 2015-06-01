@@ -47,7 +47,10 @@
                         </textarea>
                     </div>
                     <div class="col-sm-6">
-                        <p class="m-l-md">Preview:</p>
+                        <p class="m-l-md">
+                            Preview:
+                            <span style="color: gray;" ng-show="isHidden">(hidden for current options)</span>
+                        </p>
                         <link rel="stylesheet" type="text/css" href="{{baseUrl}}modules/widget/rating_widget.css" media="screen" />
                         <div class="ireview-container" style="width:{{options.width}}">
                             <div id="restaurantName"><a style="color: #444 !important;" href="{{baseUrl}}#/restaurant/{{options.restaurantId}}">{{options.restaurantName}}</a></div>

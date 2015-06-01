@@ -1,3 +1,8 @@
+.comment-list .label.bg-primary{
+    background-color: #5BC0DE;
+    color: white;
+}
+
 .comment-list .avatar1{
     left: -26px;
     background: white;
@@ -21,11 +26,15 @@
     /*display: inline-block;*/
     padding: 6px 8px;
     position: relative;
-    top: 1px;
+    top: 2px;
     margin-bottom: 2px;
     display: block;
     /*width: 56px;*/
     float: left;
+}
+
+.comment-list h3.restaurant-title .restaurant-name{
+    font-size: 20px;
 }
 
 .rating-label {

@@ -19,7 +19,7 @@
                     </li>
                     <li class="checkbox i-checks" ng-repeat="cuisine in filters.cuisine.values | filter:{shown:true}" >
                         <label>
-                            <input type="checkbox" ng-model="cuisine.selected" ng-change="filters.cuisine.allSelected = false"><i></i>
+                            <input type="checkbox" ng-model="cuisine.selected" ng-change="filters.cuisine.allSelected = false; setUrl();"><i></i>
                             {{ cuisine.name }}
                         </label>
                     </li>
@@ -44,7 +44,7 @@
                     </li>
                     <li class="checkbox i-checks" ng-repeat="price in filters.price.values">
                         <label>
-                            <input type="checkbox" ng-model="price.selected" ng-change="filters.price.allSelected = false"><i></i>
+                            <input type="checkbox" ng-model="price.selected" ng-change="filters.price.allSelected = false; setUrl();"><i></i>
                             {{ price.label }}
                         </label>
                     </li>
@@ -56,7 +56,7 @@
                 <!--<div class="panel-title m-b">Rating</div>-->
                 <ul class="list-unstyled">
                     <li class="radio i-checks" ng-repeat="option in filters.rating.options"><label>
-                        <input type="radio" name="rating" ng-model="filters.rating.value" value="{{option.value}}">
+                        <input type="radio" name="rating" ng-model="filters.rating.value" value="{{option.value}}" ng-change="setUrl()">
                         <i></i> {{option.label}}</label>
                     </li>
                 </ul>
@@ -68,7 +68,7 @@
                 <!--<div class="panel-title m-b" ng-show="showDistance">Distance</div>-->
                 <ul class="list-unstyled" ng-show="showDistance">
                     <li class="radio i-checks" ng-repeat="option in filters.distance.options"><label>
-                        <input type="radio" name="distance" ng-model="filters.distance.value" value="{{option.value}}">
+                        <input type="radio" name="distance" ng-model="filters.distance.value" value="{{option.value}}" ng-change="setUrl()">
                         <i></i> {{option.label}}</label>
                     </li>
                 </ul>
@@ -80,7 +80,7 @@
                 <!--<div class="panel-title m-b">Trend</div>-->
                 <ul class="list-unstyled">
                     <li class="radio i-checks" ng-repeat="option in filters.trend.options"><label>
-                        <input type="radio" name="trend" ng-model="filters.trend.value" value="{{option.value}}">
+                        <input type="radio" name="trend" ng-model="filters.trend.value" value="{{option.value}}" ng-change="setUrl()">
                         <i></i> {{option.label}}</label>
                     </li>
                 </ul>
@@ -92,7 +92,7 @@
                 <!--<div class="panel-title m-b">Reviews</div>-->
                 <ul class="list-unstyled">
                     <li class="radio i-checks" ng-repeat="option in filters.reviews.options"><label>
-                        <input type="radio" name="reviews" ng-model="filters.reviews.value" value="{{option.value}}">
+                        <input type="radio" name="reviews" ng-model="filters.reviews.value" value="{{option.value}}" ng-change="setUrl()">
                         <i></i> {{option.label}}</label>
                     </li>
                 </ul>
