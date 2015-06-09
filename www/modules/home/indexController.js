@@ -225,9 +225,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     }
                 });
 
-                if(search.latitude && search.longitude) {
-                    $scope.showDistance = true;
-                }
+                $scope.showDistance = (search.latitude && search.longitude);
 
                 // trend: select given option
                 var trendGreaterThan = search['trend-greater-than-or-equal-to'] || '';
@@ -430,6 +428,22 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     }
                     if (! search.sort){
                         addParamsToUrl.sort = 'trending'
+                    }
+                    if (! (('location-type' in search && search['location-type'] == 'none')
+                        || (search.latitude && search.longitude))){
+                        // get position
+                        geoLocation.getLocation()
+                            .then(function (data) {
+                                localStorageService.add('latitude', data.coords.latitude);
+                                localStorageService.add('longitude', data.coords.longitude);
+                                var addParams = {};
+                                addParams['distance-less-than-or-equal-to'] = '2';
+                                addParams['distance-greater-than-or-equal-to'] = null;
+                                addParams.latitude = data.coords.latitude;
+                                addParams.longitude = data.coords.longitude;
+                                $location.search(addParams);
+                            });
+
                     }
                     //if (! ('distance-less-than-or-equal-to' in search)){
                     //    if (! ('distance-greater-than-or-equal-to' in search)){
@@ -662,12 +676,13 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         };
 
         $scope.setLocation = function(formattedAddress){
-            $scope.search['distance-less-than-or-equal-to'] = '1';
+            $scope.search['distance-less-than-or-equal-to'] = '2';
             $scope.search['distance-greater-than-or-equal-to'] = null;
 
             $scope.search.latitude = formattedAddress.location.lat;
             $scope.search.longitude = formattedAddress.location.lng;
-            localStorageService.add('latitude', $scope.search.latitude); /// !
+            $scope.search['location-type'] = 'address';
+            localStorageService.add('latitude', $scope.search.latitude);
             localStorageService.add('longitude', $scope.search.longitude);
 
             $scope.nearMe = false;
@@ -687,10 +702,11 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         localStorageService.add('latitude', data.coords.latitude);
                         localStorageService.add('longitude', data.coords.longitude);
 
-                        $scope.search['distance-less-than-or-equal-to'] = '1';
+                        $scope.search['distance-less-than-or-equal-to'] = '2';
                         $scope.search['distance-greater-than-or-equal-to'] = null;
                         $scope.search.latitude = data.coords.latitude;
                         $scope.search.longitude = data.coords.longitude;
+                        $scope.search['location-type'] = 'nearme';
                         $scope.formattedAddress = '';
                     }, function(error){
                         //messageCenterService.add('warning', error, {timeout : 5000});
@@ -700,6 +716,9 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             } else {
                 $scope.search.latitude = null;
                 $scope.search.longitude = null;
+                $scope.search['distance-less-than-or-equal-to'] = null;
+                $scope.search['distance-greater-than-or-equal-to'] = null;
+                $scope.search['location-type'] = 'none';
             }
         };
 
@@ -721,12 +740,14 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             }else{
                 $scope.selectedCategories = [];
             }
+
+            $scope.nearMe = search['location-type'] == 'nearme' || ! search['location-type'];
+            $scope.setNearMe();
+
         }
 
         parseUrlSearchParams(); // do it on init
 
-        $scope.nearMe = true;
-        $scope.setNearMe();
 
         $scope.$on('$routeUpdate', function(){ // as well as on any route change
             parseUrlSearchParams();

@@ -3,11 +3,11 @@
          tooltip-html-unsafe="{{ 'Trend: <b>' + restaurant.latest_trend + '</b></br>' +
          'Overall: <b>' + restaurant.overview__percentile_rounded + '</b>' }}"
          tooltip-placement="right" >
-        <div ng-if="cgBusyPromise.$cgBusyFulfilled">
-            <span class="rating-circle">{{restaurant.latest_trend}}</span>
-            <div easypiechart options="avatarOptions"
-                 percent="restaurant.latest_trend"></div>
-        </div>
+        <!--<div ng-if="cgBusyPromise.$cgBusyFulfilled">-->
+        <span class="rating-circle">{{restaurant.latest_trend}}</span>
+        <div easypiechart options="avatarOptions"
+             percent="restaurant.latest_trend"></div>
+        <!--</div>-->
     </div>
 </div>
 <span class="arrow left hidden-xs"></span>
