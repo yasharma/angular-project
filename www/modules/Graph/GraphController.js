@@ -16,6 +16,15 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
         ];
         $scope.graphDuration = $scope.graphDurations[5];
 
+        $scope.flotColors = [
+            "#1F2D6D",
+            "#4897C3",
+            "#B75E8F",
+            "#BF1E10",
+            "#D8C746",
+            "#2F9630"
+        ];
+
         $scope.setGraphDuration = function(option){
             if (option.value in $scope.graphs) {
                 $scope.graphDuration = option;
@@ -24,6 +33,7 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
                 $scope.flotDataset[1].data = graph.trend;
                 $scope.donutDataset = graph.source;
                 $scope.stats = graph.stats;
+                $scope.refreshScatterFlot(option);
             }
         };
 
@@ -48,6 +58,34 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
                         $scope.setGraphDuration($scope.graphDuration);
                     }
                 });
+            });
+        };
+
+        // Load items into scatter flot graph
+        $scope.refreshScatterFlot = function(option){
+            // for every source, copy data for selected duration into view
+            $scope.scatterFlotDataset = [];
+            angular.forEach($scope.graphs[option.value].percentileBySource, function(src, id){
+                var length = $scope.graphs[option.value].percentileBySource.length;
+                var source = src.source;
+                var data = src.data;
+                if(data) {
+                    $scope.scatterFlotDataset.push({
+                        data: data || [],
+                        label: source,
+                        lines: {
+                            show: false
+                        },
+                        points: {
+                            radius: 3,
+                            show: true,
+                            fill: true,
+                            fillColor: $scope.flotColors[id % length]
+                        },
+                        shadowSize: 2,
+                        color: $scope.flotColors[id % length]
+                    });
+                }
             });
         };
 
@@ -142,6 +180,62 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             },
             legend: {
                 //container: $('#flotLegend')
+            }
+        };
+
+        $scope.scatterFlotDataset = [];
+
+        $scope.scatterFlotOptions =
+        {
+            //series: {},
+            grid: {
+                hoverable: true,
+                clickable: true,
+                tickColor: "#d9dee9",
+                borderColor: "#d9dee9",
+                borderWidth: 1,
+                color: '#555'
+            },
+            xaxis: {
+                mode:'time'
+            },
+            yaxis: {
+                ticks: 4
+            },
+            tooltip: true,
+            tooltipOpts: {
+                content: function(label, xval, yval, flotItem){
+                    var date = new Date(xval);
+                    var dateFormatted = $.plot.formatDate(date, '%d %b %Y');
+                    var prevIndex = flotItem.dataIndex - 1;
+                    var percentChangeStr = '';
+                    if (prevIndex >= 0){
+                        var prevValue = flotItem.series.data[prevIndex][1];
+                        var percentDiff = yval - prevValue;
+                        if (percentDiff >= 0.1){
+                            percentChangeStr = '<span class="graph-tooltip-green">Up by <b>' + percentDiff.toFixed(1) + '%</b></span>';
+                        } else if (percentDiff <= -0.1){
+                            percentChangeStr = '<span class="graph-tooltip-red">Down by <b>' + (-percentDiff).toFixed(1) + '%</b></span>';
+                        }
+                    }
+                    return '<b>' + dateFormatted + '</b></br>' +
+                        label + ': <b>' + Math.round(yval) + '% </b><br>' +
+                        percentChangeStr;
+
+
+                },
+                defaultTheme: false,
+                shifts: {
+                    x: 0,
+                    y: 20
+                },
+                lines: {
+                    track: true
+                }
+            },
+            legend: {
+                show: true,
+                noColumns:5
             }
         };
 

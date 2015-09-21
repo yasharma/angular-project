@@ -84,6 +84,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
             if($scope.isLogged) {
                 $location.url($location.path() + '?request=claimRestaurant');
             } else {
+                $rootScope.returnToPage = $location.path() + '?request=claimRestaurant';
                 $location.url('/login');
             }
         };
@@ -111,29 +112,32 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
             $scope.isFavourite = !$scope.isFavourite;
         };
 
-        var modalInstance = checkParams($routeParams.request);
+        $scope.$on('$routeUpdate', function(){
+            var modalInstance = checkParams($routeParams.request);
 
-        if(typeof modalInstance !== undefined && Object.keys(modalInstance).length && $scope.user){
+            if(typeof modalInstance !== undefined && Object.keys(modalInstance).length && $scope.user){
 
-            modalInstance = $modal.open({
-                templateUrl: modalInstance.templateLocation,
-                scope: $scope,
-                controller : modalInstance.controller,
-                windowClass: modalInstance.windowClass || ''
-            });
+                modalInstance = $modal.open({
+                    templateUrl: modalInstance.templateLocation,
+                    scope: $scope,
+                    controller : modalInstance.controller,
+                    windowClass: modalInstance.windowClass || ''
+                });
 
-            modalInstance.opened.then(function () {
-                $scope.showModal = true;
-                $(".overlay-main").css("display", "block");
-            });
+                modalInstance.opened.then(function () {
+                    $scope.showModal = true;
+                    $(".overlay-main").css("display", "block");
+                });
 
-            modalInstance.result.then(function (selectedItem) {
-                $scope.selected = selectedItem;
-            }, function () {
-                $(".overlay-main").css("display", "none");
-            });
+                modalInstance.result.then(function (selectedItem) {
+                    $scope.selected = selectedItem;
+                }, function () {
+                    $(".overlay-main").css("display", "none");
+                });
 
-        }
+            }
+        });
+
 
         function checkParams (params){
             var modalDetails = {};

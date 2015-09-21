@@ -59,7 +59,12 @@ rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','logi
                     "ownedRestaurants": response.items.details.owned_restaurants || []
                 });
                 $rootScope.user = localStorageService.get('user');
-                $location.path("/index");
+                if($rootScope.returnToPage){
+                    $location.path($rootScope.returnToPage);
+                    $rootScope.returnToPage = null;
+                } else {
+                    $location.path("/index");
+                }
             });
     };
 

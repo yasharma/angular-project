@@ -161,13 +161,26 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                 var source = [];
                 var percentile = [];
                 var trend = [];
+                var percentileBySource = [];
                 angular.forEach(response.data.source, function (value, key) {
+                    var label = key;
                     if (value && parseInt(value) > 0) {
                         source.push({
-                            label: key,
+                            label: label,
                             data: parseInt(value)
                         });
                     }
+                    // fill percentileBySource array
+                    percentileBySource.push({
+                        source: label,
+                        data: []
+                    });
+                    var index = percentileBySource.length - 1;
+                    angular.forEach(response.data.data, function (value, key) {
+                        if(value.source == label) {
+                            percentileBySource[index].data.push([parseInt(key), value.percentile]);
+                        }
+                    });
                 });
                 angular.forEach(response.data.data, function (value, key) {
                     percentile.push([parseInt(key), value.percentile]);
@@ -179,7 +192,9 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                     percentile: percentile,
                     trend: trend,
                     source: source,
-                    stats: response.data.stats
+                    stats: response.data.stats,
+                    data: response.data.data,
+                    percentileBySource: percentileBySource
                 };
             });
 
