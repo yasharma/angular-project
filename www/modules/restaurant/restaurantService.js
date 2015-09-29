@@ -171,22 +171,24 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                         });
                     }
                     // fill percentileBySource array
-                    percentileBySource.push({
-                        source: label,
-                        data: []
-                    });
-                    var index = percentileBySource.length - 1;
+                    var data = [];
                     angular.forEach(response.data.data, function (value, key) {
                         if(value.source == label) {
-                            percentileBySource[index].data.push([parseInt(key), value.percentile]);
+                            data.push([parseInt(key), Math.round(value.percentile / 2) / 10]);
                         }
                     });
+                    if (data.length) {
+                        percentileBySource.push({
+                            source: label,
+                            data: data
+                        });
+                    }
                 });
                 angular.forEach(response.data.data, function (value, key) {
-                    percentile.push([parseInt(key), value.percentile]);
+                    percentile.push([parseInt(key), Math.round(value.percentile / 2) / 10]);
                 });
                 angular.forEach(response.data.data, function (value, key) {
-                    trend.push([parseInt(key), value.trend]);
+                    trend.push([parseInt(key), Math.round(value.trend / 2) / 10]);
                 });
                 return {
                     percentile: percentile,

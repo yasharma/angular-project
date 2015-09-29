@@ -102,8 +102,8 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
                 splines: {
                     show: true,
                     tension: 0.4,
-                    lineWidth: 1,
-                    fill: 0.4
+                    lineWidth: 1.3
+                    //fill: 0.4
                 },
                 points: {
                     radius: 0,
@@ -114,10 +114,14 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             {
                 data: [],
                 label: ' Trend',
-                dashes: {
+                //dashes: {
+                //    show: true,
+                //    dashLength: 3,
+                //    lineWidth: 1
+                //},
+                lines: {
                     show: true,
-                    dashLength: 3,
-                    lineWidth: 1
+                    width: 3
                 },
                 points: {
                     radius: 0,
@@ -134,18 +138,18 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             grid: {
                 hoverable: true,
                 clickable: true,
-                tickColor: "#d9dee9",
+                tickColor: "#f0f0f0", //"#d9dee9",
                 borderColor: "#d9dee9",
                 borderWidth: 1,
                 color: '#555'
             },
-            colors: ["#19b39b", "#2e7bad"],
+            colors: ["#000", "#ff6600"],
             xaxis: {
                 mode:'time' //,
                 //timeformat:"%y-%m-%d"
             },
             yaxis: {
-                ticks: 4
+                ticks: 5, min: 0.1, max: 5.9
             },
             tooltip: true,
             tooltipOpts: {
@@ -156,15 +160,15 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
                     var percentChangeStr = '';
                     if (prevIndex >= 0){
                         var prevValue = flotItem.series.data[prevIndex][1];
-                        var percentDiff = yval - prevValue;
+                        var percentDiff = (yval - prevValue) * 20;
                         if (percentDiff >= 0.1){
-                            percentChangeStr = '<span class="graph-tooltip-green">Up by <b>' + percentDiff.toFixed(1) + '%</b></span>';
+                            percentChangeStr = '<span class="graph-tooltip-green">Up by <b>' + percentDiff.toFixed(0) + '%</b></span>';
                         } else if (percentDiff <= -0.1){
-                            percentChangeStr = '<span class="graph-tooltip-red">Down by <b>' + (-percentDiff).toFixed(1) + '%</b></span>';
+                            percentChangeStr = '<span class="graph-tooltip-red">Down by <b>' + (-percentDiff).toFixed(0) + '%</b></span>';
                         }
                     }
                     return '<b>' + dateFormatted + '</b></br>' +
-                        label + ': <b>' + Math.round(yval) + '% </b><br>' +
+                        label + ': <b>' + yval + ' </b><br>' +
                         percentChangeStr;
 
 
@@ -180,6 +184,7 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             },
             legend: {
                 //container: $('#flotLegend')
+                noColumns:5
             }
         };
 
@@ -191,7 +196,7 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             grid: {
                 hoverable: true,
                 clickable: true,
-                tickColor: "#d9dee9",
+                tickColor: "#f0f0f0", //"#d9dee9",
                 borderColor: "#d9dee9",
                 borderWidth: 1,
                 color: '#555'
@@ -200,7 +205,7 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
                 mode:'time'
             },
             yaxis: {
-                ticks: 4
+                ticks: 5, min: 0.1, max: 5.9
             },
             tooltip: true,
             tooltipOpts: {
@@ -213,13 +218,13 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
                         var prevValue = flotItem.series.data[prevIndex][1];
                         var percentDiff = yval - prevValue;
                         if (percentDiff >= 0.1){
-                            percentChangeStr = '<span class="graph-tooltip-green">Up by <b>' + percentDiff.toFixed(1) + '%</b></span>';
+                            percentChangeStr = '<span class="graph-tooltip-green">Up by <b>' + percentDiff.toFixed(1) + '</b></span>';
                         } else if (percentDiff <= -0.1){
-                            percentChangeStr = '<span class="graph-tooltip-red">Down by <b>' + (-percentDiff).toFixed(1) + '%</b></span>';
+                            percentChangeStr = '<span class="graph-tooltip-red">Down by <b>' + (-percentDiff).toFixed(1) + '</b></span>';
                         }
                     }
                     return '<b>' + dateFormatted + '</b></br>' +
-                        label + ': <b>' + Math.round(yval) + '% </b><br>' +
+                        label + ': <b>' + yval + ' </b><br>' +
                         percentChangeStr;
 
 

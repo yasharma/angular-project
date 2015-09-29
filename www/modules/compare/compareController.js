@@ -188,7 +188,7 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
             grid: {
                 hoverable: true,
                 clickable: true,
-                tickColor: "#d9dee9",
+                tickColor: "#f0f0f0", //"#d9dee9",
                 borderColor: "#d9dee9",
                 borderWidth: 1,
                 color: '#555'
@@ -198,7 +198,7 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
                 //timeformat:"%y-%m-%d"
             },
             yaxis: {
-                ticks: 4
+                ticks: 5, min: 0.1, max: 5.9
             },
             tooltip: true,
             tooltipOpts: {
@@ -211,12 +211,12 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
                         var prevValue = flotItem.series.data[prevIndex][1];
                         var percentDiff = yval - prevValue;
                         if (percentDiff >= 0.1){
-                            percentChangeStr = 'up by ' + percentDiff.toFixed(1) + '%';
+                            percentChangeStr = 'up by ' + percentDiff.toFixed(1) + '';
                         } else if (percentDiff <= -0.1){
-                            percentChangeStr = 'down by ' + (-percentDiff).toFixed(1) + '%';
+                            percentChangeStr = 'down by ' + (-percentDiff).toFixed(1) + '';
                         }
                     }
-                    return Math.round(yval) + '% at ' + dateFormatted + ' ' + percentChangeStr;
+                    return yval + ' at ' + dateFormatted + ' ' + percentChangeStr;
 
 
                 },
