@@ -46,7 +46,6 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             if(graphDuration){ // only one
                 $scope.graphDuration = graphDuration;
                 graphDurations = [graphDuration];
-                console.log('jeste1');
             } else if (!$scope.dates.start.date || !$scope.dates.end.date){
                 return;
             } else {
