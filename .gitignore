@@ -3,5 +3,3 @@ node_modules
 www/js/**
 www/css/**
 .idea
-www/js/app.min.js
-www/js/lib.min.js
