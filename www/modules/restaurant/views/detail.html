@@ -196,9 +196,15 @@
                 <span>{{graphDuration.label}}</span> <span
                     class="caret"></span></button>
             <ul class="dropdown-menu">
-                <li ng-repeat="option in graphDurations" ng-show="graphs[option.value].trend.length">
-                    <a class="pointer" ng-click="setGraphDuration(option)">
+                <li ng-repeat="option in graphDurations"
+                    ng-show="graphs[option.value].trend.length">
+                    <a class="pointer" ng-click="refreshGraphs(option)">
                         {{ option.label }}
+                    </a>
+                </li>
+                <li>
+                    <a class="pointer" ng-click="getGraphs(customPeriod)">
+                        Custom Period
                     </a>
                 </li>
             </ul>
@@ -208,7 +214,7 @@
                  style="width: 200px;" ng-hide="graphDuration.value">
                 <span class="input-group-addon btn-rounded">End:</span>
                 <input type="text" class="form-control input-sm " datepicker-popup="dd/MM/yyyy" ng-model="dates.end.date"
-                       is-open="dates.end.opened" max-date="{{dates.today}}" ng-change="getGraphs()"
+                       is-open="dates.end.opened" max-date="{{dates.today}}" ng-change="getGraphs(customPeriod)"
                        ng-required="true" close-text="Close" datepicker-append-to-body="true" />
                             <span class="input-group-btn">
                                 <button class="btn btn-default btn-rounded input-sm " ng-click="openCalendar($event, 'end')"><i class="glyphicon glyphicon-calendar"></i></button>
@@ -218,7 +224,7 @@
                  style="width: 200px;" ng-hide="graphDuration.value">
                 <span class="input-group-addon btn-rounded">Start:</span>
                 <input type="text" class="form-control input-sm " datepicker-popup="dd/MM/yyyy" ng-model="dates.start.date"
-                       is-open="dates.start.opened" max-date="{{dates.today}}" ng-change="getGraphs()"
+                       is-open="dates.start.opened" max-date="{{dates.today}}" ng-change="getGraphs(customPeriod)"
                        ng-required="true" close-text="Close" datepicker-append-to-body="true" />
                             <span class="input-group-btn">
                                 <button class="btn btn-default btn-rounded input-sm " ng-click="openCalendar($event, 'start')"><i class="glyphicon glyphicon-calendar"></i></button>

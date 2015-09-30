@@ -1,7 +1,7 @@
 'use strict';
 
-rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams',
-    function ($scope, restaurantSvr, $routeParams) {
+rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams', '$timeout',
+    function ($scope, restaurantSvr, $routeParams, $timeout) {
 
         $scope.restaurantId = $routeParams.restaurantId;
 
@@ -11,9 +11,13 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             {label:'Last 3 Months', value:'QUARTERLY'},
             {label:'Last 6 Months', value:'HALF_YEARLY'},
             {label:'Last Year', value:'YEARLY'},
-            {label:'Overall', value:'OVERALL'},
-            {label:'Custom Period', value:''}
+            {label:'Overall', value:'OVERALL'}
         ];
+        $scope.customPeriod = {
+            label:'Custom Period',
+            value:''
+        };
+
         $scope.graphDuration = $scope.graphDurations[5];
 
         $scope.flotColors = [
@@ -25,22 +29,24 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             "#2F9630"
         ];
 
-        $scope.setGraphDuration = function(option){
-            if (option.value in $scope.graphs) {
+        $scope.refreshGraphs = function(option){
+            if(option){
                 $scope.graphDuration = option;
-                var graph = $scope.graphs[option.value];
-                $scope.flotDataset[0].data = graph.percentile;
-                $scope.flotDataset[1].data = graph.trend;
-                $scope.donutDataset = graph.source;
-                $scope.stats = graph.stats;
-                $scope.refreshScatterFlot(option);
             }
+            var graph = $scope.graphs[$scope.graphDuration.value];
+            $scope.flotDataset[0].data = graph.percentile;
+            $scope.flotDataset[1].data = graph.trend;
+            $scope.donutDataset = graph.source;
+            $scope.stats = graph.stats;
+            $scope.refreshScatterFlot();
         };
 
         $scope.getGraphs = function(graphDuration){
             var graphDurations = $scope.graphDurations;
             if(graphDuration){ // only one
+                $scope.graphDuration = graphDuration;
                 graphDurations = [graphDuration];
+                console.log('jeste1');
             } else if (!$scope.dates.start.date || !$scope.dates.end.date){
                 return;
             } else {
@@ -52,21 +58,25 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
                 restaurantSvr.getGraphs($scope.restaurantId, duration.value,
                     $scope.dates.start.date, $scope.dates.end.date)
                     .then(function (graph) {
-                    if(graph.percentile && graph.percentile.length > 5){
+                    if(graph.percentile && graph.percentile.length > 5 || duration.value == ''){
                         $scope.graphs[duration.value] = graph;
                         $scope.noGraphs = false;
-                        $scope.setGraphDuration($scope.graphDuration);
+                        // refresh graph
+                        if (duration == $scope.graphDuration) {
+                            $timeout(function () {
+                                $scope.refreshGraphs();
+                            });
+                        }
                     }
                 });
             });
         };
-
         // Load items into scatter flot graph
-        $scope.refreshScatterFlot = function(option){
+        $scope.refreshScatterFlot = function(){
             // for every source, copy data for selected duration into view
             $scope.scatterFlotDataset = [];
-            angular.forEach($scope.graphs[option.value].percentileBySource, function(src, id){
-                var length = $scope.graphs[option.value].percentileBySource.length;
+            angular.forEach($scope.graphs[$scope.graphDuration.value].percentileBySource, function(src, id){
+                var length = $scope.graphs[$scope.graphDuration.value].percentileBySource.length;
                 var source = src.source;
                 var data = src.data;
                 if(data) {
