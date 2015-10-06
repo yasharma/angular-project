@@ -267,13 +267,24 @@
                 <!--</div>-->
             <!--</div>-->
         </section>
+
+    </div>
+    <div class="col-md-5 col-sm-12"  ng-hide="noGraphs">
+        <section>
+            <header class="font-bold m-l-md m-t-sm">
+                Sources
+            </header>
+        </section>
+        <div class="panel-body flot-legend">
+            <flot dataset="donutDataset" options="donutOptions" height="240px"></flot>
+        </div>
         <section>
             <header class="font-bold padder-v">
-                <span class="m-l-lg">Ratings Distribution</span>
+                <span class="m-l-md">Ratings Distribution</span>
 
             </header>
             <!--<div class="row" ng-repeat="">-->
-            <div class="m-b">
+            <div class="m-b-md">
                 <div class="row" ng-repeat="rating in [5,4,3,2,1]">
                     <div class="col-xs-4"><div class="text-right">{{ stats.ratings[rating].label }}</div></div>
                     <div class="col-xs-4">
@@ -289,16 +300,6 @@
                 </div>
             </div>
         </section>
-    </div>
-    <div class="col-md-5 col-sm-12"  ng-hide="noGraphs">
-        <section>
-            <header class="font-bold m-l-md m-t-sm">
-                Sources
-            </header>
-        </section>
-        <div class="panel-body flot-legend">
-            <flot dataset="donutDataset" options="donutOptions" height="240px"></flot>
-        </div>
     </div>
 </div>
 

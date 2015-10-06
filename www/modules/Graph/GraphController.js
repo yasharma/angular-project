@@ -39,10 +39,10 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             $scope.donutDataset = graph.source;
             //$scope.stats = graph.stats;
             $scope.refreshScatterFlot();
-            $scope.refreshStats();
+            $scope.refreshStats(graph);
         };
 
-        $scope.refreshStats = function(){
+        $scope.refreshStats = function(graph){
             var stats = {
                 ratings: {
                     1: {label: 'Terrible', count: 0},
@@ -54,17 +54,14 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
                 total: 0
             };
             // go through overall stats, if available, and count ratings
-            if ('OVERALL' in $scope.graphs){
-                var graph = $scope.graphs.OVERALL;
-                angular.forEach(graph.percentile, function(val){
-                    var rating = Math.round(val[1]);
-                    if(rating >= 1 && rating <=5){
-                        stats.ratings[rating].count += 1;
-                    }
+            angular.forEach(graph.percentile, function(val){
+                var rating = Math.round(val[1]);
+                if(rating >= 1 && rating <=5){
+                    stats.ratings[rating].count += 1;
+                }
 
-                });
-                stats.total = graph.percentile.length;
-            }
+            });
+            stats.total = graph.percentile.length;
             $scope.stats = stats;
 
         };
