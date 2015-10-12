@@ -37,8 +37,33 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             $scope.flotDataset[0].data = graph.percentile;
             $scope.flotDataset[1].data = graph.trend;
             $scope.donutDataset = graph.source;
-            $scope.stats = graph.stats;
+            //$scope.stats = graph.stats;
             $scope.refreshScatterFlot();
+            $scope.refreshStats(graph);
+        };
+
+        $scope.refreshStats = function(graph){
+            var stats = {
+                ratings: {
+                    1: {label: 'Terrible', count: 0},
+                    2: {label: 'Poor', count: 0},
+                    3: {label: 'Average', count: 0},
+                    4: {label: 'Very good', count: 0},
+                    5: {label: 'Excellent', count: 0}
+                },
+                total: 0
+            };
+            // go through overall stats, if available, and count ratings
+            angular.forEach(graph.percentile, function(val){
+                var rating = Math.round(val[1]);
+                if(rating >= 1 && rating <=5){
+                    stats.ratings[rating].count += 1;
+                }
+
+            });
+            stats.total = graph.percentile.length;
+            $scope.stats = stats;
+
         };
 
         $scope.getGraphs = function(graphDuration){
