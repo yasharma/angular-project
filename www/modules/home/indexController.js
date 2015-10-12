@@ -7,12 +7,14 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         .when('/index', {
             templateUrl: 'modules/home/views/index.html',
             controller: 'indexCtrl',
-            reloadOnSearch: false
+            reloadOnSearch: false,
+            access: { requiredLogin: true }
         })
         .when('/index/:view', {
             templateUrl: 'modules/home/views/index.html',
             controller: 'indexCtrl',
-            reloadOnSearch: false
+            reloadOnSearch: false,
+            access: { requiredLogin: true }
         })
         .when('/dashboard/:restaurantId', {
             templateUrl: 'modules/restaurant/views/owner.html',
@@ -45,7 +47,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         })
         .when('/restaurant/:restaurantId', {
             templateUrl: 'modules/restaurant/views/detail.html',
-            controller: 'detailCtrl'
+            controller: 'detailCtrl',
+            access: { requiredLogin: true }
         })
         .when('/login', {
             templateUrl: 'modules/login/views/loginFull.html',
