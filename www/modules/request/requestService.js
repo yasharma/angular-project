@@ -20,6 +20,16 @@ requestService.factory('requestSvr', ['localStorageService', 'Restangular', func
                     response.err = true;
                     return response;
                 });
+        },
+
+        getCurrentRequest: function (restaurantId) {
+            var resource = 'requests/current';
+            var request = Restangular.one(resource);
+
+            return request.get({restaurant_id: restaurantId})
+                .then(function (response) {
+                    return response.data;
+                });
         }
 
     };
