@@ -1,5 +1,5 @@
 node_modules
 bower_components
-www/js/**
-www/css/**
+/www/css
+/www/js
 .idea

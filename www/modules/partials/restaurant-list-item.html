@@ -1,7 +1,7 @@
 <div class="pull-left avatar-container">
     <div class="thumb-sm avatar avatar1"
          tooltip-html-unsafe="{{ 'Trend: <b>' + restaurant.latest_trend + '</b></br>' +
-         'Overall: <b>' + restaurant.overview__percentile_rounded + '</b>' }}"
+         'Overall: <b>' + restaurant.overviews__percentile_rounded + '</b>' }}"
          tooltip-placement="right" >
         <!--<div ng-if="cgBusyPromise.$cgBusyFulfilled">-->
         <span class="rating-circle">{{restaurant.latest_trend}}</span>
@@ -98,7 +98,7 @@
 
                         {{ restaurant.rating | number:1 }}
                     </span>
-                    <span class="nowrap">{{restaurant.overview__total_reviews}} Reviews</span>
+                    <span class="nowrap">{{restaurant.overviews__total_reviews}} Reviews</span>
 
                 </p>
 

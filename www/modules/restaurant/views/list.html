@@ -21,8 +21,8 @@
     <div class="panel-body no-padding-right">
         <article ng-repeat="restaurant in restaurants" class="comment-item"><a
                 class="pull-left thumb-sm avatar">
-            <span class="rating-circle">{{restaurant.overview__percentile | number : 1}}</span>
-            <div easypiechart options="options" percent="restaurant.overview__percentile | number : 2"></div></a> <span
+            <span class="rating-circle">{{restaurant.overviews__percentile | number : 1}}</span>
+            <div easypiechart options="options" percent="restaurant.overviews__percentile | number : 2"></div></a> <span
                 class="arrow left"></span>
             <section class="comment-body panel panel-default">
                 <header class="panel-heading"><a href="">{{restaurant.locations__formatted_address}}</a>
@@ -48,12 +48,12 @@
                         <p><a href="#/restaurant/{{restaurant.id}}/{{hash}}">
                             <h3 class="title"> {{restaurant.name}} </h3>
                         </a></p>
-                        <p><rating  ng-model="restaurant.overview__rating" max="5" readonly="true"></rating>
-                            <span class="label" ng-class="{'label-warning': restaurant.overview__rating/10 *100 <30, 'label-info': restaurant.overview__rating/10 *100 >=30 && restaurant.overview__rating/10 *100 <70, 'label-success':restaurant.overview__rating/10 *100 >=70}">{{restaurant.overview__rating/10 *100}}%</span>
-                            {{restaurant.overview__total_reviews}} Reviews
+                        <p><rating  ng-model="restaurant.overviews__rating" max="5" readonly="true"></rating>
+                            <span class="label" ng-class="{'label-warning': restaurant.overviews__rating/10 *100 <30, 'label-info': restaurant.overviews__rating/10 *100 >=30 && restaurant.overviews__rating/10 *100 <70, 'label-success':restaurant.overviews__rating/10 *100 >=70}">{{restaurant.overviews__rating/10 *100}}%</span>
+                            {{restaurant.overviews__total_reviews}} Reviews
                         </p>
-                        <p>Restaurant Overview : {{restaurant.overview__percentile | number : 2}}</p>
-                        <p>Overview Trend : {{restaurant.overview__trend | number : 2}}</p>
+                        <p>Restaurant Overview : {{restaurant.overviews__percentile | number : 2}}</p>
+                        <p>Overview Trend : {{restaurant.overviews__trend | number : 2}}</p>
 
                     </div>
                     <div class="col-lg-2 pull-left no-padding clearfix">

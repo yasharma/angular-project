@@ -348,8 +348,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 var i = 0;
                 $scope.filters.cuisine.values = response.map(function(category){
                     return {
-                        name: category,
-                        shown: ($.inArray(category, $scope.filters.cuisine.initial) > -1),
+                        name: category.name,
+                        shown: ($.inArray(category.name, $scope.filters.cuisine.initial) > -1),
                         selected: false,
                         id: i++
                     }
@@ -620,7 +620,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
         restaurantSvr.getRestaurantCategories().then(function (response) {
             $scope.categories = response.map(function(item){
-                return {id: item};
+                return {id: item.name};
             });
         });
 

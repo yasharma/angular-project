@@ -38,7 +38,8 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                     priceRange = priceRange + "$";
                 }
                 restaurants[i].price_range_symbol = priceRange;
-                var trend_data = JSON.parse(restaurants[i].overview__trend_series);
+                var trend_data = JSON.parse(restaurants[i].overviews__trend_series);
+
                 var trend_array = [];
                 var percentile_array = [];
 
@@ -59,7 +60,7 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                     var obj = trend_data[id];
                     for (var key2 in obj) {
                         trend_array.push([key2, averageTrend - obj[key2]]);
-                        percentile_array.push([key2, restaurants[i].overview__percentile - obj[key2]]);
+                        percentile_array.push([key2, restaurants[i].overviews__percentile - obj[key2]]);
                     }
                 }
 
@@ -74,9 +75,9 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                         "values": percentile_array
                     }];
 
-                restaurants[i].rating = Math.round(restaurants[i].overview__percentile / 2) / 10;
-                restaurants[i].rating_rounded = Math.round(restaurants[i].overview__percentile / 20);
-                restaurants[i].overview__percentile_rounded = Math.round(restaurants[i].overview__percentile * 10) / 10;
+                restaurants[i].rating = Math.round(restaurants[i].overviews__percentile / 2) / 10;
+                restaurants[i].rating_rounded = Math.round(restaurants[i].overviews__percentile / 20);
+                restaurants[i].overviews__percentile_rounded = Math.round(restaurants[i].overviews__percentile * 10) / 10;
 
                 // for trend change circle
                 restaurants[i].trend_change = 0.0;

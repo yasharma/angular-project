@@ -42,7 +42,7 @@ function irRatingWidget(params) {
                     var restaurant = res.items[0];
 
                     // calculate rating
-                    var rating = Math.round(restaurant.overview__percentile / 10) / 2;
+                    var rating = Math.round(restaurant.overviews__percentile / 10) / 2;
                     if (rating < 1) rating = 1;
                     var ratingWhole = Math.trunc(rating);
                     var ratingHalf = 0;
@@ -55,7 +55,7 @@ function irRatingWidget(params) {
                         return;
                     }
 
-                    var trend_data = JSON.parse(restaurant.overview__trend_series);
+                    var trend_data = JSON.parse(restaurant.overviews__trend_series);
                     // trend change
                     var trend_change = 0.0;
                     var trend_change_abs = 0.0;
@@ -87,7 +87,7 @@ function irRatingWidget(params) {
                         width: params.width || '160px',
                         ratingWhole: ratingWhole,
                         ratingHalf: ratingHalf,
-                        reviews_str: restaurant.overview__total_reviews == 1 ? '1 review' : restaurant.overview__total_reviews + ' reviews'
+                        reviews_str: restaurant.overviews__total_reviews == 1 ? '1 review' : restaurant.overviews__total_reviews + ' reviews'
                     };
 
 
