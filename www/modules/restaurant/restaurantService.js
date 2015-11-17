@@ -159,7 +159,6 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
             }
             params.type = 'PERCENTILE-TREND-AND-SOURCE';
             return graphs.get(params).then(function (response) {
-                console.log(response.data);
                 var source = [];
                 var percentile = [];
                 var trend = [];
