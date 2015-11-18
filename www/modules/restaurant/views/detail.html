@@ -5,7 +5,7 @@
 <section class="ir-content">
 <section class="hbox stretch">
 
-<aside ng-include="sidebar" id="nav" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
+<aside ng-include="'modules/partials/sidebar.html'" id="nav" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
 
 <section id="content">
 <section class="vbox">
@@ -24,8 +24,10 @@
                     ng-click="showMap = ! showMap">
                 <i class="fa fa-map-marker fa-lg text-primary"></i> Map
             </button>
-            <button class="btn btn-default btn-rounded btn-sm m-l-xs" ng-show="isLogged" ng-click="favourite()">
-                <i class="icon fa fa-star-o" ng-show="! isFavourite"></i>
+            <button class="btn btn-default btn-rounded btn-sm m-l-xs" ng-show="isLogged"
+                    ng-click="favourite()">
+                <!--<i class="icon fa fa-star-o" ng-show="! isFavourite"></i>-->
+                <span ng-show="! isFavourite">Add as favourite</span>
                 <i class="icon fa fa-star text-warning" ng-show="isFavourite"></i>
             </button>
             <div class="modal-backdrop fade in"></div>

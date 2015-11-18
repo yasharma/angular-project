@@ -5,6 +5,7 @@ rxControllers.controller('photoCtrl', ['$scope', '$routeParams', 'photoSvr', 'me
     function ($scope, $routeParams, photoSvr, messageCenterService, localStorageService, $rootScope, $location) {
 
         $scope.restaurantId = $routeParams.restaurantId;
+        $scope.isOwner = $scope.sidebarDetail = true; // for sidebar
         $scope.dynamic = '';
         $scope.type = '';
 

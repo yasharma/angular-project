@@ -188,7 +188,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
                 [
                     {name: 'review-widget.html', url: 'modules/partials/review-widget.html'},
                 ];
-            $scope.sidebar = 'modules/partials/sidebar-detail.html';
+            $scope.sidebarDetail = true;
             $scope.header = 'modules/partials/header.html';
             $scope.footer = 'modules/partials/footer.html';
             $scope.reviewBox = 'modules/review/views/index.html';
