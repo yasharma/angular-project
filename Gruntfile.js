@@ -115,7 +115,7 @@ module.exports = function (grunt) {
                 dest: 'www/js/lib.js'
             },
             applibmin: {
-                options:{
+                options: {
                     compress: false,
                     report: 'min',
                     sourceMap: true,
@@ -126,7 +126,7 @@ module.exports = function (grunt) {
                 dest: 'www/js/lib.min.js'
             },
             appmin: {
-                options:{
+                options: {
                     compress: false,
                     report: 'min',
                     sourceMap: true,
@@ -164,7 +164,7 @@ module.exports = function (grunt) {
             }
         },
         ngAnnotate: {
-            applib:{
+            applib: {
                 src: ['www/js/lib.js'],
                 dest: 'www/js/lib-annotated.js'
             }
@@ -192,7 +192,7 @@ module.exports = function (grunt) {
                 files: ['<%= uglify.appmin.src %>'],
                 tasks: ['uglify:appmin']
             },
-            ngAnnotate:{
+            ngAnnotate: {
                 files: ['<%= ngAnnotate.applib.src %>'],
                 tasks: ['ngAnnotate:applib']
             },

@@ -1,11 +1,11 @@
 'use strict';
 
-var myApp = angular.module('myApp', ['ngRoute','config','LocalStorageModule','directive','restangular',
-    'geoLocation','overviewService','restaurantService','reviewService','locationService','photoService',
-    'requestService','claimService', 'userService',
+var myApp = angular.module('myApp', ['ngRoute', 'config', 'LocalStorageModule', 'directive', 'restangular',
+    'geoLocation', 'overviewService', 'restaurantService', 'reviewService', 'locationService', 'photoService',
+    'requestService', 'claimService', 'userService',
     //'AngularChart',
-    'GoogleMaps','angularFileUpload','ui.bootstrap','nvd3ChartDirectives','easypiechart','highcharts-ng',
-    'angular-flot','Controllers','Services', 'MessageCenterModule','angularFileUpload', 'uiGmapgoogle-maps',
+    'GoogleMaps', 'angularFileUpload', 'ui.bootstrap', 'nvd3ChartDirectives', 'easypiechart', 'highcharts-ng',
+    'angular-flot', 'Controllers', 'Services', 'MessageCenterModule', 'angularFileUpload', 'uiGmapgoogle-maps',
     'cgBusy', 'bootstrapLightbox', 'angular-dropdown-multiselect', 'angular-growl'
 ]);
 
@@ -15,7 +15,7 @@ myApp.config(['$routeProvider', function ($routeProvider) {
 }]);
 
 
-myApp.config(['uiGmapGoogleMapApiProvider',function(uiGmapGoogleMapApiProvider) {
+myApp.config(['uiGmapGoogleMapApiProvider', function (uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
         //    key: 'your api key',
         v: '3.17',
@@ -23,33 +23,33 @@ myApp.config(['uiGmapGoogleMapApiProvider',function(uiGmapGoogleMapApiProvider) 
     });
 }]);
 
-myApp.config(["RestangularProvider", function(RestangularProvider){
+myApp.config(["RestangularProvider", function (RestangularProvider) {
     RestangularProvider.setRestangularFields({
         id: "id"
     });
     RestangularProvider.setBaseUrl('http://au1.api.ratingscombined.com:80/v1/');
     //RestangularProvider.setBaseUrl('http://api.ireview.dev/v1/');
     RestangularProvider.setDefaultRequestParams({
-        "access-token" :"f899139df5e1059396431415e770c6dd",
-        "per-page" : 8
+        "access-token": "f899139df5e1059396431415e770c6dd",
+        "per-page": 8
     });
     RestangularProvider.setDefaultHttpFields({
         withCredentials: false,
         cache: true
     });
     RestangularProvider.setFullResponse(true);
-    RestangularProvider.setRequestInterceptor(function(elem, operation) {
+    RestangularProvider.setRequestInterceptor(function (elem, operation) {
         if (operation === "remove") {
             return null;
         }
         return elem;
     })
     // set params for multiple methods at once
-    RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
-        if(operation === 'getList'){
+    RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
+        if (operation === 'getList') {
             data = [{
-                items : data.items,
-                _meta : data._meta
+                items: data.items,
+                _meta: data._meta
             }];
         }
         return data;
@@ -58,7 +58,7 @@ myApp.config(["RestangularProvider", function(RestangularProvider){
 
 }]);
 
-myApp.factory('AuthenticationService', function() {
+myApp.factory('AuthenticationService', function () {
     var auth = {
         isLogged: false
     }
@@ -67,8 +67,8 @@ myApp.factory('AuthenticationService', function() {
 });
 
 
-myApp.run(['$rootScope', '$location', 'localStorageService', 'AuthenticationService',function($rootScope, $location, localStorageService, AuthenticationService) {
-    $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
+myApp.run(['$rootScope', '$location', 'localStorageService', 'AuthenticationService', function ($rootScope, $location, localStorageService, AuthenticationService) {
+    $rootScope.$on("$routeChangeStart", function (event, nextRoute, currentRoute) {
         //redirect only if both isLogged is false and no token is set
         if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredLogin
             && !AuthenticationService.isLogged && !localStorageService.get('token')) {
@@ -78,7 +78,7 @@ myApp.run(['$rootScope', '$location', 'localStorageService', 'AuthenticationServ
     });
 
     // logout
-    $rootScope.clearToken = function(){
+    $rootScope.clearToken = function () {
         localStorageService.remove('token');
         localStorageService.remove('user');
         $rootScope.isLogged = false;
@@ -95,7 +95,7 @@ myApp.run(['$rootScope', '$location', 'localStorageService', 'AuthenticationServ
     $rootScope.showFiltersMobile = false;
 
     // go to index page and show search filters
-    $rootScope.showSearchFilters = function(){
+    $rootScope.showSearchFilters = function () {
         $rootScope.showFiltersMobile = true;
         $location.path("/index");
     }
@@ -106,13 +106,13 @@ myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, R
 
 
     /*
-    Referenced from this site
+     Referenced from this site
      http://better-inter.net/enabling-cors-in-angular-js/*/
 
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
-    var interceptor = ['$q','$location', '$injector', '$rootScope', 'localStorageService', 'AuthenticationService', 'messageCenterService', function($q, $location, $injector, $rootScope, localStorageService, AuthenticationService, messageCenterService) {
+    var interceptor = ['$q', '$location', '$injector', '$rootScope', 'localStorageService', 'AuthenticationService', 'messageCenterService', function ($q, $location, $injector, $rootScope, localStorageService, AuthenticationService, messageCenterService) {
 
         return {
             request: function (config) {
@@ -121,16 +121,16 @@ myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, R
                 var token = localStorageService.get('token');
                 if (token) {
                     RestangularProvider.setDefaultRequestParams({
-                        "access-token" :token,
-                        "per-page" : 8
+                        "access-token": token,
+                        "per-page": 8
                     });
-                    AuthenticationService.isLogged =1;
+                    AuthenticationService.isLogged = 1;
                     $rootScope.isLogged = 1;
                 }
                 return config;
             },
 
-            requestError: function(rejection) {
+            requestError: function (rejection) {
                 return $q.reject(rejection);
             },
 
@@ -140,7 +140,7 @@ myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, R
 
             // Revoke client authentication if 401 is received
 
-            responseError: function(rejection) {
+            responseError: function (rejection) {
                 // Dynamically get the service since they can't be injected into config
                 var AuthenticationService = $injector.get('AuthenticationService');
                 var token = localStorageService.get('token');
@@ -161,18 +161,18 @@ myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, R
                     $rootScope.errorStatus = 'HTTP verb not supported [405]';
 //                } else if (rejection.status == 500) {
 //                    $rootScope.errorStatus = 'Internal Server Error [500].';
-                } else if (rejection.status == 422 && rejection.data.message){
+                } else if (rejection.status == 422 && rejection.data.message) {
                     $rootScope.errorStatus = getFriendlierMessage(rejection.data.message);
                 }
-                else{
-                    rejection.data.forEach(function(item){
-                        messageCenterService.add('danger', getFriendlierMessage(item.message), {timeout : 3000});
+                else {
+                    rejection.data.forEach(function (item) {
+                        messageCenterService.add('danger', getFriendlierMessage(item.message), {timeout: 3000});
                     });
                     return;
                 }
 
-                if($rootScope.errorStatus){
-                    messageCenterService.add('danger', $rootScope.errorStatus, {timeout : 3000});
+                if ($rootScope.errorStatus) {
+                    messageCenterService.add('danger', $rootScope.errorStatus, {timeout: 3000});
                     return;
                 }
 
@@ -183,8 +183,8 @@ myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, R
 
     $httpProvider.interceptors.push(interceptor);
 
-    function getFriendlierMessage(message){
-        switch (message){
+    function getFriendlierMessage(message) {
+        switch (message) {
             case "Invalid username" :
                 message = "The username you provided does not exist.";
                 break;

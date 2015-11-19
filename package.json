@@ -1,18 +1,18 @@
 {
-    "name": "iReview",
-    "version": "0.1.0",
-    "author": "Rajan Rauniyar",
-    "private": true,
-    "devDependencies": {
-        "grunt": "~0.4.*",
-        "grunt-contrib-cssmin": "*",
-        "grunt-contrib-qunit": "*",
-        "grunt-contrib-jshint": "*",
-        "grunt-contrib-uglify": "*",
-        "grunt-ng-annotate": "*",
-        "grunt-webfont": "*",
-        "matchdep": "*",
-        "grunt-contrib-watch":"*",
-        "grunt-contrib-less":"*"
-    }
+  "name": "iReview",
+  "version": "0.1.0",
+  "author": "Rajan Rauniyar",
+  "private": true,
+  "devDependencies": {
+    "grunt": "~0.4.*",
+    "grunt-contrib-cssmin": "*",
+    "grunt-contrib-qunit": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-ng-annotate": "*",
+    "grunt-webfont": "*",
+    "matchdep": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-less": "*"
+  }
 }
