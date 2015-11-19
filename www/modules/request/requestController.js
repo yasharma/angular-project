@@ -3,6 +3,7 @@
 rxControllers.controller('requestCtrl', ['$scope', '$routeParams', 'requestSvr', 'restaurantSvr', 'messageCenterService', 'localStorageService',
     function ($scope, routeParams, requestSvr, restaurantSvr, messageCenterService, localStorageService) {
         $scope.restaurantId = routeParams.restaurantId;
+        $scope.isOwner = $scope.sidebarDetail = true; // for sidebar
         // for cuisine picker
         $scope.categories = [];
         // data for showing day/hour labels

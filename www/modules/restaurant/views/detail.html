@@ -5,7 +5,7 @@
 <section class="ir-content">
 <section class="hbox stretch">
 
-<aside ng-include="sidebar" id="nav" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
+<aside ng-include="'modules/partials/sidebar.html'" id="nav" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
 
 <section id="content">
 <section class="vbox">
@@ -24,8 +24,10 @@
                     ng-click="showMap = ! showMap">
                 <i class="fa fa-map-marker fa-lg text-primary"></i> Map
             </button>
-            <button class="btn btn-default btn-rounded btn-sm m-l-xs" ng-show="isLogged" ng-click="favourite()">
-                <i class="icon fa fa-star-o" ng-show="! isFavourite"></i>
+            <button class="btn btn-default btn-rounded btn-sm m-l-xs" ng-show="isLogged"
+                    ng-click="favourite()">
+                <!--<i class="icon fa fa-star-o" ng-show="! isFavourite"></i>-->
+                <span ng-show="! isFavourite">Add as favourite</span>
                 <i class="icon fa fa-star text-warning" ng-show="isFavourite"></i>
             </button>
             <div class="modal-backdrop fade in"></div>
@@ -189,7 +191,7 @@
         Not enough data to show analytics graph
     </div>
     <!--Duration and date pickers-->
-    <div class="clearfix m pull-right z-index-10" ng-hide="noGraphs">
+    <div class="clearfix m m-b-sm pull-right z-index-10" ng-hide="noGraphs">
         <div class="btn-group pull-right dropdown">
             <button data-toggle="dropdown"
                     class="btn btn-sm btn-rounded btn-default dropdown-toggle m-b-xs m-r-sm z-index-10">
@@ -245,7 +247,7 @@
                 <flot dataset="flotDataset" options="flotOptions" height="212px"></flot>
 
             </div>
-            <div class="panel-body flot-legend m-t-lg">
+            <div class="panel-body flot-legend m-t-lg" ng-show="user.ownsRestaurants">
                 <flot dataset="scatterFlotDataset" options="scatterFlotOptions" height="212px"></flot>
             </div>
             <!--<div class="row text-center no-gutter">-->
@@ -271,14 +273,6 @@
     </div>
     <div class="col-md-5 col-sm-12"  ng-hide="noGraphs">
         <section>
-            <header class="font-bold m-l-md m-t-sm">
-                Sources
-            </header>
-        </section>
-        <div class="panel-body flot-legend">
-            <flot dataset="donutDataset" options="donutOptions" height="240px"></flot>
-        </div>
-        <section>
             <header class="font-bold padder-v">
                 <span class="m-l-md">Ratings Distribution</span>
 
@@ -300,6 +294,15 @@
                 </div>
             </div>
         </section>
+        <section>
+            <header class="font-bold m-l-md m-t-lg">
+                Sources
+            </header>
+            <div class="panel-body flot-legend" style="padding-top: 0;">
+                <flot dataset="donutDataset" options="donutOptions" height="240px"></flot>
+            </div>
+        </section>
+
     </div>
 </div>
 
