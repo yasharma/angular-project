@@ -6,6 +6,13 @@ var userService = angular.module('userService', []);
 userService.factory('userSvr', ['Restangular', 'restaurantSvr', function (Restangular, restaurantSvr) {
 
     return {
+        // gets user's owned restaurants
+        getOwnedRestaurants: function () {
+            return Restangular.one('users/me').get({expand: 'owned_restaurants'}).then(function (response) {
+                var restaurants = response.data.owned_restaurants || [];
+                return restaurantSvr.expandRestaurantList(restaurants);
+            });
+        },
         // gets user's favorite restaurants
         getFavorites: function () {
             return Restangular.one('users/favourites').withHttpConfig({

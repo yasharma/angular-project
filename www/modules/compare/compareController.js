@@ -1,17 +1,13 @@
 'use strict';
 
-rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSvr',
-    function ($scope, routeParams, restaurantSvr) {
+rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSvr', 'userSvr',
+    function ($scope, routeParams, restaurantSvr, userSvr) {
         if ($scope.user && $scope.user.ownedRestaurants && $scope.user.ownedRestaurants.length) {
-            restaurantSvr.getRestaurants(
-                {
-                    'id-in': $scope.user.ownedRestaurants.join(),
-                    'per-page': 50
-                }
-            ).then(function (response) {
-                    //$scope.ownedRestaurants = response.items;
+            // add owned restaurants to comparison table by default
+            userSvr.getOwnedRestaurants().then(function (response) {
                     $scope.restaurants = [];
-                    angular.forEach(response.items, function(restaurant){
+                    // have to add each restaurant through addRestaurant method, so it can load required data
+                    angular.forEach(response, function(restaurant){
                         $scope.addRestaurant(restaurant);
                     });
                 });

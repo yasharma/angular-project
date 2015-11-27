@@ -369,6 +369,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             $scope, $rootScope, $http, localStorageService, $location, restaurantSvr, userSvr, geoLocation,
             $routeParams, $anchorScroll) {
 
+            // change view manually based on 'view' route parameter
             if ($routeParams.view) {
                 if ($routeParams.view == 'favorites') {
                     $scope.view = 'favorites';
@@ -382,18 +383,15 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             }
 
             $scope.init = function () {
-                // get user's owned restaurants
+                // watch user object for changes (beause login / logout happens within indexCtrl)
                 $scope.$watch('user', function() {
+                    // get user's owned restaurants
                     if ($scope.user && $scope.user.ownedRestaurants && $scope.user.ownedRestaurants.length) {
-                        restaurantSvr.getRestaurants(
-                            {
-                                'id-in': $scope.user.ownedRestaurants.join(),
-                                'per-page': 50
-                            }
-                        ).then(function (response) {
-                                $scope.ownedRestaurants = response.items;
-                            });
+                        userSvr.getOwnedRestaurants().then(function (response) {
+                                $scope.ownedRestaurants = response;
+                        });
                     }
+                    // get user's favorite restaurants
                     if($scope.user && $scope.view == 'favorites') {
                         userSvr.getFavorites().then(function (response) {
                             $scope.favoriteRestaurants = response;
