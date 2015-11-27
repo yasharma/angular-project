@@ -1,8 +1,18 @@
 'use strict';
 
-rxControllers.controller('requestCtrl', ['$scope', '$routeParams', 'requestSvr', 'restaurantSvr', 'messageCenterService', 'localStorageService',
-    function ($scope, routeParams, requestSvr, restaurantSvr, messageCenterService, localStorageService) {
-        $scope.restaurantId = routeParams.restaurantId;
+rxControllers.controller('requestCtrl', ['$scope', '$routeParams', 'requestSvr', 'restaurantSvr',
+    'messageCenterService', 'localStorageService', 'userSvr',
+    function ($scope, routeParams, requestSvr, restaurantSvr, messageCenterService, localStorageService, userSvr) {
+        userSvr.getOwnedRestaurants().then(function(restaurants){
+            $scope.ownedRestaurants = restaurants;
+
+            if($scope.ownedRestaurants.length){
+                $scope.restaurantId = $scope.ownedRestaurants[0].id;
+                $scope.init();
+                $scope.getExistingRequest();
+            }
+        });
+
         $scope.isOwner = $scope.sidebarDetail = true; // for sidebar
         // for cuisine picker
         $scope.categories = [];
@@ -82,7 +92,7 @@ rxControllers.controller('requestCtrl', ['$scope', '$routeParams', 'requestSvr',
                 }
                 $scope.request['restaurant-price range'] = restaurant['price_range'];
                 // prepopulate cuisine
-                if ('category' in restaurant){
+                if (restaurant.category){
                     $scope.request['restaurant-cuisine'] = restaurant.category.split(', ');
                 } else {
                     $scope.request['restaurant-cuisine'] = [];
@@ -114,7 +124,5 @@ rxControllers.controller('requestCtrl', ['$scope', '$routeParams', 'requestSvr',
             });
         };
 
-        $scope.init();
-        $scope.getExistingRequest();
 
     }]);
