@@ -13,7 +13,7 @@
 </div>
 
 <form novalidate name="requestsForm" ng-submit="submitRequest()">
-    <accordion close-others="oneAtATime">
+    <accordion close-others="false">
         <accordion-group heading="Basic Info" is-open="showRestaurantTabs.info">
 
             <div class="form-horizontal">
@@ -314,6 +314,12 @@
 
         </accordion-group>
     </accordion>
+
+    <div class="form-group m-t">
+        <div ng-show="data.requestSent" class="r b bg-success-ltest m-b padder padder-v">
+            Change request has been sent for processing. You can update it any time.
+        </div>
+    </div>
 
     <div class="form-group m-t">
         <label class="col-sm-4 control-label"></label>

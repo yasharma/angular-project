@@ -86,6 +86,7 @@ rxControllers.controller('requestCtrl', ['$scope', '$routeParams', 'requestSvr',
         }).then(function (response) {
                 if(response.status < 400){
                     messageCenterService.add('success', 'Your request has been sent for processing.', {timeout : 3000});
+                    $scope.data.requestSent = true;
                 }
             });
             return false;
