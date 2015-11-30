@@ -30,6 +30,14 @@ requestService.factory('requestSvr', ['localStorageService', 'Restangular', func
                 .then(function (response) {
                     return response.data;
                 });
+        },
+
+        getRequestTitles: function () {
+            var resource = 'requests/title';
+            var request = Restangular.one(resource);
+            return request.get().then(function (response) {
+                return response.data.items;
+            });
         }
 
     };

@@ -16,21 +16,22 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             reloadOnSearch: false,
             access: { requiredLogin: true }
         })
-        .when('/dashboard/:restaurantId', {
-            templateUrl: 'modules/restaurant/views/owner.html',
-            controller: 'detailCtrl',
-            access: { requiredLogin: true }
-        })
+        // todo remove template as well
+        //.when('/dashboard/:restaurantId', {
+        //    templateUrl: 'modules/restaurant/views/owner.html',
+        //    controller: 'detailCtrl',
+        //    access: { requiredLogin: true }
+        //})
         .when('/manage/photos/:restaurantId', {
             templateUrl: 'modules/photo/views/index.html',
             controller: 'photoCtrl',
             access: { requiredLogin: true }
         })
-        .when('/request/change/:restaurantId', {
-            templateUrl: 'modules/request/views/index.html',
-            controller: 'requestCtrl',
-            access: { requiredLogin: true }
-        })
+        //.when('/request/change/:restaurantId', {
+        //    templateUrl: 'modules/request/views/index.html',
+        //    controller: 'requestCtrl',
+        //    access: { requiredLogin: true }
+        //})
         .when("/compare", {
             templateUrl: "modules/compare/views/index.html",
             controller: "compareCtrl",
@@ -70,8 +71,15 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'modules/login/views/changePassword.html',
             controller: 'loginCtrl'
         })
-        .when('/profile', {
-            templateUrl: 'modules/profile/views/index.html'
+        .when('/settings/restaurant/:restaurantId/:restaurant_tab', {
+            templateUrl: 'modules/profile/views/index.html',
+            controller: 'profileCtrl',
+            access: { requiredLogin: true }
+        })
+        .when('/settings/:tab', {
+            templateUrl: 'modules/profile/views/index.html',
+            controller: 'profileCtrl',
+            access: { requiredLogin: true }
         });
 }])
 
@@ -899,11 +907,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         name : 'Dashboard',
                         link : '#/dashboard/' + $scope.restaurantId,
                         icon : 'i-statistics'
-                    },
-                    {
-                        name : 'Request Change',
-                        link : '#/request/change/' + $scope.restaurantId,
-                        icon : 'i-pencil'
                     }
                 ];
             }

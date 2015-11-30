@@ -144,6 +144,7 @@ module.exports = function (grunt) {
                     'www/modules/widgets/widgetsController.js',
                     'www/modules/claim/claimController.js',
                     'www/modules/request/requestController.js',
+                    'www/modules/profile/profileController.js',
                     'www/modules/directives/directive.js',
                     'www/modules/directives/directive-elements.js',
                     'www/modules/claim/claimService.js',

@@ -1,8 +1,8 @@
 'use strict';
 
 rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','loginSvr', 'AuthenticationService',
-    'messageCenterService', 'localStorageService' , function ($scope, $location, $rootScope, loginSvr,
-    AuthenticationService, messageCenterService, localStorageService) {
+    'messageCenterService', 'localStorageService', '$routeParams', function ($scope, $location, $rootScope, loginSvr,
+    AuthenticationService, messageCenterService, localStorageService, $routeParams) {
 
     $scope.navbarConfig = {
         hideButtons: true
@@ -11,6 +11,11 @@ rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','logi
     $scope.credentials = '';
     $scope.signup = {};
 
+    if($routeParams.success){
+        // replaces form with success message (e.g. the password was changed successfully)
+        $scope.success = true;
+    }
+
     $scope.resetPassword = function (isValid) {
         if(!isValid) return;
         loginSvr.resetPassword(merge_objects($scope.credentials, $location.search()))
@@ -18,7 +23,7 @@ rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','logi
                 if(response.err){
                     messageCenterService.add('danger', response.message, { timeout: 3000 });
                 } else {
-                    $scope.passwordChanged = true;
+                    $location.path('/login/changepassword?success=true');
                 }
             });
     };
