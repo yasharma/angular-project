@@ -67,19 +67,16 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'modules/login/views/resetPassword.html',
             controller: 'loginCtrl'
         })
-        .when('/login/changepassword', {
-            templateUrl: 'modules/login/views/changePassword.html',
-            controller: 'loginCtrl'
+        .when('/login/passwordchanged', {
+            templateUrl: 'modules/login/views/passwordChanged.html'
         })
         .when('/settings/restaurant/:restaurantId/:restaurant_tab', {
             templateUrl: 'modules/profile/views/index.html',
-            controller: 'profileCtrl',
-            access: { requiredLogin: true }
+            controller: 'profileCtrl'
         })
         .when('/settings/:tab', {
             templateUrl: 'modules/profile/views/index.html',
-            controller: 'profileCtrl',
-            access: { requiredLogin: true }
+            controller: 'profileCtrl'
         });
 }])
 

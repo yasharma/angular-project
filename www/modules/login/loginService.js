@@ -64,7 +64,7 @@ loginService.factory('loginSvr', ['Restangular', function (Restangular) {
                         err : 1,
                         status: response.status,
                         statusText: response.statusText,
-                        message: response.message
+                        message: response.data.message
                     };
                 });
         },
@@ -83,7 +83,7 @@ loginService.factory('loginSvr', ['Restangular', function (Restangular) {
                         err : 1,
                         status: response.status,
                         statusText: response.statusText,
-                        message: response.message
+                        message: response.data.message
                     };
                 });
         }

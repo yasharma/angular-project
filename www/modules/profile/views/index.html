@@ -52,6 +52,7 @@
                                     </div>
                                     <accordion close-others="true">
                                         <accordion-group heading="Change Password">
+                                            <div mc-messages></div>
                                             <form ng-controller="loginCtrl" ng-submit="resetPassword(passwordForm.$valid)" novalidate name="passwordForm">
                                                 <div class="list-group">
                                                     <div ng-class="{ 'has-error' : passwordForm.email.$invalid && !passwordForm.email.$pristine }">
@@ -59,9 +60,8 @@
                                                         <p ng-show="passwordForm.email.$invalid && !passwordForm.email.$pristine" class="help-block">Please enter a valid email.</p>
                                                     </div>
                                                     <div class="m-t-sm" ng-class="{ 'has-error' : passwordForm.oldpassword.$invalid && !passwordForm.oldpassword.$pristine }">
-                                                        <input type="password" placeholder="Old Password" class="form-control" name="oldpassword" ng-model="credentials['old-password']" required ng-minlength="3">
+                                                        <input type="password" placeholder="Old Password" class="form-control" name="oldpassword" ng-model="credentials['old-password']" required>
                                                         <p ng-show="passwordForm.oldpassword.$error.required && !passwordForm.oldpassword.$pristine" class="help-block">Old password is required.</p>
-                                                        <p ng-show="passwordForm.oldpassword.$error.minlength" class="help-block">Password is too short.</p>
                                                     </div>
                                                     <div class="m-t-sm" ng-class="{ 'has-error' : passwordForm.newpassword.$invalid && !passwordForm.newpassword.$pristine }">
                                                         <input type="password" placeholder="New Password" class="form-control" name="newpassword" ng-model="credentials['new-password']" required ng-minlength="3">
@@ -76,6 +76,7 @@
                                             </form>
                                         </accordion-group>
                                         <accordion-group heading="Change Username">
+                                            <div mc-messages></div>
                                             <form ng-controller="loginCtrl" ng-submit="resetPassword(usernameForm.$valid)" novalidate name="usernameForm">
                                                 <div class="list-group">
                                                     <div ng-class="{ 'has-error' : usernameForm.email.$invalid && !usernameForm.email.$pristine }">
@@ -99,6 +100,7 @@
                                             </form>
                                         </accordion-group>
                                         <accordion-group heading="Change Email">
+                                            <div mc-messages></div>
                                             <form ng-controller="loginCtrl" ng-submit="resetEmail(emailForm.$valid)" novalidate name="emailForm">
                                                 <div class="list-group">
                                                     <div ng-class="{ 'has-error' : emailForm.email.$invalid && !emailForm.email.$pristine }">

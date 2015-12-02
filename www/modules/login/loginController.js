@@ -1,8 +1,8 @@
 'use strict';
 
 rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','loginSvr', 'AuthenticationService',
-    'messageCenterService', 'localStorageService', '$routeParams', function ($scope, $location, $rootScope, loginSvr,
-    AuthenticationService, messageCenterService, localStorageService, $routeParams) {
+    'messageCenterService', 'localStorageService', function ($scope, $location, $rootScope, loginSvr,
+    AuthenticationService, messageCenterService, localStorageService) {
 
     $scope.navbarConfig = {
         hideButtons: true
@@ -11,19 +11,18 @@ rxControllers.controller('loginCtrl', ['$scope', '$location', '$rootScope','logi
     $scope.credentials = '';
     $scope.signup = {};
 
-    if($routeParams.success){
-        // replaces form with success message (e.g. the password was changed successfully)
-        $scope.success = true;
-    }
-
     $scope.resetPassword = function (isValid) {
         if(!isValid) return;
         loginSvr.resetPassword(merge_objects($scope.credentials, $location.search()))
             .then(function(response){
                 if(response.err){
-                    messageCenterService.add('danger', response.message, { timeout: 3000 });
+                    // messageCenterService.add('danger', response.message, { timeout: 3000 });
+                    // the message is already added by app.js interceptor
+                    // todo: messages should be cleaned up all over the app (mc-messages is missing on many pages, somewhere its double, etc)
                 } else {
-                    $location.path('/login/changepassword?success=true');
+                    // logout and go to password changed page
+                    $rootScope.clearToken();
+                    $location.path('/login/passwordchanged');
                 }
             });
     };
