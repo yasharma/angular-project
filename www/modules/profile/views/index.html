@@ -117,45 +117,11 @@
                                                 <div class="col-sm-4 col-sm-offset-4">
                                                     <button type="submit" class="btn btn-lg btn-primary btn-block" ng-disabled="emailForm.$invalid">Reset Email</button>
                                                 </div>
-
                                             </form>
                                         </accordion-group>
                                     </accordion>
                                 </div>
                             </accordion-group>
-                            <accordion-group heading="Billing" is-open="showTabs.billing">
-                                <div class="form-horizontal">
-                                    <div class="form-group" ng-if="fields['billing-billing_address'].active"
-                                         title="{{ fields['billing-billing_address'].description }}">
-                                        <label class="col-sm-3 control-label">Billing Address</label>
-                                        <div class="col-sm-9">
-                                                        <textarea rows="2" name="billing_address"
-                                                                  ng-model="data.request['billing-billing_address']"
-                                                                  class="form-control"
-                                                                  placeholder="Billing Address">
-                                                        </textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group" ng-if="fields['billing-billing_email'].active"
-                                         title="{{ fields['billing-billing_email'].description }}">
-                                        <label class="col-sm-3 control-label">Billing Email</label>
-                                        <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.email.$invalid && !requestsForm.email.$pristine }">
-                                            <input type="email" name="email" ng-model="data.request['billing-billing_email']" class="form-control" placeholder="Billing Email" />
-                                            <p ng-show="requestsForm.email.$invalid && !requestsForm.email.$pristine" class="help-block">Please enter a valid email.</p>
-                                        </div>
-                                    </div>
-                                    <div class="form-group" ng-if="fields['billing-billing_phone'].active"
-                                         title="{{ fields['billing-billing_phone'].description }}">
-                                        <label class="col-sm-3 control-label">Billing Phone</label>
-                                        <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.phone.$invalid && !requestsForm.phone.$pristine }">
-                                            <input type="text" name="phone" ng-model="data.request['restaurant-phone']" class="form-control" ng-minlength="6"
-                                                   placeholder="Billing phone number" />
-                                            <p ng-show="requestsForm.phone.$error.minlength && !requestsForm.phone.$pristine" class="help-block">That phone number is too short.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </accordion-group>
-
                         </accordion>
 
                     </div>

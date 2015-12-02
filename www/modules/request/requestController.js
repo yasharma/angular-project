@@ -64,8 +64,8 @@ rxControllers.controller('requestCtrl', ['$scope', '$routeParams', 'requestSvr',
         // restaurant-description [description]
         // restaurant-address [address]
         // restaurant-cuisine [category]
-        // restaurant-website address [website]
-        // restaurant-open hours [opening_hours]
+        // restaurant-website address [website] !
+        // restaurant-open hours [opening_hours] !
         // restaurant-price range [price_range]
         // social-facebook_link
         // social-twitter_link
@@ -90,6 +90,25 @@ rxControllers.controller('requestCtrl', ['$scope', '$routeParams', 'requestSvr',
                 }
             });
             return false;
+        };
+
+        // copy restaurant billing from given restaurant (first tries to find its request)
+        $scope.copyRestaurantBilling = function(fromRestaurant, toRequest){
+            requestSvr.getCurrentRequest(fromRestaurant.id).then(function (response) {
+                // if there is a request, read it
+                if (response && response.params) {
+                    var fromRequest = JSON.parse(response.params);
+                    toRequest['billing-billing_address'] = fromRequest['billing-billing_address'];
+                    toRequest['billing-billing_email'] = fromRequest['billing-billing_email'];
+                    toRequest['billing-billing_phone'] = fromRequest['billing-billing_phone'];
+                } else {
+                    // prepopulate from restaurant
+                    // todo: check field names when they're added to backend
+                    toRequest['billing-billing_address'] = fromRestaurant['billing_address'] || '';
+                    toRequest['billing-billing_email'] = fromRestaurant['billing_email'] || '';
+                    toRequest['billing-billing_phone'] = fromRestaurant['billing_phone'] || '';
+                }
+            });
         };
 
         // try to get an existing request. if it doesn't exist, prefill the form with restaurant info

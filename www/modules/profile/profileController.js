@@ -7,15 +7,15 @@ rxControllers.controller('profileCtrl', ['$scope', '$routeParams', 'requestSvr',
         // tabs to expand
         $scope.showTabs = {
             restaurant: false,
-            profile: false,
-            billing: false
+            profile: false
         };
 
         $scope.showRestaurantTabs = {
             info: false,
             social: false,
             source: false,
-            misc: false
+            misc: false,
+            billing: false
         };
 
         // get form field info

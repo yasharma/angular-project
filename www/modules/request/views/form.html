@@ -313,6 +313,48 @@
             </div>
 
         </accordion-group>
+        <accordion-group heading="Billing" is-open="showRestaurantTabs.billing">
+            <div class="form-horizontal">
+                <div class="form-group" ng-if="data.ownedRestaurants.length > 1">
+                    <label class="col-sm-3 control-label">Copy From Restaurant:</label>
+                    <div class="col-sm-8">
+                        <select name="copy_from_restaurant" id="copy_from_restaurant" class="form-control"
+                                ng-options="restaurant as restaurant.name for restaurant in data.ownedRestaurants | filter:{ id: '!' + data.restaurant.id}"
+                                ng-model="data.copyFromRestaurant" ng-show="data.ownedRestaurants.length"
+                                ng-change="copyRestaurantBilling(data.copyFromRestaurant, data.request)">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="fields['billing-billing_address'].active"
+                     title="{{ fields['billing-billing_address'].description }}">
+                    <label class="col-sm-3 control-label">Billing Address</label>
+                    <div class="col-sm-9">
+                        <textarea rows="2" name="billing_address"
+                                  ng-model="data.request['billing-billing_address']"
+                                  class="form-control"
+                                  placeholder="Billing Address">
+                        </textarea>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="fields['billing-billing_email'].active"
+                     title="{{ fields['billing-billing_email'].description }}">
+                    <label class="col-sm-3 control-label">Billing Email</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.billing_email.$invalid && !requestsForm.billing_email.$pristine }">
+                        <input type="email" name="billing_email" ng-model="data.request['billing-billing_email']" class="form-control" placeholder="Billing Email" />
+                        <p ng-show="requestsForm.billing_email.$invalid && !requestsForm.billing_email.$pristine" class="help-block">Please enter a valid email.</p>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="fields['billing-billing_phone'].active"
+                     title="{{ fields['billing-billing_phone'].description }}">
+                    <label class="col-sm-3 control-label">Billing Phone</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.billing_phone.$invalid && !requestsForm.billing_phone.$pristine }">
+                        <input type="text" name="billing_phone" ng-model="data.request['billing-billing_phone']" class="form-control" ng-minlength="6"
+                               placeholder="Billing phone number" />
+                        <p ng-show="requestsForm.billing_phone.$error.minlength && !requestsForm.billing_phone.$pristine" class="help-block">That phone number is too short.</p>
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
     </accordion>
 
     <div class="form-group m-t">
