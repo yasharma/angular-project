@@ -30,7 +30,8 @@
     "ng-file-upload-shim": "~2.1.1",
     "angular-busy": "4.1.2",
     "angular-bootstrap-lightbox-no-bar": "~0.2.3",
-    "angular-growl": "~0.4.0"
+    "angular-growl": "~0.4.0",
+    "sideshow": "~0.4.3-taxi-driver"
   },
   "resolutions": {
     "angular": "~1.3",
