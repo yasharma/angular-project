@@ -149,17 +149,21 @@
         <section class="panel panel-default">
 
             <div class="list-group no-radius alt">
-                <a class="list-group-item" ng-hide="!restaurant.phone">
+                <span class="list-group-item" ng-hide="!restaurant.phone">
                     <span class="badge bg-success"></span>
                     <i class="fa fa-phone icon-muted m-r-sm"></i>
                     Phone : {{restaurant.phone}}
-                </a>
-                <a class="list-group-item" ng-hide="!restaurant.email">
+
+                    <a class="m-l" href="#/settings/restaurant/{{restaurantId}}/info" ng-show="isOwner">Edit</a>
+                </span>
+                <span class="list-group-item" ng-hide="!restaurant.email">
                     <span class="badge bg-info"></span>
                     <i class="fa fa-envelope icon-muted m-r-sm"></i>
                     Email : {{restaurant.email}}
-                </a>
-                <a class="list-group-item"  >
+
+                    <a class="m-l" href="#/settings/restaurant/{{restaurantId}}/info" ng-show="isOwner">Edit</a>
+                </span>
+                <span class="list-group-item"  >
                     <span class="badge bg-money"></span>
                     <i class="fa fa-eye icon-muted m-r-sm"></i>
                     <span>Price Range :</span>
@@ -168,9 +172,13 @@
                         <!--<rating ng-model="restaurant.price_range" state-on="'glyphicon-usd'" state-off="'blank'" readonly="true"></rating>-->
                         {{restaurant.price_range_symbol}}
                     </span>
-                </a>
+
+                    <a class="m-l" href="#/settings/restaurant/{{restaurantId}}/info" ng-show="isOwner">Edit</a>
+                </span>
             </div>
+
         </section>
+
         <section class="panel panel-info" ng-hide="! restaurant.category">
             <div class="panel-body">
                 <div class="clear">
