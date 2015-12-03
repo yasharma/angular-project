@@ -3,6 +3,16 @@ module.exports = function (grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        copy: {
+            sideshow: {
+                files: [{
+                    expand: true,
+                    src: ['**'],
+                    cwd: 'bower_components/sideshow/distr/fonts/sideshow-icons/',
+                    dest: 'www/css/sideshow-icons/'
+                }]
+            }
+        },
         cssmin: {
             sitecss: {
                 options: {
@@ -230,7 +240,7 @@ module.exports = function (grunt) {
         }
     });
     // Default task.
-    grunt.registerTask('default', ['uglify', 'cssmin', 'less']);
+    grunt.registerTask('default', ['uglify', 'cssmin', 'less', 'copy']);
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-ng-annotate');
