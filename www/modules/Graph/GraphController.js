@@ -99,8 +99,8 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
         $scope.refreshScatterFlot = function(){
             // for every source, copy data for selected duration into view
             $scope.scatterFlotDataset = [];
-            angular.forEach($scope.graphs[$scope.graphDuration.value].percentileBySource, function(src, id){
-                var length = $scope.graphs[$scope.graphDuration.value].percentileBySource.length;
+            angular.forEach($scope.graphs[$scope.graphDuration.value].ratingBySource, function(src, id){
+                var length = $scope.graphs[$scope.graphDuration.value].ratingBySource.length;
                 var source = src.source;
                 var data = src.data;
                 if(data) {

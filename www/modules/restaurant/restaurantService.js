@@ -158,28 +158,31 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                 params.end = end.toISOString().substring(0,10);
             }
             params.type = 'PERCENTILE-TREND-AND-SOURCE';
+            // get the data
             return graphs.get(params).then(function (response) {
+                // init return arrays
                 var source = [];
                 var percentile = [];
                 var trend = [];
-                var percentileBySource = [];
+                var ratingBySource = []; // for scatter plot
                 angular.forEach(response.data.source, function (value, key) {
                     var label = key;
+                    // fill sources array
                     if (value && parseInt(value) > 0) {
                         source.push({
                             label: label,
                             data: parseInt(value)
                         });
                     }
-                    // fill percentileBySource array
+                    // fill ratingBySource array
                     var data = [];
-                    angular.forEach(response.data.data, function (value, key) {
-                        if(value.source == label) {
-                            data.push([parseInt(key), Math.round(value.percentile / 2) / 10]);
+                    angular.forEach(response.data.comments, function (comment) {
+                        if(comment.source == label) {
+                            data.push([parseInt(comment.date), comment.rating]);
                         }
                     });
                     if (data.length) {
-                        percentileBySource.push({
+                        ratingBySource.push({
                             source: label,
                             data: data
                         });
@@ -197,7 +200,7 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                     source: source,
                     stats: response.data.stats,
                     data: response.data.data,
-                    percentileBySource: percentileBySource
+                    ratingBySource: ratingBySource
                 };
             });
 
