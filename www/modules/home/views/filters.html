@@ -4,7 +4,7 @@
         <accordion class="filters-accordion" close-others="false">
 
             <!--Cuisine-->
-            <accordion-group-mod heading="Cuisine" is-open="true">
+            <accordion-group-mod heading="Cuisine" is-open="openTabs.cuisine">
                 <!--<accordion-heading>-->
                     <!---->
                     <!--Cuisine-->
@@ -33,7 +33,7 @@
 
 
                 <!--Price-->
-            <accordion-group-mod heading="Price" is-open="false">
+            <accordion-group-mod heading="Price" is-open="openTabs.price">
                 <!--<div class="panel-title m-b">Price</div>-->
                 <ul class="list-unstyled m-t-n-sm">
                     <li class="checkbox i-checks">
@@ -52,7 +52,7 @@
                 <!--<div class="line line-dashed b-b line-lg"></div>-->
             </accordion-group-mod>
                 <!--Rating-->
-            <accordion-group-mod heading="Rating" is-open="false">
+            <accordion-group-mod heading="Rating" is-open="openTabs.rating">
                 <!--<div class="panel-title m-b">Rating</div>-->
                 <ul class="list-unstyled">
                     <li class="radio i-checks" ng-repeat="option in filters.rating.options"><label>
@@ -64,7 +64,7 @@
                 <!--<div class="line line-dashed b-b line-lg"></div>-->
             </accordion-group-mod>
                 <!--Distance-->
-            <accordion-group-mod heading="Distance" is-open="false" ng-show="showDistance">
+            <accordion-group-mod heading="Distance" is-open="openTabs.distance" ng-show="showDistance">
                 <!--<div class="panel-title m-b" ng-show="showDistance">Distance</div>-->
                 <ul class="list-unstyled" ng-show="showDistance">
                     <li class="radio i-checks" ng-repeat="option in filters.distance.options"><label>
@@ -76,7 +76,7 @@
                 <!--<div class="line line-dashed b-b line-lg" ng-show="showDistance"></div>-->
             </accordion-group-mod>
                 <!--Trend-->
-            <accordion-group-mod heading="Trend" is-open="false">
+            <accordion-group-mod heading="Trend" is-open="openTabs.trend">
                 <!--<div class="panel-title m-b">Trend</div>-->
                 <ul class="list-unstyled">
                     <li class="radio i-checks" ng-repeat="option in filters.trend.options"><label>
@@ -88,7 +88,7 @@
                 <!--<div class="line line-dashed b-b line-lg"></div>-->
             </accordion-group-mod>
                 <!--Num. of reviews-->
-            <accordion-group-mod heading="Reviews" is-open="false">
+            <accordion-group-mod heading="Reviews" is-open="openTabs.reviews">
                 <!--<div class="panel-title m-b">Reviews</div>-->
                 <ul class="list-unstyled">
                     <li class="radio i-checks" ng-repeat="option in filters.reviews.options"><label>

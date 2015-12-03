@@ -108,13 +108,10 @@ function accordionGroupMod() {
         transclude: true,
         scope: {
             heading: "@",
-            isOpen: "@"
+            isOpen: "=?"
         },
-        link: function(scope, el, attrs) {
-            scope.open = (attrs.isOpen == 'true');
-        },
-        template: '<accordion-group is-open="open"><accordion-heading>' +
-        '<i class="glyphicon" ng-class="{\'glyphicon-minus\': open, \'glyphicon-plus\': !open}"'+
+        template: '<accordion-group is-open="isOpen"><accordion-heading>' +
+        '<i class="glyphicon" ng-class="{\'glyphicon-minus\': isOpen, \'glyphicon-plus\': !isOpen}"'+
         'style="font-size: 60%; vertical-align: 2px; padding-right: 10px;"></i>{{heading}}' +
         '</accordion-heading><div ng-transclude></div></accordion-group>'
     };

@@ -85,12 +85,12 @@
                                  ng-include="'modules/partials/restaurant-list-item.html'">
                         </article>
                         <div style="margin-left: 45px;">
-
+                            <!--pagination for desktop-->
                             <pagination total-items="popularListTotalItems" ng-model="searchParams.page" max-size="maxSize"
                                         class="pagination-sm hidden-xs" boundary-links="true" rotate="true" num-pages="numPages"
                                         ng-click="changeUrlParam('page', searchParams.page)"
                                         items-per-page="popularListItemPerPage"></pagination>
-
+                            <!--pagination for mobile-->
                             <pagination total-items="popularListTotalItems" ng-model="searchParams.page" max-size="1"
                                         class="pagination-sm visible-xs" boundary-links="true" rotate="true" num-pages="numPages"
                                         ng-click="changeUrlParam('page', searchParams.page)"

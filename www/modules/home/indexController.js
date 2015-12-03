@@ -347,6 +347,18 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 $location.search(search);
             };
 
+            // opens tabs that contain active filters
+            $scope.setOpenTabs = function(){
+                $scope.openTabs = {
+                    cuisine: true,
+                    price: !$scope.filters.price.allSelected,
+                    rating: $scope.filters.rating.value,
+                    distance: $scope.filters.distance.value,
+                    trend: $scope.filters.trend.value,
+                    reviews: $scope.filters.reviews.value
+                }
+            };
+
             // init:
             // we first have to get all categories
             restaurantSvr.getRestaurantCategories().then(function (response) {
@@ -362,9 +374,10 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 // update filters according to url params
                 $scope.$on('$routeUpdate', function(){ // on route change: search
                     $scope.getFromUrl();
+                    $scope.setOpenTabs();
                 });
                 $scope.getFromUrl();
-
+                $scope.setOpenTabs();
             });
 
         }])
@@ -482,7 +495,10 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
             $scope.changeUrlParam = function (param, value) {
                 $location.search(param, value);
-
+                // reset to first page if anything other than page is updated
+                if (param != 'page'){
+                    $location.search('page', '1');
+                }
             };
 
             function getNextDistance(distance){
