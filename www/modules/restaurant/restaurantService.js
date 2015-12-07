@@ -200,7 +200,8 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                     source: source,
                     stats: response.data.stats,
                     data: response.data.data,
-                    ratingBySource: ratingBySource
+                    ratingBySource: ratingBySource,
+                    comments: response.data.comments
                 };
             });
 

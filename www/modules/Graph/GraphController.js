@@ -54,8 +54,8 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
                 total: 0
             };
             // go through overall stats, if available, and count ratings
-            angular.forEach(graph.percentile, function(val){
-                var rating = Math.round(val[1]);
+            angular.forEach(graph.comments, function(comment){
+                var rating = Math.round(comment.rating);
                 if(rating >= 1 && rating <=5){
                     stats.ratings[rating].count += 1;
                 }
