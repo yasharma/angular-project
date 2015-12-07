@@ -376,8 +376,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     $scope.getFromUrl();
                     $scope.setOpenTabs();
                 });
-                $scope.getFromUrl();
-                $scope.setOpenTabs();
             });
 
         }])
