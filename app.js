@@ -27,7 +27,7 @@ myApp.config(["RestangularProvider", function (RestangularProvider) {
     RestangularProvider.setRestangularFields({
         id: "id"
     });
-    RestangularProvider.setBaseUrl('http://au1.api.ratingscombined.com:80/v1/');
+    RestangularProvider.setBaseUrl('http://api.ratingscombined.com:80/v1/');
     //RestangularProvider.setBaseUrl('http://api.ireview.dev/v1/');
     RestangularProvider.setDefaultRequestParams({
         "access-token": "f899139df5e1059396431415e770c6dd",
