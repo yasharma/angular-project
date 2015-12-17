@@ -166,13 +166,13 @@ myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, R
                 }
                 else {
                     rejection.data.forEach(function (item) {
-                        messageCenterService.add('danger', getFriendlierMessage(item.message), {timeout: 3000});
+                        messageCenterService.add('danger', getFriendlierMessage(item.message), {timeout: 10000});
                     });
                     //return;
                 }
 
                 if ($rootScope.errorStatus) {
-                    messageCenterService.add('danger', $rootScope.errorStatus, {timeout: 3000});
+                    messageCenterService.add('danger', $rootScope.errorStatus, {timeout: 10000});
                     //return;
                 }
 
