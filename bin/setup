@@ -1,0 +1,64 @@
+#!/bin/sh
+
+# Usage info
+show_help() {
+cat << EOF
+Usage: ${0##*/} [-h|g|a|b|u]
+
+Updates bower packages and integrates js and css packages using grunt
+
+    -h       display this help and exit
+    -a       update bower packages and grunt scripts.
+    -g       only implement grunt scripts
+    -b       only update bower packages
+    -u       update from git
+
+
+EOF
+}
+
+# Initialize variables:
+verbose=0
+
+OPTIND=1 # Reset is necessary if getopts was used previously in the script.
+while getopts "hagbu" opt; do
+    case "$opt" in
+        h)
+            show_help
+            exit 0
+            ;;
+        a)  bower update
+            grunt less
+            grunt cssmin
+            grunt uglify:angular
+            grunt uglify:applib
+            grunt uglify:appmin
+            grunt ngAnnotate:applib
+            grunt uglify:applibmin
+            exit 0
+            ;;
+        g)  grunt less
+            grunt cssmin
+            grunt uglify:angular
+            grunt uglify:applib
+            grunt uglify:appmin
+            grunt ngAnnotate:applib
+            grunt uglify:applibmin
+            exit 0
+            ;;
+        b)  bower update
+            exit 0
+            ;;
+        u) sudo git reset --hard
+           sudo git clean -f -d
+           sudo git pull origin sandbox_merged
+           ;;
+        '?')
+            show_help >&2
+            exit 1;
+            ;;
+    esac
+done
+
+
+# End of file
