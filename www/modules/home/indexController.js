@@ -8,13 +8,13 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'modules/home/views/index.html',
             controller: 'indexCtrl',
             reloadOnSearch: false,
-            access: { requiredLogin: true }
+            access: { requiredLogin: false }
         })
         .when('/index/:view', {
             templateUrl: 'modules/home/views/index.html',
             controller: 'indexCtrl',
             reloadOnSearch: false,
-            access: { requiredLogin: true }
+            access: { requiredLogin: false }
         })
         // todo remove template as well
         //.when('/dashboard/:restaurantId', {
@@ -49,7 +49,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         .when('/restaurant/:restaurantId', {
             templateUrl: 'modules/restaurant/views/detail.html',
             controller: 'detailCtrl',
-            access: { requiredLogin: true }
+            access: { requiredLogin: false }
         })
         .when('/login', {
             templateUrl: 'modules/login/views/loginFull.html',
