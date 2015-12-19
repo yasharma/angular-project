@@ -3,7 +3,7 @@
 /* User Services */
 var userService = angular.module('userService', []);
 
-userService.factory('userSvr', ['Restangular', 'restaurantSvr', function (Restangular, restaurantSvr) {
+userService.factory('userSvr', ['Restangular', 'restaurantSvr', '$http', function (Restangular, restaurantSvr, $http) {
 
     return {
         // gets user's owned restaurants
@@ -22,7 +22,7 @@ userService.factory('userSvr', ['Restangular', 'restaurantSvr', function (Restan
                 return restaurantSvr.expandRestaurantList(restaurants);
             });
         },
-        addFavorite: function (userId, restaurantId){
+        addFavorite: function (userId, restaurantId) {
             var favorites = Restangular.all('favourites');
             var data_encoded = $.param({user_id: userId, restaurant_id: restaurantId});
             return favorites.post(data_encoded, {}, {'Content-Type': 'application/x-www-form-urlencoded'}).
@@ -30,12 +30,31 @@ userService.factory('userSvr', ['Restangular', 'restaurantSvr', function (Restan
                     return response;
                 });
         },
-        removeFavorite: function (restaurantId){
+        removeFavorite: function (restaurantId) {
             var favorite = Restangular.all('favourites/restaurant/' + restaurantId);
             return favorite.remove()
                 .then(function (response) {
                     return response;
                 });
+        },
+        getLocation: function (ip) {
+            return Restangular.one('users/location').withHttpConfig({
+                cache: true
+            }).get({ip: ip}).then(function (response) {
+                return response.data.items;
+            });
+        },
+        getIp: function () {
+            return $http({
+                method: 'GET',
+                url: 'http://jsonip.com',
+                cache: true
+            }).then(function successCallback(response) {
+                return response.data.ip;
+            }, function errorCallback(response) {
+                console.log("Error");
+                console.log(response);
+            });
         }
     };
 }]);

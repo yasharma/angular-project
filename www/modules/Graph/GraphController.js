@@ -6,16 +6,16 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
         $scope.restaurantId = $routeParams.restaurantId;
 
         $scope.graphDurations = [
-            {label:'Last 7 Days', value:'WEEKLY'},
-            {label:'Last Month', value:'MONTHLY'},
-            {label:'Last 3 Months', value:'QUARTERLY'},
-            {label:'Last 6 Months', value:'HALF_YEARLY'},
-            {label:'Last Year', value:'YEARLY'},
-            {label:'Overall', value:'OVERALL'}
+            {label: 'Last 7 Days', value: 'WEEKLY'},
+            {label: 'Last Month', value: 'MONTHLY'},
+            {label: 'Last 3 Months', value: 'QUARTERLY'},
+            {label: 'Last 6 Months', value: 'HALF_YEARLY'},
+            {label: 'Last Year', value: 'YEARLY'},
+            {label: 'Overall', value: 'OVERALL'}
         ];
         $scope.customPeriod = {
-            label:'Custom Period',
-            value:''
+            label: 'Custom Period',
+            value: ''
         };
 
         $scope.graphDuration = $scope.graphDurations[5];
@@ -29,8 +29,8 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             "#2F9630"
         ];
 
-        $scope.refreshGraphs = function(option){
-            if(option){
+        $scope.refreshGraphs = function (option) {
+            if (option) {
                 $scope.graphDuration = option;
             }
             var graph = $scope.graphs[$scope.graphDuration.value];
@@ -42,7 +42,7 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             $scope.refreshStats(graph);
         };
 
-        $scope.refreshStats = function(graph){
+        $scope.refreshStats = function (graph) {
             var stats = {
                 ratings: {
                     1: {label: 'Terrible', count: 0},
@@ -54,9 +54,9 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
                 total: 0
             };
             // go through overall stats, if available, and count ratings
-            angular.forEach(graph.comments, function(comment){
+            angular.forEach(graph.comments, function (comment) {
                 var rating = Math.round(comment.rating);
-                if(rating >= 1 && rating <=5){
+                if (rating >= 1 && rating <= 5) {
                     stats.ratings[rating].count += 1;
                 }
 
@@ -66,44 +66,44 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
 
         };
 
-        $scope.getGraphs = function(graphDuration){
+        $scope.getGraphs = function (graphDuration) {
             var graphDurations = $scope.graphDurations;
-            if(graphDuration){ // only one
+            if (graphDuration) { // only one
                 $scope.graphDuration = graphDuration;
                 graphDurations = [graphDuration];
-            } else if (!$scope.dates.start.date || !$scope.dates.end.date){
+            } else if (!$scope.dates.start.date || !$scope.dates.end.date) {
                 return;
             } else {
                 $scope.graphs = {};
                 $scope.noGraphs = true;
             }
 
-            angular.forEach(graphDurations, function(duration){
+            angular.forEach(graphDurations, function (duration) {
                 restaurantSvr.getGraphs($scope.restaurantId, duration.value,
                     $scope.dates.start.date, $scope.dates.end.date)
                     .then(function (graph) {
-                    if(graph.percentile && graph.percentile.length > 5 || duration.value == ''){
-                        $scope.graphs[duration.value] = graph;
-                        $scope.noGraphs = false;
-                        // refresh graph
-                        if (duration == $scope.graphDuration) {
-                            $timeout(function () {
-                                $scope.refreshGraphs();
-                            });
+                        if (graph.percentile && graph.percentile.length > 5 || duration.value == '') {
+                            $scope.graphs[duration.value] = graph;
+                            $scope.noGraphs = false;
+                            // refresh graph
+                            if (duration == $scope.graphDuration) {
+                                $timeout(function () {
+                                    $scope.refreshGraphs();
+                                });
+                            }
                         }
-                    }
-                });
+                    });
             });
         };
         // Load items into scatter flot graph
-        $scope.refreshScatterFlot = function(){
+        $scope.refreshScatterFlot = function () {
             // for every source, copy data for selected duration into view
             $scope.scatterFlotDataset = [];
-            angular.forEach($scope.graphs[$scope.graphDuration.value].ratingBySource, function(src, id){
+            angular.forEach($scope.graphs[$scope.graphDuration.value].ratingBySource, function (src, id) {
                 var length = $scope.graphs[$scope.graphDuration.value].ratingBySource.length;
                 var source = src.source;
                 var data = src.data;
-                if(data) {
+                if (data) {
                     $scope.scatterFlotDataset.push({
                         data: data || [],
                         label: source,
@@ -179,7 +179,7 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             },
             colors: ["#000", "#ff6600"],
             xaxis: {
-                mode:'time' //,
+                mode: 'time' //,
                 //timeformat:"%y-%m-%d"
             },
             yaxis: {
@@ -187,17 +187,17 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             },
             tooltip: true,
             tooltipOpts: {
-                content: function(label, xval, yval, flotItem){
+                content: function (label, xval, yval, flotItem) {
                     var date = new Date(xval);
                     var dateFormatted = $.plot.formatDate(date, '%d %b %Y');
                     var prevIndex = flotItem.dataIndex - 1;
                     var percentChangeStr = '';
-                    if (prevIndex >= 0){
+                    if (prevIndex >= 0) {
                         var prevValue = flotItem.series.data[prevIndex][1];
                         var percentDiff = (yval - prevValue) * 20;
-                        if (percentDiff >= 0.1){
+                        if (percentDiff >= 0.1) {
                             percentChangeStr = '<span class="graph-tooltip-green">Up by <b>' + percentDiff.toFixed(0) + '%</b></span>';
-                        } else if (percentDiff <= -0.1){
+                        } else if (percentDiff <= -0.1) {
                             percentChangeStr = '<span class="graph-tooltip-red">Down by <b>' + (-percentDiff).toFixed(0) + '%</b></span>';
                         }
                     }
@@ -218,7 +218,7 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             },
             legend: {
                 //container: $('#flotLegend')
-                noColumns:5
+                noColumns: 5
             }
         };
 
@@ -236,24 +236,24 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
                 color: '#555'
             },
             xaxis: {
-                mode:'time'
+                mode: 'time'
             },
             yaxis: {
                 ticks: 5, min: 0.1, max: 5.9
             },
             tooltip: true,
             tooltipOpts: {
-                content: function(label, xval, yval, flotItem){
+                content: function (label, xval, yval, flotItem) {
                     var date = new Date(xval);
                     var dateFormatted = $.plot.formatDate(date, '%d %b %Y');
                     var prevIndex = flotItem.dataIndex - 1;
                     var percentChangeStr = '';
-                    if (prevIndex >= 0){
+                    if (prevIndex >= 0) {
                         var prevValue = flotItem.series.data[prevIndex][1];
                         var percentDiff = yval - prevValue;
-                        if (percentDiff >= 0.1){
+                        if (percentDiff >= 0.1) {
                             percentChangeStr = '<span class="graph-tooltip-green">Up by <b>' + percentDiff.toFixed(1) + '</b></span>';
-                        } else if (percentDiff <= -0.1){
+                        } else if (percentDiff <= -0.1) {
                             percentChangeStr = '<span class="graph-tooltip-red">Down by <b>' + (-percentDiff).toFixed(1) + '</b></span>';
                         }
                     }
@@ -274,7 +274,7 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             },
             legend: {
                 show: true,
-                noColumns:5
+                noColumns: 5
             }
         };
 
@@ -291,7 +291,6 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
                         show: false,
                         threshold: 0.05
                     }
-
                 }
             },
             colors: ["#65b5c2", "#4da7c1", "#3993bb", "#2e7bad", "#23649e"],
@@ -301,7 +300,7 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             },
             tooltip: true,
             tooltipOpts: {
-                content: function(label, xval, yval, flotItem){
+                content: function (label, xval, yval, flotItem) {
                     return label + ': <b>' + Math.round(flotItem.datapoint[0]) + '%</b>';
                 }
             }
@@ -318,7 +317,7 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             today: today
         };
 
-        $scope.openCalendar = function($event, calendarName) {
+        $scope.openCalendar = function ($event, calendarName) {
             $event.preventDefault();
             $event.stopPropagation();
 
@@ -331,111 +330,5 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
 
         $scope.getGraphs();
 
-        //todo: remove commented code if no longer needed
-
-        //var jsonData = {
-        //    "person1": [[1394110800000, 4], [1394542800000, 4], [1395493200000, 4], [1396357200000, 2], [1396616400000, 4], [1398175200000, 5], [1399471200000, 5], [1399471200000, 3], [1401026400000, 2], [1401199200000, 5], [1401976800000, 3], [1402840800000, 4], [1402840800000, 5], [1403186400000, 5], [1405432800000, 5], [1409580000000, 5], [1409580000000, 5], [1410962400000, 4], [1411135200000, 5], [1411221600000, 5], [1411394400000, 5], [1411394400000, 4], [1413464400000, 4]],
-        //    "person2": [[1394110800000, 2], [1394542800000, 5], [1395493200000, 1], [1396357200000, 4], [1396616400000, 3], [1398175200000, 2], [1399471200000, 1], [1399471200000, 5], [1401026400000, 2], [1401199200000, 5], [1401976800000, 4], [1402840800000, 5], [1402840800000, 3], [1404741600000, 4], [1404741600000, 1], [1405346400000, 4], [1405432800000, 2], [1405605600000, 4], [1406728800000, 5], [1407160800000, 3], [1409148000000, 4], [1409580000000, 4], [1409580000000, 5], [1411135200000, 4], [1411221600000, 3], [1411394400000, 2], [1411394400000, 5], [1411740000000, 3], [1413464400000, 2]],
-        //    "person3": [[1394110800000, 3], [1394542800000, 2], [1395493200000, 1], [1396357200000, 3], [1401026400000, 1], [1401199200000, 3], [1401976800000, 2], [1402840800000, 4], [1402840800000, 5], [1404741600000, 5], [1404741600000, 3], [1405346400000, 3], [1405432800000, 3], [1405605600000, 1], [1406728800000, 5], [1407160800000, 2], [1409148000000, 5], [1409580000000, 1], [1409580000000, 4], [1411135200000, 2], [1411394400000, 5], [1411394400000, 4], [1411740000000, 2], [1413464400000, 3]],
-        //    "person4": [[1394110800000, 3], [1394542800000, 2], [1395147600000, 3], [1395493200000, 2], [1396357200000, 1], [1396616400000, 5], [1398175200000, 4], [1399471200000, 3], [1401026400000, 2], [1401199200000, 2], [1401976800000, 4], [1402149600000, 1], [1402840800000, 3], [1402840800000, 2], [1403186400000, 3], [1404741600000, 3], [1404741600000, 3], [1405346400000, 3], [1405432800000, 4], [1405605600000, 4], [1406728800000, 3], [1407160800000, 5], [1409148000000, 3], [1409580000000, 2], [1409580000000, 4], [1411135200000, 1], [1411221600000, 4], [1411394400000, 2], [1411740000000, 3], [1413464400000, 4]],
-        //    "average": [[1394110800000, 3], [1394542800000, 3.25], [1395147600000, 0.75], [1395493200000, 2], [1396357200000, 2.5], [1396616400000, 3], [1398175200000, 2.75], [1399471200000, 1.5], [1399471200000, 2.75], [1401026400000, 1.75], [1401199200000, 3.75], [1401976800000, 3.25], [1402149600000, 0.25], [1402840800000, 4], [1402840800000, 3.75], [1403186400000, 2], [1404741600000, 3], [1404741600000, 1.75], [1405346400000, 2.5], [1405432800000, 3.5], [1405605600000, 2.25], [1406728800000, 3.25], [1407160800000, 2.5], [1409148000000, 3], [1409580000000, 3], [1409580000000, 4.5], [1410962400000, 1], [1411135200000, 3], [1411221600000, 3], [1411394400000, 3.5], [1411394400000, 3.25], [1411740000000, 2], [1413464400000, 3.25]],
-        //    "min_dt": "Mar 06, 2014",
-        //    "max_dt": "Oct 16, 2014"
-        //};
-        //
-        //$scope.chartConfig = {
-        //    options: {
-        //        scatter: {
-        //            marker: {
-        //                radius: 4,
-        //                states: {
-        //                    hover: {
-        //                        enabled: true,
-        //                        lineColor: '#65b5c2'
-        //                    }
-        //                }
-        //            },
-        //            states: {
-        //                hover: {
-        //                    marker: {
-        //                        enabled: false
-        //                    }
-        //                }
-        //            },
-        //            tooltip: {
-        //                headerFormat: '<b>{series.name}</b><br>',
-        //                pointFormat: '{point.x:%b %e, %Y}=>{point.y}'
-        //            }
-        //        }
-        //
-        //
-        //    },
-        //    series: [{
-        //        name: 'Person 1',
-        //        type: 'scatter',
-        //        data: jsonData.person1,
-        //        color: '#4da7c1'
-        //    }, {
-        //        name: 'Person 2',
-        //        type: 'scatter',
-        //        data: jsonData.person2,
-        //        color: '#3993bb'
-        //    }, {
-        //        name: 'Person 3',
-        //        type: 'scatter',
-        //        data: jsonData.person3,
-        //        color: '#65b5c2'
-        //    }, {
-        //        name: 'Person 4',
-        //        type: 'scatter',
-        //        data: jsonData.person4,
-        //        color: '#23649e'
-        //    }, {
-        //        name: 'Moving Average',
-        //        type: 'line',
-        //        data: jsonData.average,
-        //        color: '#2e7bad'
-        //    }],
-        //    title: {
-        //        text: 'Incorporate scatter plot and moving average'
-        //    },
-        //    subtitle: {
-        //        text: 'From ' + jsonData.min_dt + ' to ' + jsonData.max_dt
-        //    },
-        //    xAxis: {
-        //        type: 'datetime'
-        //    },
-        //    yAxis: {
-        //        title: {
-        //            text: 'Ranking'
-        //        }
-        //    },
-        //    tooltip: {
-        //        crosshairs: true,
-        //        shared: true
-        //    },
-        //
-        //    rangeSelector: {
-        //        selected: 1
-        //    },
-        //
-        //    legend: {
-        //        enabled: true,
-        //        layout: 'vertical',
-        //        align: 'right',
-        //        verticalAlign: 'middle',
-        //        borderWidth: 0
-        //    },
-        //    credits: {
-        //        enabled: true
-        //    },
-        //    loading: false,
-        //    size: {},
-        //    backgroundColor: 'rgba(0,0,0,0)'
-        //};
-
-        //var d0 = [
-        //    [0, 0], [1, 0], [2, 1], [3, 2], [4, 15], [5, 5], [6, 12], [7, 10], [8, 55], [9, 13], [10, 25], [11, 10], [12, 12], [13, 6], [14, 2], [15, 0], [16, 0]
-        //];
 
     }]);

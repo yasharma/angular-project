@@ -194,28 +194,18 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
             $scope.reviewBox = 'modules/review/views/index.html';
         }
 
-        //function getGraphData(restaurantId) {
-        //    overviewSvr.getGraph(restaurantId).then(function (graph) {
-        //        $scope.lineChartYData = [{
-        //            "name": "Restaurant Overview",
-        //            "data": graph
-        //        }];
-        //        $scope.lineChartXData = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        //    })
-        //}
-
 
         if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {
             geoLocation.getLocation()
                 .then(function (data) {
                     localStorageService.add('latitude', data.coords.latitude);
                     localStorageService.add('longitude', data.coords.longitude);
-                    getRestaurant();
+                    //getRestaurant();/
                 });
-            getRestaurant();
+            //getRestaurant();
         }
         else {
-            getRestaurant();
+           // getRestaurant();
         }
 
         //chartData();

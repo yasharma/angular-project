@@ -8,13 +8,13 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             templateUrl: 'modules/home/views/index.html',
             controller: 'indexCtrl',
             reloadOnSearch: false,
-            access: { requiredLogin: false }
+            access: {requiredLogin: false}
         })
         .when('/index/:view', {
             templateUrl: 'modules/home/views/index.html',
             controller: 'indexCtrl',
             reloadOnSearch: false,
-            access: { requiredLogin: false }
+            access: {requiredLogin: false}
         })
         // todo remove template as well
         //.when('/dashboard/:restaurantId', {
@@ -25,7 +25,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         .when('/manage/photos/:restaurantId', {
             templateUrl: 'modules/photo/views/index.html',
             controller: 'photoCtrl',
-            access: { requiredLogin: true }
+            access: {requiredLogin: true}
         })
         //.when('/request/change/:restaurantId', {
         //    templateUrl: 'modules/request/views/index.html',
@@ -49,7 +49,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         .when('/restaurant/:restaurantId', {
             templateUrl: 'modules/restaurant/views/detail.html',
             controller: 'detailCtrl',
-            access: { requiredLogin: false }
+            access: {requiredLogin: false}
         })
         .when('/login', {
             templateUrl: 'modules/login/views/loginFull.html',
@@ -82,9 +82,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
 
     .controller('filtersCtrl', ['$scope', '$rootScope', '$http', 'localStorageService', '$location',
-        'restaurantSvr', 'geoLocation', '$routeParams','$anchorScroll', function (
-            $scope, $rootScope, $http, localStorageService, $location, restaurantSvr, geoLocation,
-            $routeParams, $anchorScroll) {
+        'restaurantSvr', 'geoLocation', '$routeParams', '$anchorScroll', function ($scope, $rootScope, $http, localStorageService, $location, restaurantSvr, geoLocation,
+                                                                                   $routeParams, $anchorScroll) {
 
             $scope.filters = {
                 cuisine: {
@@ -102,14 +101,14 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
                     ],
                     allSelected: true,
-                    selectAll: function(){
-                        angular.forEach($scope.filters.cuisine.values, function(value){
+                    selectAll: function () {
+                        angular.forEach($scope.filters.cuisine.values, function (value) {
                             value.selected = false;
                         });
                         $scope.filters.cuisine.allSelected = true;
                         $scope.setUrl();
                     },
-                    show: function(i){
+                    show: function (i) {
                         $scope.filters.cuisine.values[i].shown = true;
                         $scope.filters.cuisine.values[i].selected = true;
                         $scope.filters.cuisine.allSelected = false;
@@ -126,8 +125,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         {label: 'Unknown', id: 'null'}
                     ],
                     allSelected: true,
-                    selectAll: function(){
-                        angular.forEach($scope.filters.price.values, function(value){
+                    selectAll: function () {
+                        angular.forEach($scope.filters.price.values, function (value) {
                             value.selected = false;
                         });
                         $scope.filters.price.allSelected = true;
@@ -181,7 +180,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             };
 
 
-            $scope.getFromUrl = function(){
+            $scope.getFromUrl = function () {
                 // called on init and on every url change
 
                 var search = clone_object($location.search());
@@ -190,9 +189,9 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 var categoryIn = splitStringSafe(search['category-in']);
                 var cuisine = $scope.filters.cuisine;
                 cuisine.allSelected = true;
-                angular.forEach(cuisine.values, function(value){
+                angular.forEach(cuisine.values, function (value) {
                     value.selected = ($.inArray(value.name, categoryIn) > -1);
-                    if (value.selected){
+                    if (value.selected) {
                         cuisine.allSelected = false;
                         value.shown = true;
                     }
@@ -202,9 +201,9 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 var priceIn = splitStringSafe(search['price_range-in']);
                 var price = $scope.filters.price;
                 price.allSelected = true;
-                angular.forEach(price.values, function(value){
+                angular.forEach(price.values, function (value) {
                     value.selected = ($.inArray(value.id, priceIn) > -1);
-                    if (value.selected){
+                    if (value.selected) {
                         price.allSelected = false;
                     }
                 });
@@ -213,9 +212,9 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 var ratingGreaterThan = search['percentile-greater-than-or-equal-to'] || '';
                 var ratingLessThan = search['percentile-less-than-or-equal-to'] || '';
                 $scope.filters.rating.value = 0;
-                angular.forEach($scope.filters.rating.options, function(option){
+                angular.forEach($scope.filters.rating.options, function (option) {
                     if (ratingGreaterThan.toString() == option.value.toString() ||
-                        ratingLessThan.toString() == (-option.value).toString()){
+                        ratingLessThan.toString() == (-option.value).toString()) {
                         $scope.filters.rating.value = option.value;
                     }
                 });
@@ -224,11 +223,11 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 var distanceGreaterThan = search['distance-greater-than-or-equal-to'] || '';
                 var distanceLessThan = search['distance-less-than-or-equal-to'] || '';
                 $scope.filters.distance.value = 0;
-                angular.forEach($scope.filters.distance.options, function(option){
+                angular.forEach($scope.filters.distance.options, function (option) {
                     if (distanceGreaterThan.toString() == (-option.value).toString() ||
-                        distanceLessThan.toString() == option.value.toString()){
+                        distanceLessThan.toString() == option.value.toString()) {
                         $scope.filters.distance.value = option.value;
-                    } else if (distanceGreaterThan.toString() == '0'){
+                    } else if (distanceGreaterThan.toString() == '0') {
                         $scope.filters.distance.value = 0;
                     }
                 });
@@ -239,9 +238,9 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 var trendGreaterThan = search['trend-greater-than-or-equal-to'] || '';
                 var trendLessThan = search['trend-less-than-or-equal-to'] || '';
                 $scope.filters.trend.value = 0;
-                angular.forEach($scope.filters.trend.options, function(option){
+                angular.forEach($scope.filters.trend.options, function (option) {
                     if (trendGreaterThan.toString() == option.value.toString() ||
-                        trendLessThan.toString() == (-option.value).toString()){
+                        trendLessThan.toString() == (-option.value).toString()) {
                         $scope.filters.trend.value = option.value;
                     }
                 });
@@ -250,16 +249,16 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 var reviewsGreaterThan = search['total_reviews-greater-than-or-equal-to'] || '';
                 var reviewsLessThan = search['total_reviews-less-than-or-equal-to'] || '';
                 $scope.filters.reviews.value = 0;
-                angular.forEach($scope.filters.reviews.options, function(option){
+                angular.forEach($scope.filters.reviews.options, function (option) {
                     if (reviewsGreaterThan.toString() == option.value.toString() ||
-                        reviewsLessThan.toString() == (-option.value).toString()){
+                        reviewsLessThan.toString() == (-option.value).toString()) {
                         $scope.filters.reviews.value = option.value;
                     }
                 });
 
             };
 
-            $scope.setUrl = function(){
+            $scope.setUrl = function () {
                 // called on every $scope.filters change
 
                 var search = clone_object($location.search());
@@ -275,7 +274,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     'trend-less-than-or-equal-to'
                 ];
                 // remove every parameter
-                angular.forEach(filterFields, function(field){
+                angular.forEach(filterFields, function (field) {
                     delete search[field];
                 });
 
@@ -286,42 +285,42 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
                 // cuisine
                 var categoryIn = [];
-                angular.forEach($scope.filters.cuisine.values, function(value){
-                    if (value.selected){
+                angular.forEach($scope.filters.cuisine.values, function (value) {
+                    if (value.selected) {
                         categoryIn.push(value.name);
                     }
                 });
-                if(categoryIn.length){
+                if (categoryIn.length) {
                     search['category-in'] = categoryIn.join(',');
                 }
 
                 // price
                 var priceIn = [];
-                angular.forEach($scope.filters.price.values, function(value){
-                    if (value.selected){
+                angular.forEach($scope.filters.price.values, function (value) {
+                    if (value.selected) {
                         priceIn.push(value.id);
                     }
                 });
-                if(priceIn.length){
+                if (priceIn.length) {
                     search['price_range-in'] = priceIn.join(',');
                 }
 
                 // rating
                 search['percentile-greater-than-or-equal-to'] = null;
                 search['percentile-less-than-or-equal-to'] = null;
-                if ($scope.filters.rating.value > 0){
+                if ($scope.filters.rating.value > 0) {
                     search['percentile-greater-than-or-equal-to'] = $scope.filters.rating.value;
-                } else if ($scope.filters.rating.value < 0){
-                    search['percentile-less-than-or-equal-to'] = - $scope.filters.rating.value;
+                } else if ($scope.filters.rating.value < 0) {
+                    search['percentile-less-than-or-equal-to'] = -$scope.filters.rating.value;
                 }
 
 
                 // distance
                 search['distance-greater-than-or-equal-to'] = null;
                 search['distance-less-than-or-equal-to'] = null;
-                if (parseInt($scope.filters.distance.value) < 0){
-                    search['distance-greater-than-or-equal-to'] = (- parseInt($scope.filters.distance.value)).toString();
-                } else if (parseInt($scope.filters.distance.value) > 0){
+                if (parseInt($scope.filters.distance.value) < 0) {
+                    search['distance-greater-than-or-equal-to'] = (-parseInt($scope.filters.distance.value)).toString();
+                } else if (parseInt($scope.filters.distance.value) > 0) {
                     search['distance-less-than-or-equal-to'] = $scope.filters.distance.value.toString();
 
                 }
@@ -329,26 +328,26 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 // trend
                 search['trend-greater-than-or-equal-to'] = null;
                 search['trend-less-than-or-equal-to'] = null;
-                if ($scope.filters.trend.value > 0){
+                if ($scope.filters.trend.value > 0) {
                     search['trend-greater-than-or-equal-to'] = $scope.filters.trend.value;
-                } else if ($scope.filters.trend.value < 0){
-                    search['trend-less-than-or-equal-to'] = - $scope.filters.trend.value;
+                } else if ($scope.filters.trend.value < 0) {
+                    search['trend-less-than-or-equal-to'] = -$scope.filters.trend.value;
                 }
 
                 // reviews
                 search['total_reviews-greater-than-or-equal-to'] = null;
                 search['total_reviews-less-than-or-equal-to'] = null;
-                if ($scope.filters.reviews.value > 0){
+                if ($scope.filters.reviews.value > 0) {
                     search['total_reviews-greater-than-or-equal-to'] = $scope.filters.reviews.value;
-                } else if ($scope.filters.reviews.value < 0){
-                    search['total_reviews-less-than-or-equal-to'] = - $scope.filters.reviews.value;
+                } else if ($scope.filters.reviews.value < 0) {
+                    search['total_reviews-less-than-or-equal-to'] = -$scope.filters.reviews.value;
                 }
 
                 $location.search(search);
             };
 
             // opens tabs that contain active filters
-            $scope.setOpenTabs = function(){
+            $scope.setOpenTabs = function () {
                 $scope.openTabs = {
                     cuisine: true,
                     price: !$scope.filters.price.allSelected,
@@ -363,7 +362,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             // we first have to get all categories
             restaurantSvr.getRestaurantCategories().then(function (response) {
                 var i = 0;
-                $scope.filters.cuisine.values = response.map(function(category){
+                $scope.filters.cuisine.values = response.map(function (category) {
                     return {
                         name: category.name,
                         shown: ($.inArray(category.name, $scope.filters.cuisine.initial) > -1),
@@ -372,7 +371,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     }
                 });
                 // update filters according to url params
-                $scope.$on('$routeUpdate', function(){ // on route change: search
+                $scope.$on('$routeUpdate', function () { // on route change: search
                     $scope.getFromUrl();
                     $scope.setOpenTabs();
                 });
@@ -381,15 +380,14 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         }])
 
     .controller('indexCtrl', ['$scope', '$rootScope', '$http', 'localStorageService', '$location',
-        'restaurantSvr', 'userSvr', 'geoLocation', '$routeParams','$anchorScroll', function (
-            $scope, $rootScope, $http, localStorageService, $location, restaurantSvr, userSvr, geoLocation,
-            $routeParams, $anchorScroll) {
+        'restaurantSvr', 'userSvr', 'geoLocation', '$routeParams', '$anchorScroll', function ($scope, $rootScope, $http, localStorageService, $location, restaurantSvr, userSvr, geoLocation,
+                                                                                              $routeParams, $anchorScroll) {
 
             // change view manually based on 'view' route parameter
             if ($routeParams.view) {
                 if ($routeParams.view == 'favorites') {
                     $scope.view = 'favorites';
-                } else if ($routeParams.view == 'listall'){
+                } else if ($routeParams.view == 'listall') {
                     $scope.view = 'listall';
                 } else {
                     $location.path("/index");
@@ -400,15 +398,15 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
             $scope.init = function () {
                 // watch user object for changes (beause login / logout happens within indexCtrl)
-                $scope.$watch('user', function() {
+                $scope.$watch('user', function () {
                     // get user's owned restaurants
                     if ($scope.user && $scope.user.ownedRestaurants && $scope.user.ownedRestaurants.length) {
                         userSvr.getOwnedRestaurants().then(function (response) {
-                                $scope.ownedRestaurants = response;
+                            $scope.ownedRestaurants = response;
                         });
                     }
                     // get user's favorite restaurants
-                    if($scope.user && $scope.view == 'favorites') {
+                    if ($scope.user && $scope.view == 'favorites') {
                         userSvr.getFavorites().then(function (response) {
                             $scope.favoriteRestaurants = response;
                         });
@@ -416,9 +414,9 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 });
 
                 $scope.sortOptions = [
-                    {label:'Trend', value:'trending', direction:'bottom'},
-                    {label:'Rating', value:'popular', direction:'bottom'},
-                    {label:'Distance', value:'distance', direction:'top'}
+                    {label: 'Trend', value: 'trending', direction: 'bottom'},
+                    {label: 'Rating', value: 'popular', direction: 'bottom'},
+                    {label: 'Distance', value: 'distance', direction: 'top'}
                 ];
 
                 $scope.avatarOptions = {
@@ -427,7 +425,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         enabled: true
                     },
                     barColor: '#428bca',
-                    trackColor:'#d2d2d2',
+                    trackColor: '#d2d2d2',
                     //trackWidth: 8,
                     size: 60,
                     scaleColor: false,
@@ -435,19 +433,19 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     lineCap: 'circle'
                 };
 
-                function parseUrlSearchParams(){
+                function parseUrlSearchParams() {
                     var search = clone_object($location.search());
 
                     // if url is empty, add parameters
                     var addParamsToUrl = {};
-                    if(! search.page){
+                    if (!search.page) {
                         addParamsToUrl.page = 1
                     }
-                    if (! search.sort){
+                    if (!search.sort) {
                         addParamsToUrl.sort = 'trending'
                     }
-                    if (! (('location-type' in search && search['location-type'] == 'none')
-                        || (search.latitude && search.longitude))){
+                    if (!(('location-type' in search && search['location-type'] == 'none')
+                        || (search.latitude && search.longitude))) {
                         // get position
                         geoLocation.getLocation()
                             .then(function (data) {
@@ -469,7 +467,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     //        }
                     //    }
                     //}
-                    if (! $.isEmptyObject(addParamsToUrl)){
+                    if (!$.isEmptyObject(addParamsToUrl)) {
 
                         $location.search(merge_objects(search, addParamsToUrl));
                     } else {
@@ -483,7 +481,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
                 }
 
-                $scope.$on('$routeUpdate', function(){ // on route change: search
+                $scope.$on('$routeUpdate', function () { // on route change: search
                     parseUrlSearchParams();
                 });
 
@@ -494,12 +492,12 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             $scope.changeUrlParam = function (param, value) {
                 $location.search(param, value);
                 // reset to first page if anything other than page is updated
-                if (param != 'page'){
+                if (param != 'page') {
                     $location.search('page', '1');
                 }
             };
 
-            function getNextDistance(distance){
+            function getNextDistance(distance) {
                 var distanceFilterOptions = [
                     {label: 'Any distance', value: 0},
                     {label: 'Less than 1 KM', value: 1},
@@ -508,11 +506,11 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     {label: 'Less than 10 KM', value: 10},
                     {label: 'Greater than 10 KM', value: -10}
                 ];
-                for (var i = 1; i < distanceFilterOptions.length - 1 ; i++) {
-                    if (i == distanceFilterOptions.length - 2){
+                for (var i = 1; i < distanceFilterOptions.length - 1; i++) {
+                    if (i == distanceFilterOptions.length - 2) {
                         return '0'; // any distance
-                    } else if(distanceFilterOptions[i].value.toString() == distance.toString()){
-                        return (distanceFilterOptions[i+1].value).toString(); // next distance
+                    } else if (distanceFilterOptions[i].value.toString() == distance.toString()) {
+                        return (distanceFilterOptions[i + 1].value).toString(); // next distance
                     }
                 }
 
@@ -536,12 +534,12 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
             };
 
-            var getDistanceFilterFromSearch = function(){
+            var getDistanceFilterFromSearch = function () {
                 var search = clone_object($location.search());
 
                 if ('distance-greater-than-or-equal-to' in search) {
-                    return ((- parseInt(search['distance-greater-than-or-equal-to'])).toString());
-                }else if ('distance-less-than-or-equal-to' in search){
+                    return ((-parseInt(search['distance-greater-than-or-equal-to'])).toString());
+                } else if ('distance-less-than-or-equal-to' in search) {
                     return search['distance-less-than-or-equal-to'] || '0';
                 } else {
                     return '0'; // default distance
@@ -559,14 +557,14 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 // while there are 0 responses and distance-less-than filter is active, increase distance and repeat
                 $scope.cgBusyPromise = restaurantSvr.getRestaurants(params);
                 $scope.cgBusyPromise.then(function (response) {
-                    if(response.items.length == 0 && $scope.distance.toString() != '0'
-                        && params.latitude && params.longitude && initial){
+                    if (response.items.length == 0 && $scope.distance.toString() != '0'
+                        && params.latitude && params.longitude && initial) {
                         // none found:
                         // find next distance option and set it
                         $scope.distance = getNextDistance($scope.distance);
                         getPopularList(params, initial);
 
-                    }else { // success
+                    } else { // success
                         setDistanceUrl($scope.distance);
                         $scope.restaurants = response.items;
                         $scope.maxSize = 6;
@@ -578,7 +576,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 });
             }
 
-            $scope.toggleFiltersMobile = function(){
+            $scope.toggleFiltersMobile = function () {
                 $rootScope.showFiltersMobile = false;
                 $scope.scrollTop();
             };
@@ -594,197 +592,214 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
     .controller('navigationController', ['$scope', '$http', '$location',
         function ($scope, $http, $location) {
 
-        // navigate to detail view
-        $scope.setRestaurant = function (restaurant){
-            if(restaurant && restaurant.data && restaurant.data.id) {
-                $location.path('/restaurant/' + restaurant.data.id);
-            }
-        };
-
-    }])
-
-    .controller('searchCtrl', ['$scope', '$http','$location', 'restaurantSvr',
-        'localStorageService', 'geoLocation', 'messageCenterService', 'growl',
-        function ($scope, $http, $location, restaurantSvr, localStorageService, geoLocation, messageCenterService, growl) {
-
-        $scope.search = {}; // raw search parameters
-
-        $scope.selectedPrices = [];
-
-        $scope.$watch('selectedPrices', function(){
-            $scope.search['price_range-in'] = null;
-            angular.forEach($scope.selectedPrices, function(price){
-                if ($scope.search['price_range-in']){
-                    $scope.search['price_range-in'] += ',' + price.id.toString();
-                }else{
-                    $scope.search['price_range-in'] = price.id.toString();
+            // navigate to detail view
+            $scope.setRestaurant = function (restaurant) {
+                if (restaurant && restaurant.data && restaurant.data.id) {
+                    $location.path('/restaurant/' + restaurant.data.id);
                 }
-            });
-        }, true);
-
-        $scope.selectedCategories = [];
-
-        $scope.$watch('selectedCategories', function(){
-            $scope.search['category-in'] = null;
-            angular.forEach($scope.selectedCategories, function(category){
-                if ($scope.search['category-in']){
-                    $scope.search['category-in'] += ',' + category.id.toString();
-                }else{
-                    $scope.search['category-in'] = category.id.toString();
-                }
-            });
-        }, true);
-
-        restaurantSvr.getRestaurantCategories().then(function (response) {
-            $scope.categories = response.map(function(item){
-                return {id: item.name};
-            });
-        });
-
-        $scope.prices = [
-            {'value': '$', "id": '0'},
-            {'value': '$$', "id": '1'},
-            {'value': '$$$', "id": '2'},
-            {'value': '$$$$', "id": '3'},
-            {'value': '$$$$$', "id": '4'},
-            {'value': 'Unknown', "id": 'null'}
-        ];
-
-        $scope.priceDropdownSettings = {
-            displayProp: 'value',
-            showCheckAll: false
-        };
-
-        $scope.priceDropdownLabels = {
-            buttonDefaultText: 'Any Price',
-            dynamicButtonTextPrefix: 'Price (',
-            dynamicButtonTextSuffix: ')',
-            uncheckAll: 'Any Price'
-        };
-
-        $scope.categoryDropdownSettings = {
-            scrollableHeight: '300px',
-            scrollable: true,
-            displayProp: 'id',
-            showCheckAll: false,
-            enableSearch: true
-        };
-
-        $scope.categoryDropdownLabels = {
-            buttonDefaultText: 'Any Cuisine',
-            dynamicButtonTextPrefix: 'Cuisine (',
-            dynamicButtonTextSuffix: ' selected)',
-            uncheckAll: 'Any Cuisine'
-        };
-
-        //// returns address coordinates
-        $scope.getLocations = function (val) {
-            return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
-                params: {
-                    components: "country:AU",
-                    address: val,
-                    sensor: false
-                }
-            }).then(function (response) {
-                return response.data.results.map(function (item) {
-                    return {
-                        'formatted_address': item.formatted_address,
-                        'location': item.geometry.location
-                    };
-                });
-            });
-        };
-
-        $scope.setLocation = function(formattedAddress){
-            $scope.search['distance-less-than-or-equal-to'] = '2';
-            $scope.search['distance-greater-than-or-equal-to'] = null;
-
-            $scope.search.latitude = formattedAddress.location.lat;
-            $scope.search.longitude = formattedAddress.location.lng;
-            $scope.search['location-type'] = 'address';
-            localStorageService.add('latitude', $scope.search.latitude);
-            localStorageService.add('longitude', $scope.search.longitude);
-
-            $scope.nearMe = false;
-        };
-
-        $scope.setNearMe = function() {
-            if($scope.nearMe) {
-                // need to set distance to increasing
-
-                // we shouldn't remember user's location in localStorage, rather get each time
-                // because it can change each time
-
-                //if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {
-
-                geoLocation.getLocation()
-                    .then(function (data) {
-                        localStorageService.add('latitude', data.coords.latitude);
-                        localStorageService.add('longitude', data.coords.longitude);
-
-                        $scope.search['distance-less-than-or-equal-to'] = '2';
-                        $scope.search['distance-greater-than-or-equal-to'] = null;
-                        $scope.search.latitude = data.coords.latitude;
-                        $scope.search.longitude = data.coords.longitude;
-                        $scope.search['location-type'] = 'nearme';
-                        $scope.formattedAddress = '';
-                    }, function(error){
-                        //messageCenterService.add('warning', error, {timeout : 5000});
-                        growl.addWarnMessage(error);
-                    });
-
-            } else {
-                $scope.search.latitude = null;
-                $scope.search.longitude = null;
-                $scope.search['distance-less-than-or-equal-to'] = null;
-                $scope.search['distance-greater-than-or-equal-to'] = null;
-                $scope.search['location-type'] = 'none';
-            }
-        };
-
-        function parseUrlSearchParams(){
-            // called on url change, parses url parameters and updates filters in view
-            $scope.search = clone_object($location.search());
-            var search = $scope.search;
-            if('price_range-in' in search){
-                $scope.selectedPrices = search['price_range-in'].split(',').map(function(item){
-                    return {id: item.toString()}
-                });
-            }else{
-                $scope.selectedPrices = [];
-            }
-            if('category-in' in search){
-                $scope.selectedCategories = search['category-in'].split(',').map(function(item){
-                    return {id: item.toString()}
-                });
-            }else{
-                $scope.selectedCategories = [];
-            }
-
-            $scope.nearMe = search['location-type'] == 'nearme' || ! search['location-type'];
-            $scope.setNearMe();
-
-        }
-
-        parseUrlSearchParams(); // do it on init
-
-
-        $scope.$on('$routeUpdate', function(){ // as well as on any route change
-            parseUrlSearchParams();
-        });
-
-        $scope.searchRestaurant = function () {
-            // set search parameters to url
-            var url = '/index/listall';
-            var searchAndResetPage = merge_objects($scope.search, {page: 1});
-            var query = objectToQueryString(merge_objects_null($location.search(), searchAndResetPage));
-
-            $location.url(url + query);
-        }
+            };
 
         }])
 
-    .controller('mapCtrl', ['$scope', 'locationSvr', '$modal', '$routeParams', '$log','localStorageService',
+    .controller('searchCtrl', ['$scope', '$http', '$location', 'restaurantSvr',
+        'localStorageService', 'geoLocation', 'messageCenterService', 'growl', 'userSvr',
+        function ($scope, $http, $location, restaurantSvr, localStorageService, geoLocation, messageCenterService, growl, userSvr) {
+
+            $scope.search = {}; // raw search parameters
+
+            $scope.selectedPrices = [];
+
+            $scope.$watch('selectedPrices', function () {
+                $scope.search['price_range-in'] = null;
+                angular.forEach($scope.selectedPrices, function (price) {
+                    if ($scope.search['price_range-in']) {
+                        $scope.search['price_range-in'] += ',' + price.id.toString();
+                    } else {
+                        $scope.search['price_range-in'] = price.id.toString();
+                    }
+                });
+            }, true);
+
+            $scope.selectedCategories = [];
+
+            $scope.$watch('selectedCategories', function () {
+                $scope.search['category-in'] = null;
+                angular.forEach($scope.selectedCategories, function (category) {
+                    if ($scope.search['category-in']) {
+                        $scope.search['category-in'] += ',' + category.id.toString();
+                    } else {
+                        $scope.search['category-in'] = category.id.toString();
+                    }
+                });
+            }, true);
+
+            restaurantSvr.getRestaurantCategories().then(function (response) {
+                $scope.categories = response.map(function (item) {
+                    return {id: item.name};
+                });
+            });
+
+            $scope.prices = [
+                {'value': '$', "id": '0'},
+                {'value': '$$', "id": '1'},
+                {'value': '$$$', "id": '2'},
+                {'value': '$$$$', "id": '3'},
+                {'value': '$$$$$', "id": '4'},
+                {'value': 'Unknown', "id": 'null'}
+            ];
+
+            $scope.priceDropdownSettings = {
+                displayProp: 'value',
+                showCheckAll: false
+            };
+
+            $scope.priceDropdownLabels = {
+                buttonDefaultText: 'Any Price',
+                dynamicButtonTextPrefix: 'Price (',
+                dynamicButtonTextSuffix: ')',
+                uncheckAll: 'Any Price'
+            };
+
+            $scope.categoryDropdownSettings = {
+                scrollableHeight: '300px',
+                scrollable: true,
+                displayProp: 'id',
+                showCheckAll: false,
+                enableSearch: true
+            };
+
+            $scope.categoryDropdownLabels = {
+                buttonDefaultText: 'Any Cuisine',
+                dynamicButtonTextPrefix: 'Cuisine (',
+                dynamicButtonTextSuffix: ' selected)',
+                uncheckAll: 'Any Cuisine'
+            };
+
+            //// returns address coordinates
+            $scope.getLocations = function (val) {
+                return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
+                    params: {
+                        components: "country:AU",
+                        address: val,
+                        sensor: false
+                    }
+                }).then(function (response) {
+                    return response.data.results.map(function (item) {
+                        return {
+                            'formatted_address': item.formatted_address,
+                            'location': item.geometry.location
+                        };
+                    });
+                });
+            };
+
+            $scope.setLocation = function (formattedAddress) {
+                $scope.search['distance-less-than-or-equal-to'] = '2';
+                $scope.search['distance-greater-than-or-equal-to'] = null;
+
+                $scope.search.latitude = formattedAddress.location.lat;
+                $scope.search.longitude = formattedAddress.location.lng;
+                $scope.search['location-type'] = 'address';
+                localStorageService.add('latitude', $scope.search.latitude);
+                localStorageService.add('longitude', $scope.search.longitude);
+
+                $scope.nearMe = false;
+            };
+
+            $scope.setNearMe = function () {
+                if ($scope.nearMe) {
+                    // need to set distance to increasing
+
+                    // we shouldn't remember user's location in localStorage, rather get each time
+                    // because it can change each time
+
+                    //if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {
+
+                    geoLocation.getLocation()
+                        .then(function (data) {
+                            localStorageService.add('latitude', data.coords.latitude);
+                            localStorageService.add('longitude', data.coords.longitude);
+
+                            $scope.search['distance-less-than-or-equal-to'] = '2';
+                            $scope.search['distance-greater-than-or-equal-to'] = null;
+                            $scope.search.latitude = data.coords.latitude;
+                            $scope.search.longitude = data.coords.longitude;
+                            $scope.search['location-type'] = 'nearme';
+                            $scope.formattedAddress = '';
+                        }, function (error) {
+                            //messageCenterService.add('warning', error, {timeout : 5000});
+                            //growl.addWarnMessage(error);
+                            setLocationFromIp();
+                        });
+
+                } else {
+                    setLocationFromIp();
+                }
+            };
+
+            function setLocationFromIp() {
+                userSvr.getIp().then(function (ip) {
+                    userSvr.getLocation(ip).then(function (location) {
+                            $scope.search.latitude = location.lat;
+                            $scope.search.longitude = location.lon;
+                            $scope.search['distance-less-than-or-equal-to'] = '5';
+                            $scope.search['distance-greater-than-or-equal-to'] = null;
+                            $scope.search['location-type'] = 'nearme';
+                        },
+                        function (error) {
+                            $scope.search.latitude = null;
+                            $scope.search.longitude = null;
+                            $scope.search['distance-less-than-or-equal-to'] = null;
+                            $scope.search['distance-greater-than-or-equal-to'] = null;
+                            $scope.search['location-type'] = 'none';
+                        })
+                });
+
+            }
+
+            function parseUrlSearchParams() {
+                // called on url change, parses url parameters and updates filters in view
+                $scope.search = clone_object($location.search());
+                var search = $scope.search;
+                if ('price_range-in' in search) {
+                    $scope.selectedPrices = search['price_range-in'].split(',').map(function (item) {
+                        return {id: item.toString()}
+                    });
+                } else {
+                    $scope.selectedPrices = [];
+                }
+                if ('category-in' in search) {
+                    $scope.selectedCategories = search['category-in'].split(',').map(function (item) {
+                        return {id: item.toString()}
+                    });
+                } else {
+                    $scope.selectedCategories = [];
+                }
+
+                $scope.nearMe = search['location-type'] == 'nearme' || !search['location-type'];
+                $scope.setNearMe();
+
+            }
+
+            parseUrlSearchParams(); // do it on init
+
+
+            $scope.$on('$routeUpdate', function () { // as well as on any route change
+                parseUrlSearchParams();
+            });
+
+            $scope.searchRestaurant = function () {
+                // set search parameters to url
+                var url = '/index/listall';
+                var searchAndResetPage = merge_objects($scope.search, {page: 1});
+                var query = objectToQueryString(merge_objects_null($location.search(), searchAndResetPage));
+
+                $location.url(url + query);
+            }
+
+        }])
+
+    .controller('mapCtrl', ['$scope', 'locationSvr', '$modal', '$routeParams', '$log', 'localStorageService',
         function ($scope, locationSvr, $modal, routeParams, $log, localStorageService) {
 
             var latitude = localStorageService.get('latitude');
@@ -792,7 +807,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
             //var latitude = -33.8945364;     // for testing only
             //var longitude = 151.26898979999999;
-            $scope.originAddress ='';
+            $scope.originAddress = '';
             $scope.map = {};
             var geocoder = new google.maps.Geocoder();
 
@@ -816,7 +831,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         id: 0,
                         coords: {
                             latitude: $scope.map.center.latitude,
-                            longitude:$scope.map.center.longitude
+                            longitude: $scope.map.center.longitude
                         }
                     };
 
@@ -830,21 +845,21 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     var origin =
                         $scope.directions = {
                             origin: latitude + ',' + longitude,
-                            destination: $scope.map.center.latitude +',' + $scope.map.center.longitude,
+                            destination: $scope.map.center.latitude + ',' + $scope.map.center.longitude,
                             showList: true
                         };
 
-                    $scope.travelModes = [{ label : "Driving", value: "DRIVING" },{ label : "Walking", value : "WALKING"},
-                        {label : "Bicycling", value:"BICYCLING"},{ label: "Transit", value:"TRANSIT"}];
+                    $scope.travelModes = [{label: "Driving", value: "DRIVING"}, {label: "Walking", value: "WALKING"},
+                        {label: "Bicycling", value: "BICYCLING"}, {label: "Transit", value: "TRANSIT"}];
 
 //                    Set Driving to the options box
-                    $scope.travelMode =  $scope.travelModes[0].value;
+                    $scope.travelMode = $scope.travelModes[0].value;
 
 
                     // Get Destination Address
-                    var latlng = new google.maps.LatLng(latitude,longitude);
+                    var latlng = new google.maps.LatLng(latitude, longitude);
 
-                    geocoder.geocode({'latLng': latlng}, function(results, status) {
+                    geocoder.geocode({'latLng': latlng}, function (results, status) {
                         if (status == google.maps.GeocoderStatus.OK) {
                             if (results[1]) {
                                 $scope.originAddress = results[1].formatted_address;
@@ -899,7 +914,6 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             $scope.getMap();
 
 
-
         }])
 
     .controller('menuCtrl', ['$scope', '$routeParams',
@@ -907,17 +921,17 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             $scope.restaurantId = routeParams.restaurantId;
 
 
-            if(undefined !== $scope.restaurantId &&  $scope.restaurantId){
+            if (undefined !== $scope.restaurantId && $scope.restaurantId) {
                 $scope.menus = [
                     {
-                        name : 'Manage Photos',
-                        link : '#/manage/photos/' + $scope.restaurantId,
-                        icon : 'i-docs'
+                        name: 'Manage Photos',
+                        link: '#/manage/photos/' + $scope.restaurantId,
+                        icon: 'i-docs'
                     },
                     {
-                        name : 'Dashboard',
-                        link : '#/dashboard/' + $scope.restaurantId,
-                        icon : 'i-statistics'
+                        name: 'Dashboard',
+                        link: '#/dashboard/' + $scope.restaurantId,
+                        icon: 'i-statistics'
                     }
                 ];
             }
