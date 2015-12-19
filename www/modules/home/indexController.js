@@ -380,8 +380,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         }])
 
     .controller('indexCtrl', ['$scope', '$rootScope', '$http', 'localStorageService', '$location',
-        'restaurantSvr', 'userSvr', 'geoLocation', '$routeParams', '$anchorScroll', function ($scope, $rootScope, $http, localStorageService, $location, restaurantSvr, userSvr, geoLocation,
-                                                                                              $routeParams, $anchorScroll) {
+        'restaurantSvr', 'userSvr', 'geoLocation', '$routeParams', '$anchorScroll', function ($scope, $rootScope, $http, localStorageService, $location, restaurantSvr, userSvr, geoLocation, $routeParams, $anchorScroll) {
 
             // change view manually based on 'view' route parameter
             if ($routeParams.view) {
@@ -457,6 +456,22 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                                 addParams.latitude = data.coords.latitude;
                                 addParams.longitude = data.coords.longitude;
                                 $location.search(addParams);
+                            }, function (error) {
+                                userSvr.getIp().then(function (ip) {
+                                    userSvr.getLocation(ip).then(function (location) {
+
+                                            localStorageService.add('latitude', location.lat);
+                                            localStorageService.add('longitude', location.lon);
+
+                                            var addParams = {};
+                                            addParams['distance-less-than-or-equal-to'] = '5';
+                                            addParams['distance-greater-than-or-equal-to'] = null;
+                                            addParams.latitude = location.lat;
+                                            addParams.longitude = location.lon;
+                                            $location.search(addParams);
+                                        },
+                                        function (error) {})
+                                });
                             });
 
                     }
@@ -740,11 +755,16 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             function setLocationFromIp() {
                 userSvr.getIp().then(function (ip) {
                     userSvr.getLocation(ip).then(function (location) {
+
+                            localStorageService.add('latitude', location.lat);
+                            localStorageService.add('longitude', location.lon);
+
                             $scope.search.latitude = location.lat;
                             $scope.search.longitude = location.lon;
                             $scope.search['distance-less-than-or-equal-to'] = '5';
                             $scope.search['distance-greater-than-or-equal-to'] = null;
                             $scope.search['location-type'] = 'nearme';
+                            $scope.formattedAddress = '';
                         },
                         function (error) {
                             $scope.search.latitude = null;
