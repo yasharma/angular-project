@@ -25,7 +25,7 @@ rxControllers.controller('claimCtrl', ['$scope', '$modal', '$routeParams', '$tim
                     $(".overlay-main").css("display", "none");
                     $(".modal-dialog").css("display", "none");
 
-                    messageCenterService.add('success', 'Your access code has been sent to your email. Your request-token is ' + response.data.request_token);
+                    messageCenterService.add('success', 'Your request token has been sent to your email.We will send you the verification code via POST within 3 business days. Your request-token is ' + response.data.request_token);
                 }else{
                     initForm ();
                 }
@@ -37,7 +37,7 @@ rxControllers.controller('claimCtrl', ['$scope', '$modal', '$routeParams', '$tim
             claimSvr.verifyRestaurant($scope.activationForm).then(function (response) {
                 if(response.err){
                     response.data.forEach(function(item){
-                        messageCenterService.add('danger', item.message, {timeout : 3000});
+                        messageCenterService.add('success', item.message, {timeout : 3000});
                     });
                     return;
                 }
@@ -51,8 +51,15 @@ rxControllers.controller('claimCtrl', ['$scope', '$modal', '$routeParams', '$tim
         };
 
         function initForm (){
+            console.log($routeParams);
             $scope.claimForm = {};
             $scope.activationForm = {};
+            if(typeof $routeParams.request_token !== "undefined"){
+                $scope.activationForm.request_token = $routeParams.request_token;
+            }
+            if(typeof $routeParams.validation_key !== "undefined"){
+                $scope.activationForm.validation_key = $routeParams.validation_key;
+            }
             $scope.claimForm.restaurant_id = $routeParams.restaurantId;
             $scope.claimForm.user_id = $scope.user.id;
         }

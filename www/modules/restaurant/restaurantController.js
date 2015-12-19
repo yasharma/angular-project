@@ -11,15 +11,15 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
         initTemplate();
         $anchorScroll();
         $scope.restaurantId = $routeParams.restaurantId;
-        $scope.$watch('user', function() {
+        $scope.$watch('user', function () {
             $scope.isOwner = $scope.user && $scope.user.ownedRestaurants && _.contains($scope.user.ownedRestaurants, parseInt($scope.restaurantId));
         });
-        clearForm ();
+        clearForm();
 
-        function clearForm (){
+        function clearForm() {
             $scope.activationForm = {};
             $scope.activationForm.restaurant_id = $scope.restaurantId;
-            if($scope.user) $scope.activationForm.user_id = $scope.user.id;
+            if ($scope.user) $scope.activationForm.user_id = $scope.user.id;
         }
 
         $scope.reviewListPageChanged = function () {
@@ -80,21 +80,22 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
             // $scope.upload = $upload.http({...})  see 88#issuecomment-31366487 for sample code.
         };
 
-        $scope.claim = function(){
-            if($scope.isLogged) {
+        $scope.claim = function () {
+            if ($scope.isLogged) {
                 $location.url($location.path() + '?request=claimRestaurant');
+                handleRestaurantClaim();
             } else {
                 $rootScope.returnToPage = $location.path() + '?request=claimRestaurant';
                 $location.url('/login');
             }
         };
 
-        $scope.checkFavourite = function(){
-            userSvr.getFavorites().then(function(response){
+        $scope.checkFavourite = function () {
+            userSvr.getFavorites().then(function (response) {
                 $scope.favoriteRestaurants = response;
                 $scope.isFavourite = false;
-                angular.forEach(response, function(restaurant){
-                    if (restaurant.id == $scope.restaurantId){
+                angular.forEach(response, function (restaurant) {
+                    if (restaurant.id == $scope.restaurantId) {
                         $scope.isFavourite = true;
                     }
                 });
@@ -103,8 +104,8 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
 
         $scope.checkFavourite();
 
-        $scope.favourite = function(){
-            if($scope.isFavourite){
+        $scope.favourite = function () {
+            if ($scope.isFavourite) {
                 userSvr.removeFavorite($scope.restaurantId);
             } else {
                 userSvr.addFavorite($scope.user.id, $scope.restaurant.id);
@@ -112,15 +113,19 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
             $scope.isFavourite = !$scope.isFavourite;
         };
 
-        $scope.$on('$routeUpdate', function(){
+        $scope.$on('$routeChangeSuccess', function () {
+            handleRestaurantClaim();
+        });
+
+        function handleRestaurantClaim(){
             var modalInstance = checkParams($routeParams.request);
 
-            if(typeof modalInstance !== undefined && Object.keys(modalInstance).length && $scope.user){
+            if (typeof modalInstance !== undefined && Object.keys(modalInstance).length && $scope.user) {
 
                 modalInstance = $modal.open({
                     templateUrl: modalInstance.templateLocation,
                     scope: $scope,
-                    controller : modalInstance.controller,
+                    controller: modalInstance.controller,
                     windowClass: modalInstance.windowClass || ''
                 });
 
@@ -136,26 +141,26 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
                 });
 
             }
-        });
+        }
 
 
-        function checkParams (params){
+        function checkParams(params) {
             var modalDetails = {};
-            switch ($routeParams.request){
+            switch ($routeParams.request) {
                 case "validateRestaurant" :
                     modalDetails = {
-                        modal : "validate",
-                        requestParam : params,
-                        templateLocation : "modules/claim/views/activation-form.html",
+                        modal: "validate",
+                        requestParam: params,
+                        templateLocation: "modules/claim/views/activation-form.html",
                         controller: "claimCtrl"
 
                     };
                     break;
                 case "claimRestaurant" :
                     modalDetails = {
-                        modal : "claim",
-                        requestParam : params,
-                        templateLocation : "modules/claim/views/form.html",
+                        modal: "claim",
+                        requestParam: params,
+                        templateLocation: "modules/claim/views/form.html",
                         controller: "claimCtrl",
                         windowClass: "claim-modal-window"
                     };
@@ -200,15 +205,24 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
                 .then(function (data) {
                     localStorageService.add('latitude', data.coords.latitude);
                     localStorageService.add('longitude', data.coords.longitude);
-                    //getRestaurant();/
-                });
-            //getRestaurant();
-        }
-        else {
-           // getRestaurant();
-        }
+                    getRestaurant();
+                }, function (error) {
+                    userSvr.getIp().then(function (ip) {
+                        userSvr.getLocation(ip).then(function (location) {
 
-        //chartData();
+                                localStorageService.add('latitude', location.lat);
+                                localStorageService.add('longitude', location.lon);
+                                getRestaurant();
+                            },
+                            function (error) {
+                                getRestaurant();
+                            })
+                    });
+                });
+        }
+        else{
+            getRestaurant();
+        }
 
     }
 ]);

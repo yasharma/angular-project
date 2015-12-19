@@ -18,7 +18,7 @@
 <section class="vbox">
 <section class="scrollable padder">
 <section class="row m-b-md">
-    <div class="col-sm-6">
+    <div class="col-sm-8">
         <h3 class="m-b-xs text-black">{{restaurant.name}}
             <button class="btn btn-default btn-rounded btn-sm m-l-xs" data-toggle="class:nav-xs"
                     ng-click="showMap = ! showMap">
@@ -30,6 +30,9 @@
                 <span ng-show="! isFavourite">Add as favourite</span>
                 <i class="icon fa fa-star text-warning" ng-show="isFavourite"></i>
             </button>
+            <button class="btn btn-default btn-rounded btn-sm m-l-xs"
+                    ng-click="claim()" ng-hide="isOwner"> Claim this Restaurant
+            </button>
             <div class="modal-backdrop fade in"></div>
         </h3>
         <small> {{restaurant.address}}
@@ -38,7 +41,7 @@
     </div>
 
     <!--Includes claim section-->
-    <div class="col-sm-6 m-t-lg">
+    <div class="col-sm-4 m-t-lg">
 
         <!--<div share-links="Facebook, Twitter, LinkedIn, Google-Plus"-->
              <!--share-title="reviews-combined dummy title" class="m-r-md pull-right">-->
@@ -52,10 +55,7 @@
             <span class="m-l-xs"> Share</span>
         </button>
 
-        <button class="btn btn-default btn-rounded btn-sm m-t-sm"
-                ng-click="claim()" ng-hide="isOwner"><i
-                class="i i-paperplane icon text-primary"></i> Claim this Restaurant
-        </button>
+
 
     </div>
 
