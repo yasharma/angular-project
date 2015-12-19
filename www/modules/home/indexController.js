@@ -82,8 +82,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
 
     .controller('filtersCtrl', ['$scope', '$rootScope', '$http', 'localStorageService', '$location',
-        'restaurantSvr', 'geoLocation', '$routeParams', '$anchorScroll', function ($scope, $rootScope, $http, localStorageService, $location, restaurantSvr, geoLocation,
-                                                                                   $routeParams, $anchorScroll) {
+        'restaurantSvr', 'geoLocation', '$routeParams', '$anchorScroll', function ($scope, $rootScope, $http, localStorageService, $location, restaurantSvr, geoLocation,$routeParams, $anchorScroll) {
 
             $scope.filters = {
                 cuisine: {

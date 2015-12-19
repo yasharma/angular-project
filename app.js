@@ -43,7 +43,7 @@ myApp.config(["RestangularProvider", function (RestangularProvider) {
             return null;
         }
         return elem;
-    })
+    });
     // set params for multiple methods at once
     RestangularProvider.addResponseInterceptor(function (data, operation, what, url, response, deferred) {
         if (operation === 'getList') {
@@ -61,7 +61,7 @@ myApp.config(["RestangularProvider", function (RestangularProvider) {
 myApp.factory('AuthenticationService', function () {
     var auth = {
         isLogged: false
-    }
+    };
 
     return auth;
 });
@@ -89,15 +89,16 @@ myApp.run(['$rootScope', '$location', 'localStorageService', 'AuthenticationServ
     // logout and user are stored in root scope so they can be accessed from any controller or view
     $rootScope.user = localStorageService.get('user');
 
-    $rootScope.baseUrl = 'http://dev2.reviews-combined.com/';
+    //$rootScope.baseUrl = 'http://app.ratingscombined.com/';
+    $rootScope.baseUrl = 'http://app.ireview.dev/';
 
     // whether to show search filters on mobile view (on index page)
-    $rootScope.showFiltersMobile = false;
+    $rootScope.showFiltersMobile = true;
 
     // go to index page and show search filters
     $rootScope.showSearchFilters = function () {
         $rootScope.showFiltersMobile = true;
-        $location.path("/index");
+        $location.path("/index/listall");
     }
 
 }]);
