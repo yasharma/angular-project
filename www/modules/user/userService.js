@@ -27,11 +27,11 @@ userService.factory('userSvr', ['Restangular', 'restaurantSvr', '$http', functio
             var data_encoded = $.param({user_id: userId, restaurant_id: restaurantId});
             return favorites.post(data_encoded, {}, {'Content-Type': 'application/x-www-form-urlencoded'}).
                 then(function (response) {
-                    return response;
+                    return response.data;
                 });
         },
-        removeFavorite: function (restaurantId) {
-            var favorite = Restangular.all('favourites/restaurant/' + restaurantId);
+        removeFavorite: function (favouriteId) {
+            var favorite = Restangular.all('favourites/' + favouriteId);
             return favorite.remove()
                 .then(function (response) {
                     return response;

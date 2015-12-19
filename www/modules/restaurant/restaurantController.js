@@ -94,9 +94,11 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
             userSvr.getFavorites().then(function (response) {
                 $scope.favoriteRestaurants = response;
                 $scope.isFavourite = false;
+                $scope.favouriteId = null;
                 angular.forEach(response, function (restaurant) {
                     if (restaurant.id == $scope.restaurantId) {
                         $scope.isFavourite = true;
+                        $scope.favouriteId = restaurant.favourite__id;
                     }
                 });
             });
@@ -106,9 +108,12 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
 
         $scope.favourite = function () {
             if ($scope.isFavourite) {
-                userSvr.removeFavorite($scope.restaurantId);
+                userSvr.removeFavorite($scope.favouriteId);
+                $scope.favouriteId = null;
             } else {
-                userSvr.addFavorite($scope.user.id, $scope.restaurant.id);
+                userSvr.addFavorite($scope.user.id, $scope.restaurant.id).then(function(data){
+                    $scope.favouriteId = data.id;
+                });
             }
             $scope.isFavourite = !$scope.isFavourite;
         };
