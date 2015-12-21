@@ -17,7 +17,7 @@ myApp.config(['$routeProvider', function ($routeProvider) {
 
 myApp.config(['uiGmapGoogleMapApiProvider', function (uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
-        //    key: 'your api key',
+        key: 'AIzaSyAnbuJ8QFGX74TvABO2Z0HRAc1H5oZMywA',
         v: '3.17',
         libraries: 'weather,geometry,visualization'
     });
