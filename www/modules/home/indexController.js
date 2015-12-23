@@ -82,7 +82,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
 
     .controller('filtersCtrl', ['$scope', '$rootScope', '$http', 'localStorageService', '$location',
-        'restaurantSvr', 'geoLocation', '$routeParams', '$anchorScroll', function ($scope, $rootScope, $http, localStorageService, $location, restaurantSvr, geoLocation,$routeParams, $anchorScroll) {
+        'restaurantSvr', 'geoLocation', '$routeParams', '$anchorScroll', function ($scope, $rootScope, $http, localStorageService, $location, restaurantSvr, geoLocation, $routeParams, $anchorScroll) {
 
             $scope.filters = {
                 cuisine: {
@@ -379,7 +379,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
         }])
 
     .controller('indexCtrl', ['$scope', '$rootScope', '$http', 'localStorageService', '$location',
-        'restaurantSvr', 'userSvr', 'geoLocation', '$routeParams', '$anchorScroll', function ($scope, $rootScope, $http, localStorageService, $location, restaurantSvr, userSvr, geoLocation, $routeParams, $anchorScroll) {
+        'restaurantSvr', 'userSvr', 'geoLocation', '$routeParams', '$anchorScroll','growl', function ($scope, $rootScope, $http, localStorageService, $location, restaurantSvr, userSvr, geoLocation, $routeParams, $anchorScroll,growl) {
 
             // change view manually based on 'view' route parameter
             if ($routeParams.view) {
@@ -434,6 +434,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 function parseUrlSearchParams() {
                     var search = clone_object($location.search());
 
+
                     // if url is empty, add parameters
                     var addParamsToUrl = {};
                     if (!search.page) {
@@ -442,8 +443,12 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     if (!search.sort) {
                         addParamsToUrl.sort = 'trending'
                     }
-                    if (!(('location-type' in search && search['location-type'] == 'none')
-                        || (search.latitude && search.longitude))) {
+
+                    if ((search.latitude && search.longitude)) {
+                        localStorageService.add('latitude', search.latitude);
+                        localStorageService.add('longitude', search.longitude);
+                    }
+                    else {
                         // get position
                         geoLocation.getLocation()
                             .then(function (data) {
@@ -469,7 +474,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                                             addParams.longitude = location.lon;
                                             $location.search(addParams);
                                         },
-                                        function (error) {})
+                                        function (error) {
+                                        })
                                 });
                             });
 
@@ -576,6 +582,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         // none found:
                         // find next distance option and set it
                         $scope.distance = getNextDistance($scope.distance);
+                        growl.addWarnMessage('We did not find any matching restaurants. Showing best matching alternatives.');
                         getPopularList(params, initial);
 
                     } else { // success
