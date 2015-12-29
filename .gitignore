@@ -4,4 +4,6 @@ bower_components
 /www/js
 .idea
 temp
-css
+
+css/app.css
+css/bootstrap.css
