@@ -1,5 +1,5 @@
 // Sideshow tutorial (outside of Angular context)
-(function() {
+(function () {
     // init sideshow
     Sideshow.config.language = "en";
     Sideshow.config.autoSkipIntro = true;
@@ -40,9 +40,9 @@
         ]
     });
     // checks if all elements in a given list exist
-    function elementsExist(elements_array){
-        for (var i in elements_array){
-            if($(elements_array[i]).length == 0){
+    function elementsExist(elements_array) {
+        for (var i in elements_array) {
+            if ($(elements_array[i]).length == 0) {
                 return false;
             }
         }
