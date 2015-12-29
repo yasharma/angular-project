@@ -1,9 +1,7 @@
 node_modules
 bower_components
-/www/css
 /www/js
-.idea
 temp
-
 css/app.css
 css/bootstrap.css
+site.min.css
