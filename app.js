@@ -167,7 +167,9 @@ myApp.config(['$httpProvider', 'RestangularProvider', function ($httpProvider, R
                 }
                 else {
                     rejection.data.forEach(function (item) {
-                        messageCenterService.add('danger', getFriendlierMessage(item.message), {timeout: 10000});
+                        if (typeof(message) != "undefined" && message.length) {
+                            messageCenterService.add('danger', getFriendlierMessage(item.message), {timeout: 10000});
+                        }
                     });
                     //return;
                 }

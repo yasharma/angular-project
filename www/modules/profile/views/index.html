@@ -77,47 +77,33 @@
                                         </accordion-group>
                                         <accordion-group heading="Change Username">
                                             <div mc-messages></div>
-                                            <form ng-controller="loginCtrl" ng-submit="resetPassword(usernameForm.$valid)" novalidate name="usernameForm">
+                                            <form ng-controller="loginCtrl" ng-submit="updateUser(userForm.$valid)" novalidate name="userForm">
                                                 <div class="list-group">
-                                                    <div ng-class="{ 'has-error' : usernameForm.email.$invalid && !usernameForm.email.$pristine }">
-                                                        <input type="email" placeholder="Email" class="form-control" name="email" ng-model="credentials.email" required>
-                                                        <p ng-show="usernameForm.email.$invalid && !usernameForm.email.$pristine" class="help-block">Please enter a valid email.</p>
-                                                    </div>
-                                                    <div class="m-t-sm" ng-class="{ 'has-error' : usernameForm.password.$invalid && !usernameForm.password.$pristine }">
-                                                        <input type="password" placeholder="Password" class="form-control" name="password" ng-model="credentials['password']" required ng-minlength="3">
-                                                        <p ng-show="usernameForm.password.$error.required && !usernameForm.password.$pristine" class="help-block">The password is required.</p>
-                                                    </div>
-                                                    <div class="m-t-sm" ng-class="{ 'has-error' : usernameForm.newusername.$invalid && !usernameForm.newusername.$pristine }">
-                                                        <input type="text" placeholder="New Username" class="form-control" name="newusername" ng-model="credentials['new-username']" required ng-minlength="3">
-                                                        <p ng-show="usernameForm.newusername.$error.required && !usernameForm.newusername.$pristine" class="help-block">New username is required.</p>
-                                                        <p ng-show="usernameForm.newusername.$error.minlength" class="help-block">Username is too short.</p>
+
+                                                    <div class="m-t-sm" ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$pristine }">
+                                                        <input type="text" placeholder="New Username" class="form-control" name="newusername" ng-model="user.username" required ng-minlength="3">
+                                                        <p ng-show="userForm.username.$error.required && !userForm.username.$pristine" class="help-block"> username is required.</p>
+                                                        <p ng-show="userForm.username.$error.minlength" class="help-block">Username is too short.</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4 col-sm-offset-4">
-                                                    <button type="submit" class="btn btn-lg btn-primary btn-block" ng-disabled="usernameForm.$invalid">Reset Username</button>
+                                                    <button type="submit" class="btn btn-lg btn-primary btn-block" ng-disabled="userForm.$invalid">Change Username</button>
                                                 </div>
 
                                             </form>
                                         </accordion-group>
                                         <accordion-group heading="Change Email">
                                             <div mc-messages></div>
-                                            <form ng-controller="loginCtrl" ng-submit="resetEmail(emailForm.$valid)" novalidate name="emailForm">
+                                            <form ng-controller="loginCtrl" ng-submit="updateUser(userForm.$valid)" novalidate name="userForm">
                                                 <div class="list-group">
-                                                    <div ng-class="{ 'has-error' : emailForm.email.$invalid && !emailForm.email.$pristine }">
-                                                        <input type="email" placeholder="Email" class="form-control" name="email" ng-model="credentials.email" required>
-                                                        <p ng-show="emailForm.email.$invalid && !emailForm.email.$pristine" class="help-block">Please enter a valid email.</p>
-                                                    </div>
-                                                    <div class="m-t-sm" ng-class="{ 'has-error' : emailForm.password.$invalid && !emailForm.password.$pristine }">
-                                                        <input type="password" placeholder="Password" class="form-control" name="password" ng-model="credentials['password']" required ng-minlength="3">
-                                                        <p ng-show="emailForm.password.$error.required && !emailForm.password.$pristine" class="help-block">The password is required.</p>
-                                                    </div>
-                                                    <div class="m-t-sm" ng-class="{ 'has-error' : emailForm.newemail.$invalid && !emailForm.newemail.$pristine }">
-                                                        <input type="newemail" placeholder="New Email" class="form-control" name="newemail" ng-model="credentials.newemail" required>
-                                                        <p ng-show="emailForm.newemail.$invalid && !emailForm.newemail.$pristine" class="help-block">Please enter a valid email.</p>
+
+                                                    <div class="m-t-sm" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                                                        <input type="email" placeholder="New Email" class="form-control" name="email" ng-model="user.email" required>
+                                                        <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Please enter a valid email.</p>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-4 col-sm-offset-4">
-                                                    <button type="submit" class="btn btn-lg btn-primary btn-block" ng-disabled="emailForm.$invalid">Reset Email</button>
+                                                    <button type="submit" class="btn btn-lg btn-primary btn-block" ng-disabled="userForm.$invalid">Change Email</button>
                                                 </div>
                                             </form>
                                         </accordion-group>
