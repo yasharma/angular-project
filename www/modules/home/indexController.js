@@ -4,12 +4,15 @@ var rxControllers = angular.module('Controllers', ['ngRoute']);
 
 rxControllers.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
+        // index route - shows owned restaurants for restaurant owners, or search for other users
         .when('/index', {
             templateUrl: 'modules/home/views/index.html',
             controller: 'indexCtrl',
             reloadOnSearch: false,
             access: {requiredLogin: false}
         })
+        // index/favorites, index/listall (checked manually on index controller init)
+        // index/listall explicitly shows search page for restaurant owners
         .when('/index/:view', {
             templateUrl: 'modules/home/views/index.html',
             controller: 'indexCtrl',
@@ -46,6 +49,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 requiredLogin: true
             }
         })
+        // restaurant details view
         .when('/restaurant/:restaurantId', {
             templateUrl: 'modules/restaurant/views/detail.html',
             controller: 'detailCtrl',
@@ -84,9 +88,9 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
     .controller('filtersCtrl', ['$scope', '$rootScope', '$http', 'localStorageService', '$location',
         'restaurantSvr', 'geoLocation', '$routeParams', '$anchorScroll', function ($scope, $rootScope, $http, localStorageService, $location, restaurantSvr, geoLocation, $routeParams, $anchorScroll) {
 
-            $scope.filters = {
+            $scope.filters = { // contains all filter data
                 cuisine: {
-                    initial: [
+                    initial: [ // cuisines to show initially
                         'Indian',
                         'Indonesian Restaurant',
                         'Thai',
@@ -100,14 +104,14 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
                     ],
                     allSelected: true,
-                    selectAll: function () {
+                    selectAll: function () { // show all cuisines
                         angular.forEach($scope.filters.cuisine.values, function (value) {
                             value.selected = false;
                         });
                         $scope.filters.cuisine.allSelected = true;
                         $scope.setUrl();
                     },
-                    show: function (i) {
+                    show: function (i) { // show cuisine
                         $scope.filters.cuisine.values[i].shown = true;
                         $scope.filters.cuisine.values[i].selected = true;
                         $scope.filters.cuisine.allSelected = false;
@@ -178,7 +182,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 }
             };
 
-
+            // read url search parameters and update interface
             $scope.getFromUrl = function () {
                 // called on init and on every url change
 
@@ -256,7 +260,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 });
 
             };
-
+            // update url search parameters
             $scope.setUrl = function () {
                 // called on every $scope.filters change
 
@@ -345,10 +349,10 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 $location.search(search);
             };
 
-            // opens tabs that contain active filters
+            // expands tabs that contain active filters
             $scope.setOpenTabs = function () {
                 $scope.openTabs = {
-                    cuisine: true,
+                    cuisine: true, // always expand cuisine
                     price: !$scope.filters.price.allSelected,
                     rating: $scope.filters.rating.value,
                     distance: $scope.filters.distance.value,
@@ -358,21 +362,23 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
             };
 
             // init:
-            // we first have to get all categories
+            // we first have to get all categories / cuisines
             restaurantSvr.getRestaurantCategories().then(function (response) {
                 var i = 0;
                 $scope.filters.cuisine.values = response.map(function (category) {
+                    // turn array of cuisines into array of objects
                     return {
                         name: category.name,
+                          // only show initial categories
                         shown: ($.inArray(category.name, $scope.filters.cuisine.initial) > -1),
                         selected: false,
                         id: i++
                     }
                 });
-                // update filters according to url params
+                // on every url change update filters interface according to url params
                 $scope.$on('$routeUpdate', function () { // on route change: search
                     $scope.getFromUrl();
-                    $scope.setOpenTabs();
+                    $scope.setOpenTabs(); // todo: remove this, expand tabs only initially
                 });
             });
 
@@ -390,7 +396,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 } else {
                     $location.path("/index");
                 }
-            } else {
+            } else { // index url (without /:view)
                 $scope.view = 'index';
             }
 
@@ -411,12 +417,14 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     }
                 });
 
+                // restaurant search sort options
                 $scope.sortOptions = [
                     {label: 'Trend', value: 'trending', direction: 'bottom'},
                     {label: 'Rating', value: 'popular', direction: 'bottom'},
                     {label: 'Distance', value: 'distance', direction: 'top'}
                 ];
 
+                // options for avatar widget
                 $scope.avatarOptions = {
                     animate: {
                         duration: 1000,
@@ -431,6 +439,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     lineCap: 'circle'
                 };
 
+                // read url params, add any missing (page, sort), get location
+                // happens initially, and on every url change (e.g. when filters are changed)
                 function parseUrlSearchParams() {
                     var search = clone_object($location.search());
 
@@ -452,8 +462,10 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         // get position
                         geoLocation.getLocation()
                             .then(function (data) {
+                                // try to get location from browser
                                 localStorageService.add('latitude', data.coords.latitude);
                                 localStorageService.add('longitude', data.coords.longitude);
+                                // when we get user's location, also add distance filter to search params (initially 2 km)
                                 var addParams = {};
                                 addParams['distance-less-than-or-equal-to'] = '2';
                                 addParams['distance-greater-than-or-equal-to'] = null;
@@ -461,12 +473,13 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                                 addParams.longitude = data.coords.longitude;
                                 $location.search(addParams);
                             }, function (error) {
+                                // user has declined sharing location: get approx. location from IP address
                                 userSvr.getIp().then(function (ip) {
                                     userSvr.getLocation(ip).then(function (location) {
 
                                             localStorageService.add('latitude', location.lat);
                                             localStorageService.add('longitude', location.lon);
-
+                                            // when getting location from IP, set max. distance to 5km initially
                                             var addParams = {};
                                             addParams['distance-less-than-or-equal-to'] = '5';
                                             addParams['distance-greater-than-or-equal-to'] = null;
@@ -488,14 +501,15 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     //    }
                     //}
                     if (!$.isEmptyObject(addParamsToUrl)) {
-
+                        // if there's any params to add to the url, add them, and do nothing
+                        //  because this method will be called again on url update
                         $location.search(merge_objects(search, addParamsToUrl));
                     } else {
-                        // if we have all parameters, continue
+                        // if we have all parameters: execute restaurant search
                         $scope.searchParams = search;
-
+                        // get distance info from url
                         $scope.distance = getDistanceFilterFromSearch();
-
+                        // search restaurants
                         getPopularList(null, true);
                     }
 
@@ -511,12 +525,13 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
             $scope.changeUrlParam = function (param, value) {
                 $location.search(param, value);
-                // reset to first page if anything other than page is updated
+                // return to the first page if anything other than page is updated
                 if (param != 'page') {
                     $location.search('page', '1');
                 }
             };
-
+            // increases distance e.g. 1km -> 2km
+            // 10km -> any distance
             function getNextDistance(distance) {
                 var distanceFilterOptions = [
                     {label: 'Any distance', value: 0},
@@ -536,6 +551,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
             }
 
+            // updates distance url parameters
             var setDistanceUrl = function (value) {
                 var search = clone_object($location.search());
 ///
@@ -553,7 +569,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 $location.search(search);
 
             };
-
+            // gets distance from url parameters
             var getDistanceFilterFromSearch = function () {
                 var search = clone_object($location.search());
 
@@ -566,6 +582,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 }
             };
 
+            // search for restaurants (todo: rename function)
             function getPopularList(params, initial) {
                 if (params) {
                     params = merge_objects($scope.searchParams, params);
@@ -586,8 +603,9 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                         getPopularList(params, initial);
 
                     } else { // success
+                        // update distance url params
                         setDistanceUrl($scope.distance);
-                        $scope.restaurants = response.items;
+                        $scope.restaurants = response.items; // show results
                         $scope.maxSize = 6;
                         $scope.popularListItemPerPage = 8;
                         $scope.popularListTotalItems = response._meta.totalCount;
@@ -596,12 +614,13 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                     }
                 });
             }
-
+            // hide filters on mobile view (when 'search' button is clicked)
             $scope.toggleFiltersMobile = function () {
                 $rootScope.showFiltersMobile = false;
                 $scope.scrollTop();
             };
 
+            // function, scrolls window to top
             $scope.scrollTop = $anchorScroll;
 
             $scope.init();
@@ -630,6 +649,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
             $scope.selectedPrices = [];
 
+            // update url params on price dropdown change
             $scope.$watch('selectedPrices', function () {
                 $scope.search['price_range-in'] = null;
                 angular.forEach($scope.selectedPrices, function (price) {
@@ -643,6 +663,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
             $scope.selectedCategories = [];
 
+            // update url on cuisine dropdown change
             $scope.$watch('selectedCategories', function () {
                 $scope.search['category-in'] = null;
                 angular.forEach($scope.selectedCategories, function (category) {
@@ -654,12 +675,14 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 });
             }, true);
 
+            // get all cuisines to show in dropdown
             restaurantSvr.getRestaurantCategories().then(function (response) {
                 $scope.categories = response.map(function (item) {
                     return {id: item.name};
                 });
             });
 
+            // options for prices
             $scope.prices = [
                 {'value': '$', "id": '0'},
                 {'value': '$$', "id": '1'},
@@ -669,6 +692,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 {'value': 'Unknown', "id": 'null'}
             ];
 
+            // special settings for price and cuisine dropdowns (reference: dropdown documentation)
             $scope.priceDropdownSettings = {
                 displayProp: 'value',
                 showCheckAll: false
@@ -696,7 +720,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 uncheckAll: 'Any Cuisine'
             };
 
-            //// returns address coordinates
+            // get coordinates for given address (calls google api)
             $scope.getLocations = function (val) {
                 return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
                     params: {
@@ -714,6 +738,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 });
             };
 
+            // update location url params
             $scope.setLocation = function (formattedAddress) {
                 $scope.search['distance-less-than-or-equal-to'] = '2';
                 $scope.search['distance-greater-than-or-equal-to'] = null;
@@ -727,6 +752,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 $scope.nearMe = false;
             };
 
+            // if 'near me' is checked, get user's location
             $scope.setNearMe = function () {
                 if ($scope.nearMe) {
                     // need to set distance to increasing
@@ -758,6 +784,7 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
                 }
             };
 
+            // get user's location from ip address
             function setLocationFromIp() {
                 userSvr.getIp().then(function (ip) {
                     userSvr.getLocation(ip).then(function (location) {
@@ -783,8 +810,8 @@ rxControllers.config(['$routeProvider', function ($routeProvider) {
 
             }
 
+            // called on each url change, parses url parameters and updates view
             function parseUrlSearchParams() {
-                // called on url change, parses url parameters and updates filters in view
                 $scope.search = clone_object($location.search());
                 var search = $scope.search;
                 if ('price_range-in' in search) {

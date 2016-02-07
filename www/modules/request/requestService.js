@@ -7,7 +7,7 @@ var requestService = angular.module('requestService', []);
 requestService.factory('requestSvr', ['localStorageService', 'Restangular', function (localStorageService, Restangular) {
 
     return {
-
+        // send request for changing restaurant info
         postRestaurantInfoRequest: function (params) {
             var resource = Restangular.all('requests');
 
@@ -21,7 +21,7 @@ requestService.factory('requestSvr', ['localStorageService', 'Restangular', func
                     return response;
                 });
         },
-
+        // get the last request for current user and restaurant, if it exists
         getCurrentRequest: function (restaurantId) {
             var resource = 'requests/current';
             var request = Restangular.one(resource);
@@ -31,7 +31,7 @@ requestService.factory('requestSvr', ['localStorageService', 'Restangular', func
                     return response.data;
                 });
         },
-
+        // get info about request form fields
         getRequestTitles: function () {
             var resource = 'requests/title';
             var request = Restangular.one(resource);

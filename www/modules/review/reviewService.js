@@ -7,7 +7,6 @@ var reviewService = angular.module('reviewService', []);
 reviewService.factory('reviewSvr', ['localStorageService', 'Restangular', function (localStorageService, Restangular) {
 
     return {
-
         getRestaurantReviews: function (restaurantId, params) {
             var resource = Restangular.all('restaurants/' + restaurantId + '/reviews');
 
@@ -20,7 +19,7 @@ reviewService.factory('reviewSvr', ['localStorageService', 'Restangular', functi
                     };
                 });
         },
-
+        // post a new restaurant review
         postRestaurantReview: function (params) {
             var resource = Restangular.all('reviews');
 

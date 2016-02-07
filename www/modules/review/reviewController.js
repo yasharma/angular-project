@@ -50,6 +50,7 @@ rxControllers.controller('reviewCtrl', ['$scope', 'localStorageService', '$route
             $scope.percent = 100 * (value / $scope.max);
         };
 
+        // open review modal
         $scope.addNewReview = function(){
 
             modalInstance = $modal.open({
@@ -74,6 +75,7 @@ rxControllers.controller('reviewCtrl', ['$scope', 'localStorageService', '$route
             $scope.getReviews({page: page});
         };
 
+        // get reviews for current page
         $scope.getReviews = function(params) {
             reviewSvr.getRestaurantReviews(routeParams.restaurantId, params).then(function (reviews) {
                 $scope.reviews = {items: reviews.items};

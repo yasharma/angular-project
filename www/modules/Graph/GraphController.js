@@ -13,11 +13,12 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             {label: 'Last Year', value: 'YEARLY'},
             {label: 'Overall', value: 'OVERALL'}
         ];
-        $scope.customPeriod = {
+        $scope.customPeriod = { // used from template, to get specific date period
             label: 'Custom Period',
             value: ''
         };
 
+        // initially show 'Overall' duration
         $scope.graphDuration = $scope.graphDurations[5];
 
         $scope.flotColors = [
@@ -29,6 +30,7 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             "#2F9630"
         ];
 
+        // redraw flot graphs (on graph change)
         $scope.refreshGraphs = function (option) {
             if (option) {
                 $scope.graphDuration = option;
@@ -42,6 +44,7 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             $scope.refreshStats(graph);
         };
 
+        // count number of ratings for each rating value, returns results in $scope.stats
         $scope.refreshStats = function (graph) {
             var stats = {
                 ratings: {
@@ -66,27 +69,35 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
 
         };
 
+        // get graph data from the API
+        // todo: can be refactored, it was written for getting multiple durations at once
+        //  which (I think) is not the case anymore
         $scope.getGraphs = function (graphDuration) {
             var graphDurations = $scope.graphDurations;
-            if (graphDuration) { // only one
+            if (graphDuration) { // get graphs for specified duration
                 $scope.graphDuration = graphDuration;
                 graphDurations = [graphDuration];
             } else if (!$scope.dates.start.date || !$scope.dates.end.date) {
+                // make sure we have start/end dates
                 return;
             } else {
+                // show 'Not enough data to show analytics graph' message
                 $scope.graphs = {};
                 $scope.noGraphs = true;
             }
 
+            // get graphs for every specified duration
             angular.forEach(graphDurations, function (duration) {
                 restaurantSvr.getGraphs($scope.restaurantId, duration.value,
                     $scope.dates.start.date, $scope.dates.end.date)
                     .then(function (graph) {
+                        // make sure there is enough data (at least 5 radings), for non-custom durations
                         if (graph.percentile && graph.percentile.length > 5 || duration.value == '') {
                             $scope.graphs[duration.value] = graph;
                             $scope.noGraphs = false;
                             // refresh graph
                             if (duration == $scope.graphDuration) {
+                                // zero-timeout is needed for flot to update properly (for unknown reasons)
                                 $timeout(function () {
                                     $scope.refreshGraphs();
                                 });
@@ -123,10 +134,10 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
             });
         };
 
-        //$scope.flotDataset = [d0];
         $scope.donutDataset = [];
         $scope.flotDataset = [
-            //[[173401200000, 381.78], [207702000000, 330.64], [237702000000, 130.64], [297702000000, 230.64]],
+            // test data
+            // [[173401200000, 381.78], [207702000000, 330.64], [237702000000, 130.64], [297702000000, 230.64]],
             {
                 data: [],
                 label: ' Overview',
@@ -192,6 +203,7 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
                     var dateFormatted = $.plot.formatDate(date, '%d %b %Y');
                     var prevIndex = flotItem.dataIndex - 1;
                     var percentChangeStr = '';
+                    // get previous value, to show % change
                     if (prevIndex >= 0) {
                         var prevValue = flotItem.series.data[prevIndex][1];
                         var percentDiff = (yval - prevValue) * 20;
@@ -248,6 +260,7 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
                     var dateFormatted = $.plot.formatDate(date, '%d %b %Y');
                     var prevIndex = flotItem.dataIndex - 1;
                     var percentChangeStr = '';
+                    // get previous value, to show % change
                     if (prevIndex >= 0) {
                         var prevValue = flotItem.series.data[prevIndex][1];
                         var percentDiff = yval - prevValue;
@@ -318,12 +331,16 @@ rxControllers.controller('graphCtrl', ['$scope', 'restaurantSvr', '$routeParams'
         };
 
         $scope.openCalendar = function ($event, calendarName) {
+            // calendarName can be 'start' or 'end'
+
             $event.preventDefault();
             $event.stopPropagation();
 
+            // close other calendars
             $scope.dates.start.opened = false;
             $scope.dates.end.opened = false;
 
+            // open specified calendar
             $scope.dates[calendarName].opened = true;
         };
 

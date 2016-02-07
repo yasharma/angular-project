@@ -18,27 +18,31 @@ rxControllers.controller('widgetsCtrl', ['$scope', '$routeParams', 'restaurantSv
         //        });
         //}
 
+        // default widget options
         $scope.options = {
-            restaurantId: 0,
-            ratingLessThan: 4,
+            restaurantId: 0, // user-selected restaurant which the widget is applied to
+            ratingLessThan: 4, // hide the widget if rating is less than (1-5), and next option is true
             hideOnRatingLessThan: false,
-            hideOnTrendNegative: false,
+            hideOnTrendNegative: false, // hide the restaurant with (currently) negative trend
             restaurantName: 'No restaurant selected',
-            width: '160px'
+            width: '160px' // widget on-screen width
         };
 
+        // sets the restaurant which the widget is applied to
         $scope.setRestaurant = function(restaurant){
-            if (! (restaurant && restaurant.id)) return; // if none was selected
+            if (! (restaurant && restaurant.id)) return; // if none was selected, return
 
             $scope.options.restaurantId = restaurant.id;
             $scope.options.restaurantName = restaurant.name;
 
+            // get restaurant info, to show rating and trend in widget preview
             restaurantSvr.getRestaurants({'id-in': restaurant.id}).then(function(res){
                 var restaurant = res.items[0];
 
                 // calculate rating
                 var rating = Math.round(restaurant.overviews__percentile / 10) / 2;
                 if (rating < 1) rating = 1;
+                // calculate wholes (can be 1-5) and halves (can be 0 or 5)
                 var ratingWhole = Math.trunc(rating);
                 var ratingHalf = 0;
                 if (rating - ratingWhole > 0){
@@ -55,7 +59,8 @@ rxControllers.controller('widgetsCtrl', ['$scope', '$routeParams', 'restaurantSv
 
             });
         };
-        
+
+        // whenever options change, rerender widget preview and widget's code snippet
         $scope.$watch('options', function () {
             var ratingLessThanText = '';
             if ($scope.options.hideOnRatingLessThan) {
@@ -77,6 +82,7 @@ rxControllers.controller('widgetsCtrl', ['$scope', '$routeParams', 'restaurantSv
                 $scope.isHidden = false;
             }
 
+            // generate code snippet
             $scope.snippet =
                 '<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> \n' +
                 '<script src="' + $scope.baseUrl + 'modules/widget/rating_widget.js"></script> \n' +

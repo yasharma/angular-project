@@ -21,6 +21,7 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
         //});
 
         $scope.removeRestaurant  = function (restaurant){
+            // remove given restaurant from graphs and restaurants arrays
             $scope.restaurants = _.without($scope.restaurants, restaurant);
             delete $scope.graphs[restaurant.id];
             $scope.refreshGraphs($scope.graphDuration);
@@ -42,12 +43,16 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
         };
 
         $scope.openCalendar = function($event, calendarName) {
+            // calendarName can be 'start' or 'end'
+
             $event.preventDefault();
             $event.stopPropagation();
 
+            // close other calendars
             $scope.dates.start.opened = false;
             $scope.dates.end.opened = false;
 
+            // open specified calendar
             $scope.dates[calendarName].opened = true;
         };
 
@@ -62,11 +67,14 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
         ];
         $scope.graphDuration = $scope.graphDurations[4];
 
+        // refresh graphs or graph duration change
         $scope.setGraphDuration = function(option){
             $scope.graphDuration = option;
-            if(option.value == ''){
+            if(option.value == ''){ // custom duration
+                // for custom duration, we have to get data for each restaurant again
                 $scope.updateCustomPeriodGraphs();
             }else{
+                // otherwise, we have data already, just refresh the graph
                 $scope.refreshGraphs(option);
             }
         };
@@ -101,6 +109,7 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
             });
         };
 
+        // get data for each restaurant, for custom period
         $scope.updateCustomPeriodGraphs = function(){
             angular.forEach($scope.restaurants, function(restaurant){
                 restaurantSvr.getGraphs(restaurant.id, '',
@@ -115,6 +124,7 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
             });
         };
 
+        // add restaurant to the graph (loads every duration for given restaurant)
         $scope.addGraph = function(restaurant){
             var graphDurations = $scope.graphDurations;
 
@@ -124,6 +134,7 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
                     .then(function (graph) {
                         graph.restaurant = restaurant;
                         if(graph.percentile && graph.percentile.length){
+                            // enable duration in duration dropdown
                             $scope.haveGraphs[duration.value] = true;
                             if (! $scope.graphs[restaurant.id]){
                                 $scope.graphs[restaurant.id] = {}
@@ -143,9 +154,11 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
 
         $scope.addRestaurant = function (restaurant){
             if(Object.keys(restaurant).length) {
-                $scope.numAdded = ($scope.numAdded || 0) + 1; // for generating new colors
+                // for generating new colors, numAdded keeps track of the last color used
+                $scope.numAdded = ($scope.numAdded || 0) + 1;
                 restaurant.color = $scope.flotColors[$scope.numAdded % $scope.flotColors.length];
                 $scope.restaurants.push(restaurant);
+                // load restaurant graph data
                 $scope.addGraph(restaurant);
             }
         };
@@ -159,6 +172,7 @@ rxControllers.controller('compareCtrl', ['$scope', '$routeParams', 'restaurantSv
                         flotDataset[i].splines.lineWidth = 3;
                         flotDataset[i].points.radius = 2;
                     } else {
+                        // remove highlight
                         flotDataset[i].splines.lineWidth = 2;
                         flotDataset[i].points.radius = 0;
                     }

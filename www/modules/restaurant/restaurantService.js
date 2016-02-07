@@ -7,7 +7,7 @@ var restaurantService = angular.module('restaurantService', []);
 restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular', function (localStorageService, Restangular) {
 
     return {
-
+        // get list of restaurants based on search params
         getRestaurants: function (params) {
 
             var resource = Restangular.all('restaurants/list');
@@ -29,15 +29,18 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                 });
         },
 
+        // calculate additional restaurant parameters
         expandRestaurantList: function (restaurants){
 
             //var restaurants = response.data[0].data;
             for (var i = 0; i < restaurants.length; i++) {
+                // price range in $$$$ format
                 var priceRange = "";
                 for (var k = 0; k <= restaurants[i].price_range; k++) {
                     priceRange = priceRange + "$";
                 }
                 restaurants[i].price_range_symbol = priceRange;
+                // parse trend and rating data and return it in Flot graph format
                 var trend_data = JSON.parse(restaurants[i].overviews__trend_series);
 
                 var trend_array = [];
@@ -75,6 +78,7 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                         "values": percentile_array
                     }];
 
+                // calculate rating (1-5 format)
                 restaurants[i].rating = Math.round(restaurants[i].overviews__percentile / 2) / 10;
                 restaurants[i].rating_rounded = Math.round(restaurants[i].overviews__percentile / 20);
                 restaurants[i].overviews__percentile_rounded = Math.round(restaurants[i].overviews__percentile * 10) / 10;
@@ -84,6 +88,7 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                 restaurants[i].trend_change_abs = 0.0;
                 // latest trend
                 restaurants[i].latest_trend = 0.0;
+                // unpack key-value format into arrays
                 if(trend_data && trend_data.length > 0){
                     var last1, last2;
                     for (var kkey1 in trend_data[trend_data.length-1]){
@@ -102,6 +107,7 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
             return restaurants;
         },
 
+        // get info for single restaurant
         getRestaurant: function (restaurantId) {
 
             var resource = 'restaurants/' + restaurantId;
@@ -120,7 +126,7 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                     return restaurant;
                 });
         },
-
+        // get restaurant photos
         getPhotos: function (restaurantId) {
 
             var resource = 'restaurants/' + restaurantId + '/photos';
@@ -131,7 +137,7 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                     return response.data[0].items;
                 });
         },
-
+        // get restaurant stats
         getOverviews: function (restaurantId) {
 
             var resource = 'restaurants/' + restaurantId + '/stats';
@@ -142,7 +148,8 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
             });
 
         },
-
+        // get restaurant graph data
+        // params: either duration, if specified (year / month, etc), or custom start, end (ISO dates)
         getGraphs: function (restaurantId, duration, start, end) {
             // duration
             // field: 'percentile', 'trend'
@@ -152,6 +159,7 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
             var graphs = Restangular.one(resource);
             var params = {};
             if (duration){
+                // if duration is specified, ignore start / end
                 params.duration = duration;
             } else {
                 params.start = start.toISOString().substring(0,10);
@@ -195,9 +203,9 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
                     trend.push([parseInt(key), Math.round(value.trend / 2) / 10]);
                 });
                 return {
-                    percentile: percentile,
-                    trend: trend,
-                    source: source,
+                    percentile: percentile, // array of [date, rating] tuples
+                    trend: trend,  // array of [date, trend] tuples
+                    source: source, // array of {source, numRatings} objects
                     stats: response.data.stats,
                     data: response.data.data,
                     ratingBySource: ratingBySource,
@@ -206,7 +214,7 @@ restaurantService.factory('restaurantSvr', ['localStorageService', 'Restangular'
             });
 
         },
-
+        // get all categories / cuisines
         getRestaurantCategories: function () {
             var resource = 'restaurants/category';
 

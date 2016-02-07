@@ -22,6 +22,7 @@ userService.factory('userSvr', ['Restangular', 'restaurantSvr', '$http', functio
                 return restaurantSvr.expandRestaurantList(restaurants);
             });
         },
+        // add restaurant to user's favorites
         addFavorite: function (userId, restaurantId) {
             var favorites = Restangular.all('favourites');
             var data_encoded = $.param({user_id: userId, restaurant_id: restaurantId});
@@ -30,6 +31,7 @@ userService.factory('userSvr', ['Restangular', 'restaurantSvr', '$http', functio
                     return response.data;
                 });
         },
+        // remove restaurant from user's favorites
         removeFavorite: function (favouriteId) {
             var favorite = Restangular.all('favourites/' + favouriteId);
             return favorite.remove()

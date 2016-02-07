@@ -4,16 +4,20 @@ rxControllers.controller('requestCtrl', ['$scope', '$routeParams', 'requestSvr',
     'messageCenterService', 'localStorageService', 'userSvr', '$location',
     function ($scope, $routeParams, requestSvr, restaurantSvr, messageCenterService, localStorageService, userSvr, $location) {
 
+        // initially, get user's owned restaurants, to show in dropdown
         userSvr.getOwnedRestaurants().then(function(restaurants){
             $scope.data.ownedRestaurants = restaurants;
 
             if($scope.data.ownedRestaurants.length){
                 // show initial restaurant
                 if($routeParams.restaurantId) {
+                    // if restaurant id is in the url, show specific restaurant...
                     $scope.data.restaurant = $scope.findRestaurantId($scope.data.ownedRestaurants, $routeParams.restaurantId);
                 } else {
+                    // ...otherwise, show first restaurant
                     $scope.data.restaurant = $scope.data.ownedRestaurants[0];
                 }
+                // fill in the form with initial data
                 $scope.getExistingRequest();
             }
         });
@@ -31,6 +35,7 @@ rxControllers.controller('requestCtrl', ['$scope', '$routeParams', 'requestSvr',
             }
         };
 
+        // update url on restaurant dropdown change
         $scope.setRestaurantId = function(id){
             $location.path("/settings/restaurant/" + id + "/info");
         };
@@ -52,7 +57,7 @@ rxControllers.controller('requestCtrl', ['$scope', '$routeParams', 'requestSvr',
                 start: '09:00:00',
                 end: '17:00:00'
             },
-            // the main object
+            // the main object (request to be sent)
             request: {}
         };
 

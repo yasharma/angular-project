@@ -90,6 +90,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
             }
         };
 
+        // check if the restaurant is in user's favorites
         $scope.checkFavourite = function () {
             userSvr.getFavorites().then(function (response) {
                 $scope.favoriteRestaurants = response;
@@ -106,6 +107,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
 
         $scope.checkFavourite();
 
+        // toggle favorite (add or remove restaurant from user's favorites)
         $scope.favourite = function () {
             if ($scope.isFavourite) {
                 userSvr.removeFavorite($scope.favouriteId);
@@ -174,6 +176,7 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
             return modalDetails;
         }
 
+        // get restaurant info, photos and stats
         function getRestaurant() {
 
             var restaurantId = $scope.restaurantId;
@@ -204,7 +207,10 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
             $scope.reviewBox = 'modules/review/views/index.html';
         }
 
-
+        // initially: get restaurant data
+        // first check if we have user's coordinates, get them if we don't.
+        //  save them to local storage because getRestaurant will read them to return correct distance
+        //  and map directions
         if (!localStorageService.get('latitude') || !localStorageService.get('longitude')) {
             geoLocation.getLocation()
                 .then(function (data) {
@@ -212,6 +218,8 @@ rxControllers.controller('detailCtrl', ['$scope', '$timeout', '$upload', 'localS
                     localStorageService.add('longitude', data.coords.longitude);
                     getRestaurant();
                 }, function (error) {
+                    // if we can't get exact coordinates (user declines permission),
+                    //  get approx. coordinates from ip
                     userSvr.getIp().then(function (ip) {
                         userSvr.getLocation(ip).then(function (location) {
 

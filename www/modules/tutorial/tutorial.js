@@ -4,6 +4,9 @@
     Sideshow.config.language = "en";
     Sideshow.config.autoSkipIntro = true;
     Sideshow.init();
+    // we call registerWizard() for every page (every wizard)
+
+    // restaurant search page wizard
     Sideshow.registerWizard({
         name: "introducing_sideshow",
         title: "Tutorial",
@@ -11,6 +14,7 @@
         estimatedTime: "2 Minutes",
         affects: [
             function () {
+                // show this tutorial only on pages where mentioned elements exist
                 return elementsExist(["#rc-sort-picker", "#rc-search-filters"]);
             }
         ]
