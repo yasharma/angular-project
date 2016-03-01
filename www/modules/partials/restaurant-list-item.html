@@ -1,0 +1,151 @@
+<div class="pull-left avatar-container">
+    <div class="thumb-sm avatar avatar1"
+         tooltip-html-unsafe="{{ 'Trend: <b>' + restaurant.latest_trend + '</b></br>' +
+         'Overall: <b>' + restaurant.overviews__percentile_rounded + '</b>' }}"
+         tooltip-placement="right" >
+        <!--<div ng-if="cgBusyPromise.$cgBusyFulfilled">-->
+        <span class="rating-circle">{{restaurant.latest_trend}}</span>
+        <div easypiechart options="avatarOptions"
+             percent="restaurant.latest_trend"></div>
+        <!--</div>-->
+    </div>
+</div>
+<span class="arrow left hidden-xs"></span>
+<section class="comment-body panel panel-default">
+    <header class="panel-heading">
+        <a>{{restaurant.locations__formatted_address}}</a>
+        <!-- non-clickable categories -->
+        <label class="label bg-primary m-l-xs hidden-xs" ng-repeat="category in restaurant.category.split(',')"
+               ng-show="category && view != 'index'">
+            {{category}}
+        </label>
+        <!-- clickable categories (on index page) -->
+        <label class="label bg-primary m-l-xs pointer hidden-xs" ng-repeat="category in restaurant.category.split(',')"
+               ng-show="category && view == 'index'" ng-click="changeUrlParam('category-in', category)">
+            {{category}}
+        </label>
+        <!--Distance-->
+        <div class="pull-right restaurant-distance">
+            <span class="text-muted m-l-sm bg-white" ng-show="restaurant.distance"> <i
+                    class="fa fa-clock-o"></i> {{restaurant.distance | number : 2}} KM </span>
+            <span class="pointer text-warning fa fa-info-circle" tabindex="-1"
+                  ng-show="restaurant.distance_accuracy=='APPROXIMATE'"
+                    popover="Approximate location based on your IP address"
+                    popover-placement="bottom" popover-trigger="focus">
+
+            </span>
+        </div>
+    </header>
+    <div class="panel-body">
+        <div class="row">
+            <div ng-class="{'col-xs-8 col-sm-7 col-md-8' :
+                            restaurant.restaurantPhotos && restaurant.restaurantPhotos.length > 2,
+                            'col-xs-10 col-sm-9 col-md-10' :
+                            restaurant.restaurantPhotos && restaurant.restaurantPhotos.length > 0 && restaurant.restaurantPhotos.length <= 2,
+                            'col-xs-12 col-sm-11 col-md-11' :
+                            !restaurant.restaurantPhotos || !restaurant.restaurantPhotos.length
+                            }">
+                <p>
+                    <a href="#/restaurant/{{restaurant.id}}/{{hash}}">
+
+                        <h3 class="restaurant-title">
+                            <span class="trend-change-label hidden-xs">
+                                <span class="inline-block label label-success trend-label m-r-sm"
+                                      ng-show="restaurant.trend_change > 0">
+                                    <i class="fa fa-arrow-up"></i>
+                                    {{restaurant.trend_change_abs}}%
+                                </span>
+                                <span class="inline-block label label-warning trend-label m-r-sm"
+                                      ng-show="restaurant.trend_change < 0">
+                                    <i class="fa fa-arrow-down"></i>
+                                    {{restaurant.trend_change_abs}}%
+                                </span>
+                                <span class="inline-block label label-default trend-label m-r-sm"
+                                      ng-show="restaurant.trend_change == 0">
+                                    <i class="fa fa-arrow-up"></i>
+                                    {{restaurant.trend_change_abs}}%
+                                </span>
+                            </span>
+                            <span class="restaurant-name">
+                                {{restaurant.name}}
+                            </span>
+                        </h3>
+                    </a>
+                </p>
+                <p class="m-t-md">
+                    <!--<rating  ng-model="restaurant.rating_rounded" max="5" readonly="true"></rating>-->
+                    <span ng-repeat="Star in [1,2,3,4,5]">
+                        <span ng-switch="restaurant.rating >= Star - 0.25">
+                            <span ng-switch-when="true">
+                                <i class="fa fa-star"></i>
+                            </span>
+                            <span ng-switch-when="false">
+                                <span ng-switch="restaurant.rating >= (Star-0.75)">
+                                    <span ng-switch-when="true">
+                                        <i class="fa fa-star-half-o"></i>
+                                    </span>
+                                    <span ng-switch-when="false">
+                                        <i class="fa fa-star-o"></i>
+                                    </span>
+                                </span>
+                            </span>
+                        </span>
+                    </span>
+                    <span class="label rating-label m-l-xs m-r-sm"
+                          ng-class="{'label-warning': restaurant.rating <= 2,
+                          'label-info': restaurant.rating > 2 && restaurant.rating < 4,
+                          'label-success':restaurant.rating >= 4}">
+
+                        {{ restaurant.rating | number:1 }}
+                    </span>
+                    <span class="nowrap">{{restaurant.overviews__total_reviews}} Reviews</span>
+
+                </p>
+
+                <!--price and categories, only mobile view:-->
+                <div class="m-r-md visible-xs">Price :
+                <span class="text-primary-dk ir-price">
+                    {{restaurant.price_range_symbol}}
+                </span>
+                    <!--categories-->
+                <span class="m-l-md">
+                    {{ restaurant.category }}
+                </span>
+                </div>
+
+                <!--<p>Restaurant Overview : {{restaurant.overview__percentile | number : 2}}</p>-->
+                <!--<p>Overview Trend : {{restaurant.overview__trend | number : 2}}</p>-->
+
+            </div>
+
+            <div ng-class="{'col-xs-4 col-sm-4 col-md-3' :
+                            restaurant.restaurantPhotos && restaurant.restaurantPhotos.length > 2,
+                            'col-xs-2 col-sm-2 col-md-1' :
+                            restaurant.restaurantPhotos && restaurant.restaurantPhotos.length > 0 && restaurant.restaurantPhotos.length <= 2,
+                            'hidden' :
+                            !restaurant.restaurantPhotos || !restaurant.restaurantPhotos.length
+                            }">
+                <div class="row m-t">
+                    <div class="no-padding"
+                         ng-class="{'col-xs-6': restaurant.restaurantPhotos && restaurant.restaurantPhotos.length > 2,
+                                    'col-xs-12': restaurant.restaurantPhotos && restaurant.restaurantPhotos.length <= 2}"
+                         ng-repeat="photo in restaurant.restaurantPhotos | limitTo:4">
+                        <a>
+                            <span class="thumb-image"
+                                  style="background-image:url('{{photo.thumbnail_url}}')" >
+                            </span>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <!--price, for desktop view:-->
+            <div class="pull-right m-r-md hidden-xs">Price :
+                <span class="text-primary-dk ir-price">
+                    {{restaurant.price_range_symbol}}
+                </span>
+            </div>
+        </div>
+    </div>
+</section>

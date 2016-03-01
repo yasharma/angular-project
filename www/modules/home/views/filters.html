@@ -1,0 +1,108 @@
+<div class="panel panel-default">
+    <div class="panel-heading b-b">Refine search</div>
+    <div class="panel-body" id="rc-search-filters">
+        <accordion class="filters-accordion" close-others="false">
+
+            <!--Cuisine-->
+            <accordion-group-mod heading="Cuisine" is-open="openTabs.cuisine">
+                <!--<accordion-heading>-->
+                    <!---->
+                    <!--Cuisine-->
+                <!--</accordion-heading>-->
+                <!--<div class="panel-title m-b">Cuisine</div>-->
+                <ul class="list-unstyled m-t-n-sm">
+                    <li class="checkbox i-checks">
+                        <label> <input type="checkbox" ng-checked="filters.cuisine.allSelected"
+                                       ng-click="filters.cuisine.selectAll()">
+                            <i></i> All Categories
+                        </label>
+                    </li>
+                    <li class="checkbox i-checks" ng-repeat="cuisine in filters.cuisine.values | filter:{shown:true}" >
+                        <label>
+                            <input type="checkbox" ng-model="cuisine.selected" ng-change="filters.cuisine.allSelected = false; setUrl();"><i></i>
+                            {{ cuisine.name }}
+                        </label>
+                    </li>
+                    <input type="text" ng-model="newCategory" placeholder=" Search cuisine"
+                           typeahead-on-select="filters.cuisine.show(newCategory.id); newCategory=''"
+                           typeahead="category as category.name for category in filters.cuisine.values | filter:$viewValue"
+                           class="form-control ng-pristine ng-valid" >
+                </ul>
+                <!--<div class="line line-dashed b-b line-lg"></div>-->
+            </accordion-group-mod>
+
+
+                <!--Price-->
+            <accordion-group-mod heading="Price" is-open="openTabs.price">
+                <!--<div class="panel-title m-b">Price</div>-->
+                <ul class="list-unstyled m-t-n-sm">
+                    <li class="checkbox i-checks">
+                        <label> <input type="checkbox" ng-checked="filters.price.allSelected"
+                                       ng-click="filters.price.selectAll()">
+                            <i></i> Any Price
+                        </label>
+                    </li>
+                    <li class="checkbox i-checks" ng-repeat="price in filters.price.values">
+                        <label>
+                            <input type="checkbox" ng-model="price.selected" ng-change="filters.price.allSelected = false; setUrl();"><i></i>
+                            {{ price.label }}
+                        </label>
+                    </li>
+                </ul>
+                <!--<div class="line line-dashed b-b line-lg"></div>-->
+            </accordion-group-mod>
+                <!--Rating-->
+            <accordion-group-mod heading="Rating" is-open="openTabs.rating">
+                <!--<div class="panel-title m-b">Rating</div>-->
+                <ul class="list-unstyled">
+                    <li class="radio i-checks" ng-repeat="option in filters.rating.options"><label>
+                        <input type="radio" name="rating" ng-model="filters.rating.value" value="{{option.value}}" ng-change="setUrl()">
+                        <i></i> {{option.label}}</label>
+                    </li>
+                </ul>
+
+                <!--<div class="line line-dashed b-b line-lg"></div>-->
+            </accordion-group-mod>
+                <!--Distance-->
+            <accordion-group-mod heading="Distance" is-open="openTabs.distance" ng-show="showDistance">
+                <!--<div class="panel-title m-b" ng-show="showDistance">Distance</div>-->
+                <ul class="list-unstyled" ng-show="showDistance">
+                    <li class="radio i-checks" ng-repeat="option in filters.distance.options"><label>
+                        <input type="radio" name="distance" ng-model="filters.distance.value" value="{{option.value}}" ng-change="setUrl()">
+                        <i></i> {{option.label}}</label>
+                    </li>
+                </ul>
+
+                <!--<div class="line line-dashed b-b line-lg" ng-show="showDistance"></div>-->
+            </accordion-group-mod>
+                <!--Trend-->
+            <accordion-group-mod heading="Trend" is-open="openTabs.trend">
+                <!--<div class="panel-title m-b">Trend</div>-->
+                <ul class="list-unstyled">
+                    <li class="radio i-checks" ng-repeat="option in filters.trend.options"><label>
+                        <input type="radio" name="trend" ng-model="filters.trend.value" value="{{option.value}}" ng-change="setUrl()">
+                        <i></i> {{option.label}}</label>
+                    </li>
+                </ul>
+
+                <!--<div class="line line-dashed b-b line-lg"></div>-->
+            </accordion-group-mod>
+                <!--Num. of reviews-->
+            <accordion-group-mod heading="Reviews" is-open="openTabs.reviews">
+                <!--<div class="panel-title m-b">Reviews</div>-->
+                <ul class="list-unstyled">
+                    <li class="radio i-checks" ng-repeat="option in filters.reviews.options"><label>
+                        <input type="radio" name="reviews" ng-model="filters.reviews.value" value="{{option.value}}" ng-change="setUrl()">
+                        <i></i> {{option.label}}</label>
+                    </li>
+                </ul>
+            </accordion-group-mod>
+        </accordion>
+
+        <!--<div class="line line-dashed b-b line-lg"></div>-->
+
+        <button class="btn btn-default btn-rounded form-control" ng-click="toggleFiltersMobile()">
+            <i class="glyphicon glyphicon-search"></i>
+        </button>
+    </div>
+</div>

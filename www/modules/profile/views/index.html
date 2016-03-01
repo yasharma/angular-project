@@ -1,0 +1,125 @@
+<!--Header-->
+<header class="bg-primary header header-md navbar navbar-fixed-top-xs box-shadow" ng-include="'modules/partials/header.html'"></header>
+
+<section class="hbox stretch ir-content">
+    <!--Sidebar-->
+    <aside ng-include="'modules/partials/sidebar.html'" id="nav" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
+
+    <section id="content">
+
+        <!--Dynamic view goes here-->
+        <section class="vbox">
+            <section class="scrollable padder">
+                <h3 class="m-l m-t-lg m-b-lg">Settings</h3>
+
+                <div class="row m-l-lg widgets-page">
+                    <div class="col-md-10 col-lg-8">
+                        <accordion close-others="true">
+
+                            <accordion-group heading="Restaurant Info" ng-show="user.ownedRestaurants.length"
+                                             is-open="showTabs.restaurant">
+
+                                <div ng-controller="requestCtrl" ng-include="'modules/request/views/form.html'">
+
+                                </div>
+                            </accordion-group>
+
+                            <accordion-group heading="Profile"
+                                             is-open="showTabs.profile">
+
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Username</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-item">
+                                                <b>{{ user.username }}</b>
+                                            </div>
+                                            <!--<a class=" btn btn-default btn-rounded m-l-sm" href="#/login/changepassword">-->
+                                                <!--Change-->
+                                            <!--</a>-->
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Email</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-item">
+                                                <b>{{ user.email }}</b>
+                                            </div>
+                                            <!--<a class=" btn btn-default btn-rounded m-l-sm" href="#/login/changepassword">-->
+                                                <!--Change-->
+                                            <!--</a>-->
+                                        </div>
+                                    </div>
+                                    <accordion close-others="true">
+                                        <accordion-group heading="Change Password">
+                                            <div mc-messages></div>
+                                            <form ng-controller="loginCtrl" ng-submit="resetPassword(passwordForm.$valid)" novalidate name="passwordForm">
+                                                <div class="list-group">
+                                                    <div ng-class="{ 'has-error' : passwordForm.email.$invalid && !passwordForm.email.$pristine }">
+                                                        <input type="email" placeholder="Email" class="form-control" name="email" ng-model="credentials.email" required>
+                                                        <p ng-show="passwordForm.email.$invalid && !passwordForm.email.$pristine" class="help-block">Please enter a valid email.</p>
+                                                    </div>
+                                                    <div class="m-t-sm" ng-class="{ 'has-error' : passwordForm.oldpassword.$invalid && !passwordForm.oldpassword.$pristine }">
+                                                        <input type="password" placeholder="Old Password" class="form-control" name="oldpassword" ng-model="credentials['old-password']" required>
+                                                        <p ng-show="passwordForm.oldpassword.$error.required && !passwordForm.oldpassword.$pristine" class="help-block">Old password is required.</p>
+                                                    </div>
+                                                    <div class="m-t-sm" ng-class="{ 'has-error' : passwordForm.newpassword.$invalid && !passwordForm.newpassword.$pristine }">
+                                                        <input type="password" placeholder="New Password" class="form-control" name="newpassword" ng-model="credentials['new-password']" required ng-minlength="3">
+                                                        <p ng-show="passwordForm.newpassword.$error.required && !passwordForm.newpassword.$pristine" class="help-block">New password is required.</p>
+                                                        <p ng-show="passwordForm.newpassword.$error.minlength" class="help-block">New Password is too short.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 col-sm-offset-4">
+                                                    <button type="submit" class="btn btn-lg btn-primary btn-block" ng-disabled="passwordForm.$invalid">Reset Password</button>
+                                                </div>
+
+                                            </form>
+                                        </accordion-group>
+                                        <accordion-group heading="Change Username">
+                                            <div mc-messages></div>
+                                            <form ng-controller="loginCtrl" ng-submit="updateUser(userForm.$valid)" novalidate name="userForm">
+                                                <div class="list-group">
+
+                                                    <div class="m-t-sm" ng-class="{ 'has-error' : userForm.username.$invalid && !userForm.username.$pristine }">
+                                                        <input type="text" placeholder="New Username" class="form-control" name="newusername" ng-model="user.username" required ng-minlength="3">
+                                                        <p ng-show="userForm.username.$error.required && !userForm.username.$pristine" class="help-block"> username is required.</p>
+                                                        <p ng-show="userForm.username.$error.minlength" class="help-block">Username is too short.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 col-sm-offset-4">
+                                                    <button type="submit" class="btn btn-lg btn-primary btn-block" ng-disabled="userForm.$invalid">Change Username</button>
+                                                </div>
+
+                                            </form>
+                                        </accordion-group>
+                                        <accordion-group heading="Change Email">
+                                            <div mc-messages></div>
+                                            <form ng-controller="loginCtrl" ng-submit="updateUser(userForm.$valid)" novalidate name="userForm">
+                                                <div class="list-group">
+
+                                                    <div class="m-t-sm" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                                                        <input type="email" placeholder="New Email" class="form-control" name="email" ng-model="user.email" required>
+                                                        <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Please enter a valid email.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4 col-sm-offset-4">
+                                                    <button type="submit" class="btn btn-lg btn-primary btn-block" ng-disabled="userForm.$invalid">Change Email</button>
+                                                </div>
+                                            </form>
+                                        </accordion-group>
+                                    </accordion>
+                                </div>
+                            </accordion-group>
+                        </accordion>
+
+                    </div>
+
+                </div>
+            </section>
+        </section>
+        <!--<footer class="ir-footer" ng-include="'modules/partials/footer.html'"></footer>-->
+    </section>
+</section>
+
+
+

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="../../modules/widget/rating_widget.js"></script>
+</head>
+<body>
+<div id="ir-widget"></div>
+
+<script>
+    irRatingWidget({
+        container: '#ir-widget',
+        restaurantId : 228, //224 472 228
+        hideIfRatingLessThan : 1,
+        hideOnTrendNegative: false
+    });
+</script>
+</body>
+</html>

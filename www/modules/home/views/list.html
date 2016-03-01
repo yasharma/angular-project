@@ -1,0 +1,114 @@
+<section class="vbox">
+
+    <!--Search form-->
+    <div class="hidden-xs">
+        <header class="header bg-white b-b b-light hide-for-small hide-for-touch"
+                ng-include="'modules/restaurant/views/search-form.html'">
+
+        </header>
+    </div>
+    <section class="scrollable wrapper w-f">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12" ng-class="{'hidden-xs': showFiltersMobile}">
+                <section>
+
+                    <!--Search box-->
+                    <div class="visible-xs">
+                        <div class="panel panel-tight" ng-controller="navigationController">
+                            <search-box class="m-t m-l-n-xs" set-restaurant="setRestaurant(restaurant)" placeholder="Search restaurants, locations ..."></search-box>
+                        </div>
+                    </div>
+
+                    <header class="">
+                        <div class="row">
+                            <div class="col-sm-8 col-md-9 col-lg-9" ng-class="{'hidden-xs': showFiltersMobile}">
+                                <div class="pull-right m-l-md m-r-sm m-t-sm sort-picker clearfix" id="rc-sort-picker">
+                                    <!--Sort by:-->
+                                    <span class="btn m-l-n-xs" ng-repeat="option in sortOptions"
+                                          title="Sort by {{option.label}}"
+                                          ng-click="changeUrlParam('sort', option.value)">
+                                        <span ng-hide="searchParams.sort == option.value">
+                                            {{option.label}}
+                                        </span>
+                                        <span ng-show="searchParams.sort == option.value">
+                                            <strong>{{option.label}}</strong>
+                                            <i class="sort-icon glyphicon glyphicon-triangle-{{option.direction}}"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                            <!--<div share-links="Facebook, Twitter, LinkedIn, Google-Plus"-->
+                            <!--share-title="reviews-combined dummy title"-->
+                            <!--class="m-r-sm m-t-xs m-l-xl pull-right">-->
+                            <!--</div>-->
+
+                            <!--Social share button-->
+                            <div class="col-sm-4 col-md-3 hide-for-small hide-for-touch"
+                                 ng-class="{'hidden-xs': !showFiltersMobile}">
+                                <button class="btn btn-default btn-rounded m-t-sm m-r-sm m-t-xs pull-right"
+                                        popover-template="'modules/partials/share-popover.html'"
+                                        popover-placement="left" popover-trigger="focus"
+                                        popover-append-to-bod="true">
+                                    <span class="i i-share"></span>
+                                    <span class="m-l-xs"> Share</span>
+                                </button>
+                            </div>
+
+                            <!--<select ng-model="search.sort" class="form-control m-t-sm pull-right" style="width: 160px;">-->
+                                <!--<option value="popular">Sort by rating</option>-->
+                                <!--<option value="trending">Sort by trend</option>-->
+                                <!--<option value="distance">Sort by distance</option>-->
+                            <!--</select>-->
+
+
+                        </div>
+                    </header>
+                </section>
+            </div>
+            <div class="col-sm-8 col-md-9 col-lg-9" ng-class="{'hidden-xs': showFiltersMobile}">
+                <!--Restaurant list-->
+                <section class="comment-list block m-l"
+                         cg-busy="{promise:cgBusyPromise,message:'',templateUrl:'modules/partials/cgbusy-template.html',backdrop:true}" >
+                    <div class="panel-body no-padding-right">
+                        <!--In case there are no results-->
+                        <article class="comment-item" ng-hide="restaurants.length">
+                            <section class="comment-body panel panel-default">
+                                <section class="panel-body">
+                                    <div class="m-md">
+                                        No results
+                                    </div>
+                                </section>
+                            </section>
+                        </article>
+                        <!--Results-->
+                        <article ng-repeat="restaurant in restaurants" class="comment-item restaurant-list-item"
+                                 ng-include="'modules/partials/restaurant-list-item.html'">
+                        </article>
+                        <div style="margin-left: 45px;">
+                            <!--pagination for desktop-->
+                            <pagination total-items="popularListTotalItems" ng-model="searchParams.page" max-size="maxSize"
+                                        class="pagination-sm hidden-xs" boundary-links="true" rotate="true" num-pages="numPages"
+                                        ng-click="changeUrlParam('page', searchParams.page)"
+                                        items-per-page="popularListItemPerPage"></pagination>
+                            <!--pagination for mobile-->
+                            <pagination total-items="popularListTotalItems" ng-model="searchParams.page" max-size="1"
+                                        class="pagination-sm visible-xs" boundary-links="true" rotate="true" num-pages="numPages"
+                                        ng-click="changeUrlParam('page', searchParams.page)"
+                                        items-per-page="popularListItemPerPage"></pagination>
+
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!--Filters-->
+            <div class="col-sm-4 col-md-3 hide-for-small hide-for-touch m-t"
+                 ng-class="{'hidden-xs': !showFiltersMobile}"
+                 ng-include="'modules/home/views/filters.html'"
+                 ng-controller="filtersCtrl" >
+
+            </div>
+        </div>
+    </section>
+    <!--<footer class="ir-footer" ng-include="footer"></footer>-->
+</section>

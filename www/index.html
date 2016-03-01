@@ -10,12 +10,12 @@
 <head>
     <meta charset="utf-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <meta name="description" content="">
     <meta name="author" content="Rx">
     <link rel="shortcut icon" href="images/favicon.png">
 
-    <title>Blank page</title>
+    <title>Ratings Combined</title>
 
     <!--Core CSS -->
     <link href="css/site.min.css" rel="stylesheet">
@@ -31,16 +31,17 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 
-
-
-
-
-
 </head>
 
 <body>
-<div class="overlay-main" id="ajaxModal" style="  position: fixed;top: 0;left: 0;width: 100%;height: 100%;overflow: hidden;z-index: 1001;background-color: rgba(0,0,0,0.7);display:none;" aria-hidden="false"></div>
+<div growl></div>
+<div class="overlay-main" id="ajaxModal"
+     style="  position: fixed;top: 0;left: 0;width: 100%;height: 100%;overflow: hidden;z-index: 1001;background-color: rgba(0,0,0,0.7);display:none;"
+     aria-hidden="false"></div>
 <div ng-view></div>
+<div id="interactive-help" class="hidden-sm">
+    <h5>Help</h5>
+</div>
 </body>
 </html>
 
@@ -51,5 +52,6 @@
 <script src="http://maps.googleapis.com/maps/api/js?libraries=weather,visualization&sensor=false&language=en&v=3.13"></script>
 <script type="text/javascript" src="js/lib.min.js"></script>
 <script type="text/javascript" src="js/app.min.js"></script>
+<script type="text/ng-template" id="customTemplate.html"></script>
 
 

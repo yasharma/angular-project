@@ -1,0 +1,101 @@
+<!--Header-->
+<header class="bg-primary header header-md navbar navbar-fixed-top-xs box-shadow" ng-include="'modules/partials/header.html'"></header>
+
+<section class="ir-content">
+    <section class="hbox stretch">
+        <!--Sidebar-->
+        <aside ng-include="'modules/partials/sidebar.html'" id="nav" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
+        <section id="content">
+            <header class="header bg-white b-b b-light hidden-xs hide-for-small hide-for-touch"
+                    ng-include="'modules/restaurant/views/search-form.html'"></header>
+
+            <!--Dynamic view goes here-->
+            <section class="vbox" ng-controller="photoCtrl">
+                <section class="scrollable padder">
+                    <h3>Manage Photos</h3>
+                    <section>
+                        <section class="panel panel-default">
+                            <header class="panel-heading">Upload Photos</header>
+                            <section class="chat-list panel-body">
+                                <div class="margin-bottom-1em">
+                                    <input type="file"
+                                           ng-file-select="onFileSelect($files)" ng-model="restaurantPhotos"
+                                           ng-file-change="fileSelected($files, $event)"
+                                           ng-multiple="true"
+                                           accept="image"
+                                           resetOnClick="true">
+                                </div>
+                                <div class="margin-bottom-1em">
+                                    <progressbar animate="true" value="dynamic" ng-show="dynamic" type="{{type}}"><b>{{dynamic}}%</b>
+                                    </progressbar>
+                                </div>
+                                <div
+                                        ng-file-drop ng-model="restaurantPhotos"
+                                        ng-file-change="fileDropped($files, $event, $rejectedFiles)"
+                                        ng-multiple="true"
+                                        accept="image/*"
+                                        ng-rejected-file-model="rejFiles"
+                                        allowDir="true"
+                                        dragOverClass="{accept:'acceptClass', reject:'rejectClass', delay:100}|myDragOverClass|
+                        calcDragOverClass($event)"
+                                        dropAvailable="dropSupported"
+                                        stopPropagation="true"
+                                        hideOnDropNotAvailable="true"
+                                        class="drop">
+                                    <p class="info">Drop files here</p>
+                                </div>
+
+                            </section>
+                        </section>
+                    </section>
+
+
+                    <section class="panel panel-default">
+                        <header class="panel-heading">Photos</header>
+                        <section class="chat-list panel-body">
+                            <!--<section class="row m-l-none m-r-none m-b text-center box-shadow"> -->
+                            <div class="col-lg-3 col-sm-3 col-xs-4 text-center" ng-repeat="photo in photos">
+                                <!--<div class="displayphoto-frame">-->
+                                    <!--<img ng-src="{{photo.url}}" class="displayphoto"/></div>-->
+                                <a href="">
+                                    <span class="thumb-image" style="background-image:url('{{photo.url}}')" > </span>
+                                </a>
+                                <div class=" m-b-md">
+                                    <button class="btn btn-sm btn-danger"  ng-click="deletePhoto(photo)"
+                                            tooltip="Remove" tooltip-placement="left">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                    <span ng-class="{'fa fa-spinner fa-spin' : photo.request}"></span>
+                                    <button class="btn btn-sm"
+                                            ng-class="{'btn-success': photo.featured}"
+                                            ng-click="setFeatured(photo)"
+                                            tooltip="Set as featured" tooltip-placement="right">
+                                        <span class="glyphicon glyphicon-star"></span>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </section>
+                        <section>
+                            <div class="panel-body hide-for-small bg-white b-b b-light" style="margin-left: 45px;">
+                                <pagination total-items="photosListTotalItems" ng-model="photosListCurrentPage"
+                                            max-size="maxSize"
+                                            class="pagination-sm " boundary-links="true" rotate="false"
+                                            num-pages="numPages"
+                                            ng-change="photosListPageChanged()"
+                                            items-per-page="photosListItemPerPage"></pagination>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+                <!--<footer class="ir-footer" ng-include="'modules/partials/footer.html'"></footer>-->
+            </section>
+
+        </section>
+
+    </section>
+</section>
+
+
+
+

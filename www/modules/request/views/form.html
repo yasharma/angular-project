@@ -1,0 +1,373 @@
+<div class="form-horizontal">
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Restaurant:</label>
+        <!--ng-class="{ 'has-error' : requestsForm.name.$invalid && !requestsForm.name.$pristine }"-->
+        <div class="col-sm-8">
+            <select name="restaurant" id="restaurant" class="form-control"
+                    ng-options="restaurant as restaurant.name for restaurant in data.ownedRestaurants"
+                    ng-model="data.restaurant" ng-show="data.ownedRestaurants.length"
+                    ng-change="setRestaurantId(data.restaurant.id)">
+            </select>
+        </div>
+    </div>
+</div>
+
+<form novalidate name="requestsForm" ng-submit="submitRequest()">
+    <accordion close-others="false">
+        <accordion-group heading="Basic Info" is-open="showRestaurantTabs.info">
+
+            <div class="form-horizontal">
+                <div class="form-group" ng-if="fields['restaurant-name'].active"
+                     title="{{ fields['restaurant-name'].description }}">
+                    <label class="col-sm-3 control-label">Name</label>
+                    <!--ng-class="{ 'has-error' : requestsForm.name.$invalid && !requestsForm.name.$pristine }"-->
+                    <div class="col-sm-9">
+                        <input type="text" name="name" ng-model="data.request['restaurant-name']" class="form-control" placeholder="Restaurant name"/>
+                        <!--<p ng-show="requestsForm.name.$error.required && !requestsForm.name.$pristine" class="help-block">Please enter a name.</p>-->
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['restaurant-phone'].active"
+                     title="{{ fields['restaurant-phone'].description }}">
+                    <label class="col-sm-3 control-label">Phone</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.phone.$invalid && !requestsForm.phone.$pristine }">
+                        <input type="text" name="phone" ng-model="data.request['restaurant-phone']" class="form-control" ng-minlength="6"
+                               placeholder="Phone number of the restaurant" />
+                        <!--<p ng-show="requestsForm.phone.$error.required && !requestsForm.phone.$pristine" class="help-block">Please enter a number.</p>-->
+                        <p ng-show="requestsForm.phone.$error.minlength && !requestsForm.phone.$pristine" class="help-block">That phone number is too short.</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['restaurant-email'].active"
+                     title="{{ fields['restaurant-email'].description }}">
+                    <label class="col-sm-3 control-label">Email</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.email.$invalid && !requestsForm.email.$pristine }">
+                        <input type="email" name="email" ng-model="data.request['restaurant-email']" class="form-control" placeholder="Email address of the restaurant or the owner" />
+                        <!--<p ng-show="requestsForm.email.$error.required && !requestsForm.email.$pristine" class="help-block">Please enter an email.</p>-->
+                        <p ng-show="requestsForm.email.$invalid && !requestsForm.email.$pristine" class="help-block">Please enter a valid email.</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['restaurant-description'].active"
+                     title="{{ fields['restaurant-description'].description }}">
+                    <label class="col-sm-3 control-label">Description</label>
+                    <div class="col-sm-9">
+                                                    <textarea rows="4" name="description"
+                                                              ng-model="data.request['restaurant-description']"
+                                                              class="form-control"
+                                                              placeholder="Restaurant Description">
+                                                    </textarea>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['restaurant-address'].active"
+                     title="{{ fields['restaurant-address'].description }}">
+                    <label class="col-sm-3 control-label">Address</label>
+                    <div class="col-sm-9">
+                                                    <textarea rows="2" name="address"
+                                                              ng-model="data.request['restaurant-address']"
+                                                              class="form-control"
+                                                              placeholder="Restaurant Address">
+                                                    </textarea>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['restaurant-cuisine'].active"
+                     title="{{ fields['restaurant-cuisine'].description }}">
+                    <label class="col-sm-3 control-label">Cuisine</label>
+                    <div class="col-sm-9">
+                        <div class="form-item">
+                            <div ng-repeat="cat in data.request['restaurant-cuisine'] track by $index" class="m-b-xs m-l">
+                                {{ cat }}
+                                <a ng-click="data.request['restaurant-cuisine'].splice($index, 1)" class="pointer m-l"> Remove</a>
+                            </div>
+                            <div class="m-l" ng-hide="data.request['restaurant-cuisine'].length">None</div>
+                            <input type="text" class="input-sm form-control m-t-sm"
+                                   ng-model="selCuisine"
+                                   typeahead="cat.name for cat in data.categories | filter: $viewValue"
+                                   typeahead-on-select="addCategory(selCuisine); selCuisine = ''"
+                                   placeholder="Add new cuisine" >
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['restaurant-website address'].active"
+                     title="{{ fields['restaurant-website address'].description }}">
+                    <label class="col-sm-3 control-label">Website Address</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.website.$invalid && !requestsForm.website.$pristine }">
+                        <input type="url" name="website" ng-model="data.request['restaurant-website address']" class="form-control"
+                               placeholder="Restaurant Website URL"/>
+                        <p ng-show="requestsForm.website.$error.url && !requestsForm.website.$pristine" class="help-block">Please enter valid web url. (http://example.com)</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['menu-menu address'].active"
+                     title="{{ fields['menu-manu address'].description }}">
+                    <label class="col-sm-3 control-label">Menu Address</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.menu.$invalid && !requestsForm.menu.$pristine }">
+                        <input type="url" name="menu" ng-model="data.request['menu-menu address']" class="form-control"
+                               placeholder="Restaurant Menu URL"/>
+                        <p ng-show="requestsForm.menu.$error.url && !requestsForm.menu.$pristine" class="help-block">Please enter valid web url. (http://example.com)</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['feature-special features'].active"
+                     title="{{ fields['feature-special features'].description }}">
+                    <label class="col-sm-3 control-label">Special Features</label>
+                    <div class="col-sm-9">
+                        <input type="url" name="special_features" ng-model="data.request['feature-special features']" class="form-control"
+                               placeholder="Special Features"/>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['notice-latest info'].active"
+                     title="{{ fields['notice-latest info'].description }}">
+                    <label class="col-sm-3 control-label">Latest Info</label>
+                    <div class="col-sm-9">
+                        <input type="url" name="latest_info" ng-model="data.request['notice-latest info']" class="form-control"
+                               placeholder="Latest Info"/>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['restaurant-open hours'].active"
+                     title="{{ fields['restaurant-open hours'].description }}">
+                    <label class="col-sm-3 control-label">Open Hours</label>
+                    <div class="col-sm-9">
+                        <div class="form-item">
+                            <div ng-repeat="hours in data.request['restaurant-open hours'] track by $index" class="m-b-xs m-l">
+                                {{ data.timeData.daysFull[hours.day] }}:
+                                {{ data.timeData.hours[hours.start] }} -
+                                {{ data.timeData.hours[hours.close] }}
+                                <a ng-click="data.request['restaurant-open hours'].splice($index, 1)" class="pointer m-l"> Remove</a>
+                            </div>
+                            <div class="m-l" ng-hide="data.request['restaurant-open hours'].length">None</div>
+                            <div class="m-t-sm">
+                                <div style="width: 18%;" class="pull-left m-r-xs">
+                                    <select class="form-control no-padding" ng-model="data.newHours.day"
+                                            ng-options="val as label for (val, label) in data.timeData.days">
+                                    </select>
+
+                                </div>
+                                <div style="width: 25%" class="pull-left m-r-xs">
+                                    <select class="form-control no-padding" ng-model="data.newHours.start"
+                                            ng-options="val as label for (val, label) in data.timeData.hours">
+                                    </select>
+                                </div>
+                                <div style="width: 25%" class="pull-left m-r-xs">
+                                    <select class="form-control no-padding" ng-model="data.newHours.end"
+                                            ng-options="val as label for (val, label) in data.timeData.hours">
+                                    </select>
+                                </div>
+                                <div style="width: 22%;" class="pull-left m-r-xs">
+                                    <a class="btn btn-default " ng-click="addHours(data.newHours)">
+                                        Add
+                                    </a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['restaurant-price range'].active"
+                     title="{{ fields['restaurant-price range'].description }}">
+                    <label class="col-sm-3 control-label">Price Range</label>
+                    <div class="col-sm-9">
+                        <div class="form-item">
+                            <label ng-repeat="option in [1,2,3,4,5]" class="m-l-md">
+                                <input type="radio" ng-model="data.request['restaurant-price range']" value="{{ option }}" class="m-l-sm">
+                                {{ option }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+        <accordion-group heading="Social" is-open="showRestaurantTabs.social">
+            <div class="form-horizontal">
+                <div class="form-group" ng-if="fields['social-facebook_link'].active"
+                     title="{{ fields['social-facebook_link'].description }}">
+                    <label class="col-sm-3 control-label">Facebook Url</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.facebook_link.$invalid && !requestsForm.facebook_link.$pristine }">
+                        <input type="url" name="facebook_link" ng-model="data.request['social-facebook_link']" class="form-control"
+                               placeholder="Facebook link for social sharing" />
+                        <p ng-show="requestsForm.facebook_link.$error.url && !requestsForm.facebook_link.$pristine" class="help-block">Please enter valid web url. (http://example.com)</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['social-twitter_link'].active"
+                     title="{{ fields['social-twitter_link'].description }}">
+                    <label class="col-sm-3 control-label">Twitter Url</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.twitter_link.$invalid && !requestsForm.twitter_link.$pristine }">
+                        <input type="url" name="twitter_link" ng-model="data.request['social-twitter_link']" class="form-control"
+                               placeholder="Twitter link for social sharing"/>
+                        <p ng-show="requestsForm.twitter_link.$error.url && !requestsForm.twitter_link.$pristine" class="help-block">Please enter valid web url. (http://example.com)</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['social-google_plus_link'].active"
+                     title="{{ fields['social-google_plus_link'].description }}">
+                    <label class="col-sm-3 control-label">Google Plus Url</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.google_plus_link.$invalid && !requestsForm.google_plus_link.$pristine }">
+                        <input type="url" name="google_plus_link" ng-model="data.request['social-google_plus_link']" class="form-control"
+                               placeholder="Google Plus link for social sharing" />
+                        <p ng-show="requestsForm.google_plus_link.$error.url && !requestsForm.google_plus_link.$pristine" class="help-block">Please enter valid web url. (http://example.com)</p>
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+        <accordion-group heading="Source" is-open="showRestaurantTabs.source">
+            <div class="form-horizontal">
+                <div class="form-group" ng-if="fields['source-tripadvisor_source'].active"
+                     title="{{ fields['source-tripadvisor_source'].description }}">
+                    <label class="col-sm-3 control-label">Tripadvisor Url</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.tripadvisor_source.$invalid && !requestsForm.tripadvisor_source.$pristine }">
+                        <input type="url" name="tripadvisor_source" ng-model="data.request['source-tripadvisor_source']" class="form-control"
+                               placeholder="Restaurant's Tripadvisor Url"/>
+                        <p ng-show="requestsForm.tripadvisor_source.$error.url && !requestsForm.tripadvisor_source.$pristine" class="help-block">Please enter valid web url. (http://example.com)</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['source-eatability_source'].active"
+                     title="{{ fields['source-eatability_source'].description }}">
+                    <label class="col-sm-3 control-label">Eatability Url</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.eatability_source.$invalid && !requestsForm.eatability_source.$pristine }">
+                        <input type="url" name="eatability_source" ng-model="data.request['source-eatability_source']" class="form-control"
+                               placeholder="Restaurant's Eatability Url" />
+                        <p ng-show="requestsForm.eatability_source.$error.url && !requestsForm.eatability_source.$pristine" class="help-block">Please enter valid web url. (http://example.com)</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['source-yelp_source'].active"
+                     title="{{ fields['source-yelp_source'].description }}">
+                    <label class="col-sm-3 control-label">Yelp Url</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.yelp_source.$invalid && !requestsForm.yelp_source.$pristine }">
+                        <input type="url" name="yelp_source" ng-model="data.request['source-yelp_source']" class="form-control"
+                               placeholder="Restaurant's Yelp Url" />
+                        <p ng-show="requestsForm.yelp_source.$error.url && !requestsForm.yelp_source.$pristine" class="help-block">Please enter valid web url. (http://example.com)</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['source-urbanspoon_source'].active"
+                     title="{{ fields['source-urbanspoon_source'].description }}">
+                    <label class="col-sm-3 control-label">Urbanspoon Url</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.urbanspoon_source.$invalid && !requestsForm.urbanspoon_source.$pristine }">
+                        <input type="url" name="urbanspoon_source" ng-model="data.request['source-urbanspoon_source']" class="form-control"
+                               placeholder="Restaurant's Urbanspoon Url" />
+                        <p ng-show="requestsForm.urbanspoon_source.$error.url && !requestsForm.urbanspoon_source.$pristine" class="help-block">Please enter valid web url. (http://example.com)</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['source-zomato_source'].active"
+                     title="{{ fields['source-zomato_source'].description }}">
+                    <label class="col-sm-3 control-label">Zomato Url</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.zomato_source.$invalid && !requestsForm.zomato_source.$pristine }">
+                        <input type="url" name="zomato_source" ng-model="data.request['source-zomato_link']" class="form-control"
+                               placeholder="Restaurant's Zomato Url" />
+                        <p ng-show="requestsForm.zomato_source.$error.url && !requestsForm.zomato_source.$pristine" class="help-block">Please enter valid web url. (http://example.com)</p>
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+        <accordion-group heading="Other" is-open="showRestaurantTabs.misc">
+            <div class="form-horizontal">
+
+                <div class="form-group" ng-if="fields['misc-is_owner'].active"
+                     title="{{ fields['misc-is_owner'].description }}">
+                    <label class="col-sm-3 control-label"></label>
+                    <div class="col-sm-9">
+                        <div class="form-control" style="border: none;">
+                            <label>
+                                <input type="checkbox" ng-model="data.request['misc-is_owner']">
+                                Is Owner
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['misc-business_closed'].active"
+                     title="{{ fields['misc-business_closed'].description }}">
+                    <label class="col-sm-3 control-label"></label>
+                    <div class="col-sm-9">
+                        <div class="form-control" style="border: none;">
+                            <label>
+                                <input type="checkbox" ng-model="data.request['misc-business_closed']">
+                                Busniess Closed
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-if="fields['misc-duplicate'].active"
+                     title="{{ fields['misc-duplicate'].description }}">
+                    <label class="col-sm-3 control-label"></label>
+                    <div class="col-sm-9">
+                        <div class="form-control" style="border: none;">
+                            <label>
+                                <input type="checkbox" ng-model="data.request['misc-duplicate']">
+                                Duplicate of Another Business
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </accordion-group>
+        <accordion-group heading="Billing" is-open="showRestaurantTabs.billing">
+            <div class="form-horizontal">
+                <div class="form-group" ng-if="data.ownedRestaurants.length > 1">
+                    <label class="col-sm-3 control-label">Copy From Restaurant:</label>
+                    <div class="col-sm-8">
+                        <select name="copy_from_restaurant" id="copy_from_restaurant" class="form-control"
+                                ng-options="restaurant as restaurant.name for restaurant in data.ownedRestaurants | filter:{ id: '!' + data.restaurant.id}"
+                                ng-model="data.copyFromRestaurant" ng-show="data.ownedRestaurants.length"
+                                ng-change="copyRestaurantBilling(data.copyFromRestaurant, data.request)">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="fields['billing-billing_address'].active"
+                     title="{{ fields['billing-billing_address'].description }}">
+                    <label class="col-sm-3 control-label">Billing Address</label>
+                    <div class="col-sm-9">
+                        <textarea rows="2" name="billing_address"
+                                  ng-model="data.request['billing-billing_address']"
+                                  class="form-control"
+                                  placeholder="Billing Address">
+                        </textarea>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="fields['billing-billing_email'].active"
+                     title="{{ fields['billing-billing_email'].description }}">
+                    <label class="col-sm-3 control-label">Billing Email</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.billing_email.$invalid && !requestsForm.billing_email.$pristine }">
+                        <input type="email" name="billing_email" ng-model="data.request['billing-billing_email']" class="form-control" placeholder="Billing Email" />
+                        <p ng-show="requestsForm.billing_email.$invalid && !requestsForm.billing_email.$pristine" class="help-block">Please enter a valid email.</p>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="fields['billing-billing_phone'].active"
+                     title="{{ fields['billing-billing_phone'].description }}">
+                    <label class="col-sm-3 control-label">Billing Phone</label>
+                    <div class="col-sm-9" ng-class="{ 'has-error' : requestsForm.billing_phone.$invalid && !requestsForm.billing_phone.$pristine }">
+                        <input type="text" name="billing_phone" ng-model="data.request['billing-billing_phone']" class="form-control" ng-minlength="6"
+                               placeholder="Billing phone number" />
+                        <p ng-show="requestsForm.billing_phone.$error.minlength && !requestsForm.billing_phone.$pristine" class="help-block">That phone number is too short.</p>
+                    </div>
+                </div>
+            </div>
+        </accordion-group>
+    </accordion>
+
+    <div class="form-group m-t">
+        <div ng-show="data.requestSent" class="r b bg-success-ltest m-b padder padder-v">
+            Change request has been sent for processing. You can update it any time.
+        </div>
+    </div>
+
+    <div class="form-group m-t">
+        <label class="col-sm-4 control-label"></label>
+        <div class="col-sm-4">
+            <input type="submit" name="submit" value="submit" ng-disabled="requestsForm.$invalid" class="btn btn-lg btn-primary btn-block"/>
+
+        </div>
+    </div>
+</form>

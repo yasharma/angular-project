@@ -1,0 +1,84 @@
+<!--Header-->
+<header class="bg-primary header header-md navbar navbar-fixed-top-xs box-shadow" ng-include="'modules/partials/header.html'"></header>
+
+<section class="hbox stretch ir-content">
+    <!--Sidebar-->
+    <aside ng-include="'modules/partials/sidebar.html'" id="nav" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
+
+    <section id="content">
+
+        <!--Dynamic view goes here-->
+        <section class="vbox">
+            <section class="scrollable padder">
+                <h3 class="m-l m-t-lg m-b-lg">Widgets</h3>
+
+                <div class="row m-l-lg widgets-page">
+                    <div class="col-xs-12">
+                        <p>
+                            Widgets allow you to add iReview rating to your restaurant website.
+                        </p>
+                        <p class="m-b-none t-t-sm">
+                            Please select your restaurant:
+                        </p>
+                    </div>
+                    <div class="col-sm-10 col-md-8 col-lg-6">
+                        <search-box set-restaurant="setRestaurant(restaurant.data)"
+                                    class="m-b-sm m-t-sm bordered-input-group"
+                                    placeholder="Search Restaurants"></search-box>
+                        <div class="m-t-md">
+                            <label>
+                                <input type="checkbox" ng-model="options.hideOnRatingLessThan"/>
+                                Automatically hide the widget if rating is less than
+                            </label>
+                            <input type="number" class="num-input" ng-model="options.ratingLessThan"/>
+                        </div>
+                        <div>
+                            <label>
+                                <input type="checkbox" ng-model="options.hideOnTrendNegative"/>
+                                Automatically hide the widget if the trend is negative
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <p class="m-t-md m-b-none">Copy and paste this code to your website:</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <textarea wrap="off" rows="9" cols="45" class="m-t-sm" readonly="true">{{snippet}}
+                        </textarea>
+                    </div>
+                    <div class="col-sm-6">
+                        <p class="m-l-md">
+                            Preview:
+                            <span style="color: gray;" ng-show="isHidden">(hidden for current options)</span>
+                        </p>
+                        <link rel="stylesheet" type="text/css" href="{{baseUrl}}modules/widget/rating_widget.css" media="screen" />
+                        <div class="ireview-container" style="width:{{options.width}}">
+                            <div id="restaurantName"><a style="color: #444 !important;" href="{{baseUrl}}#/restaurant/{{options.restaurantId}}">{{options.restaurantName}}</a></div>
+                            <div style="margin-top: 2px;">
+                                <span style="background-color: {{options.current_trend_change_color}}; border-radius: .25em; font-size: 12px; padding: 2px 8px; color: white;">{{options.current_trend_change}}</span>
+                                <img src="{{baseUrl}}modules/widget/{{options.ratingWhole}}.{{options.ratingHalf}}.png" alt="" style="max-width: 62px;width: 62px;height: auto; vertical-align: middle;"/>
+                            </div>
+                            <div style="margin-top: 5px;">
+                                <a href="{{baseUrl}}#/restaurant/{{options.restaurantId}}" style="margin-left: 4px; color:#707070; ">{{options.reviews_str}}</a>
+                            </div>
+                            <div id="logo" style="margin-top: 8px;">
+                                <a href="{{baseUrl}}" style="text-decoration:none;">
+                                    <img src="{{baseUrl}}modules/widget/logo.png" alt="" style="vertical-align:middle;width:30px; height: auto;"/>
+                                    <span style="vertical-align:middle; font-size: 16px; color: #568EA2; ">iReview</span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-12">
+                         <p class="m-t-xs">If you are already using jQuery, you can omit the first line.</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <!--<footer class="ir-footer" ng-include="'modules/partials/footer.html'"></footer>-->
+    </section>
+</section>
+
+
+

@@ -1,0 +1,32 @@
+<section class="vbox">
+    <section class="scrollable wrapper w-f">
+        <div class="row">
+            <!--Restaurant list-->
+            <div class="col-xl-10 ">
+
+                <!--Restaurant list-->
+                <section class="comment-list block m-l"
+                         cg-busy="{promise:cgBusyPromise,message:'',templateUrl:'modules/partials/cgbusy-template.html',backdrop:true}" >
+                    <div class="panel-body no-padding-right">
+                        <!--In case there are no results-->
+                        <article class="comment-item" ng-hide="favoriteRestaurants.length">
+                            <section class="comment-body panel panel-default">
+                                <section class="panel-body">
+                                    <div class="m-md">
+                                        No favorites
+                                    </div>
+                                </section>
+                            </section>
+                        </article>
+                        <!--Results-->
+                        <article ng-repeat="restaurant in favoriteRestaurants" class="comment-item restaurant-list-item"
+                                 ng-include="'modules/partials/restaurant-list-item.html'">
+                        </article>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+    </section>
+    <!--<footer class="ir-footer" ng-include="footer"></footer>-->
+</section>

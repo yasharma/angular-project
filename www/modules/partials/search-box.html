@@ -1,0 +1,14 @@
+<form class="navbar-left" role="search" >
+    <div class="form-group">
+        <div class="input-group" id="rc-main-search-box" >
+            <span class="input-group-btn"><button type="submit" class="btn btn-sm bg-white b-white btn-icon"><i class="fa fa-search"></i></button></span>
+            <input type="text" class="form-control input-sm no-border radius"
+                   ng-model="searchRestaurant"
+                   typeahead="address.formatted for address in navSearch($viewValue)| filter: $viewValue"
+                   typeahead-on-select="setRestaurant({restaurant: $item}); searchRestaurant = '';"
+                   typeahead-template-url="itemTpl.html"
+                   placeholder="{{placeholder}}" >
+            <!--Search restaurants, locations ... -->
+        </div>
+    </div>
+</form>

@@ -1,0 +1,79 @@
+<section>
+    <header class="panel-heading ">
+        <div class="row">
+
+            <div class="col-sm-6">
+                Popular Restaurants
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-3 pull-right">
+                <select ng-model="sort" ng-change="set()" class="form-control">
+                    <option value="popular">Sort by rating </option>
+                    <option value="trending">Sort by trend</option>
+                    <option value="distance">sort by distance</option>
+                </select>
+            </div>
+        </div>
+    </header>
+</section>
+
+<section class="comment-list block">
+
+    <div class="panel-body no-padding-right">
+        <article ng-repeat="restaurant in restaurants" class="comment-item"><a
+                class="pull-left thumb-sm avatar">
+            <span class="rating-circle">{{restaurant.overviews__percentile | number : 1}}</span>
+            <div easypiechart options="options" percent="restaurant.overviews__percentile | number : 2"></div></a> <span
+                class="arrow left"></span>
+            <section class="comment-body panel panel-default">
+                <header class="panel-heading"><a href="">{{restaurant.locations__formatted_address}}</a>
+                    <label class="label bg-primary m-l-xs">{{restaurant.category}}</label>
+
+                                                    <span class="text-muted m-l-sm pull-right"> <i
+                                                            class="fa fa-clock-o"></i> {{restaurant.distance | number : 2}} KM </span>
+                </header>
+                <div class="panel-body">
+                    <div class="col-sm-3 col-md-3 col-lg-4 no-padding pull-left">
+                        <nvd3-line-plus-bar-chart
+                                data="restaurant.trend_data"
+                                showXAxis="false"
+                                showYAxis="false"
+                                tooltips="true"
+                                width="222"
+                                height="150"
+                                interactive="true">
+                            <svg></svg>
+                        </nvd3-line-plus-bar-chart>
+                    </div>
+                    <div class="col-sm-5 col-md-5 col-lg-6 pull-left">
+                        <p><a href="#/restaurant/{{restaurant.id}}/{{hash}}">
+                            <h3 class="title"> {{restaurant.name}} </h3>
+                        </a></p>
+                        <p><rating  ng-model="restaurant.overviews__rating" max="5" readonly="true"></rating>
+                            <span class="label" ng-class="{'label-warning': restaurant.overviews__rating/10 *100 <30, 'label-info': restaurant.overviews__rating/10 *100 >=30 && restaurant.overviews__rating/10 *100 <70, 'label-success':restaurant.overviews__rating/10 *100 >=70}">{{restaurant.overviews__rating/10 *100}}%</span>
+                            {{restaurant.overviews__total_reviews}} Reviews
+                        </p>
+                        <p>Restaurant Overview : {{restaurant.overviews__percentile | number : 2}}</p>
+                        <p>Overview Trend : {{restaurant.overviews__trend | number : 2}}</p>
+
+                    </div>
+                    <div class="col-lg-2 pull-left no-padding clearfix">
+                        <img src="images/r3.jpg" class="list-image">
+                        <img src="images/r3.jpg" class="list-image">
+                        <img src="images/r3.jpg" class="list-image">
+                        <img src="images/r3.jpg" class="list-image">
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-3 col-md-4 col-lg-4 col-md-offset-4"></div>
+                    <div class="pull-right">Price : $ {{restaurant.price_range}} -  {{restaurant.price_range}}</div>
+                </div>
+            </section>
+        </article>
+        <div class="panel-body hide-for-small bg-white b-b b-light" style="margin-left: 45px;">
+            <pagination total-items="popularListTotalItems" ng-model="popularListCurrentPage" max-size="maxSize"
+                        class="pagination-sm " boundary-links="true" rotate="false" num-pages="numPages"
+                        ng-change="popularListPageChanged()"
+                        items-per-page="popularListItemPerPage"></pagination>
+        </div>
+    </div>
+</section>
+

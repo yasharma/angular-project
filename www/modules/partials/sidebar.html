@@ -1,26 +1,126 @@
+<section class="vbox">
+    <section class="w-f scrollable">
+        <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px"
+             data-color="#333333">
 
-    <section class="vbox">
-        <section class="w-f scrollable">
-            <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-color="#333333">
-                <div class="clearfix wrapper dk nav-user hidden-xs">
-                    <div class="dropdown"> <a href="#/index" class="dropdown-toggle" data-toggle="dropdown"> <span class="thumb avatar pull-left m-r"> <img src="images/avatar.ico"> <i class="on md b-light"></i> </span> <span class="hidden-nav-xs clear"> <span class="block m-t-xs"> <strong class="font-bold text-lt">Guest</strong> <b class="caret"></b> </span> <span class="text-muted text-xs block">...</span> </span> </a>
-                    </div>
+            <!--User avatar and menu-->
+            <!--<div class="clearfix wrapper dk nav-user hidden-xs">-->
+                <!--<div class="dropdown">-->
+                    <!--<a class="dropdown-toggle" data-toggle="dropdown">-->
+                        <!--<span class="thumb avatar pull-left m-r m-b-xs m-t-xs ">-->
+                            <!--<img src="images/avatar.ico"> <i class="on md b-light"></i>-->
+                        <!--</span>-->
+                        <!--<span class="hidden-nav-xs clear">-->
+                            <!--<span class="block m-t-xs">-->
+                                <!--<strong class="font-bold text-lt">-->
+                                    <!--{{ user.username || 'Guest' }}-->
+                                <!--</strong>-->
+                                <!--&lt;!&ndash;<b class="caret"></b>&ndash;&gt;-->
+                            <!--</span>-->
+                            <!--<span class="text-muted text-xs block">...</span>-->
+                        <!--</span>-->
+                    <!--</a>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!-- nav -->
+            <nav class="nav-primary hidden-xs">
+                <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">
+                    <!--Start-->
                 </div>
-                <!-- nav -->
-                <nav class="nav-primary hidden-xs">
-                    <div class="text-muted text-sm hidden-nav-xs padder m-t-sm m-b-sm">Start</div>
-                    <ul class="nav nav-main" data-ride="collapse">
-                        <li > <a href="index.html" class="auto"> <i class="i i-statistics icon"> </i> <span class="font-bold">DashBoard</span> </a> </li>
-
-                    </ul>
-                    <div class="line dk hidden-nav-xs"></div>
-                    <ul class="nav ">
-                    <li> <a href="" class="auto"> <span class="pull-right text-muted"> <i class="i i-circle-sm-o text"></i> <i class="i i-circle-sm text-active"></i> </span> <i class="i i-docs icon"> </i> <span class="font-bold">Add Photo</span> </a>
+                <ul class="nav nav-main visible-xs">
+                    <li ng-show="!isLogged">
+                        <a href="#/login" class="auto" >
+                            <i class="i i-login icon"> </i>
+                            <span class="font-bold">Login</span>
+                        </a>
                     </li>
-                        </ul>
-                </nav>
-                <!-- / nav -->
-            </div>
-        </section>
-        <footer class="footer hidden-xs no-padder text-center-nav-xs"> <a href="modal.lockme.html" data-toggle="ajaxModal" class="btn btn-icon icon-muted btn-inactive pull-right m-l-xs m-r-xs hidden-nav-xs"> <i class="i i-logout"></i> </a> <a href="#nav" data-toggle="class:nav-xs" class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs"> <i class="i i-circleleft text"></i> <i class="i i-circleright text-active"></i> </a> </footer>
+                    <li ng-show="isLogged">
+                        <a ng-click="clearToken()" class="auto pointer" >
+                            <i class="i i-logout icon"> </i>
+                            <!--<span class="font-bold">Add Photo</span>-->
+                            <span class="font-bold">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="line dk hidden-nav-xs visible-xs" ng-show="isLogged"></div>
+                <ul class="nav ">
+                    <li ng-show="isLogged">
+                        <a href="#/index/favorites" class="auto">
+                            <i class="fa fa-star icon"> </i>
+                            <span class="font-bold">Favorites</span>
+                        </a>
+                    </li>
+                    <li ng-show="isLogged">
+                        <a href="#/index/listall" class="auto">
+                            <i class="fa fa-search icon"> </i>
+                            <span class="font-bold">Restaurant Search</span>
+                        </a>
+                    </li>
+                </ul>
+                <!--<div class="line dk hidden-nav-xs" ng-show="user.ownsRestaurants"></div>-->
+                <ul class="dk wrapper m-t" ng-show="user.ownsRestaurants">
+                    <li>
+                        <a>
+                            <i class="fa fa-cog icon"> </i>
+                            <span class="font-bold">Owner's Panel</span>
+                        </a>
+                    </li>
+                </ul>
+                <!--<div class="line dk hidden-nav-xs" ng-show="user.ownsRestaurants"></div>-->
+                <ul class="nav m-l" ng-show="user.ownsRestaurants">
+                    <li>
+                        <a href="#/index" class="auto">
+                            <i class="fa fa-list icon"> </i>
+                            <span class="font-bold">My Restaurants</span>
+                        </a>
+                    </li>
+                    <li ng-if="isOwner && sidebarDetail">
+                        <a href="#/manage/photos/{{restaurantId}}" class="auto">
+                            <i class="i i-docs icon"> </i>
+                            <span class="font-bold">Manage Photos</span>
+                        </a>
+                    </li>
+                    <!--<li ng-if="isOwner && sidebarDetail">-->
+                        <!--<a href="#/request/change/{{ restaurantId }}" class="auto">-->
+                            <!--<i class="i i-pencil2 icon"> </i>-->
+                            <!--<span class="font-bold">Request Changes</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <li>
+                        <a href="#/compare" class="auto">
+                            <i class="i i-graph icon"> </i>
+                            <span class="font-bold">Compare Restaurants</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="line dk m-l hidden-nav-xs" ng-show="user.ownsRestaurants"></div>
+                <ul class="nav m-l" ng-show="user.ownsRestaurants">
+                    <li>
+                        <a href="#/widgets" class="auto">
+                            <i class="fa fa-code icon"> </i>
+                            <span class="font-bold">Get iReview Widget</span>
+                        </a>
+                    </li>
+                    <!--<li ng-repeat="restaurant in ownedRestaurants">-->
+                        <!--<a href="#/restaurant/{{restaurant.id}}" class="auto">-->
+                            <!--<i class="i i-pencil2 icon"> </i>-->
+                            <!--<span class="font-bold">{{restaurant.name}}</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+
+                </ul>
+            </nav>
+            <!-- / nav -->
+        </div>
     </section>
+    <!--<footer class="footer hidden-xs no-padder text-center-nav-xs">-->
+        <!--<a href="modal.lockme.html" data-toggle="ajaxModal"-->
+           <!--class="btn btn-icon icon-muted btn-inactive pull-right m-l-xs m-r-xs hidden-nav-xs">-->
+            <!--<i class="i i-logout"></i>-->
+        <!--</a>-->
+        <!--<a href="#nav" data-toggle="class:nav-xs" class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs">-->
+            <!--<i class="i i-circleleft text"></i> <i class="i i-circleright text-active"></i>-->
+        <!--</a>-->
+    <!--</footer>-->
+</section>

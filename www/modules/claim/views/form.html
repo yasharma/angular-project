@@ -1,0 +1,76 @@
+<section class="panel panel-default" ng-if="showModal">
+    <header class="panel-heading">Own your dashboard </header>
+    <section class="chat-list panel-body">
+        <article class="media">
+            <div class="r b bg-warning-ltest wrapper m-b">
+                Thank you for providing your information. Please fill up the details and you shall receive activation code in your email.
+            </div>
+
+            <!--Flash message div-->
+            <div mc-messages></div>
+
+            <form novalidate name="claimsFrom" class="form-horizontal">
+                <input type="hidden" name="restaurant_id" ng-model="claimForm.restaurant_id"/>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Full Name</label>
+                    <div class="col-sm-8" ng-class="{ 'has-error' : claimsFrom.name.$invalid && !claimsFrom.name.$pristine }">
+                        <input type="text" name="name" ng-model="claimForm.name" class="form-control" required />
+                        <p ng-show="claimsFrom.name.$error.required && !claimsFrom.name.$pristine" class="help-block">Name please.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Address (Restaurant Address )</label>
+                    <div class="col-sm-8" ng-class="{ 'has-error' : claimsFrom.address.$invalid && !claimsFrom.address.$pristine }">
+                        <textarea name="address" ng-model="claimForm.address" class="form-control" required="required" >{{claimForm.address}}</textarea>
+                        <p ng-show="claimsFrom.address.$error.required && !claimsFrom.address.$pristine" class="help-block">Please write an address.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Personal Phone Number (Mobile)</label>
+                    <div class="col-sm-8" ng-class="{ 'has-error' : claimsFrom.phone_personal.$invalid && !claimsFrom.phone_personal.$pristine }">
+                        <input type="text" name="phone_personal" ng-model="claimForm.phone_personal" class="form-control" required ng-minlength="5" />
+                        <p ng-show="claimsFrom.phone_personal.$error.required && !claimsFrom.phone_personal.$pristine" class="help-block">Please enter a phone number.</p>
+                        <p ng-show="claimsFrom.phone_personal.$error.$invalid && !claimsFrom.phone_personal.$pristine " class="help-block">Please enter a valid phone number.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Restaurant Phone Number</label>
+                    <div class="col-sm-8" ng-class="{ 'has-error' : claimsFrom.phone_restaurant.$invalid && !claimsFrom.phone_restaurant.$pristine }">
+                        <input type="text" name="phone_restaurant" ng-model="claimForm.phone_restaurant" class="form-control" required ng-minlength="8" />
+                        <p ng-show="claimsFrom.phone_restaurant.$error.required && !claimsFrom.phone_restaurant.$pristine" class="help-block">Please enter a phone number.</p>
+                        <p ng-show="claimsFrom.phone_restaurant.$error.$invalid && !claimsFrom.phone_restaurant.$pristine" class="help-block">Please enter a valid phone number.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Messsage</label>
+                    <div class="col-sm-8" ng-class="{ 'has-error' : claimsFrom.message.$invalid && !claimsFrom.message.$pristine }">
+                        <textarea name="message" ng-model="claimForm.message" class="form-control" required="required">{{claimForm.message}}</textarea>
+                        <p ng-show="claimsFrom.message.$error.required && !claimsFrom.message.$pristine" class="help-block">Please write a message.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">Email</label>
+                    <div class="col-sm-8" ng-class="{ 'has-error' : claimsFrom.email.$invalid && !claimsFrom.email.$pristine }">
+                        <input type="email" name="email" ng-model="claimForm.email" class="form-control" required/>
+                        <p ng-show="claimsFrom.email.$error.required && !claimsFrom.email.$pristine" class="help-block">Please enter an email.</p>
+                        <p ng-show="claimsFrom.email.$invalid && !claimsFrom.email.$pristine" class="help-block">Please enter a valid email.</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label"></label>
+                    <div class="col-sm-8">
+                        <input type="submit" value="Claim your own dashboard" ng-click="claimRestaurant()" ng-disabled="claimsFrom.$invalid" class="btn btn-s-md btn-primary btn-rounded form-control"/>
+                    </div>
+                </div>
+
+            </form>
+        </article>
+    </section>
+</section>

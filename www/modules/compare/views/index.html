@@ -1,0 +1,113 @@
+<!--Header-->
+<header class="bg-primary header header-md navbar navbar-fixed-top-xs box-shadow" ng-include="'modules/partials/header.html'"></header>
+
+<section class="hbox stretch ir-content">
+    <!--Sidebar-->
+    <aside ng-include="'modules/partials/sidebar.html'" id="nav" class="bg-light lt b-r b-light aside-md hidden-print"></aside>
+
+    <section id="content">
+        <!--<header class="header bg-white b-b b-light hide-for-small hide-for-touch"-->
+                <!--ng-include="'modules/restaurant/views/search-form.html'"></header>-->
+
+        <!--Dynamic view goes here-->
+        <section class="vbox">
+            <section class="scrollable padder">
+                <h3 class="m-l m-t-lg">Compare Restaurants</h3>
+                <div class="row">
+                    <div class="col-md-7 col-sm-10 col-xs-12">
+                        <div class="panel panel-default m-t">
+                            <header class="panel-heading" ng-show="restaurants.length < 5">
+                                <!--Search box-->
+                                <div class="bordered-input-group clearfix">
+                                    <search-box set-restaurant="addItem(restaurant)" class="m-b-sx m-t-xs"
+                                                 placeholder="Add Restaurant" filter-out="restaurants"></search-box>
+                                </div>
+                            </header>
+                                <div class="list-group">
+                                    <div class="list-group-item clearfix" ng-repeat="restaurant in restaurants"
+                                         ng-mouseenter="setStrong(restaurant, true)" ng-mouseleave="setStrong(restaurant, false)" >
+                                        <div class="legendColorBoxCustom pull-left" style="background-color:{{restaurant.color}}"></div>
+                                        <div class="pull-left">{{restaurant.name}}</div>
+                                        <a class="btn btn-xs btn-danger pull-right"
+                                                ng-click="removeRestaurant(restaurant)">
+                                            <span class="glyphicon glyphicon-remove m-xs" ></span>
+                                        </a>
+                                        <span class="pull-right m-r-md"
+                                                ng-class="{'text-danger-dk':
+                                                ! (graphs[restaurant.id][graphDuration.value].trend &&
+                                                graphs[restaurant.id][graphDuration.value].trend.length>5)}">
+                                            {{graphs[restaurant.id][graphDuration.value].trend.length || 0}} reviews
+                                        </span>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <section class="panel panel-info">
+                            <div class="panel-body">
+                                <div class="col-xs-12">
+                                    <!--Duration and date pickers-->
+                                    <div class="clearfix z-index-10 pull-right m-r-lg ">
+                                        <div class="btn-group dropdown pull-right m-b-xs">
+                                            <button data-toggle="dropdown"
+                                                    class="btn btn-sm btn-rounded btn-default dropdown-toggle z-index-10">
+                                                <span>{{graphDuration.label}}</span> <span
+                                                    class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li ng-repeat="option in graphDurations" ng-show="haveGraphs[option.value]">
+                                                    <a class="pointer" ng-click="setGraphDuration(option)">
+                                                        {{ option.label }}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="" ng-hide="graphDuration.value">
+                                            <div class="btn-group input-group m-l-xs m-b-xs no-padding-m pull-right z-index-10"
+                                                 style="width: 200px;">
+                                                <span class="input-group-addon btn-rounded">End:</span>
+                                                <input type="text" class="form-control input-sm " datepicker-popup="dd/MM/yyyy" ng-model="dates.end.date"
+                                                       is-open="dates.end.opened" max-date="{{dates.today}}" ng-change="updateCustomPeriodGraphs()"
+                                                       ng-required="true" close-text="Close" datepicker-append-to-body="true" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default btn-rounded input-sm " ng-click="openCalendar($event, 'end')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                </span>
+                                            </div>
+                                            <div class="btn-group input-group m-l-xs m-b-xs no-padding-m pull-right z-index-10"
+                                                 style="width: 200px;">
+                                                <span class="input-group-addon btn-rounded">Start:</span>
+                                                <input type="text" class="form-control input-sm " datepicker-popup="dd/MM/yyyy" ng-model="dates.start.date"
+                                                       is-open="dates.start.opened" max-date="{{dates.today}}" ng-change="updateCustomPeriodGraphs()"
+                                                       ng-required="true" close-text="Close" datepicker-append-to-body="true" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default btn-rounded input-sm " ng-click="openCalendar($event, 'start')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <!--Graph-->
+                                    <div class="dker" ng-hide="noGraphs">
+                                        <section>
+                                            <div class="panel-body flot-legend2">
+                                                <flot dataset="flotDataset" options="flotOptions" height="300px"></flot>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <!--<footer class="ir-footer" ng-include="'modules/partials/footer.html'"></footer>-->
+    </section>
+</section>
+
+
+

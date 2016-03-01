@@ -1,17 +1,24 @@
-<div class="row" ng-if="showMap">
-<section>
-    <ui-gmap-google-map
-            class="col-md-12"
-            center="map.center"
-            zoom="map.zoom"
-            ng-cloak>
-        <ui-gmap-marker coords="map.center" idkey="1" ng-cloak>
-            <ui-gmap-window>
-                <p>{{map.formattedAddress}}</p>
-            </ui-gmap-window>
-        </ui-gmap-marker>
-
-    </ui-gmap-google-map>
-
-</section>
+<div class="row no-padding">
+    <div class="col-md-6">
+        <ui-gmap-google-map control="map.control" center="map.center" zoom="map.zoom" options="options">
+            <ui-gmap-marker coords="marker.coords" options="marker.options" idkey="marker.id">
+                <ui-gmap-window>
+                    <p>{{map.formattedAddress}}</p>
+                </ui-gmap-window>
+            </ui-gmap-marker>
+        </ui-gmap-google-map>
     </div>
+    <div class="col-md-6">
+        <div class="input-group m-b-sm m-t-xs">
+                    <span class="input-group-addon">
+                        Travel Mode
+                    </span>
+            <select class="form-control" name="travelMode" ng-model="travelMode"
+                    ng-options="value.value as value.label for value in travelModes"
+                    ng-change="getDirections(travelMode)"></select>
+        </div>
+
+        <div id="directionsList"></div>
+        <div>{{routeMessage}}</div>
+    </div>
+</div>

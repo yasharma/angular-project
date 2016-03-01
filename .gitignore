@@ -1,4 +1,7 @@
-bower_components
 node_modules
-css
-www/js
+bower_components
+/www/js
+temp
+css/app.css
+css/bootstrap.css
+site.min.css
